@@ -1,0 +1,15 @@
+title: China Set Stations - Wuhu
+description: >-
+  Documentation for China Set Stations - Wuhu
+baseurl: "/china-set-stations-wuhu"
+url: "https://OpenTTD-China-Set.github.io/"
+github_username:  ahyangyi
+theme: just-the-docs
+plugins:
+  - jekyll-multiple-languages-plugin
+mermaid:
+  version: 10.6.1
+languages: ["en-GB", "zh-CN"]
+exclude_from_localizations: ["js", "imgs", "css"]
+markdown: kramdown
+color_scheme: definibus
