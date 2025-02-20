@@ -6,7 +6,7 @@ from station.lib.idmap import station_idmap
 
 
 def gen_docs(string_manager, metastations):
-    prefix = "docs/station/"
+    prefix = "docs/"
     for i, metastation in enumerate(metastations):
         metastation_label = metastation.class_label_plain
         translation = get_translation(string_manager[f"STR_METASTATION_CLASS_{metastation_label}"], 0x7F)
@@ -18,7 +18,6 @@ def gen_docs(string_manager, metastations):
                 f"""---
 layout: default
 title: {translation}
-parent: "China Set: Stations - Wuhu"
 nav_order: {i+2}
 has_children: True
 ---
@@ -66,7 +65,6 @@ has_children: True
 layout: default
 title: {title}
 parent: {translation}
-grand_parent: "China Set: Stations - Wuhu"
 nav_order: {nav_order}
 ---
 """,
@@ -111,7 +109,6 @@ nav_order: {nav_order}
 layout: default
 title: {demok}
 parent: {translation}
-grand_parent: "China Set: Stations - Wuhu"
 nav_order: {5+demoi}
 ---
 """,
