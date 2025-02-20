@@ -120,7 +120,7 @@ def make_road_stops():
         "stair_end",
         BuildingFull,
         0x8114,
-        ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
+        ((16, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, WIDTH - EXTENDED_WIDTH, 0)),
         ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
         ((16, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
         True,

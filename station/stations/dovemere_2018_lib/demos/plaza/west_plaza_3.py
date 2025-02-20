@@ -13,7 +13,7 @@ roadstop_layouts.globalize()
 object_layouts.globalize()
 
 station = h_merge(
-    [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(3, 6)[3:], [[cns], [slope_2.lower_tile()]]], [[], []]
+    [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(3, 6)[4:], [[cns], [slope_2.lower_tile()]]], [[], []]
 )
 
 # Road Stops
