@@ -15,8 +15,8 @@ Install the Go dependencies with `./install-go-dependencies.sh`. Then add `gopat
 ## Make
 After installing dependencies, run `make` to build the newGRF.
 
-# NewGRFs
-The documentation of the main branch of this repository will be available soon.
+# Documentation
+The documentation of the main branch of this repository is at [here](https://openttd-china-set.github.io/China-Set-Stations-Wuhu/). As it is dynamically generated from the newest commit, it might contain unfinished content or glitches.
 
 # Licensing and Contribution
 The released newGRFs will be GPLv2, and thus only GPLv2+ content is allowed if you want to contribute. The exception is that some files under `third_party` are for testing, debugging or documentation purposes and can be under other licenses.
