@@ -43,7 +43,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@main
       - name: Install ruby deps
-        run: sudo gem install bundler:2.3.26 && cd docs && bundle install
+        run: sudo gem install bundler:2.4.22 && cd docs && bundle install
       - name: Build with Jekyll
         run: cd docs && bundle exec jekyll build
       - name: Upload artifact
