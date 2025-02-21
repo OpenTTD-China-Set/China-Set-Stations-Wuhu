@@ -1,70 +1,60 @@
-import grf
-from station.lib import (
-    AStation,
-    AMetaStation,
-    BuildingFull,
-    BuildingSymmetrical,
-    BuildingSymmetricalX,
-    BuildingSymmetricalY,
-    Demo,
-    ADefaultGroundSprite,
-    AParentSprite,
-    ALayout,
-)
+from station.lib import AStation, AMetaStation, BuildingSymmetricalX, Demo, AParentSprite, ALayout, AttrDict
+from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
-from agrf.magic import Switch
-from .platforms import platform_ps, platform_width
+from .platforms import platform_ps, platform_width, platform_tiles
 
 
-def quickload(name, type, traversable):
+def quickload(name, symmetry, traversable):
     v = LazyVoxel(
         name,
         prefix="station/voxels/render/dovemere_north_2018",
         voxel_getter=lambda path=f"station/voxels/dovemere_north_2018/{name}.vox": path,
         load_from="station/files/gorender.json",
-        subset=type.render_indices(),
+        subset=symmetry.render_indices(),
         config={"z_scale": 1.0},
     )
-    sprite = type.create_variants(v.spritesheet(zdiff=16, xdiff=platform_width, xspan=16 - platform_width))
+    sprite = symmetry.create_variants(v.spritesheet(zdiff=16, xdiff=platform_width, xspan=16 - platform_width))
 
-    ground = ADefaultGroundSprite(1420)
     parent = AParentSprite(sprite, (16, 16 - platform_width, 48), (0, platform_width, 0))
     plat = platform_ps.cns_concrete_side_shelter_2.up(8)
 
-    candidates = [ALayout(ground, [plat.T, parent], False)]
-
-    ret = []
-    for l in candidates:
-        l = type.get_all_variants(l)
-        layouts.extend(l)
-        ret.append(type.create_variants(l))
-
-    if len(ret) == 1:
-        return ret[0]
-    return ret
+    l = ALayout(None, [plat.T, parent], traversable)
+    ret = symmetry.create_variants(symmetry.get_all_variants(l))
+    entries.extend(symmetry.get_all_entries(ret))
+    named_tiles[name] = ret
 
 
-layouts = []
-(front_normal,) = [
-    quickload(name, type, traversable) for name, type, traversable in [("front_normal", BuildingSymmetricalX, False)]
-]
+entries = []
+named_tiles = AttrDict()
+for name, symmetry, traversable in [("front_normal", BuildingSymmetricalX, False)]:
+    quickload(name, symmetry, traversable)
 
-
-the_stations = AMetaStation(
-    [
+station_tiles = []
+for i, entry in enumerate(entries):
+    station_tiles.append(
         AStation(
             id=0x3000 + i,
             translation_name="BUILDING",
-            layouts=layouts,
+            layouts=[entry, entry.M],
             class_label=b"\xe9\xb8\xa0A",
             cargo_threshold=40,
             non_traversable_tiles=0b11,
             # general_flags=0x08, # FIXME: handle custom foundation later
-            callbacks={"select_tile_layout": 0},
+            callbacks={"select_tile_layout": 0, **station_cb["E9B8A0A"]},
+            extra_code=station_code["E9B8A0A"],
+            enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
+            doc_layout=entry,
         )
-        for i, layouts in enumerate(zip(layouts[::2], layouts[1::2]))
-    ],
+    )
+
+
+plat = platform_tiles.cns_concrete_shelter_2
+mytile_T = named_tiles.front_normal.T.lower_tile()
+mytile = named_tiles.front_normal.lower_tile()
+
+the_stations = AMetaStation(
+    station_tiles,
     b"\xe9\xb8\xa0A",
-    [None],
-    [Demo("Test", [[front_normal, front_normal]])],
+    None,
+    [Demo([[mytile_T, mytile_T], [plat.T, plat.T], [plat, plat], [mytile, mytile]], "Test")],
 )

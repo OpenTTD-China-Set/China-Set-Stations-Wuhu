@@ -62,7 +62,7 @@ make_introduction_year("E88A9C0", mapping=ParameterMapping(grf_parameter=0x6, fi
 make_colour("E88A9C0", mapping=ParameterMapping(grf_parameter=0x11, first_bit=0, num_bit=5))
 
 # E9B8A0A: Wuhu North
-station_settings.append(
+settings.append(
     Parameter(
         "E9B8A0A_ENABLE_MODULAR", 1, booldict, mapping=ParameterMapping(grf_parameter=0x20, first_bit=0, num_bit=1)
     )
