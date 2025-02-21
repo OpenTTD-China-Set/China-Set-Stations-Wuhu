@@ -5,7 +5,7 @@ from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
-from station.stations.misc import slope_2, building_ground_layout
+from station.stations.misc import slope_2, building_ground_layout, road_ground_vanilla_layout
 from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
