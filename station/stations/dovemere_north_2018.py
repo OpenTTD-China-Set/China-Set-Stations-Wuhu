@@ -1,4 +1,13 @@
-from station.lib import AStation, AMetaStation, BuildingSymmetricalX, Demo, AParentSprite, ALayout, AttrDict
+from station.lib import (
+    AStation,
+    AMetaStation,
+    BuildingSymmetricalX,
+    BuildingFull,
+    Demo,
+    AParentSprite,
+    ALayout,
+    AttrDict,
+)
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
@@ -26,7 +35,11 @@ def quickload(name, symmetry, traversable):
 
 entries = []
 named_tiles = AttrDict()
-for name, symmetry, traversable in [("front_normal", BuildingSymmetricalX, False)]:
+for name, symmetry, traversable in [
+    ("escalator", BuildingFull, False),
+    ("front_normal", BuildingSymmetricalX, False),
+    ("front_gate", BuildingFull, False),
+]:
     quickload(name, symmetry, traversable)
 
 station_tiles = []
@@ -49,12 +62,26 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_shelter_2
-mytile_T = named_tiles.front_normal.T.lower_tile()
-mytile = named_tiles.front_normal.lower_tile()
+gate_T = named_tiles.front_gate.T.lower_tile()
+gate = named_tiles.front_gate.lower_tile()
+normal_T = named_tiles.front_normal.T.lower_tile()
+normal = named_tiles.front_normal.lower_tile()
+escalator_T = named_tiles.escalator.T.lower_tile()
+escalator = named_tiles.escalator.lower_tile()
 
 the_stations = AMetaStation(
     station_tiles,
     b"\xe9\xb8\xa0A",
     None,
-    [Demo([[mytile_T, mytile_T], [plat.T, plat.T], [plat, plat], [mytile, mytile]], "Test")],
+    [
+        Demo(
+            [
+                [escalator_T, normal_T, gate_T, gate_T.R, normal_T.R, escalator_T.R],
+                [plat.T] * 6,
+                [plat] * 6,
+                [escalator, normal, gate, gate.R, normal.R, escalator.R],
+            ],
+            "Test",
+        )
+    ],
 )
