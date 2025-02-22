@@ -10,13 +10,12 @@ from station.lib import (
     Registers,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
-from functools import cache
 
 
 components = AttrDict(schema=("type", "name"))
 
 
-def make_component(dirname, name, sym, span, offset, has_nosnow=False):
+def make_component(dirname, name, sym, span, offset, has_nosnow=False, components=components):
     v = LazyVoxel(
         name,
         prefix=f".cache/render/station/dovemere_2018/west_plaza/{dirname}",
@@ -52,7 +51,6 @@ def make_component(dirname, name, sym, span, offset, has_nosnow=False):
     components[(dirname, name)] = gs
 
 
-@cache
 def make_components():
     make_component("planter", "1", BuildingFull, (4, 3, 1), (2, 11, 0))
     make_component("planter", "2", BuildingFull, (7, 3, 1), (2, 11, 0))
@@ -65,5 +63,3 @@ def make_components():
     make_component("lawn", "split", BuildingFull, (16, 6, 1), (0, 10, 0))
     make_component("tree", "bench", BuildingFull, (2, 2, 16), (7, 7, 0), has_nosnow=True)
     make_component("tree", "bush", BuildingFull, (2, 2, 16), (7, 7, 0), has_nosnow=True)
-    make_component("road_stop", "underground_entrance", BuildingFull, (15, 8, 0), (0, 8, 16))
-    components.populate()
