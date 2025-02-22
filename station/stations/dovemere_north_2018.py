@@ -22,9 +22,9 @@ def quickload(name, symmetry, traversable):
         subset=symmetry.render_indices(),
         config={"z_scale": 1.0},
     )
-    sprite = symmetry.create_variants(v.spritesheet(zdiff=16, xdiff=platform_width, xspan=16 - platform_width))
+    sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
-    parent = AParentSprite(sprite, (16, 16 - platform_width, 48), (0, platform_width, 0))
+    parent = AParentSprite(sprite, (16, 16 - platform_width, 32), (0, platform_width, 0))
     plat = platform_ps.cns_concrete_side_shelter_2.up(8)
 
     l = ALayout(None, [plat.T, parent], traversable)
