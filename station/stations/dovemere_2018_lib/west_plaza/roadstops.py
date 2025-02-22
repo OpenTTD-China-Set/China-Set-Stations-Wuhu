@@ -14,6 +14,7 @@ from agrf.magic import Switch
 from roadstop.lib import ARoadStop
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ...misc import road_ground
+from .components import make_components, components
 from ..roadstop_utils import named_layouts, make_road_stop, register_road_stop, named_parts
 
 cnt = 0
@@ -27,6 +28,7 @@ JOGGLE_AMOUNT = 45 - 32 * 2**0.5
 
 
 def make_road_stops():
+    make_components()
     make_road_stop(
         "overpass",
         BuildingSymmetricalX,
@@ -127,3 +129,12 @@ def make_road_stops():
         16,
         joggle=JOGGLE_AMOUNT * 2,
     )
+    wide_far = named_parts[("stair_wide", "far")]
+    wide_overpass = named_parts[("stair_wide", "overpass")]
+    wide_near = named_parts[("stair_wide", "near")]
+    entrance = components[("road_stop", "underground_entrance")]
+    layout = ALayout(
+        road_ground, [wide_far, wide_overpass, wide_near, entrance.move(0, 8, -16)], True, category=b"\xe8\x8a\x9cR"
+    )
+    named_layouts[("stair_wide_test",)] = layout
+    register_road_stop(layout, BuildingSymmetrical, 0x8200)
