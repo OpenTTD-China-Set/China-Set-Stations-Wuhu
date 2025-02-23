@@ -94,6 +94,61 @@ STR_PARAM_E9B8A0A_INTRODUCTION_YEAR_DESC    :选择芜湖北站 从哪一年开�
 STR_PARAM_E9B8A0A_COLOUR                    :芜湖北站 - 装饰颜色
 STR_PARAM_E9B8A0A_COLOUR_DESC               :选择芜湖北站的装饰颜色。
 
+STR_PARAM_E5BC8BA_ENABLE_MODULAR            :芜湖南站 - 启用
+STR_PARAM_E5BC8BA_ENABLE_MODULAR_DESC       :选择是否启用芜湖南站
+STR_PARAM_E5BC8BA_ENABLE_MODULAR_ENABLED    :启用
+STR_PARAM_E5BC8BA_ENABLE_MODULAR_DISABLED   :禁用
+
+STR_PARAM_E5BC8BA_INTRODUCTION_YEAR         :芜湖南站 - 可建造年份
+STR_PARAM_E5BC8BA_INTRODUCTION_YEAR_DESC    :选择芜湖南站从哪一年开始可以被建造。{}{}如果想要拟真的话，您可以把本选项设置为 2005 年附近的年份。
+
+STR_PARAM_E5BC8BA_COLOUR                    :芜湖南站 - 装饰颜色
+STR_PARAM_E5BC8BA_COLOUR_DESC               :选择芜湖南站的装饰颜色。
+
+STR_PARAM_E697A0A_ENABLE_MODULAR            :无为站 - 启用
+STR_PARAM_E697A0A_ENABLE_MODULAR_DESC       :选择是否启用无为站
+STR_PARAM_E697A0A_ENABLE_MODULAR_ENABLED    :启用
+STR_PARAM_E697A0A_ENABLE_MODULAR_DISABLED   :禁用
+
+STR_PARAM_E697A0A_INTRODUCTION_YEAR         :无为站 - 可建造年份
+STR_PARAM_E697A0A_INTRODUCTION_YEAR_DESC    :选择无为站从哪一年开始可以被建造。{}{}如果想要拟真的话，您可以把本选项设置为 2005 年附近的年份。
+
+STR_PARAM_E697A0A_COLOUR                    :无为站 - 装饰颜色
+STR_PARAM_E697A0A_COLOUR_DESC               :选择无为站的装饰颜色。
+
+STR_PARAM_E6B9BEA_ENABLE_MODULAR            :湾沚站 - 启用
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_DESC       :选择是否启用湾沚站
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_ENABLED    :启用
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_DISABLED   :禁用
+
+STR_PARAM_E6B9BEA_INTRODUCTION_YEAR         :湾沚站 - 可建造年份
+STR_PARAM_E6B9BEA_INTRODUCTION_YEAR_DESC    :选择湾沚站从哪一年开始可以被建造。{}{}如果想要拟真的话，您可以把本选项设置为 2005 年附近的年份。
+
+STR_PARAM_E6B9BEA_COLOUR                    :湾沚站 - 装饰颜色
+STR_PARAM_E6B9BEA_COLOUR_DESC               :选择湾沚站的装饰颜色。
+
+STR_PARAM_E999B5A_ENABLE_MODULAR            :南陵站 - 启用
+STR_PARAM_E999B5A_ENABLE_MODULAR_DESC       :选择是否启用南陵站
+STR_PARAM_E999B5A_ENABLE_MODULAR_ENABLED    :启用
+STR_PARAM_E999B5A_ENABLE_MODULAR_DISABLED   :禁用
+
+STR_PARAM_E999B5A_INTRODUCTION_YEAR         :南陵站 - 可建造年份
+STR_PARAM_E999B5A_INTRODUCTION_YEAR_DESC    :选择南陵站从哪一年开始可以被建造。{}{}如果想要拟真的话，您可以把本选项设置为 2005 年附近的年份。
+
+STR_PARAM_E999B5A_COLOUR                    :南陵站 - 装饰颜色
+STR_PARAM_E999B5A_COLOUR_DESC               :选择南陵站的装饰颜色。
+
+STR_PARAM_E7B981W_ENABLE_MODULAR            :繁昌西站 - 启用
+STR_PARAM_E7B981W_ENABLE_MODULAR_DESC       :选择是否启用繁昌西站
+STR_PARAM_E7B981W_ENABLE_MODULAR_ENABLED    :启用
+STR_PARAM_E7B981W_ENABLE_MODULAR_DISABLED   :禁用
+
+STR_PARAM_E7B981W_INTRODUCTION_YEAR         :繁昌西站 - 可建造年份
+STR_PARAM_E7B981W_INTRODUCTION_YEAR_DESC    :选择繁昌西站从哪一年开始可以被建造。{}{}如果想要拟真的话，您可以把本选项设置为 2005 年附近的年份。
+
+STR_PARAM_E7B981W_COLOUR                    :繁昌西站 - 装饰颜色
+STR_PARAM_E7B981W_COLOUR_DESC               :选择繁昌西站的装饰颜色。
+
 STR_PARAM_E88A9CP_ENABLE_MODULAR            :站台地块 - 启用
 STR_PARAM_E88A9CP_ENABLE_MODULAR_DESC       :选择是否启用可建造的站台地块
 STR_PARAM_E88A9CP_ENABLE_MODULAR_ENABLED    :启用
@@ -234,7 +289,8 @@ STR_OBJECT_CLASS_E88A9CF        :    绿雕
 STR_OBJECT_CLASS_E88A9Cl        :    草坪
 STR_OBJECT_CLASS_E88A9CL        :    路灯
 STR_OBJECT_CLASS_E88A9CM        :    综合
-STR_ROADSTOP_CLASS_E88A9CR      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 芜湖站
+
+STR_ROADSTOP_CLASS_E88A9CR      :{PUSH_COLOUR}{WHITE}CNS：{POP_COLOUR} 芜湖站
 
 STR_METASTATION_CLASS_E88A9CA   :芜湖站 (2015)
 STR_METASTATION_CLASS_E88A9C4   :芜湖站 (1992)
