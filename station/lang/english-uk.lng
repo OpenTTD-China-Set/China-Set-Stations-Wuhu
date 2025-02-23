@@ -105,6 +105,50 @@ STR_PARAM_E5BC8BA_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu South Station 
 STR_PARAM_E5BC8BA_COLOUR                    :Wuhu South Station - Decoration Colour
 STR_PARAM_E5BC8BA_COLOUR_DESC               :Choose what colour to use for the decoration of Wuhu South Station.
 
+STR_PARAM_E697A0A_ENABLE_MODULAR            :Wuwei Station - Enable
+STR_PARAM_E697A0A_ENABLE_MODULAR_DESC       :Whether or not to enable Wuwei Station
+STR_PARAM_E697A0A_ENABLE_MODULAR_ENABLED    :Enabled
+STR_PARAM_E697A0A_ENABLE_MODULAR_DISABLED   :Disabled
+
+STR_PARAM_E697A0A_INTRODUCTION_YEAR         :Wuwei Station - Available Year
+STR_PARAM_E697A0A_INTRODUCTION_YEAR_DESC    :Choose the year Wuwei Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+
+STR_PARAM_E697A0A_COLOUR                    :Wuwei Station - Decoration Colour
+STR_PARAM_E697A0A_COLOUR_DESC               :Choose what colour to use for the decoration of Wuwei Station.
+
+STR_PARAM_E6B9BEA_ENABLE_MODULAR            :Wanzhi Station - Enable
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_DESC       :Whether or not to enable Wanzhi Station
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_ENABLED    :Enabled
+STR_PARAM_E6B9BEA_ENABLE_MODULAR_DISABLED   :Disabled
+
+STR_PARAM_E6B9BEA_INTRODUCTION_YEAR         :Wanzhi Station - Available Year
+STR_PARAM_E6B9BEA_INTRODUCTION_YEAR_DESC    :Choose the year Wanzhi Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+
+STR_PARAM_E6B9BEA_COLOUR                    :Wanzhi Station - Decoration Colour
+STR_PARAM_E6B9BEA_COLOUR_DESC               :Choose what colour to use for the decoration of Wanzhi Station.
+
+STR_PARAM_E999B5A_ENABLE_MODULAR            :Nanling Station - Enable
+STR_PARAM_E999B5A_ENABLE_MODULAR_DESC       :Whether or not to enable Nanling Station
+STR_PARAM_E999B5A_ENABLE_MODULAR_ENABLED    :Enabled
+STR_PARAM_E999B5A_ENABLE_MODULAR_DISABLED   :Disabled
+
+STR_PARAM_E999B5A_INTRODUCTION_YEAR         :Nanling Station - Available Year
+STR_PARAM_E999B5A_INTRODUCTION_YEAR_DESC    :Choose the year Nanling Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+
+STR_PARAM_E999B5A_COLOUR                    :Nanling Station - Decoration Colour
+STR_PARAM_E999B5A_COLOUR_DESC               :Choose what colour to use for the decoration of Nanling Station.
+
+STR_PARAM_E7B981W_ENABLE_MODULAR            :Fanchang West Station - Enable
+STR_PARAM_E7B981W_ENABLE_MODULAR_DESC       :Whether or not to enable Fanchang West Station
+STR_PARAM_E7B981W_ENABLE_MODULAR_ENABLED    :Enabled
+STR_PARAM_E7B981W_ENABLE_MODULAR_DISABLED   :Disabled
+
+STR_PARAM_E7B981W_INTRODUCTION_YEAR         :Fanchang West Station - Available Year
+STR_PARAM_E7B981W_INTRODUCTION_YEAR_DESC    :Choose the year Fanchang West Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+
+STR_PARAM_E7B981W_COLOUR                    :Fanchang West Station - Decoration Colour
+STR_PARAM_E7B981W_COLOUR_DESC               :Choose what colour to use for the decoration of Fanchang West Station.
+
 STR_PARAM_E88A9CP_ENABLE_MODULAR            :Platform Tiles - Enable
 STR_PARAM_E88A9CP_ENABLE_MODULAR_DESC       :Whether or not to enable buildable platform tiles
 STR_PARAM_E88A9CP_ENABLE_MODULAR_ENABLED    :Enabled
