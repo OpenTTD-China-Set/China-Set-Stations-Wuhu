@@ -84,10 +84,10 @@ def make_road_stops():
         0x810C,
         ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
         ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
-        ((7, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
-        True,
-        16,
-        joggle=JOGGLE_AMOUNT * 2,
+        ((7, WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
+        False,
+        0,
+        joggle=JOGGLE_AMOUNT,
     )
 
     extender = components[("road_stop", "stair_extender")]
