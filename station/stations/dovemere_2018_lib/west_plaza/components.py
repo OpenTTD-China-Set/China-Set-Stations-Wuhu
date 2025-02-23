@@ -15,13 +15,14 @@ from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 components = AttrDict(schema=("type", "name"))
 
 
-def make_component(dirname, name, sym, span, offset, has_nosnow=False, components=components):
+def make_component(dirname, name, sym, span, offset, joggle=0, has_nosnow=False, components=components):
     v = LazyVoxel(
         name,
         prefix=f".cache/render/station/dovemere_2018/west_plaza/{dirname}",
         voxel_getter=lambda path=f"station/voxels/dovemere_2018/west_plaza/{dirname}/{name}.vox": path,
         load_from="station/files/cns-gorender.json",
     )
+    v.config["joggle"] = joggle
 
     bare = v.discard_layers(("snow", "nosnow"), "bare")
     bare.config["agrf_manual_crop"] = (0, 11)
