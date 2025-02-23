@@ -38,6 +38,7 @@ def make_components():
 
     # Stairs
     make_component("road_stop", "stair_extender", BuildingSymmetricalX, (16, 8, TOTAL_HEIGHT), (0, 6, 0))
+    make_component("road_stop", "stair_extender_narrow", BuildingSymmetricalX, (16, 8, TOTAL_HEIGHT), (0, 6, 0))
 
     # Underground Entrance
-    make_component("road_stop", "underground_entrance", BuildingFull, (15, 8, 0), (0, 8, 16))
+    make_component("road_stop", "underground_entrance", BuildingFull, (11, 9, 0), (0, 5, 16))
