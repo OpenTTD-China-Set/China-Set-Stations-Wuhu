@@ -16,7 +16,8 @@ make_component = lambda *args, **kwargs: original_make_component(*args, **kwargs
 def make_components():
     # Pillars
     make_component("road_stop", "pillars", BuildingSymmetricalX, (16, 1, OVERPASS_HEIGHT), (0, 2, 0))
-    make_component("road_stop", "pillar_corner", BuildingSymmetricalX, (1, 1, OVERPASS_HEIGHT), (13, 2, 0))
+    make_component("road_stop", "pillar_corner", BuildingSymmetricalX, (2, 1, OVERPASS_HEIGHT), (13, 2, 0))
+    make_component("road_stop", "pillars_three", BuildingSymmetricalX, (10, 1, OVERPASS_HEIGHT), (5, 2, 0))
 
     # Overpass layers
     make_component(
@@ -38,6 +39,14 @@ def make_components():
     make_component(
         "road_stop",
         "stair_narrow",
+        BuildingFull,
+        (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
+        (0, 0, OVERPASS_HEIGHT),
+        joggle=JOGGLE_AMOUNT,
+    )
+    make_component(
+        "road_stop",
+        "stair_wide_overpass",
         BuildingFull,
         (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),

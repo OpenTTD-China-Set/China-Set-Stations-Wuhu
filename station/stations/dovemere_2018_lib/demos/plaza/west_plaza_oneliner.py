@@ -19,7 +19,7 @@ station = h_merge(
 # Road Stops
 stair_end = stair_end.lower_tile()
 overpass = overpass.lower_tile()
-stair = stair.lower_tile()
+stair = stair_narrow.lower_tile()
 stair_extender = stair_extender.lower_tile()
 roadstops = [[stair_end, overpass, stair, stair_extender, stair.R, overpass, stair_end.R]]
 
