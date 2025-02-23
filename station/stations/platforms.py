@@ -76,13 +76,8 @@ class CNSPlatformFamily(PlatformFamily):
 
         s = shelter_class + ("_" if location != "" else "") + location
         skeeps = {s, s + "_snow"}
-        v2 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components) + tuple(shelter_components - skeeps))), f"subset_{s}_snow_base"
-        )
-        v3 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components) + tuple(shelter_components - {s + "_snow"}))),
-            f"subset_{s}_snow_only",
-        )
+        v2 = self.v.keep_layers(tuple(skeeps), f"subset_{s}_snow_base")
+        v3 = self.v.keep_layers((s + "_snow",), f"subset_{s}_snow_only")
         v = v3.compose(v2, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
         v.config["overlap"] = 1.3
         v.config["agrf_childsprite"] = (0, -YOFFSET)
@@ -111,9 +106,8 @@ class CNSPlatformFamily(PlatformFamily):
                 if platform_class != "" and shelter_class != "pillar" and location == "building_v":
                     skeeps.add("escalator_v")
 
-        v2 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components - pkeeps) + tuple(shelter_components - skeeps))),
-            f"subset_{platform_class}_{rail_facing}_{shelter_class}_{location}",
+        v2 = self.v.keep_layers(
+            tuple(pkeeps) + tuple(skeeps), f"subset_{platform_class}_{rail_facing}_{shelter_class}_{location}"
         )
         v2.config["agrf_manual_crop"] = (0, YOFFSET)
         if location in ["building", "building_narrow"]:
@@ -154,39 +148,15 @@ class CNSPlatformFamily(PlatformFamily):
         else:
             symmetry = BuildingSymmetricalX
 
-        v2 = self.concourse.discard_layers(
-            tuple(sorted(tuple(concourse_components - ckeeps))), f"subset_{platform_class}_{side}"
-        )
+        v2 = self.concourse.keep_layers(tuple(ckeeps), f"subset_{platform_class}_{side}")
         v2.in_place_subset(symmetry.render_indices())
 
         sprite = symmetry.create_variants(v2.spritesheet())
         return AParentSprite(sprite, (16, 16, platform_height), (0, 0, 0))
 
 
-platform_components = {"cut", "concrete", "concrete_side", "brick", "brick_side"}
 platform_classes = ["concrete", "brick"]
-shelter_components = {
-    "shelter_1",
-    "shelter_1_building",
-    "shelter_1_building_v",
-    "shelter_2",
-    "shelter_2_building",
-    "shelter_2_building_v",
-    "shelter_1_snow",
-    "shelter_1_building_snow",
-    "shelter_1_building_v_snow",
-    "shelter_2_snow",
-    "shelter_2_building_snow",
-    "shelter_2_building_v_snow",
-    "pillar",
-    "pillar_building",
-    "pillar_central",
-    "escalator",
-    "escalator_v",
-    "underground_stairs",  # FIXME
-}
 shelter_classes = ["shelter_1", "shelter_2"]
-concourse_components = {f"{c}{postfix}" for c in platform_classes for postfix in ["", "_t"]}
 
 
 pf = CNSPlatformFamily()
