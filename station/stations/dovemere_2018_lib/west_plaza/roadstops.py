@@ -89,17 +89,13 @@ def make_road_stops():
         16,
         joggle=JOGGLE_AMOUNT * 2,
     )
-    make_road_stop(
-        "stair_extender",
-        BuildingSymmetricalX,
-        0x8110,
-        ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
-        ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
-        ((16, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
-        True,
-        16,
-        joggle=JOGGLE_AMOUNT * 2,
-    )
+
+    extender = components[("road_stop", "stair_extender")]
+    extender_overpass = components[("road_stop", "stair_extender_overpass")]
+    layout = ALayout(road_ground, [extender_overpass, extender.move(0, 8), pillars], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("stair_extender",)] = layout
+    register_road_stop(layout, BuildingSymmetrical, 0x8110)
+
     make_road_stop(
         "stair_extender_narrow",
         BuildingSymmetricalX,

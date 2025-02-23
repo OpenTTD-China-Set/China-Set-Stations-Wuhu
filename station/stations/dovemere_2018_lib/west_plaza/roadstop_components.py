@@ -14,8 +14,10 @@ make_component = lambda *args, **kwargs: original_make_component(*args, **kwargs
 
 
 def make_components():
+    # Pillars
     make_component("road_stop", "pillars", BuildingSymmetricalX, (16, 1, OVERPASS_HEIGHT), (0, 2, 0))
 
+    # Overpass layers
     make_component(
         "road_stop", "overpass", BuildingSymmetricalX, (16, 4, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, 0, OVERPASS_HEIGHT)
     )
@@ -26,5 +28,16 @@ def make_components():
         (16, 16, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),
     )
+    make_component(
+        "road_stop",
+        "stair_extender_overpass",
+        BuildingSymmetricalX,
+        (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
+        (0, 0, OVERPASS_HEIGHT),
+    )
 
+    # Stairs
+    make_component("road_stop", "stair_extender", BuildingSymmetricalX, (16, 8, TOTAL_HEIGHT), (0, 6, 0))
+
+    # Underground Entrance
     make_component("road_stop", "underground_entrance", BuildingFull, (15, 8, 0), (0, 8, 16))
