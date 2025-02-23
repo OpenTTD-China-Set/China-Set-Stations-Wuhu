@@ -94,7 +94,7 @@ def make_road_stops():
     extender_overpass = components[("road_stop", "stair_extender_overpass")]
     layout = ALayout(road_ground, [extender_overpass, extender.move(0, 8), pillars], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("stair_extender",)] = layout
-    register_road_stop(layout, BuildingSymmetrical, 0x8110)
+    register_road_stop(layout, BuildingSymmetricalX, 0x8110)
 
     extender_narrow = components[("road_stop", "stair_extender_narrow")]
     entrance = components[("road_stop", "underground_entrance")]
@@ -111,7 +111,7 @@ def make_road_stops():
         category=b"\xe8\x8a\x9cR",
     )
     named_layouts[("stair_extender_narrow",)] = layout
-    register_road_stop(layout, BuildingSymmetrical, 0x8112)
+    register_road_stop(layout, BuildingSymmetricalX, 0x8112)
 
     make_road_stop(
         "stair_end",
@@ -124,11 +124,3 @@ def make_road_stops():
         16,
         joggle=JOGGLE_AMOUNT * 2,
     )
-    wide_far = named_parts[("stair_wide", "far")]
-    wide_overpass = named_parts[("stair_wide", "overpass")]
-    wide_near = named_parts[("stair_wide", "near")]
-    layout = ALayout(
-        road_ground, [wide_far, wide_overpass, wide_near, entrance.move(0, 8, -16)], True, category=b"\xe8\x8a\x9cR"
-    )
-    named_layouts[("stair_wide_test",)] = layout
-    register_road_stop(layout, BuildingSymmetrical, 0x8200)
