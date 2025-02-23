@@ -40,6 +40,11 @@ def make_road_stops():
     named_layouts[("double_overpass",)] = layout
     register_road_stop(layout, BuildingSymmetrical, 0x8002)
 
+    overpass_bridge = components[("road_stop", "overpass_bridge_wide")]
+    layout = ALayout(road_ground, [overpass_bridge, pillars, pillars.T], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("overpass_bridge",)] = layout
+    register_road_stop(layout, BuildingSymmetrical, 0x8003)
+
     make_road_stop(
         "stair",
         BuildingFull,
