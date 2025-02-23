@@ -24,6 +24,7 @@ DEFAULT_SLOPE_FLAGS = DEFAULT_FLAGS | grf.Object.Flags.AUTOREMOVE | grf.Object.F
 
 named_layouts = AttrDict(schema=("name", "offset"))
 objects = []
+templates = []
 
 
 def register_slopes(slopes, sym, starting_id, flags=DEFAULT_SLOPE_FLAGS):
@@ -61,27 +62,33 @@ def register_slopes(slopes, sym, starting_id, flags=DEFAULT_SLOPE_FLAGS):
         objects.append(cur_object)
 
 
-def register(layouts, sym, label, starting_id, flags=DEFAULT_FLAGS, allow_flip=True):
+def register(
+    layouts, sym, label, starting_id, purchase_layout=None, flags=DEFAULT_FLAGS, allow_flip=True, destination=objects
+):
     rows = len(layouts)
     columns = len(layouts[0])
     layout = PositionSwitch(
-        ranges={r * 256 + c: layouts[r][c] for r in range(rows) for c in range(columns)},
+        ranges={r * 256 + c: layouts[r][columns - 1 - c] for r in range(rows) for c in range(columns)},
         default=layouts[0][0],
         code="relative_pos",
         rows=rows,
         columns=columns,
     )
-    for cur in sym.chiralities(layout)[: 2 if allow_flip else 1]:
+    for i, cur in enumerate(sym.chiralities(layout)[: 2 if allow_flip else 1]):
         demo = Demo(cur.to_lists())
         doc_layout = demo.to_layout()
         doc_layout.category = b"\xe8\x8a\x9cZ"  # FIXME doc category?
+        if purchase_layout is None:
+            purchase_layouts = sym.rotational_views(doc_layout)
+        else:
+            purchase_layouts = sym.rotational_views(sym.chiralities(purchase_layout)[i])
         layouts = sym.rotational_views(cur)
         num_views = len(layouts)
         cur_object = AObject(
             id=starting_id,
             translation_name="WEST_PLAZA",
             layouts=layouts,
-            purchase_layouts=sym.rotational_views(doc_layout),
+            purchase_layouts=purchase_layouts,
             class_label=b"\xe8\x8a\x9c" + label,
             climates_available=grf.ALL_CLIMATES,
             size=(columns, rows),
@@ -94,4 +101,4 @@ def register(layouts, sym, label, starting_id, flags=DEFAULT_FLAGS, allow_flip=T
             callbacks={"tile_check": 0x400},
         )
         starting_id += 1
-        objects.append(cur_object)
+        destination.append(cur_object)

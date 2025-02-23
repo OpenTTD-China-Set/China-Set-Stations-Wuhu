@@ -14,6 +14,7 @@ from agrf.magic import Switch
 from roadstop.lib import ARoadStop
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ...misc import road_ground
+from .roadstop_components import make_components, components
 from ..roadstop_utils import named_layouts, make_road_stop, register_road_stop, named_parts
 
 cnt = 0
@@ -27,25 +28,106 @@ JOGGLE_AMOUNT = 45 - 32 * 2**0.5
 
 
 def make_road_stops():
+    make_components()
+
+    overpass = components[("road_stop", "overpass")]
+    pillars = components[("road_stop", "pillars")]
+    layout = ALayout(road_ground, [overpass, pillars], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("overpass",)] = layout
+    register_road_stop(layout, BuildingSymmetricalX, 0x8000)
+
+    layout = ALayout(road_ground, [overpass, pillars, overpass.T, pillars.T], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("double_overpass",)] = layout
+    register_road_stop(layout, BuildingSymmetrical, 0x8002)
+
+    overpass_bridge = components[("road_stop", "overpass_bridge_wide")]
+    layout = ALayout(road_ground, [overpass_bridge, pillars, pillars.T], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("overpass_bridge",)] = layout
+    register_road_stop(layout, BuildingSymmetrical, 0x8003)
+
+    # make_road_stop(
+    #     "stair",
+    #     BuildingFull,
+    #     0x8100,
+    #     ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
+    #     ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
+    #     ((11, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
+    #     True,
+    #     16,
+    #     joggle=JOGGLE_AMOUNT * 2,
+    # )
     make_road_stop(
-        "overpass",
-        BuildingSymmetricalX,
-        0x8000,
+        "stair_wide",
+        BuildingFull,
+        0x8104,
         ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
-        ((16, OVERHANG_WIDTH, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
-        None,
-        False,
-        0,
-        joggle=JOGGLE_AMOUNT,
+        ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
+        ((15, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
+        True,
+        16,
+        joggle=JOGGLE_AMOUNT * 2,
+    )
+    make_road_stop(
+        "stair_wide_simple",
+        BuildingFull,
+        0x8108,
+        ((16, WIDTH, TOTAL_HEIGHT), (0, 0, 0)),
+        ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
+        ((15, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
+        True,
+        16,
+        joggle=JOGGLE_AMOUNT * 2,
     )
 
-    overpass_far = named_parts[("overpass", "far")]
-    overpass_overpass = named_parts[("overpass", "overpass")]
+    stair_wide_overpass = components[("road_stop", "stair_wide_overpass")]
+    pillars_three = components[("road_stop", "pillars_three")]
+    layout = ALayout(road_ground, [stair_wide_overpass, pillars, pillars_three.T.R], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("stair_wide_simple_v2",)] = layout
+    register_road_stop(layout, BuildingFull, 0x8200)
+
+    stair_narrow = components[("road_stop", "stair_narrow")]
+    pillar_corner = components[("road_stop", "pillar_corner")]
+    layout = ALayout(road_ground, [stair_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("stair_narrow",)] = layout
+    register_road_stop(layout, BuildingFull, 0x810C)
+
+    extender = components[("road_stop", "stair_extender")]
+    extender_overpass = components[("road_stop", "stair_extender_overpass")]
+    layout = ALayout(road_ground, [extender_overpass, extender.move(0, 8), pillars], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("stair_extender",)] = layout
+    register_road_stop(layout, BuildingSymmetricalX, 0x8110)
+
+    extender_narrow = components[("road_stop", "stair_extender_narrow")]
+    entrance = components[("road_stop", "underground_entrance")]
     layout = ALayout(
         road_ground,
-        [overpass_far, overpass_overpass, overpass_far.T, overpass_overpass.T],
+        [
+            extender_overpass,
+            extender_narrow.move(0, 8),
+            pillars,
+            entrance.move(12, 8, -16),
+            entrance.R.move(-12, 8, -16),
+        ],
         True,
         category=b"\xe8\x8a\x9cR",
     )
-    named_layouts[("double_overpass",)] = layout
-    register_road_stop(layout, BuildingSymmetrical, 0x8002)
+    named_layouts[("stair_extender_narrow",)] = layout
+    register_road_stop(layout, BuildingSymmetricalX, 0x8112)
+
+    layout = ALayout(
+        road_ground, [extender_overpass, extender_narrow.move(0, 8), pillars], True, category=b"\xe8\x8a\x9cR"
+    )
+    named_layouts[("stair_extender_narrow_simple")] = layout
+    register_road_stop(layout, BuildingSymmetricalX, 0x8114)
+
+    make_road_stop(
+        "stair_end",
+        BuildingFull,
+        0x8114,
+        ((16, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, WIDTH - EXTENDED_WIDTH, 0)),
+        ((16, 16 - WIDTH * 2, TOTAL_HEIGHT - OVERPASS_HEIGHT), (0, WIDTH, OVERPASS_HEIGHT)),
+        ((16, EXTENDED_WIDTH, TOTAL_HEIGHT), (0, 16 - WIDTH, 0)),
+        True,
+        16,
+        joggle=JOGGLE_AMOUNT * 2,
+    )

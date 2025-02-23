@@ -47,7 +47,7 @@ def register_road_stop(layout, sym, starting_id):
         roadstops.append(cur_roadstop)
 
 
-def make_road_stop(name, sym, starting_id, far, overpass, near, extended, floating, joggle=0):
+def make_road_stop(name, sym, starting_id, far, overpass, near, extended, floating, components=None, joggle=0):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/dovemere_2018/west_plaza/road_stop",
@@ -99,7 +99,9 @@ def make_road_stop(name, sym, starting_id, far, overpass, near, extended, floati
         named_parts[(name, partname)] = partps
         ps.append(partps)
 
-    layout = ALayout(road_ground, ps, True, category=b"\xe8\x8a\x9cR")
+    components = components or []
+
+    layout = ALayout(road_ground, ps + components, True, category=b"\xe8\x8a\x9cR")
     named_layouts[(name,)] = layout
 
     register_road_stop(layout, sym, starting_id)
