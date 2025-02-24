@@ -25,7 +25,7 @@ def make_component(dirname, name, sym, span, offset, joggle=0, has_nosnow=False,
     v.config["joggle"] = joggle
 
     bare = v.discard_layers(("snow", "nosnow"), "bare")
-    bare.config["agrf_manual_crop"] = (0, 11)
+    bare.config["agrf_manual_crop"] = (0, 7)
     bare.in_place_subset(sym.render_indices())
     sprite = sym.create_variants(
         bare.spritesheet(xspan=span[1], yspan=span[0], xdiff=offset[1], ydiff=offset[0], zdiff=offset[2])
@@ -33,7 +33,7 @@ def make_component(dirname, name, sym, span, offset, joggle=0, has_nosnow=False,
 
     snow = v.keep_layers(("snow",), "snow")
     snow = snow.compose(bare, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
-    snow.config["agrf_childsprite"] = (0, -11)
+    snow.config["agrf_childsprite"] = (0, -7)
     snow.in_place_subset(sym.render_indices())
     snowsprite = sym.create_variants(snow.spritesheet())
     snowcs = AChildSprite(snowsprite, (0, 0), flags={"dodraw": Registers.SNOW})
@@ -43,7 +43,7 @@ def make_component(dirname, name, sym, span, offset, joggle=0, has_nosnow=False,
     if has_nosnow:
         nosnow = v.keep_layers(("nosnow",), "no_snow")
         nosnow = nosnow.compose(bare, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
-        nosnow.config["agrf_childsprite"] = (0, -11)
+        nosnow.config["agrf_childsprite"] = (0, -7)
         nosnow.in_place_subset(sym.render_indices())
         nosnowsprite = sym.create_variants(nosnow.spritesheet())
         nosnowcs = AChildSprite(nosnowsprite, (0, 0), flags={"dodraw": Registers.NOSNOW})

@@ -73,6 +73,7 @@ def make_components():
         (0, 6, 0),
         joggle=JOGGLE_AMOUNT,
     )
+    make_component("road_stop", "stair_wide", BuildingFull, (8, 8, TOTAL_HEIGHT), (0, 6, 0), joggle=JOGGLE_AMOUNT)
 
     # Underground Entrance
     make_component("road_stop", "underground_entrance", BuildingFull, (11, 8, 0), (0, 6, 16), joggle=JOGGLE_AMOUNT * 3)
