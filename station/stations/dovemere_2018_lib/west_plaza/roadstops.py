@@ -85,12 +85,21 @@ def make_road_stops():
     pillars_three = components[("road_stop", "pillars_three")]
     layout = ALayout(
         road_ground,
-        [stair_wide_overpass, stair_wide.move(0, 8), pillars, pillars_three.T.R, entrance.move(4, 8, -16)],
+        [stair_wide_overpass, stair_wide.move(0, 8), pillars, pillars_three.T.R],
         True,
         category=b"\xe8\x8a\x9cR",
     )
     named_layouts[("stair_wide_simple_v2",)] = layout
     register_road_stop(layout, BuildingFull, 0x8200)
+
+    layout = ALayout(
+        road_ground,
+        [stair_wide_overpass, stair_wide.move(0, 8), pillars, pillars_three.T.R, entrance.move(4, 8, -16)],
+        True,
+        category=b"\xe8\x8a\x9cR",
+    )
+    named_layouts[("stair_wide_v2",)] = layout
+    register_road_stop(layout, BuildingFull, 0x8204)
 
     stair_narrow = components[("road_stop", "stair_narrow")]
     pillar_corner = components[("road_stop", "pillar_corner")]
