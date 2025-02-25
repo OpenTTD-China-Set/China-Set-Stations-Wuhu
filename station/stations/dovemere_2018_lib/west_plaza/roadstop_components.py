@@ -17,8 +17,6 @@ def make_components():
     # Pillars
     make_component("road_stop", "pillars", BuildingSymmetricalX, (16, 1, OVERPASS_HEIGHT), (0, 2, 0))
     make_component("road_stop", "pillar_corner", BuildingSymmetricalX, (2, 1, OVERPASS_HEIGHT), (13, 2, 0))
-    make_component("road_stop", "pillars_three", BuildingFull, (10, 1, OVERPASS_HEIGHT), (5, 2, 0))
-    make_component("road_stop", "pillars_four", BuildingSymmetricalX, (14, 1, OVERPASS_HEIGHT), (1, 2, 0))
 
     # Overpass layers
     make_component(
@@ -71,18 +69,10 @@ def make_components():
     )
 
     # Stairs
+    make_component("road_stop", "stair_extender", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT)
     make_component(
-        "road_stop", "stair_extender", BuildingSymmetricalX, (16, 8, TOTAL_HEIGHT), (0, 6, 0), joggle=JOGGLE_AMOUNT
+        "road_stop", "stair_extender_onesided", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT
     )
-    make_component(
-        "road_stop",
-        "stair_extender_narrow",
-        BuildingSymmetricalX,
-        (16, 8, TOTAL_HEIGHT),
-        (0, 6, 0),
-        joggle=JOGGLE_AMOUNT,
-    )
-    make_component("road_stop", "stair_wide", BuildingFull, (8, 8, TOTAL_HEIGHT), (0, 6, 0), joggle=JOGGLE_AMOUNT)
 
     # Underground Entrance
     make_component("road_stop", "underground_entrance", BuildingFull, (11, 8, 0), (0, 6, 16), joggle=JOGGLE_AMOUNT * 3)
