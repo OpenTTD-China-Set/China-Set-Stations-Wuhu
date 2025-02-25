@@ -136,7 +136,7 @@ def make_road_stops():
         category=b"\xe8\x8a\x9cR",
     )
     named_layouts[("stair_extender_onesided_simple",)] = layout
-    register_road_stop(layout, BuildingFull, 0x8118)
+    register_road_stop(layout, BuildingFull, 0x811C)
 
     make_road_stop(
         "stair_end",
