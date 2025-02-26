@@ -53,7 +53,7 @@ def make_components():
     )
     make_component(
         "road_stop",
-        "stair_wide_overpass",
+        "overpass_half_stair",
         BuildingFull,
         (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),
@@ -61,7 +61,7 @@ def make_components():
     )
     make_component(
         "road_stop",
-        "stair_extender_overpass",
+        "overpass_stair",
         BuildingSymmetricalX,
         (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),

@@ -58,12 +58,12 @@ def make_road_stops():
     register_road_stop(layout, BuildingSymmetricalX, 0x8004)
 
     extender_onesided = components[("road_stop", "stair_extender_onesided")]
-    stair_wide_overpass = components[("road_stop", "stair_wide_overpass")]
+    overpass_half_stair = components[("road_stop", "overpass_half_stair")]
     entrance = components[("road_stop", "underground_entrance")]
     three_pillars = [pillar_corner.T.R, pillar_corner.T.R.move(4, 0), pillar_corner.T.R.move(8, 0)]
     layout = ALayout(
         road_ground,
-        [stair_wide_overpass, extender_onesided.move(-8, 8), pillars, entrance.move(4, 8, -16)] + three_pillars,
+        [overpass_half_stair, extender_onesided.move(-8, 8), pillars, entrance.move(4, 8, -16)] + three_pillars,
         True,
         category=b"\xe8\x8a\x9cR",
     )
@@ -72,7 +72,7 @@ def make_road_stops():
 
     layout = ALayout(
         road_ground,
-        [stair_wide_overpass, extender_onesided.move(-8, 8), pillars] + three_pillars,
+        [overpass_half_stair, extender_onesided.move(-8, 8), pillars] + three_pillars,
         True,
         category=b"\xe8\x8a\x9cR",
     )
@@ -85,10 +85,10 @@ def make_road_stops():
     register_road_stop(layout, BuildingFull, 0x810C)
 
     extender = components[("road_stop", "stair_extender")]
-    extender_overpass = components[("road_stop", "stair_extender_overpass")]
+    overpass_stair = components[("road_stop", "overpass_stair")]
     layout = ALayout(
         road_ground,
-        [extender_overpass, extender.move(0, 8), extender.move(0, 8).R, pillars],
+        [overpass_stair, extender.move(0, 8), extender.move(0, 8).R, pillars],
         True,
         category=b"\xe8\x8a\x9cR",
     )
@@ -98,7 +98,7 @@ def make_road_stops():
     layout = ALayout(
         road_ground,
         [
-            extender_overpass,
+            overpass_stair,
             extender_onesided.move(0, 8),
             extender_onesided.move(0, 8).R,
             pillars,
@@ -113,7 +113,7 @@ def make_road_stops():
 
     layout = ALayout(
         road_ground,
-        [extender_overpass, extender_onesided.move(0, 8), extender_onesided.move(0, 8).R, pillars],
+        [overpass_stair, extender_onesided.move(0, 8), extender_onesided.move(0, 8).R, pillars],
         True,
         category=b"\xe8\x8a\x9cR",
     )
@@ -122,7 +122,7 @@ def make_road_stops():
 
     layout = ALayout(
         road_ground,
-        [extender_overpass, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars, entrance.move(12, 8, -16)],
+        [overpass_stair, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars, entrance.move(12, 8, -16)],
         True,
         category=b"\xe8\x8a\x9cR",
     )
@@ -131,7 +131,7 @@ def make_road_stops():
 
     layout = ALayout(
         road_ground,
-        [extender_overpass, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars],
+        [overpass_stair, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars],
         True,
         category=b"\xe8\x8a\x9cR",
     )
