@@ -57,6 +57,11 @@ def make_road_stops():
     named_layouts[("overpass_long",)] = layout
     register_road_stop(layout, BuildingSymmetricalX, 0x8004)
 
+    overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
+    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("stair_narrow",)] = layout
+    register_road_stop(layout, BuildingFull, 0x8006)
+
     extender_onesided = components[("road_stop", "stair_extender_onesided")]
     overpass_half_stair = components[("road_stop", "overpass_half_stair")]
     entrance = components[("road_stop", "underground_entrance")]
@@ -78,11 +83,6 @@ def make_road_stops():
     )
     named_layouts[("stair_wide_simple",)] = layout
     register_road_stop(layout, BuildingFull, 0x8108)
-
-    overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
-    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
-    named_layouts[("stair_narrow",)] = layout
-    register_road_stop(layout, BuildingFull, 0x810C)
 
     extender = components[("road_stop", "stair_extender")]
     overpass_stair = components[("road_stop", "overpass_stair")]
