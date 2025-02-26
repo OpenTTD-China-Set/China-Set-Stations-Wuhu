@@ -45,7 +45,7 @@ def make_components():
     )
     make_component(
         "road_stop",
-        "stair_narrow",
+        "overpass_long_narrow",
         BuildingFull,
         (16, 14, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),

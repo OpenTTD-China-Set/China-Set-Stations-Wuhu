@@ -79,8 +79,8 @@ def make_road_stops():
     named_layouts[("stair_wide_simple",)] = layout
     register_road_stop(layout, BuildingFull, 0x8108)
 
-    stair_narrow = components[("road_stop", "stair_narrow")]
-    layout = ALayout(road_ground, [stair_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
+    overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
+    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("stair_narrow",)] = layout
     register_road_stop(layout, BuildingFull, 0x810C)
 
