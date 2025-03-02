@@ -5,11 +5,11 @@ from agrf.lib.building.layout import (
     ALayout,
     NewGeneralSprite,
     AChildSprite,
-    NightSprite,
     OffsetPosition,
     DefaultGraphics,
     NewGraphics,
 )
+from agrf.graphics.sprites.night import NightSprite
 from agrf.lib.building.symmetry import BuildingSymmetryMixin
 from agrf.graphics.misc import SCALE_TO_ZOOM
 from agrf.sprites.empty import EmptyAlternativeSprites
