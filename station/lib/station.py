@@ -17,6 +17,7 @@ class AStation(grf.SpriteGenerator):
         is_waypoint=False,
         doc_layout=None,
         enable_if=None,
+        foundation=None,
         extra_code="",
         **props,
     ):
@@ -30,6 +31,7 @@ class AStation(grf.SpriteGenerator):
         self.is_waypoint = is_waypoint
         self.doc_layout = doc_layout
         self.enable_if = enable_if
+        self.foundation = foundation
         self.extra_code = extra_code
         self._props = {
             **props,
@@ -56,7 +58,14 @@ class AStation(grf.SpriteGenerator):
             ).get_persistent_id()
 
         graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
-        self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
+        if self.foundation is not None:
+            self.callbacks.graphics = grf.Switch(
+                ranges={0: graphics, 2: self.foundation},
+                code=code + self.extra_code + "\nextra_callback_info1_byte",
+                default=graphics,
+            )
+        else:
+            self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
 
         cb_props = {}
         self.callbacks.set_flag_props(cb_props)
