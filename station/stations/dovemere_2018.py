@@ -95,6 +95,7 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
                 "select_sprite_layout": grf.DualCallback(default=0, purchase=2),
                 **common_cb,
             },
+            foundation=foundation,
             general_flags=0b1000,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,

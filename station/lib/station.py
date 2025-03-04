@@ -57,10 +57,19 @@ class AStation(grf.SpriteGenerator):
                 g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
             ).get_persistent_id()
 
+        res = []
+
         graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
         if self.foundation is not None:
+            if isinstance(self.foundation, grf.AlternativeSprites):
+                res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
+                for i in range(8):
+                    res.append(self.foundation)
+                foundation = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
+            else:
+                foundation = self.foundation
             self.callbacks.graphics = grf.Switch(
-                ranges={0: graphics, 2: self.foundation},
+                ranges={0: graphics, 2: foundation},
                 code=code + self.extra_code + "\nextra_callback_info1_byte",
                 default=graphics,
             )
@@ -69,8 +78,6 @@ class AStation(grf.SpriteGenerator):
 
         cb_props = {}
         self.callbacks.set_flag_props(cb_props)
-
-        res = []
 
         if not is_managed_by_metastation:
             sprites = self.sprites
