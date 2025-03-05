@@ -45,7 +45,7 @@ class AStation(grf.SpriteGenerator):
     def class_label_plain(self):
         return class_label_printable(self._props["class_label"])
 
-    def get_sprites(self, g, sprites=None):
+    def get_sprites(self, g, sprites=None, action2_pool=None):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
