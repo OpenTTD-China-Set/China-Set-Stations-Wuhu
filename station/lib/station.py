@@ -42,7 +42,7 @@ class AStation(grf.SpriteGenerator):
     def class_label_plain(self):
         return class_label_printable(self._props["class_label"])
 
-    def get_sprites(self, g, sprites=None):
+    def get_sprites(self, g, sprites=None, action2_pool=None):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
@@ -55,7 +55,14 @@ class AStation(grf.SpriteGenerator):
                 g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
             ).get_persistent_id()
 
-        graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+        if action2_pool is not None:
+            if 0 in action2_pool:
+                graphics = action2_pool[0]
+            else:
+                action2_pool[0] = graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+        else:
+            graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+
         self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
 
         cb_props = {}
