@@ -96,7 +96,6 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
                 **common_cb,
             },
             foundation=foundation,
-            general_flags=0b1000,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
             doc_layout=entry,

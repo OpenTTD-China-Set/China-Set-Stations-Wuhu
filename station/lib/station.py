@@ -68,6 +68,7 @@ class AStation(grf.SpriteGenerator):
         else:
             graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
 
+        props = self._props.copy()
         if self.foundation is not None:
             if action2_pool is not None:
                 if 1 in action2_pool:
@@ -80,6 +81,7 @@ class AStation(grf.SpriteGenerator):
 
                     action2_pool[1] = foundation_1 = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
                     action2_pool[2] = foundation_2 = grf.GenericSpriteLayout(ent1=[2], ent2=[2], feature=grf.STATION)
+
             self.callbacks.graphics = grf.Switch(
                 ranges={
                     0: graphics,
@@ -88,6 +90,7 @@ class AStation(grf.SpriteGenerator):
                 code=code + self.extra_code + "\nextra_callback_info1_byte",
                 default=graphics,
             )
+            props["general_flags"] = props.get("general_flags", 0) | 0b1000
         else:
             self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
 
@@ -111,9 +114,9 @@ class AStation(grf.SpriteGenerator):
                 feature=grf.STATION,
                 id=self.id,
                 props={
-                    "class_label": (b"WAYP" if self.is_waypoint else self._props["class_label"]),
+                    "class_label": (b"WAYP" if self.is_waypoint else props["class_label"]),
                     "advanced_layout": grf.SpriteLayoutList([l.to_grf(sprites) for l in self.layouts]),
-                    **{k: v for k, v in self._props.items() if k != "class_label"},
+                    **{k: v for k, v in props.items() if k != "class_label"},
                     **cb_props,
                     **(extra_props if self.id >= 0xFF else {}),
                 },
