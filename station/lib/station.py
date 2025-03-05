@@ -3,6 +3,7 @@ from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
 from .utils import class_label_printable
 from .registers import code
+from .foundation import make_foundations
 
 
 class AStation(grf.SpriteGenerator):
@@ -63,8 +64,7 @@ class AStation(grf.SpriteGenerator):
         if self.foundation is not None:
             if isinstance(self.foundation, grf.AlternativeSprites):
                 res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
-                for i in range(8):
-                    res.append(self.foundation)
+                res.extend(make_foundations(self.foundation))
                 foundation = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
             else:
                 foundation = self.foundation
