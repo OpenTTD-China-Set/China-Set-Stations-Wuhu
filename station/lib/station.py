@@ -70,9 +70,13 @@ class AStation(grf.SpriteGenerator):
 
         if self.foundation is not None:
             if isinstance(self.foundation, grf.AlternativeSprites):
-                res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
-                res.extend(make_foundations(self.foundation))
-                foundation = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
+                if action2_pool is not None:
+                    if 1 in action2_pool:
+                        foundation = action2_pool[1]
+                    else:
+                        action2_pool[1] = foundation = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
+                        res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
+                        res.extend(make_foundations(self.foundation))
             else:
                 foundation = self.foundation
             self.callbacks.graphics = grf.Switch(
