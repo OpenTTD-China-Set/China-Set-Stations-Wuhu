@@ -69,18 +69,22 @@ class AStation(grf.SpriteGenerator):
             graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
 
         if self.foundation is not None:
-            if isinstance(self.foundation, grf.AlternativeSprites):
-                if action2_pool is not None:
-                    if 1 in action2_pool:
-                        foundation = action2_pool[1]
-                    else:
-                        action2_pool[1] = foundation = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
-                        res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
-                        res.extend(make_foundations(self.foundation))
-            else:
-                foundation = self.foundation
+            if action2_pool is not None:
+                if 1 in action2_pool:
+                    foundation_1 = action2_pool[1]
+                    foundation_2 = action2_pool[2]
+                else:
+                    res.append(grf.Action1(feature=grf.STATION, set_count=2, sprite_count=8, first_set=1))
+                    res.extend(make_foundations(self.foundation))
+                    res.extend(make_foundations(self.foundation.M))
+
+                    action2_pool[1] = foundation_1 = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
+                    action2_pool[2] = foundation_2 = grf.GenericSpriteLayout(ent1=[2], ent2=[2], feature=grf.STATION)
             self.callbacks.graphics = grf.Switch(
-                ranges={0: graphics, 2: foundation},
+                ranges={
+                    0: graphics,
+                    2: grf.Switch(ranges={1: foundation_2}, code="extra_callback_info2 % 2", default=foundation_1),
+                },
                 code=code + self.extra_code + "\nextra_callback_info1_byte",
                 default=graphics,
             )
