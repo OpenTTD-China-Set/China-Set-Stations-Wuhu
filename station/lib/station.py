@@ -60,7 +60,14 @@ class AStation(grf.SpriteGenerator):
 
         res = []
 
-        graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+        if action2_pool is not None:
+            if 0 in action2_pool:
+                graphics = action2_pool[0]
+            else:
+                action2_pool[0] = graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+        else:
+            graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+
         if self.foundation is not None:
             if isinstance(self.foundation, grf.AlternativeSprites):
                 res.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=8, first_set=1))
