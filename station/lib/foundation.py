@@ -4,6 +4,7 @@ from agrf.graphics.sprites.foundation import FoundationSprite
 
 
 def make_foundations(sprite):
+    sprite.voxel.render()  # FIXME agrf cannot correctly track dependencies here
     ret = []
     for i in range(8):
         alts = []
