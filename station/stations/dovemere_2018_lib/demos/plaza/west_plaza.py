@@ -20,8 +20,8 @@ station = h_merge(
 for i in range(1, 7):
     station[1][i] = (
         station[1][i]
-        + AParentSprite(make_foundations(foundation)[0], (16, 16, 1), (0, 0, -8))
-        + AParentSprite(make_foundations(foundation)[4], (16, 16, 1), (0, 0, -7))
+        + AParentSprite(make_foundations(foundation)[0], (16, 16, 0), (0, 0, -8))
+        + AParentSprite(make_foundations(foundation)[4], (16, 16, 8), (0, 0, -8))
     )
 
 # Road Stops
