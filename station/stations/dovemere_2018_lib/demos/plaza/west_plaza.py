@@ -1,10 +1,12 @@
-from station.lib import Demo
+from station.lib import Demo, AParentSprite
 from station.lib.utils import get_1cc_remap
 from agrf.graphics.palette import CompanyColour
 from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
+from station.stations.dovemere_2018_lib.foundation import foundation
+from station.lib.foundation import make_foundations
 from station.stations.misc import slope_2, road_ground_vanilla_layout
 from ..utils import h_merge
 
@@ -15,6 +17,12 @@ object_layouts.globalize()
 station = h_merge(
     [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(5, 7)[5:], [[cns], [slope_2.lower_tile()]]], [[], []]
 )
+for i in range(1, 7):
+    station[1][i] = (
+        station[1][i]
+        + AParentSprite(make_foundations(foundation)[0], (16, 16, 1), (0, 0, -8))
+        + AParentSprite(make_foundations(foundation)[4], (16, 16, 1), (0, 0, -7))
+    )
 
 # Road Stops
 overpass = overpass.lower_tile()
