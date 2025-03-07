@@ -134,11 +134,11 @@ class CNSPlatformFamily(PlatformFamily):
 
     def get_concourse_sprite(self, platform_class, side):
         if platform_class == "none":
-            ckeeps = set()
+            ckeeps = {"concourse"}
         elif side == "d":
-            ckeeps = {platform_class, platform_class + "_t"}
+            ckeeps = {"concourse", platform_class, platform_class + "_t"}
         else:
-            ckeeps = {platform_class}
+            ckeeps = {"concourse", platform_class}
 
         if platform_class == "none" or side == "d":
             symmetry = BuildingSymmetrical

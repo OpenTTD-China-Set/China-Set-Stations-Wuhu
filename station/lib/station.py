@@ -3,6 +3,7 @@ from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
 from .utils import class_label_printable
 from .registers import code
+from .foundation import make_foundations
 
 
 class AStation(grf.SpriteGenerator):
@@ -17,6 +18,7 @@ class AStation(grf.SpriteGenerator):
         is_waypoint=False,
         doc_layout=None,
         enable_if=None,
+        foundation=None,
         extra_code="",
         **props,
     ):
@@ -30,6 +32,7 @@ class AStation(grf.SpriteGenerator):
         self.is_waypoint = is_waypoint
         self.doc_layout = doc_layout
         self.enable_if = enable_if
+        self.foundation = foundation
         self.extra_code = extra_code
         self._props = {
             **props,
@@ -42,7 +45,7 @@ class AStation(grf.SpriteGenerator):
     def class_label_plain(self):
         return class_label_printable(self._props["class_label"])
 
-    def get_sprites(self, g, sprites=None):
+    def get_sprites(self, g, sprites=None, action2_pool=None):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
@@ -55,13 +58,44 @@ class AStation(grf.SpriteGenerator):
                 g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
             ).get_persistent_id()
 
-        graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
-        self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
+        res = []
+
+        if action2_pool is not None:
+            if 0 in action2_pool:
+                graphics = action2_pool[0]
+            else:
+                action2_pool[0] = graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+        else:
+            graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+
+        props = self._props.copy()
+        if self.foundation is not None:
+            if action2_pool is not None:
+                if 1 in action2_pool:
+                    foundation_1 = action2_pool[1]
+                    foundation_2 = action2_pool[2]
+                else:
+                    res.append(grf.Action1(feature=grf.STATION, set_count=2, sprite_count=8, first_set=1))
+                    res.extend(make_foundations(self.foundation))
+                    res.extend(make_foundations(self.foundation.M))
+
+                    action2_pool[1] = foundation_1 = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
+                    action2_pool[2] = foundation_2 = grf.GenericSpriteLayout(ent1=[2], ent2=[2], feature=grf.STATION)
+
+            self.callbacks.graphics = grf.Switch(
+                ranges={
+                    0: graphics,
+                    2: grf.Switch(ranges={1: foundation_2}, code="extra_callback_info2 % 2", default=foundation_1),
+                },
+                code=code + self.extra_code + "\nextra_callback_info1_byte",
+                default=graphics,
+            )
+            props["general_flags"] = props.get("general_flags", 0) | 0b1000
+        else:
+            self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
 
         cb_props = {}
         self.callbacks.set_flag_props(cb_props)
-
-        res = []
 
         if not is_managed_by_metastation:
             sprites = self.sprites
@@ -80,9 +114,9 @@ class AStation(grf.SpriteGenerator):
                 feature=grf.STATION,
                 id=self.id,
                 props={
-                    "class_label": (b"WAYP" if self.is_waypoint else self._props["class_label"]),
+                    "class_label": (b"WAYP" if self.is_waypoint else props["class_label"]),
                     "advanced_layout": grf.SpriteLayoutList([l.to_grf(sprites) for l in self.layouts]),
-                    **{k: v for k, v in self._props.items() if k != "class_label"},
+                    **{k: v for k, v in props.items() if k != "class_label"},
                     **cb_props,
                     **(extra_props if self.id >= 0xFF else {}),
                 },
@@ -93,7 +127,7 @@ class AStation(grf.SpriteGenerator):
 
         if self.is_waypoint:
             openttd_15_props = {
-                "class_label": b"\xfF" + self._props["class_label"][1:],
+                "class_label": b"\xff" + self._props["class_label"][1:],
                 "station_class_name": g.strings.add(
                     g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
                 ).get_persistent_id(),
