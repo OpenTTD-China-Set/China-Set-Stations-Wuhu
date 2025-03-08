@@ -6,6 +6,7 @@ from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
+from station.stations.dovemere_2018_lib.foundation import foundation
 from station.stations.misc import slope_2
 from ..utils import h_merge
 
@@ -16,6 +17,8 @@ object_layouts.globalize()
 station = h_merge(
     [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(5, 7)[5:], [[cns], [slope_2.lower_tile()]]], [[], []]
 )
+for i in range(1, 6):
+    station[1][i] = station[1][i].add_foundation(foundation, 9)
 
 # Road Stops
 stair_end = stair_end.lower_tile()

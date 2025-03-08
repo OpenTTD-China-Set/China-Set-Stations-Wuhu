@@ -4,6 +4,7 @@ from agrf.graphics.palette import CompanyColour
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
+from station.stations.dovemere_2018_lib.foundation import foundation
 from station.stations.misc import road_ground_turn_layout
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
@@ -31,7 +32,7 @@ station = [
         center_ground.M,
         edge.M,
         overpass.M,
-        front_gate_extender.M,
+        front_gate_extender.M.add_foundation(foundation, 12),
         None,
         front_gate_extender.T.M,
         overpass.T.M,
@@ -42,9 +43,9 @@ station = [
         center_ground.M,
         edge.M,
         overpass.M,
-        front_gate_extender_corner,
-        front_gate_extender,
-        front_gate_extender_corner.R,
+        front_gate_extender_corner.add_foundation(foundation, 8),
+        front_gate_extender.add_foundation(foundation, 9),
+        front_gate_extender_corner.R.add_foundation(foundation, 9),
         overpass.T.M,
         edge.T.M,
         center_ground.T.M,
