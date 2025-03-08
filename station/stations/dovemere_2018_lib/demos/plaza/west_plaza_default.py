@@ -16,7 +16,7 @@ object_layouts.globalize()
 station = h_merge(
     [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(5, 7)[5:], [[cns], [slope_2.lower_tile()]]], [[], []]
 )
-for i in range(1, 7):
+for i in range(1, 6):
     station[1][i] = station[1][i].add_foundation(foundation, 9)
 
 # Road Stops
