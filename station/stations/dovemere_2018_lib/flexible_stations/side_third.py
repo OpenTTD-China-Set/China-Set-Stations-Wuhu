@@ -5,6 +5,7 @@ from .. import common_cb, common_code
 from .common import make_demo, horizontal_layout
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
+from ..foundation import foundation
 
 named_tiles.globalize()
 
@@ -55,6 +56,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
+                foundation=foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -87,6 +89,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
+                foundation=foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -139,6 +142,7 @@ for p, pclass in enumerate(platform_classes):
                 ),
                 **common_cb,
             },
+            foundation=foundation,
             extra_code=common_code,
             enable_if=[parameter_list["E88A9CA_ENABLE_TEMPLATE"], parameter_list[f"PLATFORM_{pclass.upper()}"]],
             doc_layout=demo_layout,
@@ -167,6 +171,7 @@ for p, pclass in enumerate(platform_classes):
                 ),
                 **common_cb,
             },
+            foundation=foundation,
             extra_code=common_code,
             enable_if=[parameter_list["E88A9CA_ENABLE_TEMPLATE"], parameter_list[f"PLATFORM_{pclass.upper()}"]],
             doc_layout=demo_layout,

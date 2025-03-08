@@ -49,8 +49,9 @@ class AMetaStation(grf.SpriteGenerator):
             candidates = self.stations[i:l]
             sprites = unique(sub for s in candidates for sub in s.sprites)
             ret += [grf.Action1(feature=grf.STATION, set_count=1, sprite_count=len(sprites))] + sprites
+            action2_pool = {}
             for station in candidates:
-                ret.extend(station.get_sprites(g, sprites))
+                ret.extend(station.get_sprites(g, sprites, action2_pool))
             i = l
 
         for road_stop in self.road_stops:
