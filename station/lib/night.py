@@ -24,8 +24,6 @@ class SquashableAlternativeSprites(grf.AlternativeSprites):
                     sprites.append(
                         NightSprite(
                             old_alt,
-                            s.w,
-                            s.h,
                             scale=scale,
                             base_bpp=bpp,
                             automatic_offset_mode=automatic_offset_mode,
