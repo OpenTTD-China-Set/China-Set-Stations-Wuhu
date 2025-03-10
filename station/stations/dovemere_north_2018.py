@@ -11,6 +11,7 @@ from station.lib import (
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
+from station.stations.misc import track, default
 
 
 def quickload(name, symmetry, traversable):
@@ -68,6 +69,7 @@ normal_T = named_tiles.front_normal.T.lower_tile()
 normal = named_tiles.front_normal.lower_tile()
 escalator_T = named_tiles.escalator.T.lower_tile()
 escalator = named_tiles.escalator.lower_tile()
+default = default.lower_tile().lower_tile()
 
 the_stations = AMetaStation(
     station_tiles,
@@ -76,10 +78,14 @@ the_stations = AMetaStation(
     [
         Demo(
             [
-                [escalator_T, normal_T, gate_T, gate_T.R, normal_T.R, escalator_T.R],
-                [plat.T] * 6,
-                [plat] * 6,
-                [escalator, normal, gate, gate.R, normal.R, escalator.R],
+                [default] * 8,
+                [None, escalator_T, normal_T, gate_T, gate_T.R, normal_T.R, escalator_T.R, None],
+                [plat.T] * 8,
+                [track] * 8,
+                [track] * 8,
+                [plat] * 8,
+                [None, escalator, normal, gate, gate.R, normal.R, escalator.R, None],
+                [default] * 8,
             ],
             "Test",
         )
