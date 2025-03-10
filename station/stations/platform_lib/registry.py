@@ -71,7 +71,7 @@ def register(pf: PlatformFamily):
             if platform_class in ["np", "cut"]:
                 rail_facings = [""]
             else:
-                rail_facings = ["", "side"]
+                rail_facings = ["", "side", "solid"]
 
             if shelter_class == "":
                 locations = [""]
@@ -84,6 +84,9 @@ def register(pf: PlatformFamily):
                 for rid, rail_facing in enumerate(rail_facings):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
+
+                    if rail_facing == "solid":
+                        continue
 
                     for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                         [([ps], False, ""), ([ps, ps.T], True, "d")]

@@ -88,7 +88,7 @@ class CNSPlatformFamily(PlatformFamily):
         if platform_class == "":
             pkeeps = set()
         else:
-            pkeeps = {platform_class + ("_side" if rail_facing == "side" else "")}
+            pkeeps = {platform_class + (f"_{rail_facing}" if rail_facing != "" else "")}
         if shelter_class == "":
             skeeps = set()
         else:
@@ -97,7 +97,7 @@ class CNSPlatformFamily(PlatformFamily):
             elif location == "building_v_narrow":
                 skeeps = {shelter_class + "_building_v"}
             else:
-                skeeps = {shelter_class + ("_" if location != "" else "") + location}
+                skeeps = {shelter_class + (f"_{location}" if location != "" else "")}
                 if platform_class != "" and shelter_class != "pillar" and location == "building":
                     skeeps.add("escalator")
                 if platform_class != "" and shelter_class != "pillar" and location == "building_v":
