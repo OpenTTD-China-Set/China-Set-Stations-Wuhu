@@ -85,9 +85,6 @@ def register(pf: PlatformFamily):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
 
-                    if rail_facing == "solid":
-                        continue
-
                     for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                         [([ps], False, ""), ([ps, ps.T], True, "d")]
                     ):
@@ -97,13 +94,25 @@ def register(pf: PlatformFamily):
                             cur_symmetry = ps.sprite.symmetry
 
                         var = cur_symmetry.get_all_variants(
-                            ALayout(track_ground, l, True, notes=make_notes(platform_class, shelter_class))
+                            ALayout(
+                                track_ground if rail_facing != "solid" else gray_ps,
+                                l,
+                                rail_facing != "solid",
+                                notes=make_notes(platform_class, shelter_class),
+                            )
                         )
                         l = cur_symmetry.create_variants(var)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = (
-                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + lid * 0x2 + i
+                                    0x7000
+                                    + (pid - 2) * 0x200
+                                    + sid * 0x40
+                                    + (rid % 2) * 0x20
+                                    + ssid * 0x10
+                                    + (rid // 2) * 0x8
+                                    + lid * 0x2
+                                    + i
                                 )
                                 entries.append(entry)
                         platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = l
