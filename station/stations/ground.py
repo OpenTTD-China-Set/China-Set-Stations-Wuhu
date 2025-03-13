@@ -13,6 +13,7 @@ def quickload(name, symmetry):
     )
 
     sprite = symmetry.create_variants(v.spritesheet())
+    named_images[name] = sprite
     ps = AGroundSprite(sprite, flags={"add": Registers.ZERO})
     named_ps[name] = ps
     l = ALayout(ps, [], False)
@@ -20,6 +21,7 @@ def quickload(name, symmetry):
     return sprite
 
 
+named_images = AttrDict()
 named_ps = AttrDict()
 named_tiles = AttrDict()
 

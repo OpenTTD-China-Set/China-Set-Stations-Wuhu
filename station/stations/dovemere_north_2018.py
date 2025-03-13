@@ -12,6 +12,7 @@ from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, sloped_track, default, slope_2
+from station.stations.ground import named_images as ground_images
 
 
 def quickload(name, symmetry, traversable):
@@ -66,7 +67,8 @@ plat = platform_tiles.cns_concrete_shelter_2
 plat2_T = platform_tiles.cns_concrete_elevated_shelter_2.lower_tile()
 plat2 = platform_tiles.cns_concrete_elevated_shelter_2.T.lower_tile()
 gate_T = named_tiles.front_gate.T.lower_tile()
-gate = named_tiles.front_gate.lower_tile()
+gate = named_tiles.front_gate.lower_tile().add_foundation(ground_images.gray, 9)
+gate_R = named_tiles.front_gate.R.lower_tile().add_foundation(ground_images.gray, 9)
 normal_T = named_tiles.front_normal.T.lower_tile()
 normal = named_tiles.front_normal.lower_tile()
 escalator_T = named_tiles.escalator.T.lower_tile()
@@ -101,7 +103,7 @@ the_stations = AMetaStation(
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [plat] * 10 + [sloped_track.R],
-                [slope_2, plat2, plat2, escalator, normal, gate, gate.R, normal.R, escalator.R, plat2, plat2, slope_2],
+                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal.R, escalator.R, plat2, plat2, slope_2],
                 [default] * 12,
             ],
             "Test",
