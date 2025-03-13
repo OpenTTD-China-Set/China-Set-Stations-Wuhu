@@ -11,7 +11,7 @@ from station.lib import (
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
-from station.stations.misc import track, default
+from station.stations.misc import track, sloped_track, default, slope_2
 
 
 def quickload(name, symmetry, traversable):
@@ -63,6 +63,7 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_shelter_2
+plat2_T = platform_tiles.cns_concrete_elevated_shelter_2.lower_tile()
 plat2 = platform_tiles.cns_concrete_elevated_shelter_2.T.lower_tile()
 gate_T = named_tiles.front_gate.T.lower_tile()
 gate = named_tiles.front_gate.lower_tile()
@@ -71,6 +72,8 @@ normal = named_tiles.front_normal.lower_tile()
 escalator_T = named_tiles.escalator.T.lower_tile()
 escalator = named_tiles.escalator.lower_tile()
 default = default.lower_tile().lower_tile()
+sloped_track = sloped_track.lower_tile()
+slope_2 = slope_2.lower_tile().lower_tile()
 
 the_stations = AMetaStation(
     station_tiles,
@@ -79,14 +82,27 @@ the_stations = AMetaStation(
     [
         Demo(
             [
-                [default] * 8,
-                [plat2.T, escalator_T, normal_T, gate_T, gate_T.R, normal_T.R, escalator_T.R, plat2.T],
-                [plat.T] * 8,
-                [track] * 8,
-                [track] * 8,
-                [plat] * 8,
-                [plat2, escalator, normal, gate, gate.R, normal.R, escalator.R, plat2],
-                [default] * 8,
+                [default] * 12,
+                [
+                    default,
+                    plat2_T,
+                    plat2_T,
+                    escalator_T,
+                    normal_T,
+                    gate_T,
+                    gate_T.R,
+                    normal_T.R,
+                    escalator_T.R,
+                    plat2_T,
+                    plat2_T,
+                    default,
+                ],
+                [sloped_track] + [plat.T] * 10 + [sloped_track.R],
+                [sloped_track] + [track] * 10 + [sloped_track.R],
+                [sloped_track] + [track] * 10 + [sloped_track.R],
+                [sloped_track] + [plat] * 10 + [sloped_track.R],
+                [slope_2, plat2, plat2, escalator, normal, gate, gate.R, normal.R, escalator.R, plat2, plat2, slope_2],
+                [default] * 12,
             ],
             "Test",
         )

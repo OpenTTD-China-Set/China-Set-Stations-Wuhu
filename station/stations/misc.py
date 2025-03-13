@@ -2,6 +2,7 @@ from station.lib import ADefaultGroundSprite, ALayout
 from station.lib.registers import Registers
 
 track_ground = ADefaultGroundSprite(1012, flags={"add": Registers.CLIMATE_RAIL_OFFSET})
+sloped_track_ground = ADefaultGroundSprite(1031, flags={"add": Registers.CLIMATE_RAIL_OFFSET})
 road_ground = ADefaultGroundSprite(1314)
 road_ground_turn = ADefaultGroundSprite(1321)
 road_ground_vanilla = ADefaultGroundSprite(1333)
@@ -12,6 +13,7 @@ slope_3_ground = ADefaultGroundSprite(3994, flags={"add": Registers.CLIMATE_OFFS
 building_ground = ADefaultGroundSprite(1420, flags={"add": Registers.ZERO})
 
 track = ALayout(track_ground, [], True)
+sloped_track = ALayout(sloped_track_ground, [], True)
 default = ALayout(default_ground, [], False)
 slope_1 = ALayout(slope_1_ground, [], False)
 slope_2 = ALayout(slope_2_ground, [], False)
