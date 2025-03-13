@@ -70,7 +70,8 @@ gate_T = named_tiles.front_gate.T.lower_tile()
 gate = named_tiles.front_gate.lower_tile().add_foundation(ground_images.gray, 9)
 gate_R = named_tiles.front_gate.R.lower_tile().add_foundation(ground_images.gray, 9)
 normal_T = named_tiles.front_normal.T.lower_tile()
-normal = named_tiles.front_normal.lower_tile()
+normal = named_tiles.front_normal.lower_tile().add_foundation(ground_images.gray, 9)
+normal_R = named_tiles.front_normal.R.lower_tile().add_foundation(ground_images.gray, 9)
 escalator_T = named_tiles.escalator.T.lower_tile()
 escalator = named_tiles.escalator.lower_tile()
 default = default.lower_tile().lower_tile()
@@ -103,7 +104,7 @@ the_stations = AMetaStation(
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [plat] * 10 + [sloped_track.R],
-                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal.R, escalator.R, plat2, plat2, slope_2],
+                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal_R, escalator.R, plat2, plat2, slope_2],
                 [default] * 12,
             ],
             "Test",
