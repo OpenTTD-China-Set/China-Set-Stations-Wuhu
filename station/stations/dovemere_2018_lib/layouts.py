@@ -283,6 +283,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
     f2_snow_window_extender = make_extra(v, symmetry, "snow-window-extender")
 
     f2_night = make_extra(v, symmetry, "night")
+    f2.night = f2_night
 
     cur_np = h_pos.non_platform
     if window is None:
