@@ -141,7 +141,7 @@ TinyAsym = HPos("central", "pillar", "central", False)
 
 
 snow_layers = tuple(y for x in ("snow", "snow-window", "snow-window-extender") for y in (x, x + "-boundary"))
-all_f2_layers = ("window", "window-extender")
+all_f2_layers = ("window", "window-extender", "night")
 all_f2_layers_set = set(all_f2_layers + snow_layers)
 
 
@@ -282,8 +282,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
     f2_snow_window = make_extra(v, symmetry.break_x_symmetry() if window_asym else symmetry, "snow-window")
     f2_snow_window_extender = make_extra(v, symmetry, "snow-window-extender")
 
-    f2_night = make_extra(v, symmetry, "night")
-    f2.night = f2_night
+    f2.child_sprites[0].extra_storage["night"] = make_extra(v, symmetry, "night")
 
     cur_np = h_pos.non_platform
     if window is None:
@@ -407,6 +406,8 @@ def load(
     f2_snow = make_extra(v, symmetry, "snow")
     f2_snow_window = make_extra(v, symmetry.break_x_symmetry() if window_asym else symmetry, "snow-window")
     f2_snow_window_extender = make_extra(v, symmetry, "snow-window-extender")
+
+    f2.child_sprites[0].extra_storage["night"] = make_extra(v, symmetry, "night")
 
     if window is None:
         window_classes = ["windowed"]

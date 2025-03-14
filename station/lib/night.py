@@ -9,6 +9,7 @@ from agrf.lib.building.layout import (
     DefaultGraphics,
     NewGraphics,
 )
+from agrf.graphics.sprites.blend import BlendSprite
 from agrf.graphics.sprites.night import NightSprite
 from agrf.lib.building.symmetry import BuildingSymmetryMixin
 from agrf.graphics.misc import SCALE_TO_ZOOM
@@ -16,20 +17,24 @@ from agrf.sprites.empty import EmptyAlternativeSprites
 
 
 class SquashableAlternativeSprites(grf.AlternativeSprites):
-    def __init__(self, old_alt, automatic_offset_mode, darkness):
+    def __init__(self, old_alt, automatic_offset_mode, darkness, night=None):
         sprites = []
         for scale in [1, 2, 4]:
             for bpp in [32]:
                 if (s := old_alt.get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=bpp)) is not None:
-                    sprites.append(
-                        NightSprite(
-                            old_alt,
-                            scale=scale,
-                            base_bpp=bpp,
-                            automatic_offset_mode=automatic_offset_mode,
-                            darkness=darkness,
-                        )
+                    cur = NightSprite(
+                        old_alt,
+                        scale=scale,
+                        base_bpp=bpp,
+                        automatic_offset_mode=automatic_offset_mode,
+                        darkness=darkness,
                     )
+                    if night is not None:
+                        # FIXME nobody renders for me
+                        night.sprite.sprite.voxel.render()
+                        lighted = night.sprite.sprite.get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=8)
+                        cur = BlendSprite(cur, lighted)
+                    sprites.append(cur)
 
         super().__init__(*sprites)
         self.old_alt = old_alt
@@ -67,7 +72,9 @@ def make_child_night_masks(parent, automatic_offset_mode, darkness):
     else:
         raise NotImplementedError(parent.flags["dodraw"])
 
-    f = lambda x: SquashableAlternativeSprites(x, automatic_offset_mode, darkness=darkness)
+    f = lambda x: SquashableAlternativeSprites(
+        x, automatic_offset_mode, darkness=darkness, night=parent.extra_storage.get("night")
+    )
     if isinstance(graphics.sprite, BuildingSymmetryMixin):
         night = graphics.sprite.symmetry_fmap(f)
     else:
