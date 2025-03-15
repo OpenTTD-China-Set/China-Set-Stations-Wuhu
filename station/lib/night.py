@@ -31,8 +31,8 @@ class SquashableAlternativeSprites(grf.AlternativeSprites):
                     )
                     if night is not None:
                         # FIXME nobody renders for me
-                        night.sprite.sprite.voxel.render()
-                        lighted = night.sprite.sprite.get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=8)
+                        night.voxel.render()
+                        lighted = night.get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=8)
                         cur = BlendSprite(cur, lighted)
                     sprites.append(cur)
 
@@ -72,9 +72,12 @@ def make_child_night_masks(parent, automatic_offset_mode, darkness):
     else:
         raise NotImplementedError(parent.flags["dodraw"])
 
-    f = lambda x: SquashableAlternativeSprites(
-        x, automatic_offset_mode, darkness=darkness, night=parent.extra_storage.get("night")
-    )
+    if (night := parent.extra_sprites.get("night")) is not None:
+        f = lambda x: SquashableAlternativeSprites(
+            x, automatic_offset_mode, darkness=darkness, night=night.symmetry_item(graphics.sprite.symmetry_index(x))
+        )
+    else:
+        f = lambda x: SquashableAlternativeSprites(x, automatic_offset_mode, darkness=darkness)
     if isinstance(graphics.sprite, BuildingSymmetryMixin):
         night = graphics.sprite.symmetry_fmap(f)
     else:
