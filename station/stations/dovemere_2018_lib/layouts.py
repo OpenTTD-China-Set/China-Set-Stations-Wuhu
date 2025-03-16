@@ -200,6 +200,7 @@ def make_extra(v, sym, name, floor="f2"):
         v.config["overlap"] = 1.3
     elif "night" in name:
         v.config["agrf_bpps"] = [8]
+        v.config["agrf_palette"] = "station/files/ttd_palette_absolute.json"
     else:
         v.config["agrf_palette"] = "station/files/ttd_palette_window.json"
     if floor == "f2":
