@@ -150,6 +150,10 @@ all_f1_layers = (
     "ground level - platform",
     "ground level - third",
     "ground level - third - t",
+    "night - full",
+    "night - platform",
+    "night - third",
+    "night - third - t",
     "entrance",
     "entrance - t",
     "pillar",
@@ -227,6 +231,7 @@ def make_f1(v, subset, sym):
         s = sym.create_variants(V.spritesheet())
         empty_parent = AParentSprite(f1_empty_sprite[subset], (16, xspan, base_height), (0, xdiff, platform_height))
         f1_child = AChildSprite(s, (0, 0))
+        f1_child.extra_sprites["night"] = make_extra(v, sym, f"night - {subset}", floor="f1")
         f1_cache[(v, subset)] = empty_parent + f1_child, sym
     ret, ret_sym = f1_cache[(v, subset)]
     assert sym is ret_sym
