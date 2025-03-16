@@ -12,7 +12,7 @@ from .common import (
 )
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
-from ..foundation import foundation
+from ..foundation import named_foundations
 
 named_tiles.globalize()
 
@@ -100,7 +100,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
-                foundation=foundation,
+                foundation=named_foundations.foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -135,7 +135,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
-                foundation=foundation,
+                foundation=named_foundations.foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
