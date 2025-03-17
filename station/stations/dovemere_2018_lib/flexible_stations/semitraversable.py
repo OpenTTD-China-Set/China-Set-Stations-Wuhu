@@ -6,6 +6,7 @@ from .common import determine_platform_odd, determine_platform_even, make_front_
 from .traversable import cb14_2, cb14_4, cb14_6, fill_odd
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
+from ..foundation import foundation
 
 
 named_tiles.globalize()
@@ -47,6 +48,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
+                foundation=foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -92,6 +94,7 @@ for p, pclass in enumerate(platform_classes):
                     ),
                     **common_cb,
                 },
+                foundation=foundation,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],

@@ -9,6 +9,7 @@ from .dovemere_2018_lib.flexible_stations.semitraversable import semitraversable
 from .dovemere_2018_lib.flexible_stations.traversable import traversable_stations
 from .dovemere_2018_lib.flexible_stations.side import side_stations
 from .dovemere_2018_lib.flexible_stations.side_third import side_third_stations
+from .dovemere_2018_lib.foundation import foundation
 from agrf.strings import String
 
 modular_stations = []
@@ -94,6 +95,7 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
                 "select_sprite_layout": grf.DualCallback(default=0, purchase=2),
                 **common_cb,
             },
+            foundation=foundation,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
             doc_layout=entry,
@@ -113,7 +115,7 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
-        + [b"\xF0"]
+        + [b"\xf0"]
         + [b"R", b"Z"]
     ],
     {
