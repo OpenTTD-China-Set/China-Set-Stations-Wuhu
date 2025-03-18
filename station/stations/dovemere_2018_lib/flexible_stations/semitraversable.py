@@ -43,12 +43,10 @@ for p, pclass in enumerate(platform_classes):
                 disabled_platforms=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
-                    "select_sprite_layout": grf.DualCallback(
-                        default=cb14.to_index(layouts), purchase=layouts.index(demo_layout)
-                    ),
+                    "select_sprite_layout": grf.DualCallback(default=cb14, purchase=layouts.index(demo_layout)),
                     **common_cb,
                 },
-                foundation=named_foundations.foundation,
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],

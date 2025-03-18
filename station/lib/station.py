@@ -1,6 +1,7 @@
 import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
+from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code
 from .foundation import make_foundations
@@ -19,6 +20,7 @@ class AStation(grf.SpriteGenerator):
         doc_layout=None,
         enable_if=None,
         foundation=None,
+        make_foundation=False,
         extra_code="",
         **props,
     ):
@@ -33,6 +35,7 @@ class AStation(grf.SpriteGenerator):
         self.doc_layout = doc_layout
         self.enable_if = enable_if
         self.foundation = foundation
+        self.make_foundation = make_foundation
         self.extra_code = extra_code
         self._props = {
             **props,
@@ -61,32 +64,43 @@ class AStation(grf.SpriteGenerator):
         res = []
 
         if action2_pool is not None:
-            if 0 in action2_pool:
-                graphics = action2_pool[0]
-            else:
-                action2_pool[0] = graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+            graphics = action2_pool.get_action_2_zero()
         else:
             graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
 
         props = self._props.copy()
-        if self.foundation is not None:
-            if action2_pool is not None:
-                if 1 in action2_pool:
-                    foundation_1 = action2_pool[1]
-                    foundation_2 = action2_pool[2]
-                else:
-                    res.append(grf.Action1(feature=grf.STATION, set_count=2, sprite_count=8, first_set=1))
-                    res.extend(make_foundations(self.foundation))
-                    res.extend(make_foundations(self.foundation.M))
+        if self.make_foundation:
+            cb14 = self.callbacks.select_sprite_layout.default
 
-                    action2_pool[1] = foundation_1 = grf.GenericSpriteLayout(ent1=[1], ent2=[1], feature=grf.STATION)
-                    action2_pool[2] = foundation_2 = grf.GenericSpriteLayout(ent1=[2], ent2=[2], feature=grf.STATION)
+            def index_to_foundation(x):
+                if isinstance(x, ALayout):
+                    return action2_pool.get_action_2(x.foundation)
+                return x.fmap(index_to_foundation)
+
+            def index_to_foundation_plus_one(x):
+                if isinstance(x, ALayout):
+                    return action2_pool.get_action_2(x.foundation.M)
+                return x.fmap(index_to_foundation)
+
+            self.callbacks.select_sprite_layout.default = cb14.to_index(self.layouts)
+            foundations = cb14.fmap(index_to_foundation).to_index_list(None)
+            foundations_2 = cb14.fmap(index_to_foundation_plus_one).to_index_list(None)
 
             self.callbacks.graphics = grf.Switch(
-                ranges={
-                    0: graphics,
-                    2: grf.Switch(ranges={1: foundation_2}, code="extra_callback_info2 % 2", default=foundation_1),
-                },
+                ranges={2: grf.Switch(ranges={1: foundations_2}, code="extra_callback_info2 % 2", default=foundations)},
+                code=code + self.extra_code + "\nextra_callback_info1_byte",
+                default=graphics,
+            )
+            props["general_flags"] = props.get("general_flags", 0) | 0b1000
+        elif self.foundation is not None:
+            if action2_pool is not None:
+                foundation_1 = action2_pool.get_action_2(self.foundation)
+                foundation_2 = action2_pool.get_action_2(self.foundation.M)
+            else:
+                raise NotImplementedError()
+
+            self.callbacks.graphics = grf.Switch(
+                ranges={2: grf.Switch(ranges={1: foundation_2}, code="extra_callback_info2 % 2", default=foundation_1)},
                 code=code + self.extra_code + "\nextra_callback_info1_byte",
                 default=graphics,
             )

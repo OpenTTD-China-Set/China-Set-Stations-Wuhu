@@ -1,6 +1,7 @@
 import functools
 from agrf.global_cache import make_switch
 from agrf.lib.building.layout import ALayout
+from agrf.utils import unique
 
 
 def lookup(thing, w, h, x, y, t):
