@@ -1,6 +1,7 @@
 import grf
-from .utils import class_label_printable
 from agrf.utils import unique
+from .utils import class_label_printable
+from .action2_pool import Action2Pool
 
 
 class AMetaStation(grf.SpriteGenerator):
@@ -49,9 +50,14 @@ class AMetaStation(grf.SpriteGenerator):
             candidates = self.stations[i:l]
             sprites = unique(sub for s in candidates for sub in s.sprites)
             ret += [grf.Action1(feature=grf.STATION, set_count=1, sprite_count=len(sprites))] + sprites
-            action2_pool = {}
+
+            station_actions = []
+            action2_pool = Action2Pool()
             for station in candidates:
-                ret.extend(station.get_sprites(g, sprites, action2_pool))
+                station_actions.extend(station.get_sprites(g, sprites, action2_pool))
+
+            ret += action2_pool.export() + station_actions
+
             i = l
 
         for road_stop in self.road_stops:
