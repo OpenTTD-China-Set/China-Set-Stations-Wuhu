@@ -20,7 +20,6 @@ class AStation(grf.SpriteGenerator):
         is_waypoint=False,
         doc_layout=None,
         enable_if=None,
-        foundation=None,
         make_foundation=False,
         extra_code="",
         **props,
@@ -35,7 +34,6 @@ class AStation(grf.SpriteGenerator):
         self.is_waypoint = is_waypoint
         self.doc_layout = doc_layout
         self.enable_if = enable_if
-        self.foundation = foundation
         self.make_foundation = make_foundation
         self.extra_code = extra_code
         self._props = {
@@ -80,19 +78,6 @@ class AStation(grf.SpriteGenerator):
 
             self.callbacks.graphics = grf.Switch(
                 ranges={2: foundations}, code=code + self.extra_code + "\nextra_callback_info1_byte", default=graphics
-            )
-            props["general_flags"] = props.get("general_flags", 0) | 0b1000
-        elif self.foundation is not None:
-            if action2_pool is not None:
-                foundation_1 = action2_pool.get_action_2(self.foundation)
-                foundation_2 = action2_pool.get_action_2(self.foundation.M)
-            else:
-                raise NotImplementedError()
-
-            self.callbacks.graphics = grf.Switch(
-                ranges={2: grf.Switch(ranges={1: foundation_2}, code="extra_callback_info2 % 2", default=foundation_1)},
-                code=code + self.extra_code + "\nextra_callback_info1_byte",
-                default=graphics,
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         else:
