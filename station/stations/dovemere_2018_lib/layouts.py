@@ -231,7 +231,10 @@ def make_f1(v, subset, sym):
 
 
 def register(base_id, step_id, l, symmetry, internal_category, name, broken_near_hack=False):
-    l.foundation = named_foundations.foundation
+    if internal_category == "X":
+        l.foundation = named_foundations.four_sides
+    else:
+        l.foundation = named_foundations.foundation
     l = symmetry.get_all_variants(l)
     cnt = len(l)
     for i, layout in enumerate(l):

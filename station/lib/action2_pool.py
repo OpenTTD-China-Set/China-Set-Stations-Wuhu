@@ -1,6 +1,8 @@
-import grf
 from dataclasses import dataclass
+import functools
+import grf
 from .foundation import make_foundations
+from agrf.lib.building.layout import ALayout
 
 
 @dataclass
@@ -44,3 +46,18 @@ class Action2Pool:
             ret.append(grf.Action1(feature=grf.STATION, set_count=self.max_id - 1, sprite_count=8, first_set=1))
             ret.extend(self.foundations)
         return ret
+
+    def __hash__(self):
+        return id(self)
+
+    @functools.cache
+    def map_switch(self, s):
+        if isinstance(s, ALayout):
+            if s.foundation is s.M.foundation:
+                return self.get_action_2(s.foundation)
+            return grf.Switch(
+                ranges={1: self.get_action_2(s.M.foundation)},
+                code="extra_callback_info2 % 2",
+                default=self.get_action_2(s.foundation),
+            )
+        return s.fmap(lambda x: self.map_switch(x))

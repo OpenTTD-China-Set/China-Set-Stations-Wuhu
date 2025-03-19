@@ -68,7 +68,11 @@ class StationTileSwitch:
         if id(sprite_list) in self.to_index_cache:
             return self.to_index_cache[id(sprite_list)]
 
-        f = lambda v: v if isinstance(v, int) else v.to_index(sprite_list)
+        f = lambda v: (
+            v
+            if isinstance(v, int) or (sprite_list is None and not isinstance(v, StationTileSwitch))
+            else v.to_index(sprite_list)
+        )
         ranges = {k: f(v) for k, v in self.ranges.items()}
         default = find_default_element(ranges)
 

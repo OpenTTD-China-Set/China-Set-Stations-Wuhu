@@ -17,6 +17,6 @@ def register(name, sym):
 
 
 register("foundation", BuildingSymmetrical)
-register("four-sides", BuildingCylindrical)
+register("four_sides", BuildingCylindrical)
 
 named_foundations.populate()

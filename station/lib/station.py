@@ -5,6 +5,7 @@ from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code
 from .foundation import make_foundations
+from .switch import StationTileSwitch
 
 
 class AStation(grf.SpriteGenerator):
@@ -72,24 +73,13 @@ class AStation(grf.SpriteGenerator):
         if self.make_foundation:
             cb14 = self.callbacks.select_sprite_layout.default
 
-            def index_to_foundation(x):
-                if isinstance(x, ALayout):
-                    return action2_pool.get_action_2(x.foundation)
-                return x.fmap(index_to_foundation)
-
-            def index_to_foundation_plus_one(x):
-                if isinstance(x, ALayout):
-                    return action2_pool.get_action_2(x.foundation.M)
-                return x.fmap(index_to_foundation)
-
             self.callbacks.select_sprite_layout.default = cb14.to_index(self.layouts)
-            foundations = cb14.fmap(index_to_foundation).to_index_list(None)
-            foundations_2 = cb14.fmap(index_to_foundation_plus_one).to_index_list(None)
+            foundations = action2_pool.map_switch(cb14)
+            if isinstance(foundations, StationTileSwitch):
+                foundations = foundations.to_index(None)
 
             self.callbacks.graphics = grf.Switch(
-                ranges={2: grf.Switch(ranges={1: foundations_2}, code="extra_callback_info2 % 2", default=foundations)},
-                code=code + self.extra_code + "\nextra_callback_info1_byte",
-                default=graphics,
+                ranges={2: foundations}, code=code + self.extra_code + "\nextra_callback_info1_byte", default=graphics
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         elif self.foundation is not None:
