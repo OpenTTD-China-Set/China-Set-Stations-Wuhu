@@ -33,6 +33,7 @@ from station.stations.platforms import (
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
 from station.stations.misc import track_ground, track
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
+from .foundation import named_foundations
 from dataclasses import dataclass
 
 
@@ -230,6 +231,10 @@ def make_f1(v, subset, sym):
 
 
 def register(base_id, step_id, l, symmetry, internal_category, name, broken_near_hack=False):
+    if internal_category == "X":
+        l.foundation = named_foundations.four_sides
+    else:
+        l.foundation = named_foundations.foundation
     l = symmetry.get_all_variants(l)
     cnt = len(l)
     for i, layout in enumerate(l):

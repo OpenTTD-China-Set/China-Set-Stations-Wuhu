@@ -6,7 +6,6 @@ from .common import determine_platform_odd, determine_platform_even, make_front_
 from .traversable import cb14_2, cb14_4, cb14_6, fill_odd
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
-from ..foundation import foundation
 
 
 named_tiles.globalize()
@@ -43,12 +42,10 @@ for p, pclass in enumerate(platform_classes):
                 disabled_platforms=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
-                    "select_sprite_layout": grf.DualCallback(
-                        default=cb14.to_index(layouts), purchase=layouts.index(demo_layout)
-                    ),
+                    "select_sprite_layout": grf.DualCallback(default=cb14, purchase=layouts.index(demo_layout)),
                     **common_cb,
                 },
-                foundation=foundation,
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -89,12 +86,10 @@ for p, pclass in enumerate(platform_classes):
                 disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
-                    "select_sprite_layout": grf.DualCallback(
-                        default=cb14.to_index(layouts), purchase=layouts.index(demo_layout)
-                    ),
+                    "select_sprite_layout": grf.DualCallback(default=cb14, purchase=layouts.index(demo_layout)),
                     **common_cb,
                 },
-                foundation=foundation,
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
