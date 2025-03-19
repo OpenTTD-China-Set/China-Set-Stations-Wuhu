@@ -37,6 +37,7 @@ from station.stations.ground import named_ps as ground_ps, named_tiles as ground
 from station.stations.misc import track_ground, track
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from agrf.graphics.misc import SCALE_TO_ZOOM
+from .foundation import named_foundations
 from dataclasses import dataclass
 
 
@@ -196,6 +197,9 @@ def make_extra(v, sym, name, floor="f2"):
     else:
         vd = vd.mask_clip_away("station/voxels/dovemere_2018/masks/overpass.vox", "f1")
     v = vd.compose(v, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+
+    v.config["agrf_no_mask"] = True
+
     if "snow" in name:
         v.config["overlap"] = 1.3
     elif "night" in name:
@@ -229,6 +233,7 @@ def make_f1(v, subset, sym):
         V = V.mask_clip_away("station/voxels/dovemere_2018/masks/overpass.vox", "f1")
         V.in_place_subset(sym.render_indices())
         V.config["agrf_relative_childsprite"] = f1_empty_offset
+        V.config["agrf_no_mask"] = True
         s = sym.create_variants(V.spritesheet())
         empty_parent = AParentSprite(f1_empty_sprite[subset], (16, xspan, base_height), (0, xdiff, platform_height))
         f1_child = AChildSprite(s, (0, 0))
@@ -240,6 +245,10 @@ def make_f1(v, subset, sym):
 
 
 def register(base_id, step_id, l, symmetry, internal_category, name, broken_near_hack=False):
+    if internal_category == "X":
+        l.foundation = named_foundations.four_sides
+    else:
+        l.foundation = named_foundations.foundation
     l = symmetry.get_all_variants(l)
     cnt = len(l)
     for i, layout in enumerate(l):
