@@ -1,3 +1,4 @@
+import grf
 from station.lib import (
     AStation,
     AMetaStation,
@@ -30,6 +31,7 @@ def quickload(name, symmetry, traversable):
     plat = platform_ps.cns_concrete_solid_shelter_2.up(8)
 
     l = ALayout(None, [plat.T, parent], traversable)
+    l.foundation = ground_images.gray
     ret = symmetry.create_variants(symmetry.get_all_variants(l))
     entries.extend(symmetry.get_all_entries(ret))
     named_tiles[name] = ret
@@ -54,8 +56,12 @@ for i, entry in enumerate(entries):
             class_label=b"\xe9\xb8\xa0A",
             cargo_threshold=40,
             non_traversable_tiles=0b11,
-            # general_flags=0x08, # FIXME: handle custom foundation later
-            callbacks={"select_tile_layout": 0, **station_cb["E9B8A0A"]},
+            callbacks={
+                "select_tile_layout": 0,
+                "select_sprite_layout": grf.DualCallback(default=entry, purchase=0),
+                **station_cb["E9B8A0A"],
+            },
+            make_foundation=True,
             extra_code=station_code["E9B8A0A"],
             enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
             doc_layout=entry,
@@ -67,13 +73,14 @@ plat = platform_tiles.cns_concrete_shelter_2
 plat2_T = platform_tiles.cns_concrete_elevated_shelter_2.lower_tile()
 plat2 = platform_tiles.cns_concrete_elevated_shelter_2.T.lower_tile()
 gate_T = named_tiles.front_gate.T.lower_tile()
-gate = named_tiles.front_gate.lower_tile().add_foundation(ground_images.gray, 9)
-gate_R = named_tiles.front_gate.R.lower_tile().add_foundation(ground_images.gray, 9)
+gate = named_tiles.front_gate.lower_tile().enable_foundation(9)
+gate_R = named_tiles.front_gate.R.lower_tile().enable_foundation(9)
 normal_T = named_tiles.front_normal.T.lower_tile()
-normal = named_tiles.front_normal.lower_tile().add_foundation(ground_images.gray, 9)
-normal_R = named_tiles.front_normal.R.lower_tile().add_foundation(ground_images.gray, 9)
+normal = named_tiles.front_normal.lower_tile().enable_foundation(9)
+normal_R = named_tiles.front_normal.R.lower_tile().enable_foundation(9)
 escalator_T = named_tiles.escalator.T.lower_tile()
-escalator = named_tiles.escalator.lower_tile()
+escalator = named_tiles.escalator.lower_tile().enable_foundation(9)
+escalator_R = named_tiles.escalator.R.lower_tile().enable_foundation(9)
 default = default.lower_tile().lower_tile()
 sloped_track = sloped_track.lower_tile()
 slope_2 = slope_2.lower_tile().lower_tile()
@@ -104,7 +111,7 @@ the_stations = AMetaStation(
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [plat] * 10 + [sloped_track.R],
-                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal_R, escalator.R, plat2, plat2, slope_2],
+                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal_R, escalator_R, plat2, plat2, slope_2],
                 [default] * 12,
             ],
             "Test",
