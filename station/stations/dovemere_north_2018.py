@@ -70,8 +70,8 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_shelter_2
-plat2_T = platform_tiles.cns_concrete_elevated_shelter_2.lower_tile()
-plat2 = platform_tiles.cns_concrete_elevated_shelter_2.T.lower_tile()
+plat2_T = platform_tiles.cns_concrete_elevated2_shelter_2.lower_tile()
+plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T.lower_tile().enable_foundation(9)
 gate_T = named_tiles.front_gate.T.lower_tile()
 gate = named_tiles.front_gate.lower_tile().enable_foundation(9)
 gate_R = named_tiles.front_gate.R.lower_tile().enable_foundation(9)

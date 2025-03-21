@@ -1,7 +1,7 @@
 from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical
 from abc import ABC, abstractmethod
 from ..misc import track_ground
-from ..ground import named_ps as ground_ps
+from ..ground import named_ps as ground_ps, named_images as ground_images
 
 gray_ps = ground_ps.gray
 
@@ -151,6 +151,7 @@ def register(pf: PlatformFamily):
             if shelter_class == "pillar":
                 continue
             ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
+
             l = ALayout(gray_ps, [ps.up(8)], False, notes=make_notes(platform_class, shelter_class))
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
@@ -158,6 +159,15 @@ def register(pf: PlatformFamily):
                 entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x28 + i
                 entries.append(entry)
             platform_tiles[(name, platform_class, "elevated", shelter_class, "", "")] = l
+
+            l = ALayout(None, [ps.up(8)], False, notes=make_notes(platform_class, shelter_class))
+            l.foundation = ground_images.gray
+            cur_symmetry = ps.sprite.symmetry
+            l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+                entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x2C + i
+                entries.append(entry)
+            platform_tiles[(name, platform_class, "elevated2", shelter_class, "", "")] = l
 
     for pid, platform_class in enumerate(["none"] + platform_classes):
         for ssid, side in enumerate(["", "d"] if platform_class != "none" else [""]):
