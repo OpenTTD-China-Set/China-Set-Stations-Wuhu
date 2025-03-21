@@ -82,7 +82,8 @@ escalator_T = named_tiles.escalator.T.lower_tile()
 escalator = named_tiles.escalator.lower_tile().enable_foundation(9)
 escalator_R = named_tiles.escalator.R.lower_tile().enable_foundation(9)
 default = default.lower_tile().lower_tile()
-sloped_track = sloped_track.lower_tile()
+sloped_track_R = sloped_track.R.lower_tile().add_default_foundation(66)
+sloped_track = sloped_track.lower_tile().add_default_foundation(72)
 slope_2 = slope_2.lower_tile().lower_tile()
 
 the_stations = AMetaStation(
@@ -107,10 +108,10 @@ the_stations = AMetaStation(
                     plat2_T,
                     default,
                 ],
-                [sloped_track] + [plat.T] * 10 + [sloped_track.R],
-                [sloped_track] + [track] * 10 + [sloped_track.R],
-                [sloped_track] + [track] * 10 + [sloped_track.R],
-                [sloped_track] + [plat] * 10 + [sloped_track.R],
+                [sloped_track] + [plat.T] * 10 + [sloped_track_R],
+                [sloped_track] + [track] * 10 + [sloped_track_R],
+                [sloped_track] + [track] * 10 + [sloped_track_R],
+                [sloped_track] + [plat] * 10 + [sloped_track_R],
                 [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal_R, escalator_R, plat2, plat2, slope_2],
                 [default] * 12,
             ],
