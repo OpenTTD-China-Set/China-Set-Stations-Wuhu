@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 import functools
 import grf
-from .foundation import make_foundations
 from agrf.lib.building.layout import ALayout
+from agrf.graphics.helpers.foundation import make_foundations
 
 
 @dataclass
