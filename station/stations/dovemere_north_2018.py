@@ -70,11 +70,12 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_shelter_2
-plat2_T = platform_tiles.cns_concrete_elevated2_shelter_2.lower_tile()
+plat2_T = platform_tiles.cns_concrete_elevated2_shelter_2.lower_tile().enable_foundation(6)
 plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T.lower_tile().enable_foundation(9)
-gate_T = named_tiles.front_gate.T.lower_tile()
-gate = named_tiles.front_gate.lower_tile().enable_foundation(9)
-gate_R = named_tiles.front_gate.R.lower_tile().enable_foundation(9)
+gate_T = named_tiles.front_gate.T.lower_tile().enable_foundation(6)
+gate_TR = named_tiles.front_gate.T.R.lower_tile().enable_foundation(6)
+gate = named_tiles.front_gate.lower_tile()
+gate_R = named_tiles.front_gate.R.lower_tile()
 normal_T = named_tiles.front_normal.T.lower_tile()
 normal = named_tiles.front_normal.lower_tile().enable_foundation(9)
 normal_R = named_tiles.front_normal.R.lower_tile().enable_foundation(9)
@@ -86,6 +87,7 @@ sloped_track_foundation = sloped_track.lower_tile().add_default_foundation(72)
 sloped_track_foundation_R = sloped_track.R.lower_tile().add_default_foundation(66)
 sloped_track = sloped_track.lower_tile()
 slope_2 = slope_2.lower_tile().lower_tile()
+slope_2_T = slope_2.T.lower_tile().lower_tile()
 
 the_stations = AMetaStation(
     station_tiles,
@@ -96,24 +98,37 @@ the_stations = AMetaStation(
             [
                 [default] * 12,
                 [
-                    default,
+                    slope_2_T,
                     plat2_T,
                     plat2_T,
                     escalator_T,
                     normal_T,
                     gate_T,
-                    gate_T.R,
+                    gate_TR,
                     normal_T.R,
                     escalator_T.R,
                     plat2_T,
                     plat2_T,
-                    default,
+                    slope_2_T,
                 ],
                 [sloped_track] + [plat.T] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track_foundation] + [plat] * 10 + [sloped_track_foundation_R],
-                [slope_2, plat2, plat2, escalator, normal, gate, gate_R, normal_R, escalator_R, plat2, plat2, slope_2],
+                [
+                    slope_2,
+                    plat2,
+                    plat2,
+                    escalator,
+                    normal,
+                    gate.enable_foundation(9),
+                    gate_R.enable_foundation(9),
+                    normal_R,
+                    escalator_R,
+                    plat2,
+                    plat2,
+                    slope_2,
+                ],
                 [default] * 12,
             ],
             "Test",
