@@ -11,17 +11,9 @@ from station.lib import (
 )
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
-from agrf.graphics.helpers.map import map_alternative_sprites
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, sloped_track, default, slope_2
-from station.stations.ground import named_images as ground_images
-
-
-big_gray = ground_images.gray.symmetry_fmap(
-    lambda y: map_alternative_sprites(
-        y, lambda x, scale, bpp: x.blend_over(x.copy().move(-32 * scale, -16 * scale)), "tile"
-    )
-)
+from station.stations.platform_lib.registry import big_gray
 
 
 def quickload(name, symmetry, traversable):

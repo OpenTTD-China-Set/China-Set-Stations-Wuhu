@@ -2,6 +2,22 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps, named_images as ground_images
+from agrf.graphics.helpers.map import map_alternative_sprites
+
+
+def create_huge_ground(sprite, scale, bpp):
+    x1 = sprite.copy().move(-32 * scale, -16 * scale)
+    x2 = sprite.copy().move(32 * scale, -16 * scale)
+    x3 = sprite.copy().move(0, -32 * scale)
+    sprite.blend_over(x1)
+    sprite.blend_over(x2)
+    sprite.blend_over(x3)
+    return sprite
+
+
+big_gray = ground_images.gray.symmetry_fmap(
+    lambda y: map_alternative_sprites(y, create_huge_ground, "tiling", xofs=-32, yofs=-32)
+)
 
 gray_ps = ground_ps.gray
 
@@ -167,7 +183,7 @@ def register(pf: PlatformFamily):
             l = ALayout(
                 None, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
             )
-            l.foundation = ground_images.gray
+            l.foundation = big_gray
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
