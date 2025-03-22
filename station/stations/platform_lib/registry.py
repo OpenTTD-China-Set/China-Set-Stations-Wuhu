@@ -98,6 +98,7 @@ def register(pf: PlatformFamily):
                                 track_ground if rail_facing != "solid" else gray_ps,
                                 l,
                                 rail_facing != "solid",
+                                category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cp",
                                 notes=make_notes(platform_class, shelter_class),
                             )
                         )
@@ -132,6 +133,7 @@ def register(pf: PlatformFamily):
                                     track_ground,
                                     [platform_ps[(name, *suffix, "")], platform_ps[(name, *suffix2, "")].T],
                                     True,
+                                    category=b"\xe8\x8a\x9cP",
                                     notes=make_notes(platform_class, shelter_class, shelter_class_2),
                                 )
                             )
@@ -152,7 +154,9 @@ def register(pf: PlatformFamily):
                 continue
             ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
 
-            l = ALayout(gray_ps, [ps.up(8)], False, category="E", notes=make_notes(platform_class, shelter_class))
+            l = ALayout(
+                gray_ps, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
+            )
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
@@ -160,7 +164,9 @@ def register(pf: PlatformFamily):
                 entries.append(entry)
             platform_tiles[(name, platform_class, "elevated", shelter_class, "", "")] = l
 
-            l = ALayout(None, [ps.up(8)], False, category="E", notes=make_notes(platform_class, shelter_class))
+            l = ALayout(
+                None, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
+            )
             l.foundation = ground_images.gray
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
@@ -180,7 +186,9 @@ def register(pf: PlatformFamily):
                 symmetry = BuildingSymmetricalX
 
             var = symmetry.get_all_variants(
-                ALayout(gray_ps, [ps], False, notes=["concourse"] + make_notes(platform_class))
+                ALayout(
+                    gray_ps, [ps], False, category=b"\xe8\x8a\x9cp", notes=["concourse"] + make_notes(platform_class)
+                )
             )
             l = symmetry.create_variants(var)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
@@ -207,6 +215,7 @@ def register(pf: PlatformFamily):
                                 gray_ps,
                                 l + [ps],
                                 False,
+                                category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
                             )
                         )
