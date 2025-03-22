@@ -94,7 +94,13 @@ def register(pf: PlatformFamily):
                             cur_symmetry = ps.sprite.symmetry
 
                         var = cur_symmetry.get_all_variants(
-                            ALayout(track_ground, l, True, notes=make_notes(platform_class, shelter_class))
+                            ALayout(
+                                track_ground,
+                                l,
+                                True,
+                                category=b"\xe8\x8a\x9cP",
+                                notes=make_notes(platform_class, shelter_class),
+                            )
                         )
                         l = cur_symmetry.create_variants(var)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
@@ -120,6 +126,7 @@ def register(pf: PlatformFamily):
                                     track_ground,
                                     [platform_ps[(name, *suffix, "")], platform_ps[(name, *suffix2, "")].T],
                                     True,
+                                    category=b"\xe8\x8a\x9cP",
                                     notes=make_notes(platform_class, shelter_class, shelter_class_2),
                                 )
                             )
@@ -145,7 +152,9 @@ def register(pf: PlatformFamily):
                 symmetry = BuildingSymmetricalX
 
             var = symmetry.get_all_variants(
-                ALayout(gray_ps, [ps], False, notes=["concourse"] + make_notes(platform_class))
+                ALayout(
+                    gray_ps, [ps], False, category=b"\xe8\x8a\x9cp", notes=["concourse"] + make_notes(platform_class)
+                )
             )
             l = symmetry.create_variants(var)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
@@ -172,6 +181,7 @@ def register(pf: PlatformFamily):
                                 gray_ps,
                                 l + [ps],
                                 False,
+                                category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
                             )
                         )
