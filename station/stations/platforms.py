@@ -1,3 +1,4 @@
+import grf
 from station.lib import (
     AStation,
     AMetaStation,
@@ -190,7 +191,15 @@ for i, entry in enumerate(entries):
             class_label=b"\xe8\x8a\x9cP",
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
-            callbacks={"select_tile_layout": 0},
+            callbacks={
+                "select_tile_layout": 0,
+                **(
+                    {"select_sprite_layout": grf.DualCallback(default=entry, purchase=0)}
+                    if entry.foundation is not None
+                    else {}
+                ),
+            },
+            make_foundation=entry.foundation is not None,
             enable_if=enable_if,
             doc_layout=entry,
         )
