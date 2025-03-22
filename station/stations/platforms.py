@@ -188,7 +188,7 @@ for i, entry in enumerate(entries):
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
             layouts=[entry, entry.M],
-            class_label=b"\xe8\x8a\x9cP",
+            class_label=b"\xe8\x8a\x9cP" if entry.traversable else b"\xe8\x8a\x9cp",
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
