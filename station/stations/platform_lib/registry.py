@@ -152,7 +152,7 @@ def register(pf: PlatformFamily):
                 continue
             ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
 
-            l = ALayout(gray_ps, [ps.up(8)], False, notes=make_notes(platform_class, shelter_class))
+            l = ALayout(gray_ps, [ps.up(8)], False, category="E", notes=make_notes(platform_class, shelter_class))
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
@@ -160,7 +160,7 @@ def register(pf: PlatformFamily):
                 entries.append(entry)
             platform_tiles[(name, platform_class, "elevated", shelter_class, "", "")] = l
 
-            l = ALayout(None, [ps.up(8)], False, notes=make_notes(platform_class, shelter_class))
+            l = ALayout(None, [ps.up(8)], False, category="E", notes=make_notes(platform_class, shelter_class))
             l.foundation = ground_images.gray
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
