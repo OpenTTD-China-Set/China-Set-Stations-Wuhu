@@ -6,9 +6,9 @@ from agrf.graphics.helpers.map import map_alternative_sprites
 
 
 def create_huge_ground(sprite, scale, bpp):
-    x1 = sprite.copy().move(-32 * scale, -16 * scale)
-    x2 = sprite.copy().move(32 * scale, -16 * scale)
-    x3 = sprite.copy().move(0, -32 * scale)
+    x1 = sprite.copy().move(-32 * scale, 16 * scale)
+    x2 = sprite.copy().move(32 * scale, 16 * scale)
+    x3 = sprite.copy().move(0, 32 * scale)
     sprite.blend_over(x1)
     sprite.blend_over(x2)
     sprite.blend_over(x3)
