@@ -69,7 +69,8 @@ for i, entry in enumerate(entries):
     )
 
 
-plat = platform_tiles.cns_concrete_shelter_2
+plat_T = platform_tiles.cns_concrete_supported_shelter_2.T.enable_foundation(6)
+plat = platform_tiles.cns_concrete_supported_shelter_2.enable_foundation(9)
 plat2_T = platform_tiles.cns_concrete_elevated2_shelter_2.lower_tile().enable_foundation(6)
 plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T.lower_tile().enable_foundation(9)
 gate_T = named_tiles.front_gate.T.lower_tile().enable_foundation(6)
@@ -111,7 +112,7 @@ the_stations = AMetaStation(
                     plat2_T,
                     slope_2_T,
                 ],
-                [sloped_track] + [plat.T] * 10 + [sloped_track.R],
+                [sloped_track] + [plat_T] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track] + [track] * 10 + [sloped_track.R],
                 [sloped_track_foundation] + [plat] * 10 + [sloped_track_foundation_R],
@@ -134,5 +135,6 @@ the_stations = AMetaStation(
             "Test",
         ),
         Demo([[plat2_T]], "Test 2"),
+        Demo([[plat]], "Test 3"),
     ],
 )
