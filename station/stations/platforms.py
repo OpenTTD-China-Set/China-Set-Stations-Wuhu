@@ -208,7 +208,7 @@ for i, entry in enumerate(entries):
 the_stations = AMetaStation(
     station_tiles,
     b"\xe8\x8a\x9cP",
-    [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cE"],
+    [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cL", b"\xe8\x8a\x9cl", b"\xe8\x8a\x9cE", b"\xe8\x8a\x9ce"],
     [
         Demo([[cns_concrete], [cns_concrete_d], [cns_concrete.T]], "Platform"),
         Demo([[cns_concrete_side], [cns_concrete_d], [cns_concrete_side.T]], "Platform with concrete grounds"),

@@ -181,7 +181,7 @@ def register(pf: PlatformFamily):
             platform_tiles[(name, platform_class, "elevated", shelter_class, "", "")] = l
 
             l = ALayout(
-                None, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
+                None, [ps.up(8)], False, category=b"\xe8\x8a\x9ce", notes=make_notes(platform_class, shelter_class)
             )
             l.foundation = big_gray
             cur_symmetry = ps.sprite.symmetry
