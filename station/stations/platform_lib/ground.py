@@ -25,9 +25,8 @@ def make_sprite(name, symmetry):
         name,
         prefix=".cache/render/station/cns",
         voxel_getter=lambda path=f"station/voxels/cns/{name}.vox": path,
-        load_from="station/files/gorender.json",
+        load_from="station/files/cns-gorender.json",
         subset=symmetry.render_indices(),
-        config={"z_scale": 1.0},
     )
 
     sprite = symmetry.create_variants(v.spritesheet())
