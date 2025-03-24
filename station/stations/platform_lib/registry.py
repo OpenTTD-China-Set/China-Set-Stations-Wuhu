@@ -2,7 +2,7 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
-from .ground import big_gray, fake_bridge_merged
+from .ground import big_gray, fake_bridge_merged, pillar_base_merged
 
 
 gray_ps = ground_ps.gray
@@ -180,7 +180,7 @@ def register(pf: PlatformFamily):
             l = ALayout(
                 None, [ps.up(8)], False, category=b"\xe8\x8a\x9ce", notes=make_notes(platform_class, shelter_class)
             )
-            l.foundation = big_gray
+            l.foundation = pillar_base_merged
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):

@@ -136,5 +136,6 @@ the_stations = AMetaStation(
         ),
         Demo([[plat2_T]], "Test 2"),
         Demo([[plat]], "Test 3"),
+        Demo([[plat2]], "Test 4"),
     ],
 )

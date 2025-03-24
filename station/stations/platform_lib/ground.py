@@ -1,8 +1,10 @@
 from agrf.graphics.helpers.blend import blend_alternative_sprites
 from agrf.graphics.helpers.map import map_alternative_sprites
 from agrf.graphics.voxel import LazyVoxel
-from station.lib import BuildingSymmetrical, AParentSprite
+from station.lib import BuildingSymmetrical, BuildingSymmetricalX, AParentSprite
 from ..ground import named_images as ground_images
+
+JOGGLE_AMOUNT = 45 - 32 * 2**0.5
 
 
 def create_huge_ground(sprite, scale, bpp):
@@ -20,7 +22,7 @@ big_gray = ground_images.gray.symmetry_fmap(
 )
 
 
-def make_sprite(name, symmetry):
+def make_sprite(name, symmetry, joggle):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/cns",
@@ -29,9 +31,13 @@ def make_sprite(name, symmetry):
         subset=symmetry.render_indices(),
     )
 
+    v.config["joggle"] = joggle
+
     sprite = symmetry.create_variants(v.spritesheet())
     return sprite
 
 
-fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical)
+pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
+pillar_base_merged = pillar_base.symmetry_fmap(lambda y: blend_alternative_sprites(ground_images.gray, y))
+fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
 fake_bridge_merged = fake_bridge.symmetry_fmap(lambda y: blend_alternative_sprites(ground_images.gray, y))
