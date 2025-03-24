@@ -19,7 +19,7 @@ from station.stations.platform_lib.registry import big_gray
 def quickload(name, symmetry, traversable):
     v = LazyVoxel(
         name,
-        prefix="station/voxels/render/dovemere_north_2018",
+        prefix=".cache/render/station/dovemere_north_2018",
         voxel_getter=lambda path=f"station/voxels/dovemere_north_2018/{name}.vox": path,
         load_from="station/files/gorender.json",
         subset=symmetry.render_indices(),
