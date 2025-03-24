@@ -36,6 +36,3 @@ def make_sprite(name, symmetry):
 
 fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical)
 fake_bridge_merged = fake_bridge.symmetry_fmap(lambda y: blend_alternative_sprites(ground_images.gray, y))
-
-from agrf.graphics import SCALE_TO_ZOOM, LayeredImage
-LayeredImage.from_sprite(fake_bridge_merged.get_sprite(zoom=SCALE_TO_ZOOM[4], bpp=32)).to_pil_image().save("a.png")
