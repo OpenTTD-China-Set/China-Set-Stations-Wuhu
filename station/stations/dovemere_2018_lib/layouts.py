@@ -1,6 +1,5 @@
 import os
 import inspect
-import types
 from station.lib import (
     BuildingFull,
     BuildingSymmetrical,
@@ -17,7 +16,6 @@ from station.lib import (
     Registers,
 )
 from agrf.graphics.voxel import LazyVoxel
-from agrf.sprites import empty_alternatives
 from station.stations.platforms import (
     platform_ps,
     concourse_ps,
@@ -32,6 +30,7 @@ from station.stations.platforms import (
 )
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
 from station.stations.misc import track_ground, track
+from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
 from dataclasses import dataclass
@@ -47,25 +46,6 @@ concourse = concourse_ps.none
 
 # FIXME: technically should be 21 instead of 20, but in reality that results in bad effects
 JOGGLE_AMOUNT = (16 * 2**0.5 - 20) / 1.25
-
-
-def make_empty_variant(w, h, x, y, offset=0, span=16):
-    if offset == 0 and span == 16:
-        empty_image = empty_alternatives(w, h, x, y)
-        empty_image.squash = types.MethodType(lambda self, *args, empty_image=empty_image: self, empty_image)
-        return BuildingCylindrical.create_variants([empty_image])
-    deltas = [[-2, -1], [2, -1], [-2, -1], [2, -1], [2, 1], [-2, 1], [2, 1], [-2, 1]]
-    offsets = [[0, 0], [0, 0], [0, 0], [0, 0], [-2, -1], [2, -1], [-2, -1], [2, -1]]
-
-    empty_images = []
-    for i in range(8):
-        x1 = x + deltas[i][0] * offset + offsets[i][0] * (16 - span)
-        y1 = y + deltas[i][1] * offset + offsets[i][1] * (16 - span)
-
-        empty_image = empty_alternatives(w, h, x1, y1)
-        empty_image.squash = types.MethodType(lambda self, *args, empty_image=empty_image: self, empty_image)
-        empty_images.append(empty_image)
-    return BuildingFull.create_variants(empty_images)
 
 
 def get_category(internal_category, back, notes, tra):
@@ -166,8 +146,6 @@ f1_empty_offset = (-31, -14)
 f1_empty_sprite = {}
 for k, (_, offset, span) in f1_subsets.items():
     f1_empty_sprite[k] = make_empty_variant(64, 48, *f1_empty_offset, offset, span)
-f2_empty_offset = (-31, -34)
-f2_empty_sprite = make_empty_variant(64, 68, *f2_empty_offset)
 
 
 def make_f2(v, sym):
