@@ -161,7 +161,7 @@ def register(pf: PlatformFamily):
         for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
             if shelter_class == "pillar":
                 continue
-            ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
+            ps = platform_ps[(name, platform_class, "", shelter_class, "")]
 
             l = ALayout(
                 track_ground, [ps], True, category=b"\xe8\x8a\x9cL", notes=make_notes(platform_class, shelter_class)
@@ -174,6 +174,7 @@ def register(pf: PlatformFamily):
                 entries.append(entry)
             platform_tiles[(name, platform_class, "supported", shelter_class, "", "")] = l
 
+            ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
             l = ALayout(
                 gray_ps, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
             )
