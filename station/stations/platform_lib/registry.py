@@ -2,14 +2,7 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
-from .ground import (
-    big_gray,
-    pillar,
-    pillar_base_underground,
-    pillar_base_underground_gs,
-    fake_bridge_merged,
-    pillar_base_merged,
-)
+from .ground import pillar, pillar_base_underground, pillar_base_underground_gs, fake_bridge_merged, pillar_base_merged
 
 
 gray_ps = ground_ps.gray

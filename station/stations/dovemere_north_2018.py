@@ -13,7 +13,7 @@ from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, sloped_track, default, slope_2
-from station.stations.platform_lib.registry import big_gray
+from station.stations.platform_lib.ground import big_gray
 
 
 def quickload(name, symmetry, traversable):
