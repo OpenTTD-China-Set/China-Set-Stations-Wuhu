@@ -176,7 +176,11 @@ def register(pf: PlatformFamily):
 
             ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
             l = ALayout(
-                gray_ps, [ps.up(8)], False, category=b"\xe8\x8a\x9cE", notes=make_notes(platform_class, shelter_class)
+                gray_ps,
+                [pillar, ps.up(8)],
+                False,
+                category=b"\xe8\x8a\x9cE",
+                notes=make_notes(platform_class, shelter_class),
             )
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))

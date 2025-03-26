@@ -3,7 +3,7 @@ from agrf.graphics.voxel import LazyVoxel
 from station.lib.registers import Registers
 
 
-def quickload(name, symmetry):
+def quickload(name, symmetry, parts=None):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/ground",
@@ -12,18 +12,29 @@ def quickload(name, symmetry):
         subset=symmetry.render_indices(),
     )
 
-    sprite = symmetry.create_variants(v.spritesheet())
-    named_images[name] = sprite
-    ps = AGroundSprite(sprite, flags={"add": Registers.ZERO})
-    named_ps[name] = ps
-    l = ALayout(ps, [], False)
-    named_tiles[name] = l
+    if parts is None:
+        parts = []
+
+    for i in range(2 ** len(parts)):
+        subtype = "_".join([parts[j] for j in range(len(parts)) if (i & (2**j)) == 0])
+        v2 = v.discard_layers(tuple(parts[j] for j in range(len(parts)) if (i & (2**j)) > 0), subtype)
+
+        sprite = symmetry.create_variants(v2.spritesheet())
+        named_images[(name, subtype)] = sprite
+        ps = AGroundSprite(sprite, flags={"add": Registers.ZERO})
+        named_ps[(name, subtype)] = ps
+        l = ALayout(ps, [], False)
+        named_tiles[(name, subtype)] = l
     return sprite
 
 
-named_images = AttrDict()
-named_ps = AttrDict()
-named_tiles = AttrDict()
+named_images = AttrDict(schema=("name", "subtype"))
+named_ps = AttrDict(schema=("name", "subtype"))
+named_tiles = AttrDict(schema=("name", "subtype"))
 
-quickload("gray", BuildingCylindrical)
+quickload("gray", BuildingCylindrical, ["top", "right"])
 quickload("gray_third", BuildingSymmetricalX)
+
+named_images.populate()
+named_ps.populate()
+named_tiles.populate()
