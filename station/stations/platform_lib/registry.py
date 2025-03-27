@@ -167,6 +167,17 @@ def register(pf: PlatformFamily):
                 entries.append(entry)
             platform_tiles[(name, platform_class, "supported", shelter_class, "", "")] = l
 
+            l = ALayout(
+                track_ground, [ps], True, category=b"\xe8\x8a\x9cl", notes=make_notes(platform_class, shelter_class)
+            )
+            l.foundation = fake_bridge_merged
+            cur_symmetry = ps.sprite.symmetry
+            l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+                entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x26 + i
+                entries.append(entry)
+            platform_tiles[(name, platform_class, "supported2", shelter_class, "", "")] = l
+
             ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
             l = ALayout(
                 gray_ps,
