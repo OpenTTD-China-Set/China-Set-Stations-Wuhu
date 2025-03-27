@@ -2,7 +2,6 @@ import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
 from agrf.lib.building.layout import ALayout
-from agrf.graphics.helpers.foundation import make_foundations
 from .utils import class_label_printable
 from .registers import code
 from .switch import StationTileSwitch
