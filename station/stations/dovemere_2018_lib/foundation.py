@@ -14,7 +14,7 @@ def register(name, sym):
         config={"z_scale": 1.0},
     )
     v.in_place_subset(sym.render_indices())
-    named_foundations[name] = Foundation(sym.create_variants(v.spritesheet()), None, False)
+    named_foundations[name] = Foundation(sym.create_variants(v.spritesheet()), None, True)
 
 
 register("foundation", BuildingSymmetrical)
