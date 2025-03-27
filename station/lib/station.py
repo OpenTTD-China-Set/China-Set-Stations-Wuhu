@@ -4,7 +4,6 @@ from agrf.utils import unique
 from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code
-from .foundation import make_foundations
 from .switch import StationTileSwitch
 
 

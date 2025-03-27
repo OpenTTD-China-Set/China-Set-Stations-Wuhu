@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 import functools
 import grf
-from .foundation import make_foundations
 from agrf.lib.building.layout import ALayout
 
 
@@ -24,7 +23,7 @@ class Action2Pool:
         if foundation in self.foundation_to_id:
             return self.foundation_to_id[foundation]
         self.foundation_to_id[foundation] = self.max_id
-        self.foundations.extend(make_foundations(foundation))
+        self.foundations.extend(foundation.make_foundations())
         self.id_to_action2[self.max_id] = grf.GenericSpriteLayout(
             ent1=[self.max_id], ent2=[self.max_id], feature=grf.STATION
         )
