@@ -137,9 +137,17 @@ all_f1_layers_set = set(all_f1_layers + snow_layers)
 
 
 f1_subsets = {
-    "third": ({"ground level - third", "underground entrance", "entrance", "pillar"}, 16 - platform_width, platform_width),
+    "third": (
+        {"ground level - third", "underground entrance", "entrance", "pillar"},
+        16 - platform_width,
+        platform_width,
+    ),
     "third_t": ({"ground level - third - t", "underground entrance", "entrance - t", "pillar - t"}, 0, platform_width),
-    "platform": ({"ground level - platform", "underground entrance", "entrance", "pillar"}, platform_width, 16 - platform_width),
+    "platform": (
+        {"ground level - platform", "underground entrance", "entrance", "pillar"},
+        platform_width,
+        16 - platform_width,
+    ),
     "full": ({"ground level", "underground entrance", "entrance", "pillar", "entrance - t", "pillar - t"}, 0, 16),
 }
 
