@@ -161,7 +161,10 @@ def make_f2(v, sym):
 
 
 def make_extra(v, sym, name, floor="f2"):
-    vd = v.keep_layers((name, name + "-boundary"), name)
+    if "snow" in name:
+        vd = v.keep_layers((name, "snow-boundary"), name)
+    else:
+        vd = v.keep_layers((name,), name)
     if floor == "f2":
         vd = vd.mask_clip_away("station/voxels/dovemere_2018/masks/ground_level.vox", "f2")
     else:
