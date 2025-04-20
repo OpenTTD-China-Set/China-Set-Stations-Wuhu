@@ -99,6 +99,7 @@ def register(pf: PlatformFamily):
                                 track_ground,
                                 [bufferstop, bufferstop.R] + l,
                                 True,
+                                category=b"\xe8\x8a\x9cP",
                                 notes=make_notes(platform_class, shelter_class),
                             )
                         )
@@ -131,6 +132,7 @@ def register(pf: PlatformFamily):
                                         platform_ps[(name, *suffix2, "")].T,
                                     ],
                                     True,
+                                    category=b"\xe8\x8a\x9cP",
                                     notes=make_notes(platform_class, shelter_class, shelter_class_2),
                                 )
                             )
@@ -156,7 +158,9 @@ def register(pf: PlatformFamily):
                 symmetry = BuildingSymmetricalX
 
             var = symmetry.get_all_variants(
-                ALayout(gray_ps, [ps], False, notes=["concourse"] + make_notes(platform_class))
+                ALayout(
+                    gray_ps, [ps], False, category=b"\xe8\x8a\x9cp", notes=["concourse"] + make_notes(platform_class)
+                )
             )
             l = symmetry.create_variants(var)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
@@ -183,6 +187,7 @@ def register(pf: PlatformFamily):
                                 gray_ps,
                                 l + [ps],
                                 False,
+                                category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
                             )
                         )

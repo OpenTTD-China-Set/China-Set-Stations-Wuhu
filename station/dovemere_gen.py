@@ -22,10 +22,10 @@ def get_string_manager():
     return s
 
 
-def gen():
+def gen(args):
     s = get_string_manager()
     g = grf.NewGRF(
-        grfid=b"\xE5\xBC\x8Bs",
+        grfid=b"\xe5\xbc\x8bs",
         name=s["STR_GRF_NAME"],
         description=s["STR_GRF_DESC"],
         version=18,
@@ -46,15 +46,23 @@ def gen():
     g.write("station.grf")
 
 
+def docs(args):
+    gen_docs(get_string_manager(), metastations)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("cmd")
-    args = parser.parse_args()
 
-    if args.cmd == "gen":
-        gen()
-    else:
-        gen_docs(get_string_manager(), metastations)
+    subparsers = parser.add_subparsers(required=True)
+
+    gen_parser = subparsers.add_parser("gen")
+    gen_parser.set_defaults(func=gen)
+
+    doc_parser = subparsers.add_parser("doc")
+    doc_parser.set_defaults(func=docs)
+
+    args = parser.parse_args()
+    args.func(args)
 
 
 if __name__ == "__main__":

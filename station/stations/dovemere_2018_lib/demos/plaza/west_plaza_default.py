@@ -1,4 +1,4 @@
-from station.lib import Demo
+from station.lib import Demo, AParentSprite
 from station.lib.utils import get_1cc_remap
 from agrf.graphics.palette import CompanyColour
 from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
@@ -15,6 +15,8 @@ object_layouts.globalize()
 station = h_merge(
     [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(5, 7)[5:], [[cns], [slope_2.lower_tile()]]], [[], []]
 )
+for i in range(1, 6):
+    station[1][i] = station[1][i].enable_foundation(9)
 
 # Road Stops
 overpass = overpass.lower_tile()

@@ -91,9 +91,10 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=0, purchase=2),
+                "select_sprite_layout": grf.DualCallback(default=entry, purchase=2),
                 **common_cb,
             },
+            make_foundation=True,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
             doc_layout=entry,
@@ -113,7 +114,7 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
-        + [b"\xF0"]
+        + [b"\xf0"]
         + [b"R", b"Z"]
     ],
     {

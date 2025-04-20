@@ -7,6 +7,10 @@ Make parameters stable -- future changes to parameters should no longer mess up 
 
 Removed 8bpp graphics and applied other optmization techniques to reduce NewGRF size.
 
+Add a custom foundation for Wuhu Station (2015).
+
+Make a new station category: "trackless stations".
+
 0.3.3 (2025-01-27)
 ------------------------
 Preliminary traditional Chinese support.
