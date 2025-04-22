@@ -34,4 +34,4 @@ jobs:
       - name: Install python deps
         run: pip install -r requirements.txt && pip install pytest
       - name: Test stations
-        run: pytest station
+        run: PATH=${PWD}/gopath/bin:${PATH} pytest station
