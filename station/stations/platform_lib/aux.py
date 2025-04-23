@@ -29,23 +29,48 @@ cs = AChildSprite(snow_sprite, (0, 0), flags={"dodraw": Registers.SNOW}).M.R
 
 aux_ps[("bufferstop",)] = bufferstop = ps + cs
 
-bufferstop_sw = bufferstop.R
+bufferstop_sw = bufferstop.R.copy()
 bufferstop_sw.flags = {"dodraw": Registers.RAIL_CONTINUATION_S}
-bufferstop_ne = bufferstop
+bufferstop_ne = bufferstop.copy()
 bufferstop_ne.flags = {"dodraw": Registers.RAIL_CONTINUATION_N}
-bufferstop_se = bufferstop.R.M
+bufferstop_se = bufferstop.R.M.copy()
 bufferstop_se.flags = {"dodraw": Registers.RAIL_CONTINUATION_S}
-bufferstop_nw = bufferstop.M
+bufferstop_nw = bufferstop.M.copy()
 bufferstop_nw.flags = {"dodraw": Registers.RAIL_CONTINUATION_N}
+
+
+def add_buffer_stop_single_purchase(l):
+    if l.ground_sprite.sprite.sprite_id == 1012:
+        ret = l + bufferstop.R + bufferstop
+    elif l.ground_sprite.sprite.sprite_id == 1011:
+        ret = l + bufferstop.R.M + bufferstop.M
+    else:
+        assert False, l
+
+    return ret
 
 
 def add_buffer_stop_single(l):
     if l.ground_sprite.sprite.sprite_id == 1012:
-        return l + bufferstop_sw + bufferstop_ne
-    if l.ground_sprite.sprite.sprite_id == 1011:
-        return l + bufferstop_se + bufferstop_nw
-    assert False, l
+        ret = l + bufferstop_sw + bufferstop_ne
+        ret.purchase = l + bufferstop.R + bufferstop
+    elif l.ground_sprite.sprite.sprite_id == 1011:
+        ret = l + bufferstop_se + bufferstop_nw
+        ret.purchase = l + bufferstop.R.M + bufferstop.M
+    else:
+        assert False, l
+
+    return ret
 
 
 def add_buffer_stop(l):
-    return l.symmetry_fmap(add_buffer_stop_single)
+    sym = l.symmetry
+    if l.purchase is None:
+        l.purchase = l
+    new_l = l.symmetry_fmap(add_buffer_stop_single)
+    new_l_purchase = l.symmetry_fmap(add_buffer_stop_single_purchase)
+
+    for l, l_purchase in zip(sym.get_all_variants(new_l), sym.get_all_variants(new_l_purchase)):
+        l.purcahse = l_purchase
+
+    return new_l

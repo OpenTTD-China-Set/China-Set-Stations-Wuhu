@@ -186,11 +186,24 @@ for i, entry in enumerate(entries):
                 if "concourse" in entry.notes
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
-            layouts=[entry, entry.M],
+            layouts=(
+                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
+            ),
             class_label=entry.category,
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
-            callbacks={"select_tile_layout": 0},
+            callbacks={
+                "select_tile_layout": 0,
+                **(
+                    {
+                        "select_sprite_layout": grf.DualCallback(
+                            default=entry, purchase=2 if entry.purchase is not None else 0
+                        )
+                    }
+                    if entry.foundation is not None
+                    else {}
+                ),
+            },
             enable_if=enable_if,
             doc_layout=entry,
         )
