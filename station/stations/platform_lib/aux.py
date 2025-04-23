@@ -28,3 +28,24 @@ ps = AParentSprite(nosnow_sprite, (6, 6, 4), (5, 10, 0)).M.R
 cs = AChildSprite(snow_sprite, (0, 0), flags={"dodraw": Registers.SNOW}).M.R
 
 aux_ps[("bufferstop",)] = bufferstop = ps + cs
+
+bufferstop_sw = bufferstop.R
+bufferstop_sw.flags = {"dodraw": Registers.RAIL_CONTINUATION_S}
+bufferstop_ne = bufferstop
+bufferstop_ne.flags = {"dodraw": Registers.RAIL_CONTINUATION_N}
+bufferstop_se = bufferstop.R.M
+bufferstop_se.flags = {"dodraw": Registers.RAIL_CONTINUATION_S}
+bufferstop_nw = bufferstop.M
+bufferstop_nw.flags = {"dodraw": Registers.RAIL_CONTINUATION_N}
+
+
+def add_buffer_stop_single(l):
+    if l.ground_sprite.sprite.sprite_id == 1012:
+        return l + bufferstop_sw + bufferstop_ne
+    if l.ground_sprite.sprite.sprite_id == 1011:
+        return l + bufferstop_se + bufferstop_nw
+    assert False, l
+
+
+def add_buffer_stop(l):
+    return l.symmetry_fmap(add_buffer_stop_single)
