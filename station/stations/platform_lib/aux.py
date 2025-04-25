@@ -53,10 +53,8 @@ def add_buffer_stop_single_purchase(l):
 def add_buffer_stop_single(l):
     if l.ground_sprite.sprite.sprite_id == 1012:
         ret = l + bufferstop_sw + bufferstop_ne
-        ret.purchase = l + bufferstop.R + bufferstop
     elif l.ground_sprite.sprite.sprite_id == 1011:
         ret = l + bufferstop_se + bufferstop_nw
-        ret.purchase = l + bufferstop.R.M + bufferstop.M
     else:
         assert False, l
 
@@ -65,12 +63,10 @@ def add_buffer_stop_single(l):
 
 def add_buffer_stop(l):
     sym = l.symmetry
-    if l.purchase is None:
-        l.purchase = l
     new_l = l.symmetry_fmap(add_buffer_stop_single)
     new_l_purchase = l.symmetry_fmap(add_buffer_stop_single_purchase)
 
     for l, l_purchase in zip(sym.get_all_variants(new_l), sym.get_all_variants(new_l_purchase)):
-        l.purcahse = l_purchase
+        l.purchase = l_purchase
 
     return new_l
