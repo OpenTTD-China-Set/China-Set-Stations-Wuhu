@@ -61,8 +61,8 @@ edge_bottom = real(617, 241).lower_tile()
 
 
 west_square = [
-    [ground, grassy, ground, thick_tee, ground, grassy, ground],
-    [zag_L, edge_bottom, corner_TL, path, corner_TR, edge_bottom, zag_R],
+    [ground, grassy, thick_tee, thick_tee, thick_tee, grassy, ground],
+    #[zag_L, edge_bottom, corner_TL, path, corner_TR, edge_bottom, zag_R],
     [corner_L, big_tee, zig_L, crossroads, zig_R, big_tee, corner_R],
     [pavilion_L, tee_L, grassy, path, grassy, tee_R, pavilion_R],
 ]
