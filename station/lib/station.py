@@ -4,7 +4,6 @@ from agrf.utils import unique
 from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code
-from .foundation import make_foundations
 from .switch import StationTileSwitch
 
 
@@ -76,8 +75,13 @@ class AStation(grf.SpriteGenerator):
             if isinstance(foundations, StationTileSwitch):
                 foundations = foundations.to_index(None)
 
-            self.callbacks.graphics = grf.Switch(
-                ranges={2: foundations}, code=code + self.extra_code + "\nextra_callback_info1_byte", default=graphics
+            self.callbacks.graphics = grf.GraphicsCallback(
+                default=grf.Switch(
+                    ranges={2: foundations},
+                    code=code + self.extra_code + "\nextra_callback_info1_byte",
+                    default=graphics,
+                ),
+                purchase=graphics,
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         else:

@@ -76,6 +76,10 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
         f"STR_PART_SPLAT_{str(near_platform).upper()}",
     )
 
+    if entry.purchase is None:
+        purchase = entry
+    else:
+        purchase = entry.purchase
     modular_stations.append(
         AStation(
             id=entry.id,
@@ -83,8 +87,8 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             layouts=[
                 entry,
                 entry.M,
-                entry.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
-                entry.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
             ],
             class_label=entry.category,
             cargo_threshold=40,
@@ -97,7 +101,7 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             make_foundation=True,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
-            doc_layout=entry,
+            doc_layout=purchase,
             extra_code=common_code,
         )
     )

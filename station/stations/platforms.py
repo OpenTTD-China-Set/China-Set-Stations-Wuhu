@@ -1,3 +1,4 @@
+import grf
 from station.lib import (
     AStation,
     AMetaStation,
@@ -189,11 +190,16 @@ for i, entry in enumerate(entries):
                 if "concourse" in entry.notes
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
-            layouts=[entry, entry.M],
-            class_label=b"\xe8\x8a\x9cP",
+            layouts=(
+                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
+            ),
+            class_label=entry.category,
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
-            callbacks={"select_tile_layout": 0},
+            callbacks={
+                "select_tile_layout": 0,
+                "select_sprite_layout": grf.DualCallback(default=0, purchase=2 if entry.purchase is not None else 0),
+            },
             enable_if=enable_if,
             doc_layout=entry,
         )
@@ -202,7 +208,7 @@ for i, entry in enumerate(entries):
 the_stations = AMetaStation(
     station_tiles,
     b"\xe8\x8a\x9cP",
-    None,
+    [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"],
     [
         Demo([[cns_concrete], [cns_concrete_d], [cns_concrete.T]], "Platform"),
         Demo([[cns_concrete_side], [cns_concrete_d], [cns_concrete_side.T]], "Platform with concrete grounds"),

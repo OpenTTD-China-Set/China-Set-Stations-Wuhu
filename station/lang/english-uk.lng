@@ -83,27 +83,27 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu Station (1934)
 STR_PARAM_E88A9C0_COLOUR                    :Wuhu Station (1934) - Decoration Colour
 STR_PARAM_E88A9C0_COLOUR_DESC               :Choose what colour to use for the windows and door of Wuhu Station (1934).
 
-STR_PARAM_E9B8A0A_ENABLE_MODULAR            :Wuhu North Station - Enable
-STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhu North Station
+STR_PARAM_E9B8A0A_ENABLE_MODULAR            :Wuhubei Station - Enable
+STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhubei Station
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_ENABLED    :Enabled
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DISABLED   :Disabled
 
-STR_PARAM_E9B8A0A_INTRODUCTION_YEAR         :Wuhu North Station - Available Year
-STR_PARAM_E9B8A0A_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu North Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+STR_PARAM_E9B8A0A_INTRODUCTION_YEAR         :Wuhubei Station - Available Year
+STR_PARAM_E9B8A0A_INTRODUCTION_YEAR_DESC    :Choose the year Wuhubei Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
 
-STR_PARAM_E9B8A0A_COLOUR                    :Wuhu North Station - Decoration Colour
-STR_PARAM_E9B8A0A_COLOUR_DESC               :Choose what colour to use for the decoration of Wuhu North Station.
+STR_PARAM_E9B8A0A_COLOUR                    :Wuhubei Station - Decoration Colour
+STR_PARAM_E9B8A0A_COLOUR_DESC               :Choose what colour to use for the decoration of Wuhubei Station.
 
-STR_PARAM_E5BC8BA_ENABLE_MODULAR            :Wuhu South Station - Enable
-STR_PARAM_E5BC8BA_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhu South Station
+STR_PARAM_E5BC8BA_ENABLE_MODULAR            :Wuhunan Station - Enable
+STR_PARAM_E5BC8BA_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhunan Station
 STR_PARAM_E5BC8BA_ENABLE_MODULAR_ENABLED    :Enabled
 STR_PARAM_E5BC8BA_ENABLE_MODULAR_DISABLED   :Disabled
 
-STR_PARAM_E5BC8BA_INTRODUCTION_YEAR         :Wuhu South Station - Available Year
-STR_PARAM_E5BC8BA_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu South Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+STR_PARAM_E5BC8BA_INTRODUCTION_YEAR         :Wuhunan Station - Available Year
+STR_PARAM_E5BC8BA_INTRODUCTION_YEAR_DESC    :Choose the year Wuhunan Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
 
-STR_PARAM_E5BC8BA_COLOUR                    :Wuhu South Station - Decoration Colour
-STR_PARAM_E5BC8BA_COLOUR_DESC               :Choose what colour to use for the decoration of Wuhu South Station.
+STR_PARAM_E5BC8BA_COLOUR                    :Wuhunan Station - Decoration Colour
+STR_PARAM_E5BC8BA_COLOUR_DESC               :Choose what colour to use for the decoration of Wuhunan Station.
 
 STR_PARAM_E697A0A_ENABLE_MODULAR            :Wuwei Station - Enable
 STR_PARAM_E697A0A_ENABLE_MODULAR_DESC       :Whether or not to enable Wuwei Station
@@ -116,16 +116,16 @@ STR_PARAM_E697A0A_INTRODUCTION_YEAR_DESC    :Choose the year Wuwei Station becom
 STR_PARAM_E697A0A_COLOUR                    :Wuwei Station - Decoration Colour
 STR_PARAM_E697A0A_COLOUR_DESC               :Choose what colour to use for the decoration of Wuwei Station.
 
-STR_PARAM_E6B9BEA_ENABLE_MODULAR            :Wanzhi Station - Enable
-STR_PARAM_E6B9BEA_ENABLE_MODULAR_DESC       :Whether or not to enable Wanzhi Station
-STR_PARAM_E6B9BEA_ENABLE_MODULAR_ENABLED    :Enabled
-STR_PARAM_E6B9BEA_ENABLE_MODULAR_DISABLED   :Disabled
+STR_PARAM_E6B9BES_ENABLE_MODULAR            :Wanzhinan Station - Enable
+STR_PARAM_E6B9BES_ENABLE_MODULAR_DESC       :Whether or not to enable Wanzhinan Station
+STR_PARAM_E6B9BES_ENABLE_MODULAR_ENABLED    :Enabled
+STR_PARAM_E6B9BES_ENABLE_MODULAR_DISABLED   :Disabled
 
-STR_PARAM_E6B9BEA_INTRODUCTION_YEAR         :Wanzhi Station - Available Year
-STR_PARAM_E6B9BEA_INTRODUCTION_YEAR_DESC    :Choose the year Wanzhi Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+STR_PARAM_E6B9BES_INTRODUCTION_YEAR         :Wanzhinan Station - Available Year
+STR_PARAM_E6B9BES_INTRODUCTION_YEAR_DESC    :Choose the year Wanzhinan Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
 
-STR_PARAM_E6B9BEA_COLOUR                    :Wanzhi Station - Decoration Colour
-STR_PARAM_E6B9BEA_COLOUR_DESC               :Choose what colour to use for the decoration of Wanzhi Station.
+STR_PARAM_E6B9BES_COLOUR                    :Wanzhinan Station - Decoration Colour
+STR_PARAM_E6B9BES_COLOUR_DESC               :Choose what colour to use for the decoration of Wanzhinan Station.
 
 STR_PARAM_E999B5A_ENABLE_MODULAR            :Nanling Station - Enable
 STR_PARAM_E999B5A_ENABLE_MODULAR_DESC       :Whether or not to enable Nanling Station
@@ -138,16 +138,16 @@ STR_PARAM_E999B5A_INTRODUCTION_YEAR_DESC    :Choose the year Nanling Station bec
 STR_PARAM_E999B5A_COLOUR                    :Nanling Station - Decoration Colour
 STR_PARAM_E999B5A_COLOUR_DESC               :Choose what colour to use for the decoration of Nanling Station.
 
-STR_PARAM_E7B981W_ENABLE_MODULAR            :Fanchang West Station - Enable
-STR_PARAM_E7B981W_ENABLE_MODULAR_DESC       :Whether or not to enable Fanchang West Station
+STR_PARAM_E7B981W_ENABLE_MODULAR            :Fanchangxi Station - Enable
+STR_PARAM_E7B981W_ENABLE_MODULAR_DESC       :Whether or not to enable Fanchangxi Station
 STR_PARAM_E7B981W_ENABLE_MODULAR_ENABLED    :Enabled
 STR_PARAM_E7B981W_ENABLE_MODULAR_DISABLED   :Disabled
 
-STR_PARAM_E7B981W_INTRODUCTION_YEAR         :Fanchang West Station - Available Year
-STR_PARAM_E7B981W_INTRODUCTION_YEAR_DESC    :Choose the year Fanchang West Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
+STR_PARAM_E7B981W_INTRODUCTION_YEAR         :Fanchangxi Station - Available Year
+STR_PARAM_E7B981W_INTRODUCTION_YEAR_DESC    :Choose the year Fanchangxi Station becomes available.{}{}For a realistic experience, set this to somewhere near 2005.
 
-STR_PARAM_E7B981W_COLOUR                    :Fanchang West Station - Decoration Colour
-STR_PARAM_E7B981W_COLOUR_DESC               :Choose what colour to use for the decoration of Fanchang West Station.
+STR_PARAM_E7B981W_COLOUR                    :Fanchangxi Station - Decoration Colour
+STR_PARAM_E7B981W_COLOUR_DESC               :Choose what colour to use for the decoration of Fanchangxi Station.
 
 STR_PARAM_E88A9CP_ENABLE_MODULAR            :Platform Tiles - Enable
 STR_PARAM_E88A9CP_ENABLE_MODULAR_DESC       :Whether or not to enable buildable platform tiles
@@ -268,19 +268,20 @@ STR_STATION_CLASS_E88A9C4       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu (1992
 
 STR_STATION_CLASS_E88A9C0       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu (1934)
 
-STR_STATION_CLASS_E9B8A0A       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu North
+STR_STATION_CLASS_E9B8A0A       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhubei
 
-STR_STATION_CLASS_E5BC8BA       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu South
+STR_STATION_CLASS_E5BC8BA       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhunan
 
 STR_STATION_CLASS_E697A0A       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuwei
 
-STR_STATION_CLASS_E6B9BEA       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wanzhi
+STR_STATION_CLASS_E6B9BES       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wanzhinan
 
 STR_STATION_CLASS_E999B5A       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Nanling
 
-STR_STATION_CLASS_E7B981W       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Fanchang West
+STR_STATION_CLASS_E7B981W       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Fanchangxi
 
 STR_STATION_CLASS_E88A9CP       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu - Extra Platforms
+STR_STATION_CLASS_E88A9Cp       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms
 
 STR_OBJECT_CLASS_E88A9CB0       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Station Building
 STR_OBJECT_CLASS_E88A9CT        :{PUSH_COLOUR}{GOLD}Wuhu Station - West Square{POP_COLOUR}
@@ -295,5 +296,5 @@ STR_ROADSTOP_CLASS_E88A9CR      :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu
 STR_METASTATION_CLASS_E88A9CA   :Wuhu Station (2015)
 STR_METASTATION_CLASS_E88A9C4   :Wuhu Station (1992)
 STR_METASTATION_CLASS_E88A9C0   :Wuhu Station (1934)
-STR_METASTATION_CLASS_E9B8A0A   :Wuhu North Station (2018)
+STR_METASTATION_CLASS_E9B8A0A   :Wuhubei Station (2018)
 STR_METASTATION_CLASS_E88A9CP   :Platforms

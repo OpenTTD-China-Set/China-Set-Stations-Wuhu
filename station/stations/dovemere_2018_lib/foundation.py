@@ -1,4 +1,5 @@
 from agrf.graphics.voxel import LazyVoxel
+from agrf.lib.building.foundation import Foundation
 from station.lib import BuildingSymmetrical, BuildingCylindrical, AttrDict
 
 named_foundations = AttrDict(schema=("name",))
@@ -13,7 +14,8 @@ def register(name, sym):
         config={"z_scale": 1.0},
     )
     v.in_place_subset(sym.render_indices())
-    named_foundations[name] = sym.create_variants(v.spritesheet())
+    v.render()
+    named_foundations[name] = Foundation(sym.create_variants(v.spritesheet()), None, True)
 
 
 register("foundation", BuildingSymmetrical)
