@@ -198,7 +198,7 @@ for i, entry in enumerate(entries):
                 **(
                     {
                         "select_sprite_layout": grf.DualCallback(
-                            default=entry, purchase=2 if entry.purcahse is not None else 0
+                            default=entry, purchase=2 if entry.purchase is not None else 0
                         )
                     }
                     if entry.foundation is not None

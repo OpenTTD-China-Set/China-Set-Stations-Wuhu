@@ -112,7 +112,8 @@ def register(pf: PlatformFamily):
                             )
                         )
                         l = cur_symmetry.create_variants(var)
-                        l = add_buffer_stop(l)
+                        if l.traversable:
+                            l = add_buffer_stop(l)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = (
