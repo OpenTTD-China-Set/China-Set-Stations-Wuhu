@@ -28,6 +28,7 @@ from station.stations.platforms import (
     two_side_tiles,
     concourse_tiles,
 )
+from station.stations.platform_lib.aux import add_buffer_stop
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
 from station.stations.misc import track_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
@@ -161,7 +162,10 @@ def make_f2(v, sym):
 
 
 def make_extra(v, sym, name, floor="f2"):
-    vd = v.keep_layers((name, name + "-boundary"), name)
+    if "snow" in name:
+        vd = v.keep_layers((name, "snow-boundary"), name)
+    else:
+        vd = v.keep_layers((name,), name)
     if floor == "f2":
         vd = vd.mask_clip_away("station/voxels/dovemere_2018/masks/ground_level.vox", "f2")
     else:
@@ -217,9 +221,12 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
     cnt = len(l)
     for i, layout in enumerate(l):
         layout.category = get_category(internal_category, i >= cnt // 2, layout.notes, layout.traversable)
-    layouts.extend(l)
     l = symmetry.create_variants(l)
+    if layout.traversable:
+        l = add_buffer_stop(l)
+    layouts.extend(symmetry.get_all_variants(l))
     cur_entries = symmetry.get_all_entries(l)
+
     cnt = len(cur_entries)
     for i, entry in enumerate(cur_entries):
         if broken_near_hack:

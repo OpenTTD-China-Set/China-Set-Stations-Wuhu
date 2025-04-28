@@ -2,6 +2,7 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
+from .aux import add_buffer_stop
 
 gray_ps = ground_ps.gray
 
@@ -103,6 +104,7 @@ def register(pf: PlatformFamily):
                             )
                         )
                         l = cur_symmetry.create_variants(var)
+                        l = add_buffer_stop(l)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = (
@@ -131,6 +133,7 @@ def register(pf: PlatformFamily):
                                 )
                             )
                             l = cur_symmetry.create_variants(var)
+                            l = add_buffer_stop(l)
 
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = 0x7800 + pid * 0x80 + rid * 0x40 + rid2 * 0x20 + sid * 0x4 + sid2 * 0x2 + i
