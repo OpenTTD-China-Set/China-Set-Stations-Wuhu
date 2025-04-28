@@ -28,6 +28,7 @@ from station.stations.platforms import (
     two_side_tiles,
     concourse_tiles,
 )
+from station.stations.platform_lib.aux import add_buffer_stop
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
 from station.stations.misc import track_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
@@ -220,9 +221,12 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
     cnt = len(l)
     for i, layout in enumerate(l):
         layout.category = get_category(internal_category, i >= cnt // 2, layout.notes, layout.traversable)
-    layouts.extend(l)
     l = symmetry.create_variants(l)
+    if layout.traversable:
+        l = add_buffer_stop(l)
+    layouts.extend(symmetry.get_all_variants(l))
     cur_entries = symmetry.get_all_entries(l)
+
     cnt = len(cur_entries)
     for i, entry in enumerate(cur_entries):
         if broken_near_hack:

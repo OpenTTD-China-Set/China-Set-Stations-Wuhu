@@ -188,9 +188,7 @@ for i, entry in enumerate(entries):
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
             layouts=(
-                [entry, entry.M, entry.purchase, entry.M.purchase]
-                if entry.category == b"\xe8\x8a\x9ce"
-                else [entry, entry.M]
+                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
             ),
             class_label=entry.category,
             cargo_threshold=40,
@@ -200,7 +198,7 @@ for i, entry in enumerate(entries):
                 **(
                     {
                         "select_sprite_layout": grf.DualCallback(
-                            default=entry, purchase=2 if entry.category == b"\xe8\x8a\x9ce" else 0
+                            default=entry, purchase=2 if entry.purcahse is not None else 0
                         )
                     }
                     if entry.foundation is not None
