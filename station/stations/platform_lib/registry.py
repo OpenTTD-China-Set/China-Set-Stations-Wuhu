@@ -172,6 +172,7 @@ def register(pf: PlatformFamily):
             l.foundation = fake_bridge_merged
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            l = add_buffer_stop(l)
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                 entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x24 + i
                 entries.append(entry)
@@ -183,6 +184,7 @@ def register(pf: PlatformFamily):
             l.foundation = fake_bridge_merged_2
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            l = add_buffer_stop(l)
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                 entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x26 + i
                 entries.append(entry)
