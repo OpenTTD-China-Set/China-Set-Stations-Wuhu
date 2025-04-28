@@ -69,6 +69,10 @@ def make_child_night_masks(parent, automatic_offset_mode, darkness):
         flags = {"dodraw": Registers.NIGHTGFX}
     elif parent.flags.get("dodraw") == Registers.SNOW:
         flags = {"dodraw": Registers.SNOW_NIGHTGFX}
+    elif parent.flags.get("dodraw") == Registers.RAIL_CONTINUATION_S:
+        flags = {"dodraw": Registers.RAIL_CONTINUATION_S_NIGHTGFX}
+    elif parent.flags.get("dodraw") == Registers.RAIL_CONTINUATION_N:
+        flags = {"dodraw": Registers.RAIL_CONTINUATION_N_NIGHTGFX}
     else:
         raise NotImplementedError(parent.flags["dodraw"])
 
