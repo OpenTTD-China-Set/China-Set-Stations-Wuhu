@@ -25,4 +25,5 @@ special_demo_cn = Demo(
     "Irregular 7×7 station layout",
     remap=get_1cc_remap(CompanyColour.MAUVE),
     climate="temperate",
+    rail_type="maglev",
 )
