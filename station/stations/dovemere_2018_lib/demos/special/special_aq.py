@@ -31,4 +31,5 @@ special_demo_aq = Demo(
     remap=get_1cc_remap(CompanyColour.LIGHT_BLUE),
     climate="arctic",
     subclimate="snow",
+    rail_type="monorail",
 )
