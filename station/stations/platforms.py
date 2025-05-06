@@ -1,3 +1,4 @@
+import grf
 from station.lib import (
     AStation,
     AMetaStation,
@@ -73,13 +74,8 @@ class CNSPlatformFamily(PlatformFamily):
 
         s = shelter_class + ("_" if location != "" else "") + location
         skeeps = {s, s + "_snow"}
-        v2 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components) + tuple(shelter_components - skeeps))), f"subset_{s}_snow_base"
-        )
-        v3 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components) + tuple(shelter_components - {s + "_snow"}))),
-            f"subset_{s}_snow_only",
-        )
+        v2 = self.v.keep_layers(tuple(skeeps), f"subset_{s}_snow_base")
+        v3 = self.v.keep_layers((s + "_snow",), f"subset_{s}_snow_only")
         v = v3.compose(v2, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
         v.config["overlap"] = 1.3
         v.config["agrf_childsprite"] = (0, -YOFFSET)
@@ -108,9 +104,8 @@ class CNSPlatformFamily(PlatformFamily):
                 if platform_class != "" and shelter_class != "pillar" and location == "building_v":
                     skeeps.add("escalator_v")
 
-        v2 = self.v.discard_layers(
-            tuple(sorted(tuple(platform_components - pkeeps) + tuple(shelter_components - skeeps))),
-            f"subset_{platform_class}_{rail_facing}_{shelter_class}_{location}",
+        v2 = self.v.keep_layers(
+            tuple(pkeeps) + tuple(skeeps), f"subset_{platform_class}_{rail_facing}_{shelter_class}_{location}"
         )
         v2.config["agrf_manual_crop"] = (0, YOFFSET)
         if location in ["building", "building_narrow"]:
@@ -140,50 +135,26 @@ class CNSPlatformFamily(PlatformFamily):
 
     def get_concourse_sprite(self, platform_class, side):
         if platform_class == "none":
-            ckeeps = set()
+            ckeeps = {"concourse"}
         elif side == "d":
-            ckeeps = {platform_class, platform_class + "_t"}
+            ckeeps = {"concourse", platform_class, platform_class + "_t"}
         else:
-            ckeeps = {platform_class}
+            ckeeps = {"concourse", platform_class}
 
         if platform_class == "none" or side == "d":
             symmetry = BuildingSymmetrical
         else:
             symmetry = BuildingSymmetricalX
 
-        v2 = self.concourse.discard_layers(
-            tuple(sorted(tuple(concourse_components - ckeeps))), f"subset_{platform_class}_{side}"
-        )
+        v2 = self.concourse.keep_layers(tuple(ckeeps), f"subset_{platform_class}_{side}")
         v2.in_place_subset(symmetry.render_indices())
 
         sprite = symmetry.create_variants(v2.spritesheet())
         return AParentSprite(sprite, (16, 16, platform_height), (0, 0, 0))
 
 
-platform_components = {"cut", "concrete", "concrete_side", "brick", "brick_side"}
 platform_classes = ["concrete", "brick"]
-shelter_components = {
-    "shelter_1",
-    "shelter_1_building",
-    "shelter_1_building_v",
-    "shelter_2",
-    "shelter_2_building",
-    "shelter_2_building_v",
-    "shelter_1_snow",
-    "shelter_1_building_snow",
-    "shelter_1_building_v_snow",
-    "shelter_2_snow",
-    "shelter_2_building_snow",
-    "shelter_2_building_v_snow",
-    "pillar",
-    "pillar_building",
-    "pillar_central",
-    "escalator",
-    "escalator_v",
-    "underground_stairs",  # FIXME
-}
 shelter_classes = ["shelter_1", "shelter_2"]
-concourse_components = {f"{c}{postfix}" for c in platform_classes for postfix in ["", "_t"]}
 
 
 pf = CNSPlatformFamily()
@@ -216,11 +187,16 @@ for i, entry in enumerate(entries):
                 if "concourse" in entry.notes
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
-            layouts=[entry, entry.M],
-            class_label=b"\xe8\x8a\x9cP",
+            layouts=(
+                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
+            ),
+            class_label=entry.category,
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
-            callbacks={"select_tile_layout": 0},
+            callbacks={
+                "select_tile_layout": 0,
+                "select_sprite_layout": grf.DualCallback(default=0, purchase=2 if entry.purchase is not None else 0),
+            },
             enable_if=enable_if,
             doc_layout=entry,
         )
@@ -229,7 +205,7 @@ for i, entry in enumerate(entries):
 the_stations = AMetaStation(
     station_tiles,
     b"\xe8\x8a\x9cP",
-    None,
+    [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"],
     [
         Demo([[cns_concrete], [cns_concrete_d], [cns_concrete.T]], "Platform"),
         Demo([[cns_concrete_side], [cns_concrete_d], [cns_concrete_side.T]], "Platform with concrete grounds"),

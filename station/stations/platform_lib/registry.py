@@ -2,6 +2,7 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
+from .aux import add_buffer_stop
 
 gray_ps = ground_ps.gray
 
@@ -94,9 +95,16 @@ def register(pf: PlatformFamily):
                             cur_symmetry = ps.sprite.symmetry
 
                         var = cur_symmetry.get_all_variants(
-                            ALayout(track_ground, l, True, notes=make_notes(platform_class, shelter_class))
+                            ALayout(
+                                track_ground,
+                                l,
+                                True,
+                                category=b"\xe8\x8a\x9cP",
+                                notes=make_notes(platform_class, shelter_class),
+                            )
                         )
                         l = cur_symmetry.create_variants(var)
+                        l = add_buffer_stop(l)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = (
@@ -120,10 +128,12 @@ def register(pf: PlatformFamily):
                                     track_ground,
                                     [platform_ps[(name, *suffix, "")], platform_ps[(name, *suffix2, "")].T],
                                     True,
+                                    category=b"\xe8\x8a\x9cP",
                                     notes=make_notes(platform_class, shelter_class, shelter_class_2),
                                 )
                             )
                             l = cur_symmetry.create_variants(var)
+                            l = add_buffer_stop(l)
 
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = 0x7800 + pid * 0x80 + rid * 0x40 + rid2 * 0x20 + sid * 0x4 + sid2 * 0x2 + i
@@ -145,7 +155,9 @@ def register(pf: PlatformFamily):
                 symmetry = BuildingSymmetricalX
 
             var = symmetry.get_all_variants(
-                ALayout(gray_ps, [ps], False, notes=["concourse"] + make_notes(platform_class))
+                ALayout(
+                    gray_ps, [ps], False, category=b"\xe8\x8a\x9cp", notes=["concourse"] + make_notes(platform_class)
+                )
             )
             l = symmetry.create_variants(var)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
@@ -172,6 +184,7 @@ def register(pf: PlatformFamily):
                                 gray_ps,
                                 l + [ps],
                                 False,
+                                category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
                             )
                         )

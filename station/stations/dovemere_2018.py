@@ -76,6 +76,10 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
         f"STR_PART_SPLAT_{str(near_platform).upper()}",
     )
 
+    if entry.purchase is None:
+        purchase = entry
+    else:
+        purchase = entry.purchase
     modular_stations.append(
         AStation(
             id=entry.id,
@@ -83,20 +87,21 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             layouts=[
                 entry,
                 entry.M,
-                entry.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
-                entry.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
             ],
             class_label=entry.category,
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=0, purchase=2),
+                "select_sprite_layout": grf.DualCallback(default=entry, purchase=2),
                 **common_cb,
             },
+            make_foundation=True,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
-            doc_layout=entry,
+            doc_layout=purchase,
             extra_code=common_code,
         )
     )
@@ -113,7 +118,7 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
-        + [b"\xF0"]
+        + [b"\xf0"]
         + [b"R", b"Z"]
     ],
     {
