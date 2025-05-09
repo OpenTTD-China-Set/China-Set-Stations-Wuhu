@@ -34,8 +34,8 @@ def test_determine_platform_odd_bottom_half():
 
 
 def test_determine_platform_odd_bottom_half_huge():
-    check_platform_function(determine_platform_odd_bottom_half, 14, "dd" + "nf" * 6)
     check_platform_function(determine_platform_odd_bottom_half, 15, "d" + "nf" * 7)
+    check_platform_function(determine_platform_odd_bottom_half, 16, "nf" * 8)
 
 
 def test_determine_platform_even():
