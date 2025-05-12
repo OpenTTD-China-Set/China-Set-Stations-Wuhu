@@ -107,9 +107,7 @@ def register(pf: PlatformFamily):
                         l = add_buffer_stop(l)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
-                                entry.id = (
-                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + lid * 0x2 + i
-                                )
+                                entry.id = 0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + i
                                 entries.append(entry)
                         platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = l
 

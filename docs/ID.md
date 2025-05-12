@@ -11,3 +11,6 @@ Where:
 * `r` is whether the platform has a rail-facing surface
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
+
+```
+```
