@@ -13,4 +13,24 @@ Where:
 * `i` is the platform location (north or south), only relevant for d=0
 
 ```
+0111 100p prr0 ssSi
 ```
+Where:
+* `pp` is the Platform Type (0-3)
+* `rr` is whether each of the two platforms has a rail-facing surface
+* `ss` is the Shelter Type (0-3)
+* `S` is whether both platforms have shelters
+* `i` is the platform location (north or south), only relevant for asymmetrical cases
+
+```
+0111 1010 0000 ppdi
+```
+entry.id = 0x7A00 + pid * 0x4 + ssid * 0x2 + i
+
+````
+0111 1011 0ppd ssli
+````
+entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
+
+## 0x8000 - 0xFFFE: Wuhu Station (2015)
+
