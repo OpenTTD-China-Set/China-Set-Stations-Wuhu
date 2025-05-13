@@ -46,7 +46,7 @@ class SquashableAlternativeSprites(grf.AlternativeSprites):
         return SquashableAlternativeSprites(self.old_alt.squash(ratio), self.automatic_offset_mode, self.darkness)
 
     def get_fingerprint(self):
-        return {"old_alt": self.old_alt.get_fingerrint()}
+        return {"old_alt": self.old_alt.get_fingerprint()}
 
 
 NIGHT_CACHE = {}
