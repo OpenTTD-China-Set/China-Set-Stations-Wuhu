@@ -34,3 +34,25 @@ entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 
+### 0xFF00 - 0xFFFE: Flexible Templates
+#### Semitraversable Templates
+````
+1111 1111 0000 ppss
+````
+With side platforms
+
+````
+1111 1111 0001 ppss
+````
+Without side platforms
+
+#### Traversable Templates
+````
+1111 1111 0010 ppss
+````
+With side platforms
+
+````
+1111 1111 0011 ppss
+````
+Without side platforms
