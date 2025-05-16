@@ -7,3 +7,4 @@ vendor
 *.md
 *.png
 *.jpg
+_build
