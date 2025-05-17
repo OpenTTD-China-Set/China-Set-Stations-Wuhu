@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from agrf.lib.building.layout import RenderContext as ProtoRenderContext, ALayout, DefaultGraphics
-from agrf.lib.building.demo import Demo as ProtoDemo
+from agrf.lib.building.demo import Demo as ProtoDemo, DEFAULT_RENDER_CONTEXT
 from .registers import Registers
 
 
@@ -51,9 +51,17 @@ class Demo(ProtoDemo):
                         sb = False
                     if r - 1 >= 0 and is_1011(self.tiles[r - 1][c]):
                         nb = False
+                if self.render_contexts is not None:
+                    rc = self.render_contexts[i][j]
+                else:
+                    rc = DEFAULT_RENDER_CONTEXT
                 ret_row.append(
                     RenderContext(
-                        climate=self.climate, subclimate=self.subclimate, north_bufferstop=nb, south_bufferstop=sb
+                        climate=rc.climate or self.climate,
+                        subclimate=rc.subclimate or self.subclimate,
+                        rail_type=rc.rail_type or self.rail_type,
+                        north_bufferstop=nb,
+                        south_bufferstop=sb,
                     )
                 )
             ret.append(ret_row)
