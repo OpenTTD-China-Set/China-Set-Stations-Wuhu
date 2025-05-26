@@ -39,6 +39,31 @@ Where:
 entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
+````
+1xxx xxxx xpps svvv
+````
+
+Where:
+* `x` is the tile id (0-239)
+* `v` is the minor feature variant (0-7)
+    * 0 is currently unused
+    * 1 and 2 for one-sided platforms [has track]
+    * 3 for two-sided platforms [has track]
+    * 4 for regular ground-level buildings [no track]
+    * 5 for narrow ground-level buildings + platform [has track]
+    * 6 for narrow ground-level buildings [has track]
+    * 7 for narrow ground-level buildings on both sides [has track]
+
+````
+1111 1101 xxxx xxxx
+````
+With no ground-level buildings at all (waypoints).
+
+
+````
+1111 1011 xxxx xxxx
+````
+With solid ground floor.
 
 ### 0xFF00 - 0xFFFE: Flexible Templates
 #### Semitraversable Templates
