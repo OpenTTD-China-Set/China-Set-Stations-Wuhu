@@ -38,6 +38,14 @@ def make_components():
     make_component(
         "road_stop",
         "overpass_bridge_narrow",
+        BuildingSymmetrical,
+        (16, 16, TOTAL_HEIGHT - OVERPASS_HEIGHT),
+        (0, 0, OVERPASS_HEIGHT),
+        joggle=JOGGLE_AMOUNT,
+    )
+    make_component(
+        "road_stop",
+        "overpass_bridge_half",
         BuildingSymmetricalY,
         (16, 16, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),

@@ -46,10 +46,15 @@ def make_road_stops():
     named_layouts[("overpass_bridge",)] = layout
     register_road_stop(layout, BuildingSymmetrical, 0x8003)
 
+    overpass_bridge_half = components[("road_stop", "overpass_bridge_half")]
+    layout = ALayout(road_ground, [overpass_bridge_half, pillars, pillars.T], True, category=b"\xe8\x8a\x9cR")
+    named_layouts[("overpass_bridge",)] = layout
+    register_road_stop(layout, BuildingSymmetricalY, 0x8004)
+
     overpass_bridge_narrow = components[("road_stop", "overpass_bridge_narrow")]
     layout = ALayout(road_ground, [overpass_bridge_narrow, pillars, pillars.T], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("overpass_bridge",)] = layout
-    register_road_stop(layout, BuildingSymmetricalY, 0x8004)
+    register_road_stop(layout, BuildingSymmetrical, 0x8006)
 
     overpass_long = components[("road_stop", "overpass_long")]
     pillar_corner = components[("road_stop", "pillar_corner")]
@@ -61,12 +66,12 @@ def make_road_stops():
     ]
     layout = ALayout(road_ground, [overpass_long, pillars] + four_pillars, True, category=b"\xe8\x8a\x9cR")
     named_layouts[("overpass_long",)] = layout
-    register_road_stop(layout, BuildingSymmetricalX, 0x8006)
+    register_road_stop(layout, BuildingSymmetricalX, 0x8007)
 
     overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
     layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("stair_narrow",)] = layout
-    register_road_stop(layout, BuildingFull, 0x8008)
+    register_road_stop(layout, BuildingFull, 0x8009)
 
     extender_onesided = components[("road_stop", "stair_extender_onesided")]
     overpass_half_stair = components[("road_stop", "overpass_half_stair")]
