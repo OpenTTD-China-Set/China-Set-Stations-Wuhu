@@ -1,4 +1,4 @@
-from station.lib import BuildingFull, BuildingSymmetricalX, BuildingSymmetrical, AttrDict
+from station.lib import BuildingFull, BuildingSymmetricalX, BuildingSymmetricalY, BuildingSymmetrical, AttrDict
 from .components import make_component as original_make_component
 
 WIDTH = 3
@@ -31,6 +31,14 @@ def make_components():
         "road_stop",
         "overpass_bridge_wide",
         BuildingSymmetrical,
+        (16, 16, TOTAL_HEIGHT - OVERPASS_HEIGHT),
+        (0, 0, OVERPASS_HEIGHT),
+        joggle=JOGGLE_AMOUNT,
+    )
+    make_component(
+        "road_stop",
+        "overpass_bridge_narrow",
+        BuildingSymmetricalY,
         (16, 16, TOTAL_HEIGHT - OVERPASS_HEIGHT),
         (0, 0, OVERPASS_HEIGHT),
         joggle=JOGGLE_AMOUNT,
