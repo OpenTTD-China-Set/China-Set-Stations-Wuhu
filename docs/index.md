@@ -8,5 +8,5 @@ China Set: Stations - Wuhu documentation
 
 ```{toctree}
 :maxdepth: 2
-:caption: Contents:
+changelog
 ```

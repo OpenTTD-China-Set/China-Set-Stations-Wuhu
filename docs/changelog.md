@@ -1,4 +1,4 @@
-China Set: Stations - Wuhu Changelog
+Changelog
 =========================
 
 0.3.5 (Work-in-Progress)
