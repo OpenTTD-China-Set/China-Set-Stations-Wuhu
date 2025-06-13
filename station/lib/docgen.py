@@ -15,12 +15,7 @@ def gen_docs(string_manager, metastations):
 
         with open(os.path.join(prefix, f"{metastation_label}.md"), "w") as f:
             print(
-                f"""---
-layout: default
-title: {translation}
-nav_order: {i+2}
-has_children: True
----
+                f"""# {translation}
 """,
                 file=f,
             )
