@@ -16,6 +16,12 @@ def gen_docs(string_manager, metastations):
         with open(os.path.join(prefix, f"{metastation_label}.md"), "w") as f:
             print(
                 f"""# {translation}
+
+```{toctree}
+:maxdepth: 2
+{metastation_label}_Sample Layouts
+{metastation}_stations
+```
 """,
                 file=f,
             )
@@ -56,12 +62,7 @@ def gen_docs(string_manager, metastations):
                     "objects": ("Objects", 4),
                 }[kind]
                 print(
-                    f"""---
-layout: default
-title: {title}
-parent: {translation}
-nav_order: {nav_order}
----
+                    f"""# {title}
 """,
                     file=f,
                 )
@@ -100,12 +101,7 @@ nav_order: {nav_order}
             os.makedirs(os.path.join(prefix, "img", metastation_label, "layouts", demok), exist_ok=True)
             with open(os.path.join(prefix, f"{metastation_label}_{demok}.md"), "w") as f:
                 print(
-                    f"""---
-layout: default
-title: {demok}
-parent: {translation}
-nav_order: {5+demoi}
----
+                    f"""# {demok}
 """,
                     file=f,
                 )
