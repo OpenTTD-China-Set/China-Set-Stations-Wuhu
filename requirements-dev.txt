@@ -2,3 +2,4 @@ black==25.1.0
 pytest
 furo
 sphinx
+myst_parser

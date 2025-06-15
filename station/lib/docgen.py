@@ -17,10 +17,10 @@ def gen_docs(string_manager, metastations):
             print(
                 f"""# {translation}
 
-```{toctree}
+```{{toctree}}
 :maxdepth: 2
 {metastation_label}_Sample Layouts
-{metastation}_stations
+{metastation_label}_stations
 ```
 """,
                 file=f,
@@ -54,7 +54,7 @@ def gen_docs(string_manager, metastations):
             if all(len(v) == 0 for v in subsections.values()):
                 continue
 
-            with open(os.path.join(prefix, f"{metastation_label}_{kind}.md"), "w") as f:
+            with open(os.path.join(prefix, f"{metastation_label}_{kind}.rst"), "w") as f:
                 title, nav_order = {
                     "stations": ("Building Blocks", 0),
                     "waypoints": ("Waypoints", 1),
@@ -62,7 +62,9 @@ def gen_docs(string_manager, metastations):
                     "objects": ("Objects", 4),
                 }[kind]
                 print(
-                    f"""# {title}
+                    f"""================
+{title}
+================
 """,
                     file=f,
                 )
@@ -89,10 +91,9 @@ def gen_docs(string_manager, metastations):
                         img.save(os.path.join(prefix, "img", f"{metastation_label}/{kind}/{idpath}.png"))
                         print(
                             f"""
-<figure style="display:inline-block">
-  <img src="img/{metastation_label}/{kind}/{idpath}.png" width="64"/>
-  <figcaption style="text-align:center">{idstr}</figcaption>
-</figure>
+.. image:: img/{metastation_label}/{kind}/{idpath}.png
+  :width: 64
+  :alt: {idstr}
 """,
                             file=f,
                         )

@@ -5,6 +5,7 @@ _site
 .bundle
 vendor
 *.md
+*.rst
 *.png
 *.jpg
 _build
