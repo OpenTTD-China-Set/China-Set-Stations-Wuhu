@@ -13,18 +13,7 @@ def gen_docs(string_manager, metastations):
         for kind in ["layouts", "stations", "waypoints", "road_stops", "objects"]:
             os.makedirs(os.path.join(prefix, "img", metastation_label, kind), exist_ok=True)
 
-        with open(os.path.join(prefix, f"{metastation_label}.md"), "w") as f:
-            print(
-                f"""# {translation}
-
-```{{toctree}}
-:maxdepth: 2
-{metastation_label}_Sample Layouts
-{metastation_label}_stations
-```
-""",
-                file=f,
-            )
+        toc = []
 
         for kind in ["waypoints", "stations", "road_stops", "objects"]:
             if kind == "road_stops":
@@ -54,20 +43,16 @@ def gen_docs(string_manager, metastations):
             if all(len(v) == 0 for v in subsections.values()):
                 continue
 
-            with open(os.path.join(prefix, f"{metastation_label}_{kind}.rst"), "w") as f:
+            tocentry = f"{metastation_label}_{kind}"
+            toc.append(tocentry)
+            with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
                 title, nav_order = {
                     "stations": ("Building Blocks", 0),
                     "waypoints": ("Waypoints", 1),
                     "road_stops": ("Road Stops", 2),
                     "objects": ("Objects", 4),
                 }[kind]
-                print(
-                    f"""================
-{title}
-================
-""",
-                    file=f,
-                )
+                print(f"================\n{title}\n================\n", file=f)
 
                 for sub in subsections:
                     if sub is not None and len(subsections[sub]) > 0:
@@ -77,7 +62,7 @@ def gen_docs(string_manager, metastations):
                         if "-" in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
-                        print(f"## {cat_name}", file=f)
+                        print(f"----------------\n{cat_name}\n----------------", file=f)
                     for layout in sorted(subsections[sub], key=lambda x: x.id):
                         img = (
                             layout.doc_layout.graphics(4, 32, remap=get_1cc_remap(CompanyColour.BLUE))
@@ -100,13 +85,32 @@ def gen_docs(string_manager, metastations):
 
         for demoi, (demok, demov) in enumerate(metastation.demos.items()):
             os.makedirs(os.path.join(prefix, "img", metastation_label, "layouts", demok), exist_ok=True)
-            with open(os.path.join(prefix, f"{metastation_label}_{demok}.md"), "w") as f:
-                print(
-                    f"""# {demok}
-""",
-                    file=f,
-                )
+            tocentry = f"{metastation_label}_{demok}"
+            toc.append(tocentry)
+            with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
+                print(f"================\n{demok}\n================\n", file=f)
                 for i, demo in enumerate(demov):
                     img = demo.graphics(4, 32).crop().resize(1920, 1080).to_pil_image()
                     img.save(os.path.join(prefix, "img", f"{metastation_label}/layouts/{demok}/{i:04X}.png"))
-                    print(f"## {demo.title}\n\n![](img/{metastation_label}/layouts/{demok}/{i:04X}.png)", file=f)
+                    print(
+                        f"""
+----------------
+{demo.title}
+----------------
+
+.. image:: img/{metastation_label}/layouts/{demok}/{i:04X}.png
+""",
+                        file=f,
+                    )
+
+        with open(os.path.join(prefix, f"{metastation_label}.md"), "w") as f:
+            print(
+                f"""# {translation}
+
+```{{toctree}}
+:maxdepth: 2""",
+                file=f,
+            )
+            for item in toc:
+                print(item, file=f)
+            print(f"```\n", file=f)
