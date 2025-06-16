@@ -83,12 +83,13 @@ def gen_docs(string_manager, metastations):
                             file=f,
                         )
 
-        for demoi, (demok, demov) in enumerate(metastation.demos.items()):
+        for demoi, (title, demov) in enumerate(metastation.demos.items()):
+            demok = title.replace(" ", "_").lower()
             os.makedirs(os.path.join(prefix, "img", metastation_label, "layouts", demok), exist_ok=True)
             tocentry = f"{metastation_label}_{demok}"
             toc.append(tocentry)
             with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
-                print(f"================\n{demok}\n================\n", file=f)
+                print(f"================\n{title}\n================\n", file=f)
                 for i, demo in enumerate(demov):
                     img = demo.graphics(4, 32).crop().resize(1920, 1080).to_pil_image()
                     img.save(os.path.join(prefix, "img", f"{metastation_label}/layouts/{demok}/{i:04X}.png"))
