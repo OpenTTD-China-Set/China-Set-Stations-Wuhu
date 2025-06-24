@@ -76,9 +76,10 @@ def gen_docs(string_manager, metastations):
                         img.save(os.path.join(prefix, "img", f"{metastation_label}/{kind}/{idpath}.png"))
                         print(
                             f"""
-.. image:: img/{metastation_label}/{kind}/{idpath}.png
+.. figure:: img/{metastation_label}/{kind}/{idpath}.png
   :width: 64
-  :alt: {idstr}
+
+  {idstr}
 """,
                             file=f,
                         )
