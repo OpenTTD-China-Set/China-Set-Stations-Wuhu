@@ -44,12 +44,12 @@ jobs:
         run: sudo gem install bundler:2.4.22 && cd docs && bundle install
       - name: Generate docs (Station)
         run: PATH=${PWD}/gopath/bin:${PATH} make doc.station
-      - name: Build with Jekyll
-        run: cd docs && bundle exec jekyll build
+      - name: Build with Sphinx
+        run: cd docs && make html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@main
         with:
-          path: ./docs/_site
+          path: ./docs/_build/html
 
   # Deployment job
   deploy:
