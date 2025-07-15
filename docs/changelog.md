@@ -3,7 +3,7 @@ China Set: Stations - Wuhu Changelog
 
 0.3.5 (Work-in-Progress)
 ------------------------
-Fix graphical glithes.
+Fix graphical glitches.
 
 0.3.4 (2025-04-30)
 ------------------------
