@@ -78,6 +78,7 @@ def gen_docs(string_manager, metastations):
                             f"""
 .. figure:: img/{metastation_label}/{kind}/{idpath}.png
   :width: 64
+  :figclass: inline-figure
 
   {idstr}
 """,
