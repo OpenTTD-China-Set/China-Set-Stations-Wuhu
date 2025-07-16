@@ -1,9 +1,5 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-.bundle
-vendor
 *.md
+*.rst
 *.png
 *.jpg
+_build

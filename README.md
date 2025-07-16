@@ -2,9 +2,11 @@ China Set: Stations - Wuhu
 ==========================
 
 ![Unit tests](https://github.com/OpenTTD-China-Set/china-set-stations-wuhu/actions/workflows/unit-tests.yml/badge.svg)
-![Docs](https://github.com/OpenTTD-China-Set/china-set-stations-wuhu/actions/workflows/jekyll-gh-pages.yml/badge.svg)
+![Docs](https://github.com/OpenTTD-China-Set/china-set-stations-wuhu/actions/workflows/sphinx-gh-pages.yml/badge.svg)
 
+<!-- start elevator-pitch -->
 This repo contains the source code for China Set: Stations - Wuhu.
+<!-- end elevator-pitch -->
 
 # Building
 ## Preparation
