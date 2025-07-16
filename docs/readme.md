@@ -94,7 +94,7 @@ contact Ahyangyi via Private Message at www.tt-forums.net.
 
 China Set: Stations - Wuhu
 
-Copyright (C) 2024 China Set Team
+Copyright (C) 2024-2025 China Set Team
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

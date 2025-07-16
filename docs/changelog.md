@@ -1,9 +1,11 @@
-China Set: Stations - Wuhu Changelog
+Changelog
 =========================
 
 0.3.5 (Work-in-Progress)
 ------------------------
-Fix graphical glithes.
+Fix graphical glitches.
+
+Migrate the HTML documentation from Jekyll to Sphinx.
 
 0.3.4 (2025-04-30)
 ------------------------
