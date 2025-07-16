@@ -13,6 +13,7 @@ To use this NewGRF in your games, search for it in the in-game content downloade
 Readme <readme>
 changelog
 E88A9CA
+E9B8A0A
 E88A9C0
 E88A9CP
 ```
