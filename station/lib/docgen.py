@@ -46,18 +46,22 @@ def gen_docs(string_manager, metastations):
             tocentry = f"{metastation_label}_{kind}"
             toc.append(tocentry)
             with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
-                title, nav_order = {
-                    "stations": ("Building Blocks", 0),
-                    "waypoints": ("Waypoints", 1),
-                    "road_stops": ("Road Stops", 2),
-                    "objects": ("Objects", 4),
+                title = {
+                    "stations": "Building Blocks",
+                    "waypoints": "Waypoints",
+                    "road_stops": "Road Stops",
+                    "objects": "Objects",
                 }[kind]
                 print(f"================\n{title}\n================\n", file=f)
 
                 for sub in subsections:
                     if sub is not None and len(subsections[sub]) > 0:
+                        if kind == "objects":
+                            kindcode = "OBJECT"
+                        else:
+                            kindcode = "STATION"
                         cat_name = get_translation(
-                            string_manager[f"STR_STATION_CLASS_{class_label_printable(sub)}"], 0x7F
+                            string_manager[f"STR_{kindcode}_CLASS_{class_label_printable(sub)}"], 0x7F
                         )
                         if "-" in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()

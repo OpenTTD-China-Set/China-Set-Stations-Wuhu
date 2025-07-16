@@ -119,7 +119,7 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
         + [b"\xf0"]
-        + [b"R", b"Z"]
+        + [b"R", b"Z", b"T", b"G", b"g", b"F", b"l", b"L", b"M"]
     ],
     {
         "Realistic Layouts": demos.realistic_demos,

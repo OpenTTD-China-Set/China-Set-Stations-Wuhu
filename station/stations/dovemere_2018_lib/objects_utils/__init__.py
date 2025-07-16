@@ -37,6 +37,7 @@ def register_slopes(slopes, sym, starting_id, flags=DEFAULT_SLOPE_FLAGS):
                 cur = slopes[sym.canonical_index(chi_ind ^ view_ind)][slope_type]
                 ranges[slope_type] = cur
             default = ranges.pop(0)
+            default.category = b"\xe8\x8a\x9cG"
             switch = GraphicalSwitch(ranges=ranges, default=default, code="tile_slope")
 
             layouts.append(switch)
@@ -75,9 +76,11 @@ def register(
         columns=columns,
     )
     for i, cur in enumerate(sym.chiralities(layout)[: 2 if allow_flip else 1]):
+        cat = b"\xe8\x8a\x9c" + label
+
         demo = Demo(cur.to_lists())
         doc_layout = demo.to_layout()
-        doc_layout.category = b"\xe8\x8a\x9cZ"  # FIXME doc category?
+        doc_layout.category = cat
         if purchase_layout is None:
             purchase_layouts = sym.rotational_views(doc_layout)
         else:
@@ -89,7 +92,7 @@ def register(
             translation_name="WEST_PLAZA",
             layouts=layouts,
             purchase_layouts=purchase_layouts,
-            class_label=b"\xe8\x8a\x9c" + label,
+            class_label=cat,
             climates_available=grf.ALL_CLIMATES,
             size=(columns, rows),
             num_views=num_views,
