@@ -40,8 +40,6 @@ jobs:
         run: pip install -r requirements.txt
       - name: Setup Pages
         uses: actions/configure-pages@main
-      - name: Install ruby deps
-        run: sudo gem install bundler:2.4.22 && cd docs && bundle install
       - name: Generate docs (Station)
         run: PATH=${PWD}/gopath/bin:${PATH} make doc.station
       - name: Build with Sphinx
