@@ -38,6 +38,8 @@ def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
     if childsprite is not None:
         v.config["agrf_relative_childsprite"] = childsprite
 
+    v.render()
+
     sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))
     return sprite
 
