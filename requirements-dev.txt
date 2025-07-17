@@ -1,3 +1,6 @@
 black==25.1.0
 pytest
 pprofile
+furo
+sphinx
+myst_parser
