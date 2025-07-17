@@ -121,6 +121,7 @@ def register(pf: PlatformFamily):
                                     + (pid - 2) * 0x200
                                     + sid * 0x40
                                     + (rid % 2) * 0x20
+                                    + ssid * 0x10
                                     + (rid // 2) * 0x8
                                     + lid * 0x2
                                     + i
