@@ -23,7 +23,7 @@ def get_side_index(l, r, pclass, sclass):
     )
 
 
-side_cb14 = cb14 = {
+cb14 = {
     pclass: {
         sclass: make_horizontal_switch(lambda l, r, pclass=pclass, sclass=sclass: get_side_index(l, r, pclass, sclass))
         for sclass in shelter_classes
