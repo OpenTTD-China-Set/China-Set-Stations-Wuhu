@@ -18,19 +18,33 @@ class RenderContext(ProtoRenderContext):
 
 
 def is_1012(l):
-    return (
-        isinstance(l, ALayout)
-        and isinstance(l.ground_sprite.sprite, DefaultGraphics)
-        and l.ground_sprite.sprite.sprite_id == 1012
-    )
+    if not isinstance(l, ALayout):
+        return False
+    from agrf.lib.building.default import empty_ground
+
+    if l.ground_sprite is empty_ground:
+        # Hack for various sloped tiles
+        return True
+    return isinstance(l.ground_sprite.sprite, DefaultGraphics) and l.ground_sprite.sprite.sprite_id in [
+        1012,
+        1031,
+        1033,
+    ]
 
 
 def is_1011(l):
-    return (
-        isinstance(l, ALayout)
-        and isinstance(l.ground_sprite.sprite, DefaultGraphics)
-        and l.ground_sprite.sprite.sprite_id == 1011
-    )
+    if not isinstance(l, ALayout):
+        return false
+    from agrf.lib.building.default import empty_ground
+
+    if l.ground_sprite is empty_ground:
+        # Hack for various sloped tiles
+        return True
+    return isinstance(l.ground_sprite.sprite, DefaultGraphics) and l.ground_sprite.sprite.sprite_id in [
+        1011,
+        1032,
+        1034,
+    ]
 
 
 @dataclass
