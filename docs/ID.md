@@ -65,7 +65,7 @@ With no ground-level buildings at all (waypoints).
 ````
 With solid ground floor.
 
-### 0xFF00 - 0xFFFE: Flexible Templates
+### 0xFE00 - 0xFEFE: Flexible Half-Templates
 #### Semitraversable Templates
 ````
 1111 1111 0000 ppss
@@ -74,6 +74,18 @@ With side platforms
 
 ````
 1111 1111 0001 ppss
+````
+Without side platforms
+
+### 0xFF00 - 0xFFFE: Flexible Templates
+#### Semitraversable Templates
+````
+1111 1110 0000 ppss
+````
+With side platforms
+
+````
+1111 1110 0001 ppss
 ````
 Without side platforms
 
