@@ -66,6 +66,8 @@ def gen_docs(string_manager, metastations):
                         if "-" in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
+                        if cat_name.startswith("|> "):
+                            cat_name = cat_name[3:]
                         print(f"----------------\n{cat_name}\n----------------", file=f)
                     for layout in sorted(subsections[sub], key=lambda x: x.id):
                         img = (
