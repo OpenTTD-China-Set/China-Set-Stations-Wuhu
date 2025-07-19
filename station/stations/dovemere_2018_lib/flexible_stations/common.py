@@ -128,6 +128,35 @@ def make_central_row(l, r, suffix):
     )
 
 
+def get_left_index_suffix_near(t, d, suffix):
+    if t == 0 and d == 1:
+        return get_tile("side_a2", suffix)
+    if d == 1:
+        return get_tile("side_a", suffix)
+    if d == 2:
+        return get_tile("side_b", suffix)
+    return get_tile("side_c", suffix)
+
+
+def get_left_index_suffix_2_near(t, d, suffix):
+    if t == 0 and d == 1:
+        return get_tile("side_a2_windowed", suffix)
+    return get_tile("side_d", suffix)
+
+
+def make_central_row_near(l, r, suffix):
+    return horizontal_layout(
+        l,
+        r,
+        make_vertical_switch(lambda t, d: get_tile("v_central", suffix)),
+        make_vertical_switch(lambda t, d: get_left_index_suffix_2_near(t, d, suffix)),
+        make_vertical_switch(lambda t, d: get_left_index_suffix_near(t, d, suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed_extender", suffix)),
+    )
+
+
 def determine_platform_odd_bottom_half(t, d):
     if d % 2 == 0 and t == 0:
         return "d"
