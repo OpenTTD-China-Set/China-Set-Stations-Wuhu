@@ -22,6 +22,7 @@ for p, pclass in enumerate(platform_classes):
             "T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass], 6: cb14_6[pclass][sclass]})
         )
         demo_layout = make_demo(cb14, 4, 4, cb24)
+        demo_layout.category = b"\xe8\x8a\x9ca"
         if pclass == "concrete" and sclass == "shelter_2":
             demo_1 = lambda r, c, cb14=cb14, cb24=cb24: cb14.demo(r, c, cb24)
         else:
