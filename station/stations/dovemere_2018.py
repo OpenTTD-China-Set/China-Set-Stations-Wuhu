@@ -119,6 +119,7 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
         + [b"\xf0"]
+        + [b"\xf8", b"\xf9", b"\xfa", b"\xfb", b"\xfc"]
         + [b"R", b"Z"]
     ],
     {

@@ -7,6 +7,24 @@ from station.lib.idmap import station_idmap
 
 def gen_docs(string_manager, metastations):
     prefix = "docs/"
+
+    with open(os.path.join(prefix, "index.md"), "w") as f:
+        print(
+            """
+```{include} readme.md
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+changelog""",
+            file=f,
+        )
+        for metastation in metastations:
+            metastation_label = metastation.class_label_plain
+            print(metastation.class_label_plain, file=f)
+        print("```", file=f)
+
     for i, metastation in enumerate(metastations):
         metastation_label = metastation.class_label_plain
         translation = get_translation(string_manager[f"STR_METASTATION_CLASS_{metastation_label}"], 0x7F)
@@ -62,6 +80,8 @@ def gen_docs(string_manager, metastations):
                         if "-" in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
+                        if cat_name.startswith("|> "):
+                            cat_name = cat_name[3:]
                         print(f"----------------\n{cat_name}\n----------------", file=f)
                     for layout in sorted(subsections[sub], key=lambda x: x.id):
                         img = (
