@@ -238,11 +238,6 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
 
 
 solid_ground = gray_ps
-# FIME merge these since the groundchildsprite is no longer used here
-corridor_ground = track_ground
-one_side_ground = track_ground
-one_side_ground_t = track_ground
-empty_ground = track_ground
 
 voxel_cache = {}
 
@@ -302,7 +297,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
         register(
             0xFD00 + f2_id,
             1,
-            ALayout(empty_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
+            ALayout(track_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
             cur_sym,
             internal_category,
             (f2_name, None, None, "empty"),
@@ -332,9 +327,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                 register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x03,
                     0x80,
-                    ALayout(
-                        corridor_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]
-                    ),
+                    ALayout(track_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]),
                     cur_sym,
                     internal_category,
                     (f2_name, platform_class, shelter_class, "d"),
@@ -344,9 +337,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         broken_symmetry,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -359,9 +350,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -369,9 +358,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x02,
                         0x80,
-                        ALayout(
-                            one_side_ground_t, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]
-                        ),
+                        ALayout(track_ground, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "f"),
@@ -463,7 +450,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x07,
                     0x80,
                     ALayout(
-                        corridor_ground,
+                        track_ground,
                         [cur_plat, cur_plat.T, f1 + f1_snow, f1b] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -477,7 +464,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x06,
                     0x80,
                     ALayout(
-                        one_side_ground,
+                        track_ground,
                         [cur_plat, f1 + f1_snow, h_pos.non_platform.T] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -498,7 +485,7 @@ def load(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x05,
                         0x80,
                         ALayout(
-                            corridor_ground,
+                            track_ground,
                             [cur_plat_nt, f1 + f1_snow, h_pos.platform(platform_class, shelter_class).T] + f2_component,
                             True,
                             notes=common_notes + ["third", "far"],
