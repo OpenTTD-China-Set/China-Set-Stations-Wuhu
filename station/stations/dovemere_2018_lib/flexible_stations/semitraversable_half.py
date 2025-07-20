@@ -13,28 +13,12 @@ from .common import (
     make_central_row_near,
 )
 from .traversable import fill_odd, front2
+from .traversable_half import h_n, h_f, h_d, cb14_2, cb14_4, cb14_6
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 
 named_tiles.globalize()
-
-front = {pclass: {} for pclass in platform_classes}
-h_n = {pclass: {} for pclass in platform_classes}
-h_f = {pclass: {} for pclass in platform_classes}
-h_d = {pclass: {} for pclass in platform_classes}
-cb14_2 = {pclass: {} for pclass in platform_classes}
-cb14_4 = {pclass: {} for pclass in platform_classes}
-cb14_6 = {pclass: {} for pclass in platform_classes}
-for pclass in platform_classes:
-    for sclass in shelter_classes:
-        h_n[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "n")))
-        h_f[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "f")))
-        h_d[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "d")))
-
-        cb14_2[pclass][sclass] = make_vertical_switch(lambda t, d: (front2[pclass] if d == 0 else h_n[pclass][sclass]))
-        cb14_4[pclass][sclass] = make_vertical_switch(lambda t, d: (front2[pclass] if d == 0 else h_f[pclass][sclass]))
-        cb14_6[pclass][sclass] = make_vertical_switch(lambda t, d: (front2[pclass] if d == 0 else h_d[pclass][sclass]))
 
 
 semitraversable_halfstations = []
@@ -61,7 +45,6 @@ for p, pclass in enumerate(platform_classes):
                 class_label=b"\xe8\x8a\x9cf",
                 cargo_threshold=40,
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
                     "select_sprite_layout": grf.DualCallback(
@@ -97,7 +80,6 @@ for p, pclass in enumerate(platform_classes):
                 class_label=b"\xe8\x8a\x9cb",
                 cargo_threshold=40,
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
                     "select_sprite_layout": grf.DualCallback(
@@ -139,7 +121,6 @@ for p, pclass in enumerate(platform_classes):
                 class_label=b"\xe8\x8a\x9cf",
                 cargo_threshold=40,
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
                     "select_sprite_layout": grf.DualCallback(
@@ -175,7 +156,6 @@ for p, pclass in enumerate(platform_classes):
                 class_label=b"\xe8\x8a\x9cb",
                 cargo_threshold=40,
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
                     "select_sprite_layout": grf.DualCallback(
