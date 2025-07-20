@@ -5,6 +5,8 @@ Changelog
 ------------------------
 Fix graphical glitches.
 
+Add new tiles that connects two "half-platforms" together.
+
 Migrate the HTML documentation from Jekyll to Sphinx.
 
 0.3.4 (2025-04-30)

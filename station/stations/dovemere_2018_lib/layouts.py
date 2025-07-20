@@ -83,6 +83,10 @@ def get_category(internal_category, back, notes, tra):
         ret = 0xF0
     else:
         raise KeyError(f"Unsupported internal category {internal_category}")
+
+    if "waypoint" in notes:
+        ret = {0x90: 0xF8, 0xA0: 0xF9, 0xA4: 0xFA, 0xA8: 0xFB, 0xAC: 0xFC}[ret]
+
     return b"\xe8\x8a\x9c" + ret.to_bytes(1, "little")
 
 
@@ -311,6 +315,22 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     ) + [shelter_class, platform_class]
                 else:
                     common_notes = (["noshow"] if platform_class != "concrete" else []) + [platform_class]
+
+                concourse = concourse_ps[(platform_class, "d")]
+                shelter = platform_ps[("cns", "cut", "", shelter_class, "")]
+                register(
+                    0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08,
+                    0x80,
+                    ALayout(
+                        track_ground,
+                        [concourse, shelter, shelter.T] + f2_component,
+                        False,
+                        notes=common_notes + ["connector"],
+                    ),
+                    cur_sym,
+                    internal_category,
+                    (f2_name, platform_class, shelter_class, "c"),
+                )
                 register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x03,
                     0x80,
