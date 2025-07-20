@@ -59,7 +59,7 @@ def gen_docs(string_manager, metastations):
                         cat_name = get_translation(
                             string_manager[f"STR_STATION_CLASS_{class_label_printable(sub)}"], 0x7F
                         )
-                        if "-" in cat_name:
+                        if "-" in cat_name and "Template -" not in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
                         if cat_name.startswith("|> "):
