@@ -5,6 +5,8 @@ Changelog
 ------------------------
 Fix graphical glitches.
 
+Add new tiles that connects two "half-platforms" together.
+
 Add "half station" templates.
 
 Migrate the HTML documentation from Jekyll to Sphinx.
