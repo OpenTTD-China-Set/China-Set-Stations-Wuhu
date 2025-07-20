@@ -83,6 +83,10 @@ def get_category(internal_category, back, notes, tra):
         ret = 0xF0
     else:
         raise KeyError(f"Unsupported internal category {internal_category}")
+
+    if "waypoint" in notes:
+        ret = {0x90: 0xF8, 0xA0: 0xF9, 0xA4: 0xFA, 0xA8: 0xFB, 0xAC: 0xFC}[ret]
+
     return b"\xe8\x8a\x9c" + ret.to_bytes(1, "little")
 
 
