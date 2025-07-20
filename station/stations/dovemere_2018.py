@@ -118,7 +118,7 @@ the_stations = AMetaStation(
     b"\xe8\x8a\x9cA",
     [
         b"\xe8\x8a\x9c" + x
-        for x in [b"A", b"a"]
+        for x in [b"A", b"f", b"b"]
         + [(r * 16 + c).to_bytes(1, "little") for r in [8] for c in range(16)]
         + [(r * 16 + c).to_bytes(1, "little") for r in [9] for c in range(4)]
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]

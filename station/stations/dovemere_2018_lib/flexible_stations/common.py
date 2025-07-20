@@ -179,6 +179,12 @@ def determine_platform_odd(t, d):
     return "d"
 
 
+def determine_platform_even_bottom_half(t, d):
+    if d % 2 == 0 and t == 0:
+        return "d"
+    return "nf"[d % 2]
+
+
 def determine_platform_even(t, d):
     if d > t:
         return {"f": "n", "n": "f", "d": "d"}[determine_platform_even(d, t)]

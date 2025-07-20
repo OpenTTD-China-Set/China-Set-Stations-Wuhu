@@ -2,6 +2,7 @@ from station.stations.dovemere_2018_lib.flexible_stations.common import (
     determine_platform_odd,
     determine_platform_odd_bottom_half,
     determine_platform_even,
+    determine_platform_even_bottom_half,
     get_left_index_suffix,
     named_tiles,
 )
@@ -43,6 +44,18 @@ def test_determine_platform_even():
     check_platform_function(determine_platform_even, 8, "fnfnfnfn")
     check_platform_function(determine_platform_even, 9, "fnfndfnfn")
     check_platform_function(determine_platform_even, 10, "fnfnfnfnfn")
+
+
+def test_determine_platform_even_bottom_half():
+    check_platform_function(determine_platform_even_bottom_half, 7, "dfnfnfn")
+    check_platform_function(determine_platform_even_bottom_half, 8, "fnfnfnfn")
+    check_platform_function(determine_platform_even_bottom_half, 9, "dfnfnfnfn")
+    check_platform_function(determine_platform_even_bottom_half, 10, "fnfnfnfnfn")
+
+
+def test_determine_platform_even_bottom_half_huge():
+    check_platform_function(determine_platform_even_bottom_half, 15, "d" + "fn" * 7)
+    check_platform_function(determine_platform_even_bottom_half, 16, "fn" * 8)
 
 
 def test_determine_platform_even_huge():
