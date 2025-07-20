@@ -311,12 +311,15 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     ) + [shelter_class, platform_class]
                 else:
                     common_notes = (["noshow"] if platform_class != "concrete" else []) + [platform_class]
+
+                concourse = concourse_ps[(platform_class, "d")]
+                shelter = platform_ps[("cns", "cut", "", shelter_class, "")]
                 register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08,
                     0x80,
                     ALayout(
-                        corridor_ground,
-                        [cur_plat, cur_plat.T] + f2_component,
+                        track_ground,
+                        [concourse, shelter, shelter.T] + f2_component,
                         False,
                         notes=common_notes + ["connector"],
                     ),
