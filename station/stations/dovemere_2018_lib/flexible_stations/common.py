@@ -157,6 +157,12 @@ def make_central_row_near(l, r, suffix):
     )
 
 
+def determine_platform_odd_top_half(t, d):
+    if t % 2 == 0 and d == 0:
+        return "d"
+    return "nf"[t % 2]
+
+
 def determine_platform_odd_bottom_half(t, d):
     if d % 2 == 0 and t == 0:
         return "d"

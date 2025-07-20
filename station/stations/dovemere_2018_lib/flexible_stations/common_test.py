@@ -1,5 +1,6 @@
 from station.stations.dovemere_2018_lib.flexible_stations.common import (
     determine_platform_odd,
+    determine_platform_odd_top_half,
     determine_platform_odd_bottom_half,
     determine_platform_even,
     determine_platform_even_bottom_half,
@@ -25,6 +26,18 @@ def test_determine_platform_odd_huge():
     check_platform_function(determine_platform_odd, 31, "nf" * 6 + "ndddddf" + "nf" * 6)
     check_platform_function(determine_platform_odd, 32, "nf" * 6 + "nddddddf" + "nf" * 6)
     check_platform_function(determine_platform_odd, 33, "nf" * 6 + "ndddddddf" + "nf" * 6)
+
+
+def test_determine_platform_odd_top_half():
+    check_platform_function(determine_platform_odd_top_half, 7, "nfnfnfd")
+    check_platform_function(determine_platform_odd_top_half, 8, "nfnfnfnf")
+    check_platform_function(determine_platform_odd_top_half, 9, "nfnfnfnfd")
+    check_platform_function(determine_platform_odd_top_half, 10, "nfnfnfnfnf")
+
+
+def test_determine_platform_odd_top_half_huge():
+    check_platform_function(determine_platform_odd_top_half, 15, "nf" * 7 + "d")
+    check_platform_function(determine_platform_odd_top_half, 16, "nf" * 8)
 
 
 def test_determine_platform_odd_bottom_half():
