@@ -317,6 +317,19 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                 else:
                     common_notes = (["noshow"] if platform_class != "concrete" else []) + [platform_class]
                 register(
+                    0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08,
+                    0x80,
+                    ALayout(
+                        corridor_ground,
+                        [cur_plat, cur_plat.T] + f2_component,
+                        False,
+                        notes=common_notes + ["connector"],
+                    ),
+                    cur_sym,
+                    internal_category,
+                    (f2_name, platform_class, shelter_class, "c"),
+                )
+                register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x03,
                     0x80,
                     ALayout(
