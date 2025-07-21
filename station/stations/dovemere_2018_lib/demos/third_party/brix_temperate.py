@@ -8,5 +8,5 @@ for tile_id in [1011, 1012, 3981]:
     DefaultGraphics.register_third_party_image(f"third_party/brix/temperate/{tile_id}.png", "brix-temperate", tile_id)
 
 brix_temperate_demo = Demo(
-    normal_demo.tiles, "with BRIX temperate", remap=get_1cc_remap(CompanyColour.GREEN), climate="brix-temperate"
+    normal_demo.tiles, "with BRIX temperate", remap=get_1cc_remap(CompanyColour.PURPLE), climate="brix-temperate"
 )
