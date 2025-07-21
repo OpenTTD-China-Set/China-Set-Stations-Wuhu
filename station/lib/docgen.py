@@ -77,6 +77,8 @@ changelog""",
                     if sub is not None and len(subsections[sub]) > 0:
                         if kind == "objects":
                             kindcode = "OBJECT"
+                        elif kind == "road_stops":
+                            kindcode = "ROADSTOP"
                         else:
                             kindcode = "STATION"
                         cat_name = get_translation(
