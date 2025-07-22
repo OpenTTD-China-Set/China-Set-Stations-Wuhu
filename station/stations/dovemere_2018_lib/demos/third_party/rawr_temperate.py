@@ -8,5 +8,5 @@ for tile_id in [1011, 1012, 3981]:
     DefaultGraphics.register_third_party_image(f"third_party/rawr/temperate/{tile_id}.png", "rawr-temperate", tile_id)
 
 rawr_temperate_demo = Demo(
-    normal_demo.tiles, "with RAWR temperate", remap=get_1cc_remap(CompanyColour.GREY), climate="rawr-temperate"
+    normal_demo.tiles, "with RAWR temperate", remap=get_1cc_remap(CompanyColour.MAUVE), climate="rawr-temperate"
 )

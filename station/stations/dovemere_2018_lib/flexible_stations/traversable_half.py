@@ -9,7 +9,6 @@ from .common import (
     determine_platform_even_top_half,
     make_front_row_half,
     make_demo,
-    make_row,
     make_central_row_near,
 )
 from .traversable import fill_odd, front2
