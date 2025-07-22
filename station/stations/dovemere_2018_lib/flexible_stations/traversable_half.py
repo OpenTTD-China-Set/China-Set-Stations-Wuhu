@@ -77,7 +77,7 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-        cb14 = cb14.T
+        cb14 = StationTileSwitch("T", fill_odd({2: cb14_4[pclass][sclass].T, 4: cb14_2[pclass][sclass].T}))
         demo_layout = make_demo(cb14, 4, 4, cb24_top)
         demo_layout.category = b"\xe8\x8a\x9cb"
         if pclass == "concrete" and sclass == "shelter_2":
@@ -86,7 +86,7 @@ for p, pclass in enumerate(platform_classes):
             demo_layout.notes.append("noshow")
         traversable_halfstations.append(
             AStation(
-                id=0xFEA0 + p * 0x4 + s,
+                id=0xFE60 + p * 0x4 + s,
                 translation_name="FLEXIBLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
@@ -115,7 +115,7 @@ cb24 = make_vertical_switch(lambda t, d: {"n": 2, "f": 4}[determine_platform_eve
 cb24_top = make_vertical_switch(lambda t, d: {"n": 2, "f": 4}[determine_platform_even_top_half(t, d)], cb24=True)
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        cb14 = StationTileSwitch("T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass]}))
+        cb14 = StationTileSwitch("T", fill_odd({2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass]}))
         demo_layout = make_demo(cb14, 4, 4, cb24)
         demo_layout.category = b"\xe8\x8a\x9cf"
         if pclass == "concrete" and sclass == "shelter_2":
@@ -147,7 +147,7 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-        cb14 = cb14.T
+        cb14 = StationTileSwitch("T", fill_odd({2: cb14_4[pclass][sclass].T, 4: cb14_2[pclass][sclass].T}))
         demo_layout = make_demo(cb14, 4, 4, cb24_top)
         demo_layout.category = b"\xe8\x8a\x9cb"
         if pclass == "concrete" and sclass == "shelter_2":
@@ -156,7 +156,7 @@ for p, pclass in enumerate(platform_classes):
             demo_layout.notes.append("noshow")
         traversable_halfstations.append(
             AStation(
-                id=0xFEB0 + p * 0x4 + s,
+                id=0xFE70 + p * 0x4 + s,
                 translation_name="FLEXIBLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",

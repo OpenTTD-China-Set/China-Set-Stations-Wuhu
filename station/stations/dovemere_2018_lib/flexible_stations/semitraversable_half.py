@@ -59,9 +59,9 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-        cb14 = cb14.T
+        cb14 = StationTileSwitch("T", fill_odd({0: front.T, 2: cb14_4[pclass][sclass].T, 4: cb14_2[pclass][sclass].T}))
         cb24 = make_vertical_switch(
-            lambda t, d: 0 if t == 0 else {"n": 2, "f": 4, "d": 6}[determine_platform_odd_top_half(t, d)], cb24=True
+            lambda t, d: 0 if t == 0 else {"n": 2, "f": 4}[determine_platform_odd_top_half(t, d)], cb24=True
         )
         demo_layout = make_demo(cb14, 4, 4, cb24)
         demo_layout.category = b"\xe8\x8a\x9cb"
@@ -71,7 +71,7 @@ for p, pclass in enumerate(platform_classes):
             demo_layout.notes.append("noshow")
         semitraversable_halfstations.append(
             AStation(
-                id=0xFE80 + p * 0x4 + s,
+                id=0xFE40 + p * 0x4 + s,
                 translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
@@ -133,9 +133,9 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-        cb14 = cb14.T
+        cb14 = StationTileSwitch("T", fill_odd({0: front.T, 2: cb14_4[pclass][sclass].T, 4: cb14_2[pclass][sclass].T}))
         cb24 = make_vertical_switch(
-            lambda t, d: 0 if t == 0 else {"n": 2, "f": 4, "d": 6}[determine_platform_even_top_half(t, d)], cb24=True
+            lambda t, d: 0 if t == 0 else {"n": 2, "f": 4}[determine_platform_even_top_half(t, d)], cb24=True
         )
         demo_layout = make_demo(cb14, 4, 4, cb24)
         demo_layout.category = b"\xe8\x8a\x9cb"
@@ -145,7 +145,7 @@ for p, pclass in enumerate(platform_classes):
             demo_layout.notes.append("noshow")
         semitraversable_halfstations.append(
             AStation(
-                id=0xFE90 + p * 0x4 + s,
+                id=0xFE50 + p * 0x4 + s,
                 translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
