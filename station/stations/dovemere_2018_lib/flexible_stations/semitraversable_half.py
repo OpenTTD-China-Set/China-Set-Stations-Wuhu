@@ -7,10 +7,9 @@ from .common import (
     determine_platform_odd_top_half,
     determine_platform_even_bottom_half,
     determine_platform_even_top_half,
-    make_front_row,
+    make_front_row_half,
     make_demo,
     make_row,
-    make_central_row_near,
 )
 from .traversable import fill_odd, front2
 from .traversable_half import h_n, h_f, h_d, cb14_2, cb14_4, cb14_6
@@ -24,7 +23,7 @@ named_tiles.globalize()
 semitraversable_halfstations = []
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        front = make_front_row((pclass, sclass, "platform"))
+        front = make_front_row_half((pclass, sclass, "platform"))
         cb24 = make_vertical_switch(
             lambda t, d: 0 if d == 0 else {"n": 2, "f": 4, "d": 6}[determine_platform_odd_bottom_half(t, d)], cb24=True
         )
@@ -98,7 +97,7 @@ for p, pclass in enumerate(platform_classes):
         )
 
 
-front = make_front_row((None, None, ""))
+front = make_front_row_half((None, None, ""))
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
         cb24 = make_vertical_switch(

@@ -30,26 +30,26 @@ def test_determine_platform_odd_huge():
 
 
 def test_determine_platform_odd_top_half():
-    check_platform_function(determine_platform_odd_top_half, 7, "nfnfnfd")
+    check_platform_function(determine_platform_odd_top_half, 7, "nfnfnfn")
     check_platform_function(determine_platform_odd_top_half, 8, "nfnfnfnf")
-    check_platform_function(determine_platform_odd_top_half, 9, "nfnfnfnfd")
+    check_platform_function(determine_platform_odd_top_half, 9, "nfnfnfnfn")
     check_platform_function(determine_platform_odd_top_half, 10, "nfnfnfnfnf")
 
 
 def test_determine_platform_odd_top_half_huge():
-    check_platform_function(determine_platform_odd_top_half, 15, "nf" * 7 + "d")
+    check_platform_function(determine_platform_odd_top_half, 15, "nf" * 7 + "n")
     check_platform_function(determine_platform_odd_top_half, 16, "nf" * 8)
 
 
 def test_determine_platform_odd_bottom_half():
-    check_platform_function(determine_platform_odd_bottom_half, 7, "dnfnfnf")
+    check_platform_function(determine_platform_odd_bottom_half, 7, "fnfnfnf")
     check_platform_function(determine_platform_odd_bottom_half, 8, "nfnfnfnf")
-    check_platform_function(determine_platform_odd_bottom_half, 9, "dnfnfnfnf")
+    check_platform_function(determine_platform_odd_bottom_half, 9, "fnfnfnfnf")
     check_platform_function(determine_platform_odd_bottom_half, 10, "nfnfnfnfnf")
 
 
 def test_determine_platform_odd_bottom_half_huge():
-    check_platform_function(determine_platform_odd_bottom_half, 15, "d" + "nf" * 7)
+    check_platform_function(determine_platform_odd_bottom_half, 15, "f" + "nf" * 7)
     check_platform_function(determine_platform_odd_bottom_half, 16, "nf" * 8)
 
 
@@ -61,26 +61,26 @@ def test_determine_platform_even():
 
 
 def test_determine_platform_even_top_half():
-    check_platform_function(determine_platform_even_top_half, 7, "fnfnfnd")
+    check_platform_function(determine_platform_even_top_half, 7, "fnfnfnf")
     check_platform_function(determine_platform_even_top_half, 8, "fnfnfnfn")
-    check_platform_function(determine_platform_even_top_half, 9, "fnfnfnfnd")
+    check_platform_function(determine_platform_even_top_half, 9, "fnfnfnfnf")
     check_platform_function(determine_platform_even_top_half, 10, "fnfnfnfnfn")
 
 
 def test_determine_platform_even_top_half_huge():
-    check_platform_function(determine_platform_even_top_half, 15, "fn" * 7 + "d")
+    check_platform_function(determine_platform_even_top_half, 15, "fn" * 7 + "f")
     check_platform_function(determine_platform_even_top_half, 16, "fn" * 8)
 
 
 def test_determine_platform_even_bottom_half():
-    check_platform_function(determine_platform_even_bottom_half, 7, "dfnfnfn")
+    check_platform_function(determine_platform_even_bottom_half, 7, "nfnfnfn")
     check_platform_function(determine_platform_even_bottom_half, 8, "fnfnfnfn")
-    check_platform_function(determine_platform_even_bottom_half, 9, "dfnfnfnfn")
+    check_platform_function(determine_platform_even_bottom_half, 9, "nfnfnfnfn")
     check_platform_function(determine_platform_even_bottom_half, 10, "fnfnfnfnfn")
 
 
 def test_determine_platform_even_bottom_half_huge():
-    check_platform_function(determine_platform_even_bottom_half, 15, "d" + "fn" * 7)
+    check_platform_function(determine_platform_even_bottom_half, 15, "n" + "fn" * 7)
     check_platform_function(determine_platform_even_bottom_half, 16, "fn" * 8)
 
 

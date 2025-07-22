@@ -77,6 +77,16 @@ def make_front_row(suffix):
     return make_row(*row)
 
 
+def make_front_row_half(suffix):
+    row = [
+        named_tiles[(c, *suffix)]
+        for c in ["v_end_gate", "corner_gate", "corner", "front_normal", "front_gate", "front_gate_extender"]
+    ]
+    row[1] = make_vertical_switch(lambda t, d: named_tiles[("corner_gate_2", *suffix)] if t == 0 else row[1])
+    row[2] = make_vertical_switch(lambda t, d: named_tiles[("corner_2", *suffix)] if t == 0 else row[2])
+    return make_row(*row)
+
+
 def get_tile(name, desc):
     return named_tiles[(name, *desc)]
 
@@ -130,7 +140,7 @@ def make_central_row(l, r, suffix):
 
 def get_left_index_suffix_near(t, d, suffix):
     if t == 0 and d == 1:
-        return get_tile("side_a2", suffix)
+        return get_tile("side_a3", suffix)
     if d == 1:
         return get_tile("side_a", suffix)
     if d == 2:
@@ -139,8 +149,6 @@ def get_left_index_suffix_near(t, d, suffix):
 
 
 def get_left_index_suffix_2_near(t, d, suffix):
-    if t == 0 and d == 1:
-        return get_tile("side_a2_windowed", suffix)
     return get_tile("side_d", suffix)
 
 
@@ -158,14 +166,10 @@ def make_central_row_near(l, r, suffix):
 
 
 def determine_platform_odd_top_half(t, d):
-    if t % 2 == 0 and d == 0:
-        return "d"
     return "nf"[t % 2]
 
 
 def determine_platform_odd_bottom_half(t, d):
-    if d % 2 == 0 and t == 0:
-        return "d"
     return "fn"[d % 2]
 
 
@@ -186,14 +190,10 @@ def determine_platform_odd(t, d):
 
 
 def determine_platform_even_top_half(t, d):
-    if t % 2 == 0 and d == 0:
-        return "d"
     return "fn"[t % 2]
 
 
 def determine_platform_even_bottom_half(t, d):
-    if d % 2 == 0 and t == 0:
-        return "d"
     return "nf"[d % 2]
 
 
