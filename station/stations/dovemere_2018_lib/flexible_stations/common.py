@@ -149,6 +149,8 @@ def get_left_index_suffix_near(t, d, suffix):
 
 
 def get_left_index_suffix_2_near(t, d, suffix):
+    if d == 1:
+        return get_tile("side_a3_windowed", suffix)
     return get_tile("side_d", suffix)
 
 

@@ -12,7 +12,7 @@ from .common import (
     make_row,
 )
 from .traversable import fill_odd, front2
-from .traversable_half import h_n, h_f, h_d, cb14_2, cb14_4, cb14_6
+from .traversable_half import h_n, h_f, h_d, cb14_2, cb14_4
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
@@ -25,11 +25,9 @@ for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
         front = make_front_row_half((pclass, sclass, "platform"))
         cb24 = make_vertical_switch(
-            lambda t, d: 0 if d == 0 else {"n": 2, "f": 4, "d": 6}[determine_platform_odd_bottom_half(t, d)], cb24=True
+            lambda t, d: 0 if d == 0 else {"n": 2, "f": 4}[determine_platform_odd_bottom_half(t, d)], cb24=True
         )
-        cb14 = StationTileSwitch(
-            "T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass], 6: cb14_6[pclass][sclass]})
-        )
+        cb14 = StationTileSwitch("T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass]}))
         demo_layout = make_demo(cb14, 4, 4, cb24)
         demo_layout.category = b"\xe8\x8a\x9cf"
         if pclass == "concrete" and sclass == "shelter_2":
@@ -101,11 +99,9 @@ front = make_front_row_half((None, None, ""))
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
         cb24 = make_vertical_switch(
-            lambda t, d: 0 if d == 0 else {"n": 2, "f": 4, "d": 6}[determine_platform_even_bottom_half(t, d)], cb24=True
+            lambda t, d: 0 if d == 0 else {"n": 2, "f": 4}[determine_platform_even_bottom_half(t, d)], cb24=True
         )
-        cb14 = StationTileSwitch(
-            "T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass], 6: cb14_6[pclass][sclass]})
-        )
+        cb14 = StationTileSwitch("T", fill_odd({0: front, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass]}))
         demo_layout = make_demo(cb14, 4, 4, cb24)
         demo_layout.category = b"\xe8\x8a\x9cf"
         if pclass == "concrete" and sclass == "shelter_2":
