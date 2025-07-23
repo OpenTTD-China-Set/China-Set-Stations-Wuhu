@@ -177,18 +177,18 @@ def determine_platform_odd_bottom_half(t, d):
 
 def determine_platform_odd(t, d):
     if d > t:
-        return {"f": "n", "n": "f", "d": "d"}[determine_platform_odd(d, t)]
-    if t == 15 and 13 <= d <= 15:
-        return "d"
+        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_odd(d, t)]
+    if t == 15 and 14 <= d <= 15:
+        return "c"
     if (t + d) % 2 == 1:
         return "fn"[d % 2]
     if (t + d) % 4 == 0:
-        if d < t - 2:
+        if d < t:
             return "fn"[d % 2]
-        return "d"
+        return "c"
     if d < t:
         return "fn"[d % 2]
-    return "d"
+    return "e"
 
 
 def determine_platform_even_top_half(t, d):
@@ -201,15 +201,15 @@ def determine_platform_even_bottom_half(t, d):
 
 def determine_platform_even(t, d):
     if d > t:
-        return {"f": "n", "n": "f", "d": "d"}[determine_platform_even(d, t)]
-    if t == 15 and 14 <= d <= 15:
-        return "d"
+        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_even(d, t)]
+    if t == 15 and 15 <= d <= 15:
+        return "c"
     if (t + d) % 2 == 1:
         return "nf"[d % 2]
     if (t + d) % 4 == 0:
         if d < t:
             return "nf"[d % 2]
-        return "d"
-    if d < t - 2:
+        return "e"
+    if d < t:
         return "nf"[d % 2]
-    return "d"
+    return "c"
