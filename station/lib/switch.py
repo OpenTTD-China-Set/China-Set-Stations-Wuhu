@@ -33,11 +33,12 @@ def find_default_element(d):
 
 
 class StationTileSwitch:
-    def __init__(self, var, ranges, cb24=False):
+    def __init__(self, var, ranges, cb24=False, comment=None):
         self.var = var
         self.ranges = {k: v for k, v in ranges.items() if v is not None}
         self.cb24 = cb24
         self.to_index_cache = {}
+        self.comment = comment
 
     @property
     def code(self):
@@ -97,9 +98,55 @@ class StationTileSwitch:
         self.to_index_cache[id(sprite_list)] = ret
         return ret
 
+    def __repr__(self, context=None):
+        if context is None:
+            context = {}
+
+        rev_lookup = {}
+        for k, v in self.ranges.items():
+            i = id(v)
+            if i not in rev_lookup:
+                rev_lookup[i] = []
+            rev_lookup[i].append(k)
+
+        rangedesc = []
+        for i, ks in rev_lookup.items():
+            if isinstance(self.ranges[ks[0]], StationTileSwitch):
+                v = self.ranges[ks[0]].__repr__(context)
+            elif i in context:
+                v = context[i]
+            else:
+                v = context[i] = f"X{len(context)}"
+
+            kdesc = []
+            start = None
+            prev = None
+            for k in sorted(ks):
+                if start is not None and k == prev + 1:
+                    prev += 1
+                elif start is not None:
+                    if start == prev:
+                        kdesc.append(str(start))
+                    else:
+                        kdesc.append(f"{start}-{prev}")
+                    start = k
+                    prev = k
+                else:
+                    start = k
+                    prev = k
+            if start == prev:
+                kdesc.append(str(start))
+            else:
+                kdesc.append(f"{start}-{prev}")
+
+            rangedesc.append(self.var + "=" + ",".join(kdesc) + ":" + v)
+        rangedesc = ", ".join(str(x) for x in rangedesc)
+
+        return f"<Switch:{{{rangedesc}}}:{self.cb24}:{self.comment}>"
+
     def lookup(self, w, h, x, y, t=0):
         if self.var == "T":
-            return lookup(self.ranges[t & 0x7], w, h, x, y, t)
+            return lookup(self.ranges[t], w, h, x, y, t)
         elif self.var == "l":
             return lookup(self.ranges[min(x, 15)], w, h, x, y, t)
         elif self.var == "r":
