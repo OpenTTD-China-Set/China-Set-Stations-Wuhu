@@ -1,11 +1,27 @@
-China Set: Stations - Wuhu Changelog
+Changelog
 =========================
 
-0.3.4 (Work-in-progress)
+0.3.5 (Work-in-Progress)
+------------------------
+Fix graphical glitches.
+
+Add new tiles that connects two "half-platforms" together.
+
+Add "half station" templates.
+
+Migrate the HTML documentation from Jekyll to Sphinx.
+
+0.3.4 (2025-04-30)
 ------------------------
 Make parameters stable -- future changes to parameters should no longer mess up your existing settings. The functionality was introduced in 0.3.3 but the stability was accidentally broken in the same version, so 0.3.4 will be the first version to actually support this.
 
 Removed 8bpp graphics and applied other optmization techniques to reduce NewGRF size.
+
+Add a custom foundation for Wuhu Station (2015).
+
+Make a new station category: "trackless stations".
+
+Fix graphical gliches and improve details.
 
 0.3.3 (2025-01-27)
 ------------------------

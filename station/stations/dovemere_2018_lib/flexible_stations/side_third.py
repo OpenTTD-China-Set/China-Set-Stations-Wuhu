@@ -5,6 +5,7 @@ from .. import common_cb, common_code
 from .common import make_demo, horizontal_layout
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
+from ..foundation import named_foundations
 
 named_tiles.globalize()
 
@@ -51,10 +52,11 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": 0,
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass].to_index(layouts), purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass], purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -83,10 +85,11 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": 0,
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass].T.to_index(layouts), purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass].T, purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -134,11 +137,10 @@ for p, pclass in enumerate(platform_classes):
             disabled_platforms=0b11111110,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(
-                    default=cb14[pclass].to_index(layouts), purchase=layouts.index(demo_layout)
-                ),
+                "select_sprite_layout": grf.DualCallback(default=cb14[pclass], purchase=layouts.index(demo_layout)),
                 **common_cb,
             },
+            make_foundation=True,
             extra_code=common_code,
             enable_if=[parameter_list["E88A9CA_ENABLE_TEMPLATE"], parameter_list[f"PLATFORM_{pclass.upper()}"]],
             doc_layout=demo_layout,
@@ -162,11 +164,10 @@ for p, pclass in enumerate(platform_classes):
             disabled_platforms=0b11111110,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(
-                    default=cb14[pclass].T.to_index(layouts), purchase=layouts.index(demo_layout)
-                ),
+                "select_sprite_layout": grf.DualCallback(default=cb14[pclass].T, purchase=layouts.index(demo_layout)),
                 **common_cb,
             },
+            make_foundation=True,
             extra_code=common_code,
             enable_if=[parameter_list["E88A9CA_ENABLE_TEMPLATE"], parameter_list[f"PLATFORM_{pclass.upper()}"]],
             doc_layout=demo_layout,

@@ -1,6 +1,5 @@
 import os
 import inspect
-import types
 from station.lib import (
     BuildingFull,
     BuildingSymmetrical,
@@ -17,7 +16,6 @@ from station.lib import (
     Registers,
 )
 from agrf.graphics.voxel import LazyVoxel
-from agrf.sprites import empty_alternatives
 from station.stations.platforms import (
     platform_ps,
     concourse_ps,
@@ -30,9 +28,12 @@ from station.stations.platforms import (
     two_side_tiles,
     concourse_tiles,
 )
+from station.stations.platform_lib.aux import add_buffer_stop
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
-from station.stations.misc import track_ground, track
+from station.stations.misc import track_ground, default_ground, track
+from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
+from .foundation import named_foundations
 from dataclasses import dataclass
 
 
@@ -46,25 +47,6 @@ concourse = concourse_ps.none
 
 # FIXME: technically should be 21 instead of 20, but in reality that results in bad effects
 JOGGLE_AMOUNT = (16 * 2**0.5 - 20) / 1.25
-
-
-def make_empty_variant(w, h, x, y, offset=0, span=16):
-    if offset == 0 and span == 16:
-        empty_image = empty_alternatives(w, h, x, y)
-        empty_image.squash = types.MethodType(lambda self, *args, empty_image=empty_image: self, empty_image)
-        return BuildingCylindrical.create_variants([empty_image])
-    deltas = [[-2, -1], [2, -1], [-2, -1], [2, -1], [2, 1], [-2, 1], [2, 1], [-2, 1]]
-    offsets = [[0, 0], [0, 0], [0, 0], [0, 0], [-2, -1], [2, -1], [-2, -1], [2, -1]]
-
-    empty_images = []
-    for i in range(8):
-        x1 = x + deltas[i][0] * offset + offsets[i][0] * (16 - span)
-        y1 = y + deltas[i][1] * offset + offsets[i][1] * (16 - span)
-
-        empty_image = empty_alternatives(w, h, x1, y1)
-        empty_image.squash = types.MethodType(lambda self, *args, empty_image=empty_image: self, empty_image)
-        empty_images.append(empty_image)
-    return BuildingFull.create_variants(empty_images)
 
 
 def get_category(internal_category, back, notes, tra):
@@ -101,6 +83,10 @@ def get_category(internal_category, back, notes, tra):
         ret = 0xF0
     else:
         raise KeyError(f"Unsupported internal category {internal_category}")
+
+    if "waypoint" in notes:
+        ret = {0x90: 0xF8, 0xA0: 0xF9, 0xA4: 0xFA, 0xA8: 0xFB, 0xAC: 0xFC}[ret]
+
     return b"\xe8\x8a\x9c" + ret.to_bytes(1, "little")
 
 
@@ -165,8 +151,6 @@ f1_empty_offset = (-31, -14)
 f1_empty_sprite = {}
 for k, (_, offset, span) in f1_subsets.items():
     f1_empty_sprite[k] = make_empty_variant(64, 48, *f1_empty_offset, offset, span)
-f2_empty_offset = (-31, -34)
-f2_empty_sprite = make_empty_variant(64, 68, *f2_empty_offset)
 
 
 def make_f2(v, sym):
@@ -182,12 +166,18 @@ def make_f2(v, sym):
 
 
 def make_extra(v, sym, name, floor="f2"):
-    vd = v.keep_layers((name, name + "-boundary"), name)
+    if "snow" in name:
+        vd = v.keep_layers((name, "snow-boundary"), name)
+    else:
+        vd = v.keep_layers((name,), name)
     if floor == "f2":
         vd = vd.mask_clip_away("station/voxels/dovemere_2018/masks/ground_level.vox", "f2")
     else:
         vd = vd.mask_clip_away("station/voxels/dovemere_2018/masks/overpass.vox", "f1")
     v = vd.compose(v, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+
+    v.config["agrf_no_mask"] = True
+
     if "snow" in name:
         v.config["overlap"] = 1.3
     else:
@@ -216,6 +206,7 @@ def make_f1(v, subset, sym):
         V = V.mask_clip_away("station/voxels/dovemere_2018/masks/overpass.vox", "f1")
         V.in_place_subset(sym.render_indices())
         V.config["agrf_relative_childsprite"] = f1_empty_offset
+        V.config["agrf_no_mask"] = True
         s = sym.create_variants(V.spritesheet())
         empty_parent = AParentSprite(f1_empty_sprite[subset], (16, xspan, base_height), (0, xdiff, platform_height))
         f1_child = AChildSprite(s, (0, 0))
@@ -226,13 +217,20 @@ def make_f1(v, subset, sym):
 
 
 def register(base_id, step_id, l, symmetry, internal_category, name, broken_near_hack=False):
+    if internal_category == "X":
+        l.foundation = named_foundations.four_sides
+    else:
+        l.foundation = named_foundations.foundation
     l = symmetry.get_all_variants(l)
     cnt = len(l)
     for i, layout in enumerate(l):
         layout.category = get_category(internal_category, i >= cnt // 2, layout.notes, layout.traversable)
-    layouts.extend(l)
     l = symmetry.create_variants(l)
+    if layout.traversable:
+        l = add_buffer_stop(l)
+    layouts.extend(symmetry.get_all_variants(l))
     cur_entries = symmetry.get_all_entries(l)
+
     cnt = len(cur_entries)
     for i, entry in enumerate(cur_entries):
         if broken_near_hack:
@@ -244,11 +242,6 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
 
 
 solid_ground = gray_ps
-# FIME merge these since the groundchildsprite is no longer used here
-corridor_ground = track_ground
-one_side_ground = track_ground
-one_side_ground_t = track_ground
-empty_ground = track_ground
 
 voxel_cache = {}
 
@@ -306,9 +299,17 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
             f2_component = [f2 + f2_window_extender + f2_snow_window_extender]
             cur_sym = symmetry
         register(
+            0xFC00 + f2_id,
+            1,
+            ALayout(default_ground, [cur_np, cur_np.T] + f2_component, False, notes=["really_empty"]),
+            cur_sym,
+            internal_category,
+            (f2_name, None, None, "really_empty"),
+        )
+        register(
             0xFD00 + f2_id,
             1,
-            ALayout(empty_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
+            ALayout(track_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
             cur_sym,
             internal_category,
             (f2_name, None, None, "empty"),
@@ -322,12 +323,26 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     ) + [shelter_class, platform_class]
                 else:
                     common_notes = (["noshow"] if platform_class != "concrete" else []) + [platform_class]
+
+                concourse = concourse_ps[(platform_class, "d")]
+                shelter = platform_ps[("cns", "cut", "", shelter_class, "")]
+                register(
+                    0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08,
+                    0x80,
+                    ALayout(
+                        track_ground,
+                        [concourse, shelter, shelter.T] + f2_component,
+                        False,
+                        notes=common_notes + ["connector"],
+                    ),
+                    cur_sym,
+                    internal_category,
+                    (f2_name, platform_class, shelter_class, "c"),
+                )
                 register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x03,
                     0x80,
-                    ALayout(
-                        corridor_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]
-                    ),
+                    ALayout(track_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]),
                     cur_sym,
                     internal_category,
                     (f2_name, platform_class, shelter_class, "d"),
@@ -337,9 +352,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         broken_symmetry,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -352,9 +365,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -362,9 +373,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x02,
                         0x80,
-                        ALayout(
-                            one_side_ground_t, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]
-                        ),
+                        ALayout(track_ground, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "f"),
@@ -402,6 +411,7 @@ def load(
         window_classes = ["windowed"]
     else:
         window_classes = ["none"] + window
+    assert len(window_classes) == 1
 
     if "gate" in name or "tiny" in name:
         if window is None:
@@ -456,7 +466,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x07,
                     0x80,
                     ALayout(
-                        corridor_ground,
+                        track_ground,
                         [cur_plat, cur_plat.T, f1 + f1_snow, f1b] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -470,7 +480,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x06,
                     0x80,
                     ALayout(
-                        one_side_ground,
+                        track_ground,
                         [cur_plat, f1 + f1_snow, h_pos.non_platform.T] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -491,7 +501,7 @@ def load(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x05,
                         0x80,
                         ALayout(
-                            corridor_ground,
+                            track_ground,
                             [cur_plat_nt, f1 + f1_snow, h_pos.platform(platform_class, shelter_class).T] + f2_component,
                             True,
                             notes=common_notes + ["third", "far"],

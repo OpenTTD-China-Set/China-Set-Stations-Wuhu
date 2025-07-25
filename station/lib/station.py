@@ -1,8 +1,10 @@
 import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
+from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code
+from .switch import StationTileSwitch
 
 
 class AStation(grf.SpriteGenerator):
@@ -17,6 +19,7 @@ class AStation(grf.SpriteGenerator):
         is_waypoint=False,
         doc_layout=None,
         enable_if=None,
+        make_foundation=False,
         extra_code="",
         **props,
     ):
@@ -30,6 +33,7 @@ class AStation(grf.SpriteGenerator):
         self.is_waypoint = is_waypoint
         self.doc_layout = doc_layout
         self.enable_if = enable_if
+        self.make_foundation = make_foundation
         self.extra_code = extra_code
         self._props = {
             **props,
@@ -42,7 +46,7 @@ class AStation(grf.SpriteGenerator):
     def class_label_plain(self):
         return class_label_printable(self._props["class_label"])
 
-    def get_sprites(self, g, sprites=None):
+    def get_sprites(self, g, sprites=None, action2_pool=None):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
@@ -55,13 +59,36 @@ class AStation(grf.SpriteGenerator):
                 g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
             ).get_persistent_id()
 
-        graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
-        self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
+        res = []
+
+        if action2_pool is not None:
+            graphics = action2_pool.get_action_2_zero()
+        else:
+            graphics = grf.GenericSpriteLayout(ent1=[0], ent2=[0], feature=grf.STATION)
+
+        props = self._props.copy()
+        if self.make_foundation:
+            cb14 = self.callbacks.select_sprite_layout.default
+
+            self.callbacks.select_sprite_layout.default = cb14.to_index(self.layouts)
+            foundations = action2_pool.map_switch(cb14)
+            if isinstance(foundations, StationTileSwitch):
+                foundations = foundations.to_index(None)
+
+            self.callbacks.graphics = grf.GraphicsCallback(
+                default=grf.Switch(
+                    ranges={2: foundations},
+                    code=code + self.extra_code + "\nextra_callback_info1_byte",
+                    default=graphics,
+                ),
+                purchase=graphics,
+            )
+            props["general_flags"] = props.get("general_flags", 0) | 0b1000
+        else:
+            self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
 
         cb_props = {}
         self.callbacks.set_flag_props(cb_props)
-
-        res = []
 
         if not is_managed_by_metastation:
             sprites = self.sprites
@@ -80,9 +107,9 @@ class AStation(grf.SpriteGenerator):
                 feature=grf.STATION,
                 id=self.id,
                 props={
-                    "class_label": (b"WAYP" if self.is_waypoint else self._props["class_label"]),
+                    "class_label": (b"WAYP" if self.is_waypoint else props["class_label"]),
                     "advanced_layout": grf.SpriteLayoutList([l.to_grf(sprites) for l in self.layouts]),
-                    **{k: v for k, v in self._props.items() if k != "class_label"},
+                    **{k: v for k, v in props.items() if k != "class_label"},
                     **cb_props,
                     **(extra_props if self.id >= 0xFF else {}),
                 },
@@ -93,7 +120,7 @@ class AStation(grf.SpriteGenerator):
 
         if self.is_waypoint:
             openttd_15_props = {
-                "class_label": b"\xfF" + self._props["class_label"][1:],
+                "class_label": b"\xff" + self._props["class_label"][1:],
                 "station_class_name": g.strings.add(
                     g.strings[f"STR_STATION_CLASS_{self.class_label_plain}"]
                 ).get_persistent_id(),

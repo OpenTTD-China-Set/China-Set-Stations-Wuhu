@@ -9,6 +9,8 @@ from .dovemere_2018_lib.flexible_stations.semitraversable import semitraversable
 from .dovemere_2018_lib.flexible_stations.traversable import traversable_stations
 from .dovemere_2018_lib.flexible_stations.side import side_stations
 from .dovemere_2018_lib.flexible_stations.side_third import side_third_stations
+from .dovemere_2018_lib.flexible_stations.semitraversable_half import semitraversable_halfstations
+from .dovemere_2018_lib.flexible_stations.traversable_half import traversable_halfstations
 from agrf.strings import String
 
 modular_stations = []
@@ -76,6 +78,10 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
         f"STR_PART_SPLAT_{str(near_platform).upper()}",
     )
 
+    if entry.purchase is None:
+        purchase = entry
+    else:
+        purchase = entry.purchase
     modular_stations.append(
         AStation(
             id=entry.id,
@@ -83,37 +89,45 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             layouts=[
                 entry,
                 entry.M,
-                entry.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
-                entry.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
             ],
             class_label=entry.category,
             cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=0, purchase=2),
+                "select_sprite_layout": grf.DualCallback(default=entry, purchase=2),
                 **common_cb,
             },
+            make_foundation=True,
             is_waypoint="waypoint" in entry.notes,
             enable_if=enable_if,
-            doc_layout=entry,
+            doc_layout=purchase,
             extra_code=common_code,
         )
     )
 
 
 the_stations = AMetaStation(
-    semitraversable_stations + traversable_stations + side_stations + side_third_stations + modular_stations,
+    semitraversable_stations
+    + traversable_stations
+    + side_stations
+    + side_third_stations
+    + semitraversable_halfstations
+    + traversable_halfstations
+    + modular_stations,
     b"\xe8\x8a\x9cA",
     [
         b"\xe8\x8a\x9c" + x
-        for x in [b"A"]
+        for x in [b"A", b"f", b"b"]
         + [(r * 16 + c).to_bytes(1, "little") for r in [8] for c in range(16)]
         + [(r * 16 + c).to_bytes(1, "little") for r in [9] for c in range(4)]
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]
         + [x.to_bytes(1, "little") for x in range(0xB0, 0xB8)]
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
-        + [b"\xF0"]
+        + [b"\xf0"]
+        + [b"\xf8", b"\xf9", b"\xfa", b"\xfb", b"\xfc"]
         + [b"R", b"Z"]
     ],
     {

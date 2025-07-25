@@ -95,10 +95,11 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass].to_index(layouts), purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass], purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -129,10 +130,11 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass].to_index(layouts), purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass], purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
+                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
