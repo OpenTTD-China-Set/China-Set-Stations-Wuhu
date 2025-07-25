@@ -25,10 +25,9 @@ snow.config["agrf_childsprite"] = (0, -20)
 snow_sprite = symmetry.create_variants(snow.spritesheet(xspan=6, xdiff=10, yspan=6, ydiff=5))
 
 ps = AParentSprite(nosnow_sprite, (6, 6, 4), (5, 10, 0)).M.R
-# No snow for now XD
-# cs = AChildSprite(snow_sprite, (0, 0), flags={"dodraw": Registers.SNOW}).M.R
+cs = AChildSprite(snow_sprite, (0, 0), flags={"dodraw": Registers.SNOW}).M.R
 
-aux_ps[("bufferstop",)] = bufferstop = ps  # + cs
+aux_ps[("bufferstop",)] = bufferstop = ps + cs
 
 bufferstop_sw = bufferstop.R.copy()
 bufferstop_sw.flags = {"dodraw": Registers.RAIL_CONTINUATION_S}
