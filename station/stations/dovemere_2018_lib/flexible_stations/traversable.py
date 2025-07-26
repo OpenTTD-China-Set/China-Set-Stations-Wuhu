@@ -22,6 +22,8 @@ def fill_odd(d):
 
 front = {pclass: {} for pclass in platform_classes}
 front2 = {}
+front3 = {pclass: {} for pclass in platform_classes}
+front4 = make_front_row((None, None, ""))
 single = {}
 single_untraversable = make_row(
     tiny_untraversable, h_end_gate_untraversable, h_end_untraversable, h_normal, h_gate, h_gate_extender
@@ -36,7 +38,9 @@ h_c = {pclass: {} for pclass in platform_classes}
 cb14_2 = {pclass: {} for pclass in platform_classes}
 cb14_4 = {pclass: {} for pclass in platform_classes}
 cb14_6 = {pclass: {} for pclass in platform_classes}
-cb14_8 = {pclass: {} for pclass in platform_classes}
+cb14_8 = make_vertical_switch(
+    lambda t, d: (single_untraversable if d == t == 0 else front4 if d == 0 else front4 if t == 0 else h_e)
+)
 cb14_10 = {pclass: {} for pclass in platform_classes}
 cb14 = {pclass: {} for pclass in platform_classes}
 for pclass in platform_classes:
@@ -53,6 +57,7 @@ for pclass in platform_classes:
     single[pclass].comment = f"single_{pclass}"
     for sclass in shelter_classes:
         front[pclass][sclass] = make_front_row((pclass, sclass, "third_f"))
+        front3[pclass][sclass] = make_front_row((pclass, sclass, "platform"))
 
         h_n[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row(l, r, (pclass, sclass, "n")))
         h_n[pclass][sclass].comment = f"h_n_{pclass}_{sclass}"
@@ -84,18 +89,11 @@ for pclass in platform_classes:
                 else front[pclass][sclass] if d == 0 else front[pclass][sclass].T if t == 0 else h_d[pclass][sclass]
             )
         )
-        cb14_8[pclass][sclass] = make_vertical_switch(
-            lambda t, d: (
-                single_untraversable
-                if d == t == 0
-                else front[pclass][sclass] if d == 0 else front[pclass][sclass].T if t == 0 else h_e
-            )
-        )
         cb14_10[pclass][sclass] = make_vertical_switch(
             lambda t, d: (
                 single_untraversable
                 if d == t == 0
-                else front[pclass][sclass] if d == 0 else front[pclass][sclass].T if t == 0 else h_c[pclass][sclass]
+                else front3[pclass][sclass] if d == 0 else front3[pclass][sclass].T if t == 0 else h_c[pclass][sclass]
             )
         )
 
@@ -106,7 +104,7 @@ for pclass in platform_classes:
                     2: cb14_2[pclass][sclass],
                     4: cb14_4[pclass][sclass],
                     6: cb14_6[pclass][sclass],
-                    8: cb14_8[pclass][sclass],
+                    8: cb14_8,
                     10: cb14_10[pclass][sclass],
                 }
             ),

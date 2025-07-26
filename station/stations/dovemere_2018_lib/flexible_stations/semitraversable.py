@@ -3,7 +3,7 @@ from station.lib import AStation, StationTileSwitch, make_vertical_switch
 from .. import common_cb, common_code
 from ..layouts import named_tiles, layouts
 from .common import determine_platform_odd, determine_platform_even, make_front_row, make_demo, make_row
-from .traversable import cb14_2, cb14_4, cb14_6, cb14_8, cb14_10, fill_odd
+from .traversable import cb14_2, cb14_4, cb14_6, cb14_8, cb14_10, fill_odd, front3, front4
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
@@ -16,7 +16,6 @@ single = make_row(tiny_untraversable, h_end_gate_untraversable, h_end_untraversa
 semitraversable_stations = []
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        front = make_front_row((pclass, sclass, "platform"))
         cb24 = make_vertical_switch(
             lambda t, d: (
                 0 if t == 0 or d == 0 else {"n": 2, "f": 4, "d": 6, "e": 8, "c": 10}[determine_platform_odd(t, d)]
@@ -24,7 +23,11 @@ for p, pclass in enumerate(platform_classes):
             cb24=True,
         )
         cb14_0 = make_vertical_switch(
-            lambda t, d: single if d == t == 0 else front if d == 0 else front.T if t == 0 else None
+            lambda t, d: (
+                single
+                if d == t == 0
+                else front3[pclass][sclass] if d == 0 else front3[pclass][sclass].T if t == 0 else None
+            )
         )
         cb14 = StationTileSwitch(
             "T",
@@ -34,7 +37,7 @@ for p, pclass in enumerate(platform_classes):
                     2: cb14_2[pclass][sclass],
                     4: cb14_4[pclass][sclass],
                     6: cb14_6[pclass][sclass],
-                    8: cb14_8[pclass][sclass],
+                    8: cb14_8,
                     10: cb14_10[pclass][sclass],
                 }
             ),
@@ -69,7 +72,6 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-front = make_front_row((None, None, ""))
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
         cb24 = make_vertical_switch(
@@ -79,7 +81,7 @@ for p, pclass in enumerate(platform_classes):
             cb24=True,
         )
         cb14_0 = make_vertical_switch(
-            lambda t, d: single if d == t == 0 else front if d == 0 else front.T if t == 0 else None
+            lambda t, d: single if d == t == 0 else front4 if d == 0 else front4.T if t == 0 else None
         )
         cb14 = StationTileSwitch(
             "T",
@@ -89,7 +91,7 @@ for p, pclass in enumerate(platform_classes):
                     2: cb14_2[pclass][sclass],
                     4: cb14_4[pclass][sclass],
                     6: cb14_6[pclass][sclass],
-                    8: cb14_8[pclass][sclass],
+                    8: cb14_8,
                     10: cb14_10[pclass][sclass],
                 }
             ),
