@@ -32,7 +32,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 disabled_platforms=0b111,
                 callbacks={
@@ -73,7 +72,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_UNTRAVERSABLE_NO_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 disabled_platforms=0b111,
                 callbacks={
