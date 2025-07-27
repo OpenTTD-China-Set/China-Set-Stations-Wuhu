@@ -304,7 +304,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
             ALayout(default_ground, [cur_np, cur_np.T] + f2_component, False, notes=["really_empty"]),
             cur_sym,
             internal_category,
-            (f2_name, None, None, "really_empty"),
+            (f2_name, None, None, "e"),
         )
         register(
             0xFD00 + f2_id,

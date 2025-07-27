@@ -57,7 +57,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_SIDE_NEAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cf",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
@@ -89,7 +88,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 callbacks={
                     "select_tile_layout": cb24_top.to_index(None),
@@ -127,7 +125,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_SIDE_NEAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cf",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 callbacks={
                     "select_tile_layout": cb24.to_index(None),
@@ -159,7 +156,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
-                cargo_threshold=40,
                 non_traversable_tiles=0b11,
                 callbacks={
                     "select_tile_layout": cb24_top.to_index(None),

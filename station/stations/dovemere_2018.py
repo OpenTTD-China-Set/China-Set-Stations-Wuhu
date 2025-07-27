@@ -93,7 +93,6 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
                 purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
             ],
             class_label=entry.category,
-            cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,

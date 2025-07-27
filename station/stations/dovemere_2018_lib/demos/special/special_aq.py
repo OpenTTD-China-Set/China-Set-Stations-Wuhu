@@ -5,12 +5,12 @@ from agrf.graphics.palette import CompanyColour
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 
-rail_row = [concourse.T.M, cns.M, cns.T.M, cns_d.M, cns.M, cns.T.M, concourse.M]
+rail_row = [concourse.T.M, cns.M, cns.T.M, concourse_d_d.M, cns.M, cns.T.M, concourse.M]
 top_building = [
     corner_gate_platform.R.M,
     side_a3_windowed_f.R.M,
     side_a3_windowed_f.T.R.M,
-    side_a3_windowed_d.R.M,
+    side_a3_windowed_c.R.M,
     side_a3_windowed_f.T.R.M,
     side_a2_windowed_n.T.R.M,
     corner_gate_platform.T.R.M,
@@ -19,7 +19,7 @@ bottom_building = [
     corner_gate_platform.M,
     side_a2_windowed_n.M,
     side_a3_windowed_f.M,
-    side_a3_windowed_d.T.M,
+    side_a3_windowed_c.T.M,
     side_a3_windowed_n.M,
     side_a3_windowed_n.T.M,
     corner_gate_platform.T.M,
