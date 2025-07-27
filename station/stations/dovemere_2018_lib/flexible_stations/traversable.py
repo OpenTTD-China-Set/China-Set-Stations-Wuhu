@@ -90,7 +90,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 disabled_platforms=0b1,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
@@ -125,7 +124,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_NO_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 disabled_platforms=0b100,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
