@@ -35,13 +35,12 @@ h_d = {pclass: {} for pclass in platform_classes}
 h_e = make_horizontal_switch(lambda l, r: make_central_row(l, r, (None, None, "e")))
 h_e.comment = "h_e"
 h_c = {pclass: {} for pclass in platform_classes}
+cb14_0 = make_vertical_switch(
+    lambda t, d: (single_untraversable if d == t == 0 else front4 if d == 0 else front4.T if t == 0 else h_e)
+)
 cb14_2 = {pclass: {} for pclass in platform_classes}
 cb14_4 = {pclass: {} for pclass in platform_classes}
 cb14_6 = {pclass: {} for pclass in platform_classes}
-cb14_8 = make_vertical_switch(
-    lambda t, d: (single_untraversable if d == t == 0 else front4 if d == 0 else front4 if t == 0 else h_e)
-)
-cb14_10 = {pclass: {} for pclass in platform_classes}
 cb14 = {pclass: {} for pclass in platform_classes}
 for pclass in platform_classes:
     front2[pclass] = make_front_row((pclass, None, "third"))
@@ -84,13 +83,6 @@ for pclass in platform_classes:
         )
         cb14_6[pclass][sclass] = make_vertical_switch(
             lambda t, d: (
-                single[pclass]
-                if d == t == 0
-                else front[pclass][sclass] if d == 0 else front[pclass][sclass].T if t == 0 else h_d[pclass][sclass]
-            )
-        )
-        cb14_10[pclass][sclass] = make_vertical_switch(
-            lambda t, d: (
                 single_untraversable
                 if d == t == 0
                 else front3[pclass][sclass] if d == 0 else front3[pclass][sclass].T if t == 0 else h_c[pclass][sclass]
@@ -98,23 +90,12 @@ for pclass in platform_classes:
         )
 
         cb14[pclass][sclass] = StationTileSwitch(
-            "T",
-            fill_odd(
-                {
-                    2: cb14_2[pclass][sclass],
-                    4: cb14_4[pclass][sclass],
-                    6: cb14_6[pclass][sclass],
-                    8: cb14_8,
-                    10: cb14_10[pclass][sclass],
-                }
-            ),
+            "T", fill_odd({0: cb14_0, 2: cb14_2[pclass][sclass], 4: cb14_4[pclass][sclass], 6: cb14_6[pclass][sclass]})
         )
 
 traversable_stations = []
 
-cb24 = make_vertical_switch(
-    lambda t, d: {"n": 2, "f": 4, "d": 6, "e": 8, "c": 10}[determine_platform_odd(t, d)], cb24=True
-)
+cb24 = make_vertical_switch(lambda t, d: {"e": 0, "n": 2, "f": 4, "c": 6}[determine_platform_odd(t, d)], cb24=True)
 for p, pclass in enumerate(platform_classes):
     front = make_front_row((pclass, None, "platform"))
     for s, sclass in enumerate(shelter_classes):
@@ -149,11 +130,8 @@ for p, pclass in enumerate(platform_classes):
             )
         )
 
-cb24 = make_vertical_switch(
-    lambda t, d: {"n": 2, "f": 4, "d": 6, "e": 8, "c": 10}[determine_platform_even(t, d)], cb24=True
-)
+cb24 = make_vertical_switch(lambda t, d: {"e": 0, "n": 2, "f": 4, "c": 6}[determine_platform_even(t, d)], cb24=True)
 for p, pclass in enumerate(platform_classes):
-    front = make_front_row((pclass, None, "platform"))
     for s, sclass in enumerate(shelter_classes):
         demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24)
         if pclass == "concrete" and sclass == "shelter_2":
