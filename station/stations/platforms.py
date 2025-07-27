@@ -188,7 +188,6 @@ for i, entry in enumerate(entries):
                 [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
             ),
             class_label=entry.category,
-            cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,
