@@ -111,7 +111,6 @@ for p, pclass in enumerate(platform_classes):
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
                 cargo_threshold=40,
-                disabled_platforms=0b1,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
                     "select_sprite_layout": grf.DualCallback(
@@ -145,7 +144,6 @@ for p, pclass in enumerate(platform_classes):
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
                 cargo_threshold=40,
-                disabled_platforms=0b100,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
                     "select_sprite_layout": grf.DualCallback(

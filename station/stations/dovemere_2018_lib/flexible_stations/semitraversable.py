@@ -34,7 +34,7 @@ for p, pclass in enumerate(platform_classes):
                 class_label=b"\xe8\x8a\x9cA",
                 cargo_threshold=40,
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b11,
+                disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
                     "select_sprite_layout": grf.DualCallback(default=cb14, purchase=layouts.index(demo_layout)),
