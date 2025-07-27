@@ -1,13 +1,15 @@
 Changelog
 =========================
 
-0.3.5 (Work-in-Progress)
+0.4.0 (Work-in-Progress)
 ------------------------
 Fix graphical glitches.
 
 Add new tiles that connects two "half-platforms" together.
 
 Add "half station" templates.
+
+Redesign templates, now they always contain an even number of railways.
 
 Migrate the HTML documentation from Jekyll to Sphinx.
 

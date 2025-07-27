@@ -94,7 +94,7 @@ def get_tile(name, desc):
 def reverse(x):
     if x is None:
         return None
-    return x[:-1] + ({"f": "n", "n": "f", "d": "d"}[x[-1]],)
+    return x[:-1] + ({"f": "n", "n": "f", "d": "d", "e": "e", "c": "c"}[x[-1]],)
 
 
 def get_left_index_suffix(t, d, suffix):
@@ -177,18 +177,18 @@ def determine_platform_odd_bottom_half(t, d):
 
 def determine_platform_odd(t, d):
     if d > t:
-        return {"f": "n", "n": "f", "d": "d"}[determine_platform_odd(d, t)]
-    if t == 15 and 13 <= d <= 15:
-        return "d"
+        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_odd(d, t)]
+    if t == 15 and 14 <= d <= 15:
+        return "e"
     if (t + d) % 2 == 1:
         return "fn"[d % 2]
     if (t + d) % 4 == 0:
-        if d < t - 2:
+        if d < t:
             return "fn"[d % 2]
-        return "d"
+        return "e"
     if d < t:
         return "fn"[d % 2]
-    return "d"
+    return "c"
 
 
 def determine_platform_even_top_half(t, d):
@@ -201,15 +201,15 @@ def determine_platform_even_bottom_half(t, d):
 
 def determine_platform_even(t, d):
     if d > t:
-        return {"f": "n", "n": "f", "d": "d"}[determine_platform_even(d, t)]
-    if t == 15 and 14 <= d <= 15:
-        return "d"
+        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_even(d, t)]
+    if t == 15 and 15 <= d <= 15:
+        return "e"
     if (t + d) % 2 == 1:
         return "nf"[d % 2]
     if (t + d) % 4 == 0:
         if d < t:
             return "nf"[d % 2]
-        return "d"
-    if d < t - 2:
+        return "c"
+    if d < t:
         return "nf"[d % 2]
-    return "d"
+    return "e"
