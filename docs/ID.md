@@ -49,6 +49,7 @@ Where:
     * 1 and 2 for one-sided platforms [has track]
     * 3 for two-sided platforms [has track]
     * 4 for regular ground-level buildings [no track]
+      Potentially slated for reassignment, since this is very similar to the "with solid ground floor" class below
     * 5 for narrow ground-level buildings + platform [has track]
     * 6 for narrow ground-level buildings [has track]
     * 7 for narrow ground-level buildings on both sides [has track]
@@ -58,13 +59,17 @@ Where:
 ````
 With no ground-level buildings at all (waypoints).
 
+````
+1111 1100 xxxx xxxx
+````
+With no ground-level buildings nor railroad.
 
 ````
 1111 1011 xxxx xxxx
 ````
 With solid ground floor.
 
-### 0xFF00 - 0xFFFE: Flexible Templates
+### 0xFE00 - 0xFEFE: Flexible Half-Templates
 #### Semitraversable Templates
 ````
 1111 1111 0000 ppss
@@ -73,6 +78,18 @@ With side platforms
 
 ````
 1111 1111 0001 ppss
+````
+Without side platforms
+
+### 0xFF00 - 0xFFFE: Flexible Templates
+#### Semitraversable Templates
+````
+1111 1110 0000 ppss
+````
+With side platforms
+
+````
+1111 1110 0001 ppss
 ````
 Without side platforms
 

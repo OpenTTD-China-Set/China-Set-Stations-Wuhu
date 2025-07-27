@@ -47,7 +47,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_FRONT_SIDE_THIRD",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 disabled_platforms=0b11111110,
                 callbacks={
                     "select_tile_layout": 0,
@@ -80,7 +79,6 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_BACK_SIDE_THIRD",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                cargo_threshold=40,
                 disabled_platforms=0b11111110,
                 callbacks={
                     "select_tile_layout": 0,
@@ -133,7 +131,6 @@ for p, pclass in enumerate(platform_classes):
             translation_name="FLEXIBLE_FRONT_SIDE_THIRD_NP",
             layouts=layouts,
             class_label=b"\xe8\x8a\x9cA",
-            cargo_threshold=40,
             disabled_platforms=0b11111110,
             callbacks={
                 "select_tile_layout": 0,
@@ -160,7 +157,6 @@ for p, pclass in enumerate(platform_classes):
             translation_name="FLEXIBLE_BACK_SIDE_THIRD_NP",
             layouts=layouts,
             class_label=b"\xe8\x8a\x9cA",
-            cargo_threshold=40,
             disabled_platforms=0b11111110,
             callbacks={
                 "select_tile_layout": 0,

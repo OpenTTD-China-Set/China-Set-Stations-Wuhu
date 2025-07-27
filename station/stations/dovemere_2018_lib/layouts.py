@@ -30,7 +30,7 @@ from station.stations.platforms import (
 )
 from station.stations.platform_lib.aux import add_buffer_stop
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
-from station.stations.misc import track_ground, track
+from station.stations.misc import track_ground, default_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
@@ -299,6 +299,14 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
             f2_component = [f2 + f2_window_extender + f2_snow_window_extender]
             cur_sym = symmetry
         register(
+            0xFC00 + f2_id,
+            1,
+            ALayout(default_ground, [cur_np, cur_np.T] + f2_component, False, notes=["really_empty"]),
+            cur_sym,
+            internal_category,
+            (f2_name, None, None, "e"),
+        )
+        register(
             0xFD00 + f2_id,
             1,
             ALayout(track_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
@@ -403,6 +411,7 @@ def load(
         window_classes = ["windowed"]
     else:
         window_classes = ["none"] + window
+    assert len(window_classes) == 1
 
     if "gate" in name or "tiny" in name:
         if window is None:
