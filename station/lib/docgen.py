@@ -7,6 +7,24 @@ from station.lib.idmap import station_idmap
 
 def gen_docs(string_manager, metastations):
     prefix = "docs/"
+
+    with open(os.path.join(prefix, "index.md"), "w") as f:
+        print(
+            """
+```{include} readme.md
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+changelog""",
+            file=f,
+        )
+        for metastation in metastations:
+            metastation_label = metastation.class_label_plain
+            print(metastation.class_label_plain, file=f)
+        print("```", file=f)
+
     for i, metastation in enumerate(metastations):
         metastation_label = metastation.class_label_plain
         translation = get_translation(string_manager[f"STR_METASTATION_CLASS_{metastation_label}"], 0x7F)
@@ -14,8 +32,9 @@ def gen_docs(string_manager, metastations):
             os.makedirs(os.path.join(prefix, "img", metastation_label, kind), exist_ok=True)
 
         toc = []
+        demo_toc = []
 
-        for kind in ["waypoints", "stations", "road_stops", "objects"]:
+        for kind in ["stations", "waypoints", "road_stops", "objects"]:
             if kind == "road_stops":
                 pool = [x for x in metastation.road_stops if not x.is_waypoint]
             elif kind == "objects":
@@ -46,11 +65,11 @@ def gen_docs(string_manager, metastations):
             tocentry = f"{metastation_label}_{kind}"
             toc.append(tocentry)
             with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
-                title, nav_order = {
-                    "stations": ("Building Blocks", 0),
-                    "waypoints": ("Waypoints", 1),
-                    "road_stops": ("Road Stops", 2),
-                    "objects": ("Objects", 4),
+                title = {
+                    "stations": "Stations",
+                    "waypoints": "Waypoints",
+                    "road_stops": "Road Stops",
+                    "objects": "Objects",
                 }[kind]
                 print(f"================\n{title}\n================\n", file=f)
 
@@ -59,7 +78,7 @@ def gen_docs(string_manager, metastations):
                         cat_name = get_translation(
                             string_manager[f"STR_STATION_CLASS_{class_label_printable(sub)}"], 0x7F
                         )
-                        if "-" in cat_name:
+                        if "-" in cat_name and "Template -" not in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
                         if cat_name.startswith("|> "):
@@ -91,7 +110,7 @@ def gen_docs(string_manager, metastations):
             demok = title.replace(" ", "_").lower()
             os.makedirs(os.path.join(prefix, "img", metastation_label, "layouts", demok), exist_ok=True)
             tocentry = f"{metastation_label}_{demok}"
-            toc.append(tocentry)
+            demo_toc.append(tocentry)
             with open(os.path.join(prefix, f"{tocentry}.rst"), "w") as f:
                 print(f"================\n{title}\n================\n", file=f)
                 for i, demo in enumerate(demov):
@@ -118,4 +137,19 @@ def gen_docs(string_manager, metastations):
             )
             for item in toc:
                 print(item, file=f)
+            if len(demo_toc) > 0:
+                print(f"{metastation_label}_demo", file=f)
             print(f"```\n", file=f)
+
+        if len(demo_toc) > 0:
+            with open(os.path.join(prefix, f"{metastation_label}_demo.md"), "w") as f:
+                print(
+                    f"""# Demos
+
+```{{toctree}}
+:maxdepth: 2""",
+                    file=f,
+                )
+                for item in demo_toc:
+                    print(item, file=f)
+                print(f"```\n", file=f)

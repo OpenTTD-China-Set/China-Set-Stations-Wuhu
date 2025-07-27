@@ -61,7 +61,6 @@ for i, entry in enumerate(entries):
             translation_name="PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE",
             layouts=[entry, entry.M],
             class_label=b"\xe8\x8a\x9c0",
-            cargo_threshold=40,
             callbacks={"select_tile_layout": 0, **station_cb["E88A9C0"]},
             extra_code=station_code["E88A9C0"],
             enable_if=[parameter_list["E88A9C0_ENABLE_MODULAR"]],
