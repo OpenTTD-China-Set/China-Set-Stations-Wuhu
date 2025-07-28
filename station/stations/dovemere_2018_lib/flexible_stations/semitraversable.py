@@ -2,7 +2,7 @@ import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch
 from .. import common_cb, common_code
 from ..layouts import named_tiles, layouts
-from .common import determine_platform_odd, determine_platform_even, make_front_row, make_demo, make_row
+from .common import determine_platform_odd, determine_platform_even, make_demo
 from .traversable import cb14_0, cb14_2, cb14_4, cb14_6, fill_odd
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
