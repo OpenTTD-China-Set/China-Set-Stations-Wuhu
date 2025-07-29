@@ -108,7 +108,7 @@ for p, pclass in enumerate(platform_classes):
         semitraversable_halfstations.append(
             AStation(
                 id=0xFE10 + p * 0x4 + s,
-                translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE_NEAR",
+                translation_name="FLEXIBLE_UNTRAVERSABLE_NO_SIDE_NEAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cf",
                 non_traversable_tiles=0b11,
@@ -142,7 +142,7 @@ for p, pclass in enumerate(platform_classes):
         semitraversable_halfstations.append(
             AStation(
                 id=0xFE50 + p * 0x4 + s,
-                translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE_FAR",
+                translation_name="FLEXIBLE_UNTRAVERSABLE_NO_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
                 non_traversable_tiles=0b11,
