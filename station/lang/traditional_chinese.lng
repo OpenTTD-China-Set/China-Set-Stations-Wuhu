@@ -194,6 +194,8 @@ STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE         :自動站房（兩側無軌道�
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_NEAR    :前半自動站房（兩側無軌道，有側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_FAR     :後半自動站房（兩側無軌道，有側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE      :自動站房（兩側無軌道，無側式月台）
+STR_STATION_FLEXIBLE_CENTRAL_SIDE               :中段自動站房（兩側無軌道，有側式站臺）
+STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :中段自動站房（兩側無軌道，無側式站臺）
 STR_STATION_FLEXIBLE_FRONT_SIDE                 :自動站房（線側，前）
 STR_STATION_FLEXIBLE_BACK_SIDE                  :自動站房（線側，後）
 STR_STATION_FLEXIBLE_FRONT_SIDE_NP              :自動站房（線側，前，無月台）

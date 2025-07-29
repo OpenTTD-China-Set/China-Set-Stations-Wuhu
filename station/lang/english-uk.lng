@@ -195,6 +195,8 @@ STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE         :Flexible Station Building (No t
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_NEAR    :Flexible Station Building (Near Half, no track at sides, side platform)
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_FAR     :Flexible Station Building (Far Half, no track at sides, side platform)
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE      :Flexible Station Building (No track at sides, no side platform)
+STR_STATION_FLEXIBLE_CENTRAL_SIDE               :Flexible Station Building (Central section, side platform)
+STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :Flexible Station Building (Central section, no side platform)
 STR_STATION_FLEXIBLE_FRONT_SIDE                 :Flexible Station Building (Trackside, front)
 STR_STATION_FLEXIBLE_BACK_SIDE                  :Flexible Station Building (Trackside, back)
 STR_STATION_FLEXIBLE_FRONT_SIDE_NP              :Flexible Station Building (Trackside, front, no platform)
