@@ -21,7 +21,6 @@ named_tiles.globalize()
 front = {pclass: {} for pclass in platform_classes}
 h_n = {pclass: {} for pclass in platform_classes}
 h_f = {pclass: {} for pclass in platform_classes}
-h_d = {pclass: {} for pclass in platform_classes}
 cb14_2 = {pclass: {} for pclass in platform_classes}
 cb14_4 = {pclass: {} for pclass in platform_classes}
 for pclass in platform_classes:
@@ -30,7 +29,6 @@ for pclass in platform_classes:
 
         h_n[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "n")))
         h_f[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "f")))
-        h_d[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "d")))
 
         cb14_2[pclass][sclass] = make_vertical_switch(lambda t, d: (front2[pclass] if d == 0 else h_n[pclass][sclass]))
         cb14_4[pclass][sclass] = make_vertical_switch(
