@@ -122,7 +122,7 @@ for p, pclass in enumerate(platform_classes):
         traversable_halfstations.append(
             AStation(
                 id=0xFE30 + p * 0x4 + s,
-                translation_name="FLEXIBLE_SIDE_NEAR",
+                translation_name="FLEXIBLE_NO_SIDE_NEAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cf",
                 non_traversable_tiles=0b11,
@@ -153,7 +153,7 @@ for p, pclass in enumerate(platform_classes):
         traversable_halfstations.append(
             AStation(
                 id=0xFE70 + p * 0x4 + s,
-                translation_name="FLEXIBLE_SIDE_FAR",
+                translation_name="FLEXIBLE_NO_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
                 non_traversable_tiles=0b11,
