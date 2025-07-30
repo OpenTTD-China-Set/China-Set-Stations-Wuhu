@@ -8,6 +8,7 @@ from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 
+row_1 = h_merge([traversable.demo_1(i, 1) for i in range(1, 5)], [[cns_d]])
 row_2 = h_merge([traversable.demo_1(i, 2) for i in range(1, 5)], [[cns_side_and.T], [cns_side_and]])
 v_sep = [[concourse_tiles.none] * len(row_2[0])] * 2
 row_3 = h_merge([traversable.demo_1(i, 3) for i in range(1, 5)], [[cns_side_and.T], [concourse_d_d], [cns_side_and]])
@@ -17,7 +18,7 @@ row_5 = h_merge(
 )
 
 full_auto_demo = Demo(
-    row_2 + v_sep + row_3 + v_sep + row_4 + v_sep + row_5,
+    row_1 + v_sep + row_2 + v_sep + row_3 + v_sep + row_4 + v_sep + row_5,
     "Station templates (traversable fronts, no side platforms)",
     remap=get_1cc_remap(CompanyColour.BLUE),
 )

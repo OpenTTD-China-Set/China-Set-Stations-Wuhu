@@ -11,11 +11,12 @@ globalize_all(platform_class="concrete", shelter_class="shelter_2")
 row_1 = h_merge([traversable.demo_2(i, 1) for i in range(1, 5)], [[cns_d]])
 v_sep = [[concourse_tiles.none] * len(row_1[0])] * 2
 row_2 = h_merge([traversable.demo_2(i, 2) for i in range(1, 5)], [[cns.T], [cns]])
+row_3 = h_merge([traversable.demo_2(i, 3) for i in range(1, 5)], [[cns.T], [default], [cns]])
 row_4 = h_merge([traversable.demo_2(i, 4) for i in range(1, 5)], [[cns.T], [cns], [cns.T], [cns]])
 row_5 = h_merge([traversable.demo_2(i, 5) for i in range(1, 5)], [[cns.T], [cns], [cns_d], [cns.T], [cns]])
 
 full_np_auto_demo = Demo(
-    row_1 + v_sep + row_2 + v_sep + row_4 + v_sep + row_5,
+    row_1 + v_sep + row_2 + v_sep + row_3 + v_sep + row_4 + v_sep + row_5,
     "Station templates (traversable fronts, side platforms)",
     remap=get_1cc_remap(CompanyColour.BLUE),
 )
