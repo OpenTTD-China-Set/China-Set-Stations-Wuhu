@@ -1,6 +1,6 @@
 ##grflangid 0x0C
-STR_GRF_NAME                    :中國包：車站 - 蕪湖 {WHITE}0.3.5-INDEV
-STR_GRF_DESC                    :{}{PUSH_COLOUR}{GOLD}中國{RED}包{POP_COLOUR}：車站 - {PUSH_COLOUR}{SILVER}蕪湖 {WHITE}0.3.5-INDEV{POP_COLOUR}{}{}本 NewGRF 是 {PUSH_COLOUR}{GOLD}中國{RED}包{POP_COLOUR}：車站 (CNS) 的擴展包，提供基於{PUSH_COLOUR}{SILVER}蕪湖{POP_COLOUR}的火車站的模塊化地塊和車站模版。{}{}推薦使用 OpenTTD 14.0 或更高版本，可使用本 NewGRF 裏的全部主要功能。更低版本由於功能限制，僅能使用精選的部分月台。{}{}{PUSH_COLOUR}{WHITE}貢獻者{POP_COLOUR}:{}Ahyangyi, WenSim.{}{}在 {PUSH_COLOUR}{SILVER}GPL v2{POP_COLOUR} 下分發。
+STR_GRF_NAME                    :中國包：車站 - 蕪湖 {WHITE}0.4.0-INDEV
+STR_GRF_DESC                    :{}{PUSH_COLOUR}{GOLD}中國{RED}包{POP_COLOUR}：車站 - {PUSH_COLOUR}{SILVER}蕪湖 {WHITE}0.4.0-INDEV{POP_COLOUR}{}{}本 NewGRF 是 {PUSH_COLOUR}{GOLD}中國{RED}包{POP_COLOUR}：車站 (CNS) 的擴展包，提供基於{PUSH_COLOUR}{SILVER}蕪湖{POP_COLOUR}的火車站的模塊化地塊和車站模版。{}{}推薦使用 OpenTTD 14.0 或更高版本，可使用本 NewGRF 裏的全部主要功能。更低版本由於功能限制，僅能使用精選的部分月台。{}{}{PUSH_COLOUR}{WHITE}貢獻者{POP_COLOUR}:{}Ahyangyi, WenSim.{}{}在 {PUSH_COLOUR}{SILVER}GPL v2{POP_COLOUR} 下分發。
 
 STR_PARAM_INTRODUCTION_YEAR             :全局設置 - 車站可建造年份
 STR_PARAM_INTRODUCTION_YEAR_DESC        :選擇本 NewGRF 內每個車站是否在特定年份後纔可用
@@ -187,9 +187,19 @@ STR_STATION_PLATFORM                            :月台
 STR_STATION_PLATFORM_UNTRAVERSABLE              :月台（無軌道）
 STR_STATION_CONCOURSE                           :車站廣場
 STR_STATION_FLEXIBLE_SIDE                       :自動站房（兩側有軌道，無側式月台）
+STR_STATION_FLEXIBLE_SIDE_NEAR                  :前半自動站房（前側有軌道，無側式月台）
+STR_STATION_FLEXIBLE_SIDE_FAR                   :後半自動站房（後側有軌道，無側式月台）
 STR_STATION_FLEXIBLE_NO_SIDE                    :自動站房（兩側有軌道，有側式月台）
+STR_STATION_FLEXIBLE_NO_SIDE_NEAR               :前半自動站房（前側有軌道，有側式月台）
+STR_STATION_FLEXIBLE_NO_SIDE_FAR                :後半自動站房（後側有軌道，有側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE         :自動站房（兩側無軌道，有側式月台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_NEAR    :前半自動站房（前側無軌道，有側式月台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_FAR     :後半自動站房（後側無軌道，有側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE      :自動站房（兩側無軌道，無側式月台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_NEAR :前半自自動站房（前側無軌道，無側式月台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_FAR  :後半自自動站房（後側無軌道，無側式月台）
+STR_STATION_FLEXIBLE_CENTRAL_SIDE               :中段自動站房（兩側無軌道，有側式站臺）
+STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :中段自動站房（兩側無軌道，無側式站臺）
 STR_STATION_FLEXIBLE_FRONT_SIDE                 :自動站房（線側，前）
 STR_STATION_FLEXIBLE_BACK_SIDE                  :自動站房（線側，後）
 STR_STATION_FLEXIBLE_FRONT_SIDE_NP              :自動站房（線側，前，無月台）
@@ -200,6 +210,9 @@ STR_STATION_FLEXIBLE_FRONT_SIDE_THIRD_NP        :自動站房（線側，前軌�
 STR_STATION_FLEXIBLE_BACK_SIDE_THIRD_NP         :自動站房（線側，後軌，有側式月台）
 
 STR_STATION_CLASS_E88A9CA       :{PUSH_COLOUR}{WHITE}CNS：{POP_COLOUR}蕪湖站 - 模板
+STR_STATION_CLASS_E88A9Cf       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 前半車站模板
+STR_STATION_CLASS_E88A9Cc       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 車站中段模板
+STR_STATION_CLASS_E88A9Cb       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 後半車站模板
 STR_STATION_CLASS_E88A9C80      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 前
 STR_STATION_CLASS_E88A9C81      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 前，帶月台
 STR_STATION_CLASS_E88A9C82      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 前，有軌道

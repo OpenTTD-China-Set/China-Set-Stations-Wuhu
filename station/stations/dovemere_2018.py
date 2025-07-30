@@ -9,6 +9,9 @@ from .dovemere_2018_lib.flexible_stations.semitraversable import semitraversable
 from .dovemere_2018_lib.flexible_stations.traversable import traversable_stations
 from .dovemere_2018_lib.flexible_stations.side import side_stations
 from .dovemere_2018_lib.flexible_stations.side_third import side_third_stations
+from .dovemere_2018_lib.flexible_stations.semitraversable_half import semitraversable_halfstations
+from .dovemere_2018_lib.flexible_stations.traversable_half import traversable_halfstations
+from .dovemere_2018_lib.flexible_stations.central import middle_stations
 from agrf.strings import String
 
 modular_stations = []
@@ -91,7 +94,6 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
                 purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
             ],
             class_label=entry.category,
-            cargo_threshold=40,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             callbacks={
                 "select_tile_layout": 0,
@@ -108,11 +110,18 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
 
 
 the_stations = AMetaStation(
-    semitraversable_stations + traversable_stations + side_stations + side_third_stations + modular_stations,
+    semitraversable_stations
+    + traversable_stations
+    + side_stations
+    + side_third_stations
+    + semitraversable_halfstations
+    + traversable_halfstations
+    + middle_stations
+    + modular_stations,
     b"\xe8\x8a\x9cA",
     [
         b"\xe8\x8a\x9c" + x
-        for x in [b"A"]
+        for x in [b"A", b"f", b"c", b"b"]
         + [(r * 16 + c).to_bytes(1, "little") for r in [8] for c in range(16)]
         + [(r * 16 + c).to_bytes(1, "little") for r in [9] for c in range(4)]
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]
