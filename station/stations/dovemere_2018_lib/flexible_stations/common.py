@@ -167,6 +167,19 @@ def make_central_row_near(l, r, suffix):
     )
 
 
+def make_central_row_middle(l, r, suffix):
+    return horizontal_layout(
+        l,
+        r,
+        make_vertical_switch(lambda t, d: get_tile("v_central", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("side_d", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("side_c", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed_extender", suffix)),
+    )
+
+
 def determine_platform_odd_top_half(t, d):
     return "nf"[t % 2]
 
