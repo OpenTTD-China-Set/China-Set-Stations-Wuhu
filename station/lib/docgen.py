@@ -131,7 +131,7 @@ changelog""",
             print(
                 f"""# {translation}
 
-```{toctree}
+```{{toctree}}
 :maxdepth: 2""",
                 file=f,
             )
@@ -146,7 +146,7 @@ changelog""",
                 print(
                     """# Demos
 
-```{{toctree}}
+```{toctree}
 :maxdepth: 2""",
                     file=f,
                 )
