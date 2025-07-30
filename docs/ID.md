@@ -69,17 +69,24 @@ With no ground-level buildings nor railroad.
 ````
 With solid ground floor.
 
-### 0xFE00 - 0xFEFE: Flexible Half-Templates
-#### Semitraversable Templates
+### 0xFE00 - 0xFEFE: Flexible Partial-Templates
+#### Half Templates
 ````
-1111 1111 0000 ppss
+1111 1111 0abc ppss
 ````
-With side platforms
 
+Where:
+* `a` is far or near side
+* `b` is whether the front (or back) row is traversable
+* `c` is presence or absence of side platforms
+
+#### Central Templates
 ````
-1111 1111 0001 ppss
+1111 1111 100a ppss
 ````
-Without side platforms
+
+Where:
+* `a` is presence or absence of side platforms
 
 ### 0xFF00 - 0xFFFE: Flexible Templates
 #### Semitraversable Templates
