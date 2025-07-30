@@ -36,6 +36,7 @@ for p, pclass in enumerate(platform_classes):
             demo_1 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_odd: cb14.demo(r, c, cb24)
         else:
             demo_layout.notes.append("noshow")
+        demo_layout.category = b"\xe8\x8a\x9cc"
         middle_stations.append(
             AStation(
                 id=0xFE80 + p * 0x4 + s,
@@ -43,7 +44,6 @@ for p, pclass in enumerate(platform_classes):
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cc",
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24_odd.to_index(),
                     "select_sprite_layout": grf.DualCallback(
@@ -69,7 +69,7 @@ for p, pclass in enumerate(platform_classes):
             demo_2 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_even: cb14.demo(r, c, cb24)
         else:
             demo_layout.notes.append("noshow")
-
+        demo_layout.category = b"\xe8\x8a\x9cc"
         middle_stations.append(
             AStation(
                 id=0xFE90 + p * 0x4 + s,
@@ -77,7 +77,6 @@ for p, pclass in enumerate(platform_classes):
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cc",
                 non_traversable_tiles=0b11,
-                disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24_even.to_index(),
                     "select_sprite_layout": grf.DualCallback(
