@@ -139,12 +139,12 @@ changelog""",
                 print(item, file=f)
             if len(demo_toc) > 0:
                 print(f"{metastation_label}_demo", file=f)
-            print(f"```\n", file=f)
+            print("```\n", file=f)
 
         if len(demo_toc) > 0:
             with open(os.path.join(prefix, f"{metastation_label}_demo.md"), "w") as f:
                 print(
-                    f"""# Demos
+                    """# Demos
 
 ```{{toctree}}
 :maxdepth: 2""",
@@ -152,4 +152,4 @@ changelog""",
                 )
                 for item in demo_toc:
                     print(item, file=f)
-                print(f"```\n", file=f)
+                print("```\n", file=f)

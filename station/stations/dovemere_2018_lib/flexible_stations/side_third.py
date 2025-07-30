@@ -5,7 +5,6 @@ from .. import common_cb, common_code
 from .common import make_demo, horizontal_layout
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
-from ..foundation import named_foundations
 
 named_tiles.globalize()
 
