@@ -43,7 +43,10 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu Station (Moder
 
 STR_PARAM_E88A9CA_COLOUR                    :Wuhu Station - Decoration Colour
 STR_PARAM_E88A9CA_COLOUR_DESC               :Choose what colour to use for the decorations in Wuhu Station. The real world counterpart is white during daytime, and displays ever-changing colours with LED lights during night.
-STR_PARAM_STATION_COLOUR_PRIMARY            :Use Company Colour
+STR_PARAM_E88A9CA_COLOUR_2                  :Wuhu Station - Decoration Colour 2
+STR_PARAM_E88A9CA_COLOUR_2_DESC             :Choose what colour to use for the decorations in Wuhu Station. The real world counterpart is white during daytime, and displays ever-changing colours with LED lights during night.
+STR_PARAM_STATION_COLOUR_PRIMARY            :Use Primary Company Colour
+STR_PARAM_STATION_COLOUR_SECONDARY          :Use Secondary Company Colour
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :Dark Blue
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :Pale Green
 STR_PARAM_STATION_COLOUR_PINK               :Pink

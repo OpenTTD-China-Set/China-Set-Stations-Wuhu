@@ -44,6 +44,7 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :选择芜湖站从哪一年开始�
 STR_PARAM_E88A9CA_COLOUR                    :芜湖站 - 装饰颜色
 STR_PARAM_E88A9CA_COLOUR_DESC               :选择芜湖站的装饰颜色。现实中的芜湖站的装饰部分是白色的，但是晚上会有彩灯显示各种颜色。
 STR_PARAM_STATION_COLOUR_PRIMARY            :使用公司主色调
+STR_PARAM_STATION_COLOUR_SECONDARY          :使用公司副色调
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :深蓝色
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :浅绿色
 STR_PARAM_STATION_COLOUR_PINK               :粉红色

@@ -44,6 +44,7 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :選擇蕪湖站從哪一年開始�
 STR_PARAM_E88A9CA_COLOUR                    :蕪湖站 - 裝飾顏色
 STR_PARAM_E88A9CA_COLOUR_DESC               :選擇蕪湖站的裝飾顏色。現實中的蕪湖站的裝飾部分是白色的，但是晚上會有彩燈顯示各種顏色。
 STR_PARAM_STATION_COLOUR_PRIMARY            :使用公司主色調
+STR_PARAM_STATION_COLOUR_SECONDARY          :使用公司副色調
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :深藍色
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :淺綠色
 STR_PARAM_STATION_COLOUR_PINK               :粉紅色
