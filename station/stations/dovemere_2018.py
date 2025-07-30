@@ -11,6 +11,7 @@ from .dovemere_2018_lib.flexible_stations.side import side_stations
 from .dovemere_2018_lib.flexible_stations.side_third import side_third_stations
 from .dovemere_2018_lib.flexible_stations.semitraversable_half import semitraversable_halfstations
 from .dovemere_2018_lib.flexible_stations.traversable_half import traversable_halfstations
+from .dovemere_2018_lib.flexible_stations.central import middle_stations
 from agrf.strings import String
 
 modular_stations = []
@@ -115,11 +116,12 @@ the_stations = AMetaStation(
     + side_third_stations
     + semitraversable_halfstations
     + traversable_halfstations
+    + middle_stations
     + modular_stations,
     b"\xe8\x8a\x9cA",
     [
         b"\xe8\x8a\x9c" + x
-        for x in [b"A", b"f", b"b"]
+        for x in [b"A", b"f", b"c", b"b"]
         + [(r * 16 + c).to_bytes(1, "little") for r in [8] for c in range(16)]
         + [(r * 16 + c).to_bytes(1, "little") for r in [9] for c in range(4)]
         + [x.to_bytes(1, "little") for x in range(0xA0, 0xB0)]

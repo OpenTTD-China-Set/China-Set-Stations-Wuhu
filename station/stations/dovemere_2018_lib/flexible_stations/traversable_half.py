@@ -21,7 +21,6 @@ named_tiles.globalize()
 front = {pclass: {} for pclass in platform_classes}
 h_n = {pclass: {} for pclass in platform_classes}
 h_f = {pclass: {} for pclass in platform_classes}
-h_d = {pclass: {} for pclass in platform_classes}
 cb14_2 = {pclass: {} for pclass in platform_classes}
 cb14_4 = {pclass: {} for pclass in platform_classes}
 for pclass in platform_classes:
@@ -30,7 +29,6 @@ for pclass in platform_classes:
 
         h_n[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "n")))
         h_f[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "f")))
-        h_d[pclass][sclass] = make_horizontal_switch(lambda l, r: make_central_row_near(l, r, (pclass, sclass, "d")))
 
         cb14_2[pclass][sclass] = make_vertical_switch(lambda t, d: (front2[pclass] if d == 0 else h_n[pclass][sclass]))
         cb14_4[pclass][sclass] = make_vertical_switch(
@@ -122,7 +120,7 @@ for p, pclass in enumerate(platform_classes):
         traversable_halfstations.append(
             AStation(
                 id=0xFE30 + p * 0x4 + s,
-                translation_name="FLEXIBLE_SIDE_NEAR",
+                translation_name="FLEXIBLE_NO_SIDE_NEAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cf",
                 non_traversable_tiles=0b11,
@@ -153,7 +151,7 @@ for p, pclass in enumerate(platform_classes):
         traversable_halfstations.append(
             AStation(
                 id=0xFE70 + p * 0x4 + s,
-                translation_name="FLEXIBLE_SIDE_FAR",
+                translation_name="FLEXIBLE_NO_SIDE_FAR",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cb",
                 non_traversable_tiles=0b11,
