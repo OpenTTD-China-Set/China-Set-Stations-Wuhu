@@ -1,4 +1,3 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
 name: Docs
 
 on:
@@ -30,8 +29,6 @@ jobs:
         uses: actions/checkout@main
         with:
           lfs: true
-      - name: Install golang deps
-        run: ./install-go-dependencies.sh
       - name: Install system python deps
         run: sudo apt update && sudo apt install python3-ply python3-pil libjpeg-dev zlib1g-dev
       - name: Get setuptools
@@ -43,7 +40,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@main
       - name: Generate docs (Station)
-        run: PATH=${PWD}/gopath/bin:${PATH} make doc.station
+        run: make doc.station
       - name: Build with Sphinx
         run: cd docs && make html
       - name: Upload artifact

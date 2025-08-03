@@ -146,7 +146,7 @@ changelog""",
                 print(
                     """# Demos
 
-```{{toctree}}
+```{toctree}
 :maxdepth: 2""",
                     file=f,
                 )
