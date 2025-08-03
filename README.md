@@ -10,9 +10,11 @@ This repo contains the source code for China Set: Stations - Wuhu.
 
 # Building
 ## Preparation
-This depends on an up-to-date version of `agrf`, which in turn depends on `grf-py`.
+This depends on an up-to-date version of `agrf`, which in turn depends on `grf-py`. You can install the dependencies by using `pip`:
 
-Install the Go dependencies with `./install-go-dependencies.sh`. Then add `gopath/bin` to your `PATH` variable.
+```bash
+$ pip install -r requirements.txt
+```
 
 ## Make
 After installing dependencies, run `make` to build the newGRF.
