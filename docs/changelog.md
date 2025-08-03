@@ -11,7 +11,7 @@ Add "half station" templates.
 
 Redesign templates, now they always contain an even number of railways.
 
-Add 2CC support.
+Add 2CC support (this changes the parameter mapping, so existing settings might be affected again - sorry)
 
 Migrate the HTML documentation from Jekyll to Sphinx.
 
