@@ -5,6 +5,7 @@ from grf import ParameterMapping
 booldict = {0: "DISABLED", 1: "ENABLED"}
 company_colour = {
     0: "PRIMARY",
+    17: "SECONDARY",
     1: "DARK_BLUE",
     2: "PALE_GREEN",
     3: "PINK",
@@ -21,7 +22,6 @@ company_colour = {
     14: "BROWN",
     15: "GREY",
     16: "WHITE",
-    17: "SECONDARY",
 }
 settings = []
 
@@ -100,9 +100,23 @@ for s in station_meta:
     year = parameter_list[f"{s}_INTRODUCTION_YEAR"].code
     station_cb[s] = {"availability": Switch(ranges={0: 0}, default=1, code=f"current_year >= {year}")}
 
+    def one_colour(colour):
+        return f"(({colour} > 0) * ({colour} < 17) * ({colour} - 1) + ({colour} == 0) * company_colour1 + ({colour} == 17) * company_colour2)"
+
     colour = parameter_list[f"{s}_COLOUR"].code
-    station_code[
-        s
-    ] = f"""
-TEMP[0x05] = ({colour} > 0) * ({colour} + 0x306) + ({colour} == 0) * (0x307 + company_colour1)
+    if f"{s}_COLOUR_2" in parameter_list:
+        colour2 = parameter_list[f"{s}_COLOUR_2"].code
+
+        station_code[
+            s
+        ] = f"""
+TEMP[0x05] = {one_colour(colour)} + {one_colour(colour2)} * 16 + \
+             var(0x7F, param=0x40, shift=0, and=0xffffffff)
+"""
+    else:
+        station_code[
+            s
+        ] = f"""
+TEMP[0x05] = {one_colour(colour)} + \
+             var(0x7F, param=0x40, shift=0, and=0xffffffff)
 """

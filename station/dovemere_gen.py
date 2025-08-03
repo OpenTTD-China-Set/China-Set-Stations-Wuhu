@@ -37,6 +37,12 @@ def gen(args):
         preferred_blitter=grf.NewGRF.BLITTER_BPP_32,
     )
 
+    g.add(
+        grf.ComputeParameters(
+            target=0x40, operation=0x00, if_undefined=False, source1=0x11, source2=0xFE, value=b"\xff\xff\x00\x00"
+        )
+    )
+
     parameter_list.add(g, s)
     for metastation in metastations:
         metastation.check_id_uniqueness()
