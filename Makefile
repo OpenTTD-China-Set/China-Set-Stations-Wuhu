@@ -11,9 +11,11 @@ clean:
 	rm -f *.grf
 
 doc.station:
+	ulimit -n 4096
 	python3 -m station.dovemere_gen doc
 
 station.grf:
+	ulimit -n 4096
 	python3 -m station.dovemere_gen gen
 
 profile.station:
