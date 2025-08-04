@@ -85,6 +85,8 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :选择芜湖站 (1934) 从哪一年
 
 STR_PARAM_E88A9C0_COLOUR                    :芜湖站 (1934) - 装饰颜色
 STR_PARAM_E88A9C0_COLOUR_DESC               :选择芜湖站 (1934) 的窗户和门的颜色。
+STR_PARAM_E88A9C0_COLOUR_2                  :芜湖站 (1934) - 装饰颜色 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :选择芜湖站 (1934) 的窗户装饰的颜色。
 
 STR_PARAM_E9B8A0A_ENABLE_MODULAR            :芜湖北站 - 启用
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :选择是否启用芜湖北站
