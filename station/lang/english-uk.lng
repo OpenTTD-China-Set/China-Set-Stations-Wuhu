@@ -85,6 +85,8 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :Choose the year Wuhu Station (1934)
 
 STR_PARAM_E88A9C0_COLOUR                    :Wuhu Station (1934) - Decoration Colour
 STR_PARAM_E88A9C0_COLOUR_DESC               :Choose what colour to use for the windows and door of Wuhu Station (1934).
+STR_PARAM_E88A9C0_COLOUR_2                  :Wuhu Station (1934) - Decoration Colour 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :Choose what colour to use for the window decorations of Wuhu Station (1934).
 
 STR_PARAM_E9B8A0A_ENABLE_MODULAR            :Wuhubei Station - Enable
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhubei Station

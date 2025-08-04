@@ -68,7 +68,11 @@ settings.append(
     )
 )
 make_introduction_year("E88A9C0", mapping=ParameterMapping(grf_parameter=0x6, first_bit=0, num_bit=13))
-make_colour("E88A9C0", mapping=ParameterMapping(grf_parameter=0x11, first_bit=0, num_bit=5))
+make_colour(
+    "E88A9C0",
+    mapping=ParameterMapping(grf_parameter=0x11, first_bit=0, num_bit=5),
+    mapping_2=ParameterMapping(grf_parameter=0x11, first_bit=16, num_bit=5),
+)
 
 # E88A9CP: Platforms
 settings.append(
