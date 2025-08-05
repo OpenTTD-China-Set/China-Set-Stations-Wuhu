@@ -1,7 +1,7 @@
 from station.lib import Demo
 from station.stations.dovemere_2018_lib.layouts import globalize_all
 from station.stations.misc import default
-from station.lib.utils import get_1cc_remap
+from station.lib.utils import get_2cc_remap
 from agrf.graphics.palette import CompanyColour
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
@@ -24,6 +24,6 @@ top_half = [
 special_demo_p = Demo(
     top_half + [[i and i.T for i in row] for row in top_half[2::-1]],
     "Irregular 7×7 station layout",
-    remap=get_1cc_remap(CompanyColour.PALE_GREEN),
+    remap=get_2cc_remap(CompanyColour.PALE_GREEN, CompanyColour.DARK_BLUE),
     climate="tropical",
 )
