@@ -93,10 +93,15 @@ def make_child_night_masks(parent, automatic_offset_mode, darkness):
 
 def add_night_masks(thing, darkness=0.75):
     if isinstance(thing, ALayout):
+        if thing.purchase is not None:
+            new_purchase = add_night_masks(thing.purchase, darkness=darkness)
+        else:
+            new_purchase = None
         ret = replace(
             thing,
             ground_sprite=add_night_masks(thing.ground_sprite, darkness=darkness),
             parent_sprites=[add_night_masks(p, darkness=darkness) for p in thing.parent_sprites],
+            purchase=new_purchase,
         )
         ret.__class__ = ALayout
         return ret
