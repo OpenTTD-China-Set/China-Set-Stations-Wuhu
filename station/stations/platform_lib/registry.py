@@ -1,4 +1,4 @@
-from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, add_night_masks
+from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, add_night_masks_fmap
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
@@ -105,7 +105,7 @@ def register(pf: PlatformFamily):
                         )
                         l = cur_symmetry.create_variants(var)
                         l = add_buffer_stop(l)
-                        l = l.symmetry_fmap(lambda x: add_night_masks(x))
+                        l = add_night_masks_fmap(l)
                         if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = 0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + i
@@ -133,7 +133,7 @@ def register(pf: PlatformFamily):
                             )
                             l = cur_symmetry.create_variants(var)
                             l = add_buffer_stop(l)
-                            l = l.symmetry_fmap(lambda x: add_night_masks(x))
+                            l = add_night_masks_fmap(l)
 
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = 0x7800 + pid * 0x80 + rid * 0x40 + rid2 * 0x20 + sid * 0x4 + sid2 * 0x2 + i
@@ -160,7 +160,7 @@ def register(pf: PlatformFamily):
                 )
             )
             l = symmetry.create_variants(var)
-            l = l.symmetry_fmap(lambda x: add_night_masks(x))
+            l = add_night_masks_fmap(l)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
                 entry.id = 0x7A00 + pid * 0x4 + ssid * 0x2 + i
                 entries.append(entry)
@@ -190,7 +190,7 @@ def register(pf: PlatformFamily):
                             )
                         )
                         l = cur_sym.create_variants(var)
-                        l = l.symmetry_fmap(lambda x: add_night_masks(x))
+                        l = add_night_masks_fmap(l)
                         for i, entry in enumerate(cur_sym.get_all_entries(l)):
                             entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
                             entries.append(entry)

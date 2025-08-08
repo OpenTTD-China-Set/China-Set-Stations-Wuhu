@@ -15,7 +15,7 @@ from station.lib import (
     ALayout,
     AttrDict,
     Registers,
-    add_night_masks,
+    add_night_masks_fmap,
 )
 from agrf.lib.building.layout import NewGraphics
 from agrf.graphics.voxel import LazyVoxel
@@ -242,7 +242,7 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
     l = symmetry.create_variants(l)
     if layout.traversable:
         l = add_buffer_stop(l)
-    l = l.symmetry_fmap(lambda x: add_night_masks(x))
+    l = add_night_masks_fmap(l)
     layouts.extend(symmetry.get_all_variants(l))
     cur_entries = symmetry.get_all_entries(l)
 

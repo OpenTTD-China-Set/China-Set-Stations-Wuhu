@@ -182,6 +182,12 @@ for i, entry in enumerate(entries):
     for shelter_class in ["shelter_1", "shelter_2"]:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
+
+    if entry.purchase is not None:
+        purchase = entry.purchase
+    else:
+        purchase = entry
+
     station_tiles.append(
         AStation(
             id=entry.id,
@@ -191,14 +197,11 @@ for i, entry in enumerate(entries):
                 else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
             ),
             layouts=(
-                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
+                [entry, entry.M, purchase.filter_register(Registers.SNOW), purchase.M.filter_register(Registers.SNOW)]
             ),
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
-            callbacks={
-                "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=0, purchase=2 if entry.purchase is not None else 0),
-            },
+            callbacks={"select_tile_layout": 0, "select_sprite_layout": grf.DualCallback(default=0, purchase=2)},
             enable_if=enable_if,
             doc_layout=entry,
         )

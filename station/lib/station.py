@@ -81,7 +81,7 @@ class AStation(grf.SpriteGenerator):
                     code=code + self.extra_code + "\nextra_callback_info1_byte",
                     default=graphics,
                 ),
-                purchase=graphics,
+                purchase=grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics),
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         else:

@@ -14,11 +14,13 @@ class Registers(AGRFRegisters):
 night = f"var(0x7F, param=15, shift=0, and=0x7)"
 
 code = (
-    agrf_code
+    f"""
+TEMP[0x20] = (({night} == 0) * var(0x7F, param=0x41, shift=0, and=0xffffffff)) + ({night} == 1)
+"""
+    + agrf_code
     + f"""
 TEMP[0x10] = (rail_continuation & 0x1) == 0
 TEMP[0x11] = (rail_continuation & 0x2) == 0
-TEMP[0x20] = (({night} == 0) * var(0x7F, param=0x41, shift=0, and=0xffffffff)) + ({night} == 1)
 TEMP[0x21] = ((({night} == 0) * var(0x7F, param=0x41, shift=0, and=0xffffffff)) + ({night} == 1)) * ((terrain_type & 0x4) == 0x4)
 TEMP[0x22] = ((({night} == 0) * var(0x7F, param=0x41, shift=0, and=0xffffffff)) + ({night} == 1)) * ((rail_continuation & 0x1) == 0)
 TEMP[0x23] = ((({night} == 0) * var(0x7F, param=0x41, shift=0, and=0xffffffff)) + ({night} == 1)) * ((rail_continuation & 0x2) == 0)
