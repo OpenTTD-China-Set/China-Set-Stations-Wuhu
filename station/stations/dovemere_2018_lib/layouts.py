@@ -153,8 +153,14 @@ for k, (_, offset, span) in f1_subsets.items():
     f1_empty_sprite[k] = make_empty_variant(64, 48, *f1_empty_offset, offset, span)
 
 
-def make_f2(v, sym):
+def make_f2(v, sym, ribbon_id=None):
     v = v.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
+
+    if ribbon_id is not None:
+        ribbon_desc = f"ribbon_{ribbon_id}"
+        vd = v.keep_layers((ribbon_desc,), ribbon_desc)
+        v = vd.compose(v, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+
     v.in_place_subset(sym.render_indices())
     v.config["agrf_relative_childsprite"] = f2_empty_offset
     s = sym.create_variants(v.spritesheet(zdiff=base_height))
