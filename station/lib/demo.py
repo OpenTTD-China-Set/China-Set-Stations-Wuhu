@@ -61,12 +61,12 @@ class Demo(ProtoDemo):
                     if c - 1 >= 0 and is_1012(row[c - 1]):
                         sb = False
                 elif is_1011(l):
-                    if r + 1 < len(row) and is_1011(self.tiles[r + 1][c]):
+                    if r + 1 < len(self.tiles) and is_1011(self.tiles[r + 1][c]):
                         sb = False
                     if r - 1 >= 0 and is_1011(self.tiles[r - 1][c]):
                         nb = False
                 if self.render_contexts is not None:
-                    rc = self.render_contexts[i][j]
+                    rc = self.render_contexts[r][c]
                 else:
                     rc = DEFAULT_RENDER_CONTEXT
                 ret_row.append(
