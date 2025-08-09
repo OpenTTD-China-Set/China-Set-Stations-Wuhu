@@ -1,5 +1,5 @@
 import grf
-from .switch import make_horizontal_switch
+from .switch import make_horizontal_switch, make_vertical_switch
 
 
 def switch_set(s):
@@ -30,6 +30,14 @@ def test_horizontal_switch():
     assert 0x120 == a.lookup(4, 4, 1, 0)
     assert 0x32 == a.T.lookup(4, 4, 0, 0)
     assert 0x301 == a.R.lookup(4, 4, 0, 0)
+
+
+def test_vertical_switch():
+    a = make_vertical_switch(lambda t, d: MockValue(t * 0x100 + d * 0x10))
+    assert 0x30 == a.lookup(4, 4, 0, 0, 0)
+    assert 0x120 == a.lookup(4, 4, 0, 1, 0)
+    assert 0x302 == a.T.lookup(4, 4, 0, 0, 0)
+    assert 0x31 == a.R.lookup(4, 4, 0, 0, 0)
 
 
 def test_switch_compression_1():

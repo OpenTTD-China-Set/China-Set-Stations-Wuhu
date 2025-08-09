@@ -160,7 +160,7 @@ STR_PARAM_PLATFORM_CONCRETE_ENABLED         :启用
 STR_PARAM_PLATFORM_CONCRETE_DISABLED        :禁用
 
 STR_PARAM_PLATFORM_BRICK                    :站台 - 砖块
-STR_PARAM_PLATFORM_BRICK_DESC               :选择是否启用砖块站台}{}警告：如果两种站台都禁用的话，会导致一些车站样式由于没有配套的站台而建造不出来。
+STR_PARAM_PLATFORM_BRICK_DESC               :选择是否启用砖块站台{}{}警告：如果两种站台都禁用的话，会导致一些车站样式由于没有配套的站台而建造不出来。
 STR_PARAM_PLATFORM_BRICK_ENABLED            :启用
 STR_PARAM_PLATFORM_BRICK_DISABLED           :禁用
 
@@ -196,8 +196,8 @@ STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE         :自动站房（两侧无轨道�
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_NEAR    :前半自动站房（前侧无轨道，有侧式站台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_FAR     :后半自动站房（后侧无轨道，有侧式站台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE      :自动站房（两侧无轨道，无侧式站台）
-STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_NEAR :前半自自动站房（前侧无轨道，无侧式站台）
-STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_FAR  :后半自自动站房（后侧无轨道，无侧式站台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_NEAR :前半自动站房（前侧无轨道，无侧式站台）
+STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_FAR  :后半自动站房（后侧无轨道，无侧式站台）
 STR_STATION_FLEXIBLE_CENTRAL_SIDE               :中段自动站房（两侧无轨道，有侧式站台）
 STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :中段自动站房（两侧无轨道，无侧式站台）
 STR_STATION_FLEXIBLE_FRONT_SIDE                 :自动站房（线侧，前）

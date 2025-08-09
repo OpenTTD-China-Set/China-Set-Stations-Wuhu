@@ -5,13 +5,7 @@ from .dovemere_2018_lib.layouts import *
 from .dovemere_2018_lib import demos, common_cb, common_code, Registers
 from .dovemere_2018_lib.objects import templates, objects
 from .dovemere_2018_lib.roadstops import roadstops
-from .dovemere_2018_lib.flexible_stations.semitraversable import semitraversable_stations
-from .dovemere_2018_lib.flexible_stations.traversable import traversable_stations
-from .dovemere_2018_lib.flexible_stations.side import side_stations
-from .dovemere_2018_lib.flexible_stations.side_third import side_third_stations
-from .dovemere_2018_lib.flexible_stations.semitraversable_half import semitraversable_halfstations
-from .dovemere_2018_lib.flexible_stations.traversable_half import traversable_halfstations
-from .dovemere_2018_lib.flexible_stations.central import middle_stations
+from .dovemere_2018_lib.flexible_stations import station_templates
 from agrf.strings import String
 
 modular_stations = []
@@ -110,14 +104,7 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
 
 
 the_stations = AMetaStation(
-    semitraversable_stations
-    + traversable_stations
-    + side_stations
-    + side_third_stations
-    + semitraversable_halfstations
-    + traversable_halfstations
-    + middle_stations
-    + modular_stations,
+    station_templates + modular_stations,
     b"\xe8\x8a\x9cA",
     [
         b"\xe8\x8a\x9c" + x
