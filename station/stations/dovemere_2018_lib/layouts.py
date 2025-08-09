@@ -166,14 +166,23 @@ def make_f2(voxel, sym, ribbon_id=None):
     s = sym.create_variants(v.spritesheet(zdiff=base_height))
 
     empty_parent = AParentSprite(f2_empty_sprite, (16, 16, overpass_height), (0, 0, base_height + platform_height))
-    f2_child = AChildSprite(s, (0, 0), palette=0, flags={"add_palette": Registers.RECOLOUR_OFFSET})
+    f2_child = AChildSprite(
+        s,
+        (0, 0),
+        palette=0,
+        flags={"add_palette": Registers.RECOLOUR_OFFSET_2 if ribbon_id else Registers.RECOLOUR_OFFSET},
+    )
 
     if ribbon_id is None:
-        ribbon_masks = []
+        merged = None
         for i in range(1, 10):
-            ribbon_masks.append(make_f2(voxel, sym, i))
+            ribbon = make_f2(voxel, sym, i)
+            if merged is None:
+                merged = ribbon
+            # else:
+            #    merged.blend_over(ribbon)
 
-        return empty_parent + f2_child + ribbon_masks[0]
+        return empty_parent + f2_child + merged
     else:
         return f2_child
 
