@@ -153,13 +153,13 @@ for k, (_, offset, span) in f1_subsets.items():
     f1_empty_sprite[k] = make_empty_variant(64, 48, *f1_empty_offset, offset, span)
 
 
-def make_f2(v, sym, ribbon_id=None):
-    v = v.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
-
+def make_f2(voxel, sym, ribbon_id=None):
     if ribbon_id is not None:
-        ribbon_desc = f"ribbon_{ribbon_id}"
-        vd = v.keep_layers((ribbon_desc,), ribbon_desc)
-        v = vd.compose(v, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+        ribbon_desc = f"ribbon {ribbon_id}"
+        vd = voxel.keep_layers((ribbon_desc,), ribbon_desc)
+        v = vd.compose(voxel, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+    else:
+        v = voxel.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
 
     v.in_place_subset(sym.render_indices())
     v.config["agrf_relative_childsprite"] = f2_empty_offset
@@ -168,7 +168,14 @@ def make_f2(v, sym, ribbon_id=None):
     empty_parent = AParentSprite(f2_empty_sprite, (16, 16, overpass_height), (0, 0, base_height + platform_height))
     f2_child = AChildSprite(s, (0, 0), palette=0, flags={"add_palette": Registers.RECOLOUR_OFFSET})
 
-    return empty_parent + f2_child
+    if ribbon_id is None:
+        ribbon_masks = []
+        for i in range(1, 10):
+            ribbon_masks.append(make_f2(voxel, sym, i))
+
+        return empty_parent + f2_child + ribbon_masks[0]
+    else:
+        return f2_child
 
 
 def make_extra(v, sym, name, floor="f2"):
