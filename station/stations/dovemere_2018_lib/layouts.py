@@ -14,6 +14,7 @@ from station.lib import (
     ALayout,
     AttrDict,
     Registers,
+    blend_childsprites,
 )
 from agrf.graphics.voxel import LazyVoxel
 from station.stations.platforms import (
@@ -172,15 +173,11 @@ def make_f2(voxel, sym, ribbon_id=None):
     f2_child = AChildSprite(s, (0, 0), palette=0, flags={"add_palette": Registers.RECOLOUR_OFFSET})
 
     if ribbon_id is None:
-        merged = None
-        for i in range(1, 10):
-            ribbon = make_f2(voxel, sym, i)
-            if merged is None:
-                merged = ribbon
-            # else:
-            #    merged.blend_over(ribbon)
+        ribbons = []
+        for i in range(1, 11):
+            ribbons.append(make_f2(voxel, sym, i))
 
-        return empty_parent + f2_child + merged
+        return empty_parent + f2_child + blend_childsprites(ribbons)
     else:
         return f2_child
 
