@@ -18,13 +18,13 @@ class AlphaBlendedSprites(grf.AlternativeSprites):
         sprites = []
         for scale in [1, 2, 4]:
             for bpp in [32]:
-                if (s := alts[0].get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=bpp)) is not None:
-                    for i in range(1, 10):
+                if (s := alts[9].get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=bpp)) is not None:
+                    for i in range(8, -1, -1):
                         t = alts[i].get_sprite(zoom=SCALE_TO_ZOOM[scale], bpp=bpp)
                         # FIXME nobody renders for me :(
                         alts[i].voxel.render()
                         assert t is not None
-                        s = BlendSprite(s, t)
+                        s = BlendSprite(s, t, 255 * (i + 1) // 10)
                     sprites.append(s)
 
         super().__init__(*sprites)
