@@ -35,6 +35,7 @@ from station.stations.empty import make_empty_variant, empty_offset as f2_empty_
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
 from dataclasses import dataclass
+from agrf.graphics.palette import CompanyColour, company_colour_remap
 
 
 base_height = 14
@@ -158,6 +159,8 @@ def make_f2(voxel, sym, ribbon_id=None):
         ribbon_desc = f"ribbon {ribbon_id}"
         vd = voxel.keep_layers((ribbon_desc,), ribbon_desc)
         v = vd.compose(voxel, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+
+        v = v.self_compose("2cc", colour_map=company_colour_remap(CompanyColour.PALE_GREEN, CompanyColour.PALE_GREEN))
     else:
         v = voxel.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
 
@@ -166,12 +169,7 @@ def make_f2(voxel, sym, ribbon_id=None):
     s = sym.create_variants(v.spritesheet(zdiff=base_height))
 
     empty_parent = AParentSprite(f2_empty_sprite, (16, 16, overpass_height), (0, 0, base_height + platform_height))
-    f2_child = AChildSprite(
-        s,
-        (0, 0),
-        palette=0,
-        flags={"add_palette": Registers.RECOLOUR_OFFSET_2 if ribbon_id else Registers.RECOLOUR_OFFSET},
-    )
+    f2_child = AChildSprite(s, (0, 0), palette=0, flags={"add_palette": Registers.RECOLOUR_OFFSET})
 
     if ribbon_id is None:
         merged = None
