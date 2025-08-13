@@ -176,8 +176,9 @@ def make_f2(voxel, sym, ribbon_id=None):
         ribbons = []
         for i in range(1, 11):
             ribbons.append(make_f2(voxel, sym, i))
+        blended_ribbons = blend_childsprites(ribbons)
 
-        return empty_parent + f2_child + blend_childsprites(ribbons)
+        return empty_parent + f2_child + blended_ribbons
     else:
         return f2_child
 
