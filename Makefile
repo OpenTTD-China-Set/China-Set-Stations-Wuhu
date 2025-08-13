@@ -15,7 +15,7 @@ doc.station:
 	python3 -m station.dovemere_gen doc
 
 station.grf:
-	ulimit -n 8192
+	ulimit -n 16384
 	python3 -m station.dovemere_gen gen
 
 profile.station:
