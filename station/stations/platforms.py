@@ -1,32 +1,16 @@
 import grf
-from station.lib import (
-    AStation,
-    AMetaStation,
-    BuildingSymmetrical,
-    BuildingSymmetricalX,
-    BuildingFull,
-    Demo,
-    AParentSprite,
-    AChildSprite,
-    Registers,
-)
+from station.lib import AStation, AMetaStation
 from station.lib.parameters import parameter_list
-from agrf.graphics.voxel import LazyVoxel
 from .ground import named_ps as ground_ps
 from station.stations.platform_lib import (
-    PlatformFamily,
-    register,
-    platform_ps,
-    concourse_ps,
     platform_tiles,
     two_side_tiles,
     concourse_tiles,
     entries,
+    platform_ps,
+    concourse_ps,
 )
 from station.stations.platform_lib.data import (
-    platform_tiles,
-    two_side_tiles,
-    concourse_tiles,
     platform_height,
     shelter_height,
     platform_width,
@@ -34,7 +18,6 @@ from station.stations.platform_lib.data import (
     shelter_classes,
 )
 from station.stations.platform_lib.demos import demos
-from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 
 
 station_tiles = []
