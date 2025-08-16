@@ -14,6 +14,14 @@ class RenderContext(ProtoRenderContext):
             return self.north_bufferstop
         if register is Registers.RAIL_CONTINUATION_S:
             return self.south_bufferstop
+        if register is Registers.NIGHTGFX:
+            return False
+        if register is Registers.SNOW_NIGHTGFX:
+            return False
+        if register is Registers.RAIL_CONTINUATION_S_NIGHTGFX:
+            return False
+        if register is Registers.RAIL_CONTINUATION_N_NIGHTGFX:
+            return False
         return True
 
 
