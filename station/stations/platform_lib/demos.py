@@ -20,22 +20,26 @@ sloped_track_foundation = sloped_track.lower_tile().add_default_foundation(72)
 sloped_track_foundation_R = sloped_track.R.lower_tile().add_default_foundation(66)
 sloped_track = sloped_track.lower_tile()
 
-demos = [
-    Demo(repeat([[cns_concrete], [concourse_concrete_d], [cns_concrete.T]], 3), "Platform"),
-    Demo(
-        repeat([[cns_concrete_shelter_1], [cns_concrete_shelter_1_d], [cns_concrete_shelter_1.T]], 3),
-        "Platform with shelter",
-    ),
-    Demo(
-        [
-            [sloped_track] + [plat_T] * 10 + [sloped_track.R],
-            [sloped_track] + [track] * 10 + [sloped_track.R],
-            [sloped_track] + [track] * 10 + [sloped_track.R],
-            [sloped_track_foundation] + [plat] * 10 + [sloped_track_foundation_R],
-        ],
-        "Test",
-    ),
-    Demo([[plat2_T]], "Test 2"),
-    Demo([[plat]], "Test 3"),
-    Demo([[plat2]], "Test 4"),
-]
+demos = {
+    "Platforms": [
+        Demo(repeat([[cns_concrete], [concourse_concrete_d], [cns_concrete.T]], 3), "Platform"),
+        Demo(
+            repeat([[cns_concrete_shelter_1], [cns_concrete_shelter_1_d], [cns_concrete_shelter_1.T]], 3),
+            "Platform with shelter",
+        ),
+    ],
+    "Lowered Grounds": [
+        Demo(
+            [
+                [sloped_track] + [plat_T] * 10 + [sloped_track.R],
+                [sloped_track] + [track] * 10 + [sloped_track.R],
+                [sloped_track] + [track] * 10 + [sloped_track.R],
+                [sloped_track_foundation] + [plat] * 10 + [sloped_track_foundation_R],
+            ],
+            "Test",
+        ),
+        Demo([[plat2_T]], "Test 2"),
+        Demo([[plat]], "Test 3"),
+        Demo([[plat2]], "Test 4"),
+    ],
+}
