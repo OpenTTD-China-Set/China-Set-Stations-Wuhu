@@ -14,7 +14,7 @@ doc.station:
 	python3 -m station.dovemere_gen doc
 
 station.grf:
-	python3 -m station.dovemere_gen gen
+	ulimit -n 4096; python3 -m station.dovemere_gen gen
 
 profile.station:
 	python3 -m cProfile -o .prof/station_gen.prof -m station.dovemere_gen gen
