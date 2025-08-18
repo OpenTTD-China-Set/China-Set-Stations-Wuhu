@@ -34,7 +34,7 @@ def is_1012(l):
 
 def is_1011(l):
     if not isinstance(l, ALayout):
-        return false
+        return False
     from agrf.lib.building.default import empty_ground
 
     if l.ground_sprite is empty_ground:
