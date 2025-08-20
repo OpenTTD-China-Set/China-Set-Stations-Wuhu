@@ -43,7 +43,10 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :選擇蕪湖站從哪一年開始�
 
 STR_PARAM_E88A9CA_COLOUR                    :蕪湖站 - 裝飾顏色
 STR_PARAM_E88A9CA_COLOUR_DESC               :選擇蕪湖站的裝飾顏色。現實中的蕪湖站的裝飾部分是白色的，但是晚上會有彩燈顯示各種顏色。
+STR_PARAM_E88A9CA_COLOUR_2                  :蕪湖站 - 裝飾顏色 2
+STR_PARAM_E88A9CA_COLOUR_2_DESC             :選擇蕪湖站的裝飾顏色。現實中的蕪湖站的裝飾部分是白色的，但是晚上會有彩燈顯示各種顏色。
 STR_PARAM_STATION_COLOUR_PRIMARY            :使用公司主色調
+STR_PARAM_STATION_COLOUR_SECONDARY          :使用公司副色調
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :深藍色
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :淺綠色
 STR_PARAM_STATION_COLOUR_PINK               :粉紅色
@@ -82,6 +85,8 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :選擇蕪湖站 (1934) 從哪一年
 
 STR_PARAM_E88A9C0_COLOUR                    :蕪湖站 (1934) - 裝飾顏色
 STR_PARAM_E88A9C0_COLOUR_DESC               :選擇蕪湖站 (1934) 的窗戶和門的顏色。
+STR_PARAM_E88A9C0_COLOUR_2                  :蕪湖站 (1934) - 裝飾顏色 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :選擇蕪湖站 (1934) 的窗戶裝飾的顏色。
 
 STR_PARAM_E9B8A0A_ENABLE_MODULAR            :蕪湖北站 - 啓用
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :選擇是否啓用蕪湖北站
