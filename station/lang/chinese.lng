@@ -43,7 +43,10 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :选择芜湖站从哪一年开始�
 
 STR_PARAM_E88A9CA_COLOUR                    :芜湖站 - 装饰颜色
 STR_PARAM_E88A9CA_COLOUR_DESC               :选择芜湖站的装饰颜色。现实中的芜湖站的装饰部分是白色的，但是晚上会有彩灯显示各种颜色。
+STR_PARAM_E88A9CA_COLOUR_2                  :芜湖站 - 装饰颜色 2
+STR_PARAM_E88A9CA_COLOUR_2_DESC             :选择芜湖站的装饰颜色。现实中的芜湖站的装饰部分是白色的，但是晚上会有彩灯显示各种颜色。
 STR_PARAM_STATION_COLOUR_PRIMARY            :使用公司主色调
+STR_PARAM_STATION_COLOUR_SECONDARY          :使用公司副色调
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :深蓝色
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :浅绿色
 STR_PARAM_STATION_COLOUR_PINK               :粉红色
@@ -82,6 +85,8 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :选择芜湖站 (1934) 从哪一年
 
 STR_PARAM_E88A9C0_COLOUR                    :芜湖站 (1934) - 装饰颜色
 STR_PARAM_E88A9C0_COLOUR_DESC               :选择芜湖站 (1934) 的窗户和门的颜色。
+STR_PARAM_E88A9C0_COLOUR_2                  :芜湖站 (1934) - 装饰颜色 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :选择芜湖站 (1934) 的窗户装饰的颜色。
 
 STR_PARAM_E9B8A0A_ENABLE_MODULAR            :芜湖北站 - 启用
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :选择是否启用芜湖北站

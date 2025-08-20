@@ -5,22 +5,23 @@ from grf import ParameterMapping
 booldict = {0: "DISABLED", 1: "ENABLED"}
 company_colour = {
     0: "PRIMARY",
-    1: "DARK_BLUE",
-    2: "PALE_GREEN",
-    3: "PINK",
-    4: "YELLOW",
-    5: "RED",
-    6: "LIGHT_BLUE",
-    7: "GREEN",
-    8: "DARK_GREEN",
-    9: "BLUE",
-    10: "CREAM",
-    11: "MAUVE",
-    12: "PURPLE",
-    13: "ORANGE",
-    14: "BROWN",
-    15: "GREY",
-    16: "WHITE",
+    1: "SECONDARY",
+    2: "DARK_BLUE",
+    3: "PALE_GREEN",
+    4: "PINK",
+    5: "YELLOW",
+    6: "RED",
+    7: "LIGHT_BLUE",
+    8: "GREEN",
+    9: "DARK_GREEN",
+    10: "BLUE",
+    11: "CREAM",
+    12: "MAUVE",
+    13: "PURPLE",
+    14: "ORANGE",
+    15: "BROWN",
+    16: "GREY",
+    17: "WHITE",
 }
 settings = []
 
@@ -29,8 +30,12 @@ def make_introduction_year(station_id, mapping):
     settings.append(Parameter(f"{station_id}_INTRODUCTION_YEAR", 0, limits=(0, 9999), mapping=mapping))
 
 
-def make_colour(station_id, mapping):
+def make_colour(station_id, mapping, mapping_2=None):
     settings.append(Parameter(f"{station_id}_COLOUR", 0, company_colour, option_name="STATION_COLOUR", mapping=mapping))
+    if mapping_2 is not None:
+        settings.append(
+            Parameter(f"{station_id}_COLOUR_2", 0, company_colour, option_name="STATION_COLOUR", mapping=mapping_2)
+        )
 
 
 # E88A9CA: Wuhu (2015)
@@ -50,7 +55,11 @@ settings.append(
     )
 )
 make_introduction_year("E88A9CA", mapping=ParameterMapping(grf_parameter=0x3, first_bit=0, num_bit=13))
-make_colour("E88A9CA", mapping=ParameterMapping(grf_parameter=0x10, first_bit=0, num_bit=5))
+make_colour(
+    "E88A9CA",
+    mapping=ParameterMapping(grf_parameter=0x10, first_bit=0, num_bit=5),
+    mapping_2=ParameterMapping(grf_parameter=0x10, first_bit=16, num_bit=5),
+)
 
 # E88A9C0: Wuhu (1934)
 settings.append(
@@ -59,7 +68,11 @@ settings.append(
     )
 )
 make_introduction_year("E88A9C0", mapping=ParameterMapping(grf_parameter=0x6, first_bit=0, num_bit=13))
-make_colour("E88A9C0", mapping=ParameterMapping(grf_parameter=0x11, first_bit=0, num_bit=5))
+make_colour(
+    "E88A9C0",
+    mapping=ParameterMapping(grf_parameter=0x11, first_bit=0, num_bit=5),
+    mapping_2=ParameterMapping(grf_parameter=0x11, first_bit=16, num_bit=5),
+)
 
 # E9B8A0A: Wuhu North
 settings.append(
@@ -100,9 +113,25 @@ for s in station_meta:
     year = parameter_list[f"{s}_INTRODUCTION_YEAR"].code
     station_cb[s] = {"availability": Switch(ranges={0: 0}, default=1, code=f"current_year >= {year}")}
 
+    def one_colour(colour):
+        return (
+            f"(({colour} > 1) * ({colour} - 2) + ({colour} == 0) * company_colour1 + ({colour} == 1) * company_colour2)"
+        )
+
     colour = parameter_list[f"{s}_COLOUR"].code
-    station_code[
-        s
-    ] = f"""
-TEMP[0x05] = ({colour} > 0) * ({colour} + 0x306) + ({colour} == 0) * (0x307 + company_colour1)
+    if f"{s}_COLOUR_2" in parameter_list:
+        colour2 = parameter_list[f"{s}_COLOUR_2"].code
+
+        station_code[
+            s
+        ] = f"""
+TEMP[0x05] = {one_colour(colour)} + {one_colour(colour2)} * 16 + \
+             var(0x7F, param=0x40, shift=0, and=0xffffffff)
+"""
+    else:
+        station_code[
+            s
+        ] = f"""
+TEMP[0x05] = {one_colour(colour)} + \
+             var(0x7F, param=0x40, shift=0, and=0xffffffff)
 """
