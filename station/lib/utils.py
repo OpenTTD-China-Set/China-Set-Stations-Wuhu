@@ -6,6 +6,10 @@ def get_1cc_remap(colour):
     return company_colour_remap(colour, colour).to_sprite()
 
 
+def get_2cc_remap(colour1, colour2):
+    return company_colour_remap(colour1, colour2).to_sprite()
+
+
 def class_label_printable(x):
     ret = []
     for byte in x:

@@ -224,6 +224,8 @@ def determine_platform_even_bottom_half(t, d):
 
 
 def determine_platform_even(t, d):
+    if d == t == 0:
+        return "e"
     if d > t:
         return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_even(d, t)]
     if t == 15 and 15 <= d <= 15:
