@@ -39,12 +39,12 @@ Where:
 
 ### Templates
 ```
-0111 1111 0000 00pp
+0111 1111 0000 0Spp
 ```
-No shelter
+No shelter 
 
 ```
-0111 1111 0001 ppss
+0111 1111 001S ppss
 ```
 Has shelter
 
