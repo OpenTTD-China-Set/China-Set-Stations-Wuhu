@@ -29,14 +29,20 @@ for i, entry in enumerate(entries):
     for shelter_class in ["shelter_1", "shelter_2"]:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
+
+    if "concourse" in entry.notes:
+        translation_name = "CONCOURSE"
+    elif "empty" in entry.notes:
+        translation_name = "EMPTY"
+    elif entry.traversable:
+        translation_name = "PLATFORM"
+    else:
+        translation_name = "PLATFORM_UNTRAVERSABLE"
+
     station_tiles.append(
         AStation(
             id=entry.id,
-            translation_name=(
-                "CONCOURSE"
-                if "concourse" in entry.notes
-                else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
-            ),
+            translation_name=translation_name,
             layouts=(
                 [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
             ),

@@ -17,7 +17,7 @@ from station.stations.platform_lib import (
     platform_tiles,
     two_side_tiles,
     concourse_tiles,
-    make_entry
+    make_entry,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import named_ps as ground_ps
@@ -165,4 +165,6 @@ two_side_tiles.populate()
 concourse_tiles.populate()
 
 
-empty_tile = make_entry(ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp"), BuildingCylindrical, 0x7FFF)
+empty_tile = make_entry(
+    ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)

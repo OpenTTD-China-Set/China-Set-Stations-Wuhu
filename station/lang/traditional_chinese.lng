@@ -191,6 +191,7 @@ STR_STATION_TEMPLATE                        :站房（{0:STRING}{1:STRING}{2:STR
 STR_STATION_PLATFORM                            :月台
 STR_STATION_PLATFORM_UNTRAVERSABLE              :月台（無軌道）
 STR_STATION_CONCOURSE                           :車站廣場
+STR_STATION_EMPTY                               :空地
 STR_STATION_FLEXIBLE_SIDE                       :自動站房（兩側有軌道，無側式月台）
 STR_STATION_FLEXIBLE_SIDE_NEAR                  :前半自動站房（前側有軌道，無側式月台）
 STR_STATION_FLEXIBLE_SIDE_FAR                   :後半自動站房（後側有軌道，無側式月台）
