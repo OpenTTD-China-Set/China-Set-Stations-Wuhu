@@ -25,6 +25,15 @@ concourse_tiles = AttrDict(prefix="concourse", schema=("platform_class", "side",
 entries = []
 
 
+def make_entry(layout, symmetry, base_id):
+    var = symmetry.get_all_variants(layout)
+    l = symmetry.create_variants(var)
+    for i, entry in enumerate(symmetry.get_all_entries(l)):
+        entry.id = base_id + i
+        entries.append(entry)
+    return l
+
+
 class PlatformFamily(ABC):
     @property
     @abstractmethod
@@ -177,17 +186,14 @@ def register(pf: PlatformFamily):
                         else:
                             cur_sym = BuildingSymmetricalX
 
-                        var = cur_sym.get_all_variants(
+                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = make_entry(
                             ALayout(
                                 gray_ps,
                                 l + [ps],
                                 False,
                                 category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
-                            )
+                            ),
+                            cur_sym,
+                            0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
-                        l = cur_sym.create_variants(var)
-                        for i, entry in enumerate(cur_sym.get_all_entries(l)):
-                            entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
-                            entries.append(entry)
-                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = l

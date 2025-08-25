@@ -48,6 +48,11 @@ No shelter
 ```
 Has shelter
 
+### Nothing
+```
+0111 1111 1111 1111
+```
+
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````
 1xxx xxxx xpps svvv
