@@ -26,7 +26,7 @@ cb14 = {pclass: {} for pclass in platform_classes}
 for pclass in platform_classes:
     for sclass in shelter_classes:
         p = platform_tiles["cns", pclass, "", sclass, "", ""]
-        d = platform_tiles["cns", pclass, "", sclass, "", "d"]
+        d = concourse_tiles[pclass, "d", sclass, "d"]
         cb14[pclass][sclass] = StationTileSwitch("T", fill_odd({0: empty_tile, 2: p, 4: p.T, 6: d}))
 
 platform_templates = []
@@ -49,11 +49,10 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": cb24_odd.to_index(),
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass], purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass].to_index(layouts), purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
-                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],
@@ -83,11 +82,10 @@ for p, pclass in enumerate(platform_classes):
                 callbacks={
                     "select_tile_layout": cb24_even.to_index(),
                     "select_sprite_layout": grf.DualCallback(
-                        default=cb14[pclass][sclass], purchase=layouts.index(demo_layout)
+                        default=cb14[pclass][sclass].to_index(layouts), purchase=layouts.index(demo_layout)
                     ),
                     **common_cb,
                 },
-                make_foundation=True,
                 extra_code=common_code,
                 enable_if=[
                     parameter_list["E88A9CA_ENABLE_TEMPLATE"],

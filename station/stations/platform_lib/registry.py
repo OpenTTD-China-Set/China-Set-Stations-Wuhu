@@ -30,9 +30,11 @@ def make_entry(layout, symmetry, base_id):
     var = symmetry.get_all_variants(layout)
     l = symmetry.create_variants(var)
     layouts.extend(symmetry.get_all_variants(l))
-    for i, entry in enumerate(symmetry.get_all_entries(l)):
-        entry.id = base_id + i
-        entries.append(entry)
+
+    if base_id is not None:
+        for i, entry in enumerate(symmetry.get_all_entries(l)):
+            entry.id = base_id + i
+            entries.append(entry)
     return l
 
 
@@ -105,22 +107,25 @@ def register(pf: PlatformFamily):
                         else:
                             cur_symmetry = ps.sprite.symmetry
 
-                        var = cur_symmetry.get_all_variants(
-                            ALayout(
-                                track_ground,
-                                l,
-                                True,
-                                category=b"\xe8\x8a\x9cP",
-                                notes=make_notes(platform_class, shelter_class),
+                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = (
+                            make_entry(
+                                ALayout(
+                                    track_ground,
+                                    l,
+                                    True,
+                                    category=b"\xe8\x8a\x9cP",
+                                    notes=make_notes(platform_class, shelter_class),
+                                ),
+                                cur_symmetry,
+                                (
+                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10
+                                    if platform_class not in ["np", "cut"]
+                                    and shelter_class != "pillar"
+                                    and location == ""
+                                    else None
+                                ),
                             )
                         )
-                        l = cur_symmetry.create_variants(var)
-                        l = add_buffer_stop(l)
-                        if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
-                            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
-                                entry.id = 0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + i
-                                entries.append(entry)
-                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = l
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
