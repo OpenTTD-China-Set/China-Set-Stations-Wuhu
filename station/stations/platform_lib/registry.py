@@ -22,12 +22,14 @@ two_side_tiles = AttrDict(
     )
 )
 concourse_tiles = AttrDict(prefix="concourse", schema=("platform_class", "side", "shelter_class", "shelter_side"))
+layouts = []
 entries = []
 
 
 def make_entry(layout, symmetry, base_id):
     var = symmetry.get_all_variants(layout)
     l = symmetry.create_variants(var)
+    layouts.extend(symmetry.get_all_variants(l))
     for i, entry in enumerate(symmetry.get_all_entries(l)):
         entry.id = base_id + i
         entries.append(entry)

@@ -16,7 +16,7 @@ from station.lib import (
     Registers,
 )
 from agrf.graphics.voxel import LazyVoxel
-from station.stations.platforms import (
+from station.stations.platform_lib.data import (
     platform_ps,
     concourse_ps,
     platform_height,

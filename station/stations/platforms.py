@@ -18,6 +18,7 @@ from station.stations.platform_lib.data import (
     shelter_classes,
 )
 from station.stations.platform_lib.demos import demos
+from station.stations.platform_lib.templates import platform_templates
 
 
 station_tiles = []
@@ -57,4 +58,6 @@ for i, entry in enumerate(entries):
         )
     )
 
-the_stations = AMetaStation(station_tiles, b"\xe8\x8a\x9cP", [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"], demos)
+the_stations = AMetaStation(
+    platform_templates + station_tiles, b"\xe8\x8a\x9cP", [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"], demos
+)

@@ -11,7 +11,7 @@ from station.lib import (
 from ..layouts import named_tiles, layouts, flexible_entries
 
 
-def make_demo(switch, w, h, preswitch=None):
+def make_demo(switch, w, h, preswitch=None, layouts=layouts):
     demo = Demo(switch.demo(w, h, preswitch))
     for i, var in enumerate([demo, demo.M]):
         sprite = grf.AlternativeSprites(
