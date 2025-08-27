@@ -43,7 +43,10 @@ STR_PARAM_E88A9CA_INTRODUCTION_YEAR_DESC    :選擇蕪湖站從哪一年開始�
 
 STR_PARAM_E88A9CA_COLOUR                    :蕪湖站 - 裝飾顏色
 STR_PARAM_E88A9CA_COLOUR_DESC               :選擇蕪湖站的裝飾顏色。現實中的蕪湖站的裝飾部分是白色的，但是晚上會有彩燈顯示各種顏色。
+STR_PARAM_E88A9CA_COLOUR_2                  :蕪湖站 - 裝飾顏色 2
+STR_PARAM_E88A9CA_COLOUR_2_DESC             :選擇蕪湖站的裝飾顏色。現實中的蕪湖站的裝飾部分是白色的，但是晚上會有彩燈顯示各種顏色。
 STR_PARAM_STATION_COLOUR_PRIMARY            :使用公司主色調
+STR_PARAM_STATION_COLOUR_SECONDARY          :使用公司副色調
 STR_PARAM_STATION_COLOUR_DARK_BLUE          :深藍色
 STR_PARAM_STATION_COLOUR_PALE_GREEN         :淺綠色
 STR_PARAM_STATION_COLOUR_PINK               :粉紅色
@@ -82,6 +85,8 @@ STR_PARAM_E88A9C0_INTRODUCTION_YEAR_DESC    :選擇蕪湖站 (1934) 從哪一年
 
 STR_PARAM_E88A9C0_COLOUR                    :蕪湖站 (1934) - 裝飾顏色
 STR_PARAM_E88A9C0_COLOUR_DESC               :選擇蕪湖站 (1934) 的窗戶和門的顏色。
+STR_PARAM_E88A9C0_COLOUR_2                  :蕪湖站 (1934) - 裝飾顏色 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :選擇蕪湖站 (1934) 的窗戶裝飾的顏色。
 
 STR_PARAM_E9B8A0A_ENABLE_MODULAR            :蕪湖北站 - 啓用
 STR_PARAM_E9B8A0A_ENABLE_MODULAR_DESC       :選擇是否啓用蕪湖北站
@@ -186,6 +191,7 @@ STR_STATION_TEMPLATE                        :站房（{0:STRING}{1:STRING}{2:STR
 STR_STATION_PLATFORM                            :月台
 STR_STATION_PLATFORM_UNTRAVERSABLE              :月台（無軌道）
 STR_STATION_CONCOURSE                           :車站廣場
+STR_STATION_EMPTY                               :空地
 STR_STATION_FLEXIBLE_SIDE                       :自動站房（兩側有軌道，無側式月台）
 STR_STATION_FLEXIBLE_SIDE_NEAR                  :前半自動站房（前側有軌道，無側式月台）
 STR_STATION_FLEXIBLE_SIDE_FAR                   :後半自動站房（後側有軌道，無側式月台）
@@ -198,8 +204,8 @@ STR_STATION_FLEXIBLE_UNTRAVERSABLE_SIDE_FAR     :後半自動站房（後側無�
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE      :自動站房（兩側無軌道，無側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_NEAR :前半自動站房（前側無軌道，無側式月台）
 STR_STATION_FLEXIBLE_UNTRAVERSABLE_NO_SIDE_FAR  :後半自動站房（後側無軌道，無側式月台）
-STR_STATION_FLEXIBLE_CENTRAL_SIDE               :中段自動站房（兩側無軌道，有側式站臺）
-STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :中段自動站房（兩側無軌道，無側式站臺）
+STR_STATION_FLEXIBLE_CENTRAL_SIDE               :中段自動站房（兩側無軌道，有側式月台）
+STR_STATION_FLEXIBLE_CENTRAL_NO_SIDE            :中段自動站房（兩側無軌道，無側式月台）
 STR_STATION_FLEXIBLE_FRONT_SIDE                 :自動站房（線側，前）
 STR_STATION_FLEXIBLE_BACK_SIDE                  :自動站房（線側，後）
 STR_STATION_FLEXIBLE_FRONT_SIDE_NP              :自動站房（線側，前，無月台）
@@ -296,7 +302,8 @@ STR_STATION_CLASS_E999B5A       :{PUSH_COLOUR}{WHITE}CNS：{POP_COLOUR}南陵站
 
 STR_STATION_CLASS_E7B981W       :{PUSH_COLOUR}{WHITE}CNS：{POP_COLOUR}繁昌西站
 
-STR_STATION_CLASS_E88A9CP       :{PUSH_COLOUR}{WHITE}CNS：{POP_COLOUR}蕪湖包 - 月台
+STR_STATION_CLASS_E88A9CT       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} 蕪湖包 - 月台 - 模板
+STR_STATION_CLASS_E88A9CP       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 月台
 STR_STATION_CLASS_E88A9Cp       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 無軌月台
 
 STR_OBJECT_CLASS_E88A9CB0       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} 蕪湖站 - 站房

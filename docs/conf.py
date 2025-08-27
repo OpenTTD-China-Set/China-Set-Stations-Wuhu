@@ -26,3 +26,15 @@ source_suffix = [".rst", ".md"]
 html_theme = "furo"
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
+html_theme_options = {
+    "light_css_variables": {
+        "color-brand-primary": "#006590",
+        "color-brand-content": "#006590",
+        "color-brand-visited": "#006590",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#4898c9",
+        "color-brand-content": "#4898c9",
+        "color-brand-visited": "#4898c9",
+    },
+}
