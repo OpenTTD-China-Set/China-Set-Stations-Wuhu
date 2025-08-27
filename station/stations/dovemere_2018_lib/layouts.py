@@ -559,7 +559,6 @@ def load_full(f2_id, source, symmetry, internal_category, name=None, h_pos=Norma
 
 layouts = []
 entries = []
-flexible_entries = []
 named_tiles = AttrDict(schema=("name", "platform_class", "shelter_class", "f1_layout"))
 
 load(0x00, "front_normal", BuildingSymmetricalX, "F0", corridor=False, window=[])

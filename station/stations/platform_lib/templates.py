@@ -36,6 +36,7 @@ for p, pclass in enumerate(platform_classes):
     front = make_front_row((pclass, None, "platform"))
     for s, sclass in enumerate(shelter_classes):
         demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_odd, layouts=layouts)
+        demo_layout.category = b"\xe8\x8a\x9cT"
         if pclass == "concrete" and sclass == "shelter_2":
             demo_1 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_odd: cb14.demo(r, c, cb24)
         else:
@@ -71,6 +72,7 @@ cb24_even = make_vertical_switch(
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
         demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_even, layouts=layouts)
+        demo_layout.category = b"\xe8\x8a\x9cT"
         if pclass == "concrete" and sclass == "shelter_2":
             demo_2 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_even: cb14.demo(r, c, cb24)
         else:
