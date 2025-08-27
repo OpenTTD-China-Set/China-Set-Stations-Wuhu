@@ -193,6 +193,8 @@ STR_STATION_PLATFORM                            :Platform
 STR_STATION_PLATFORM_UNTRAVERSABLE              :Platform (No Track)
 STR_STATION_CONCOURSE                           :Concourse
 STR_STATION_EMPTY                               :Ground
+STR_STATION_FLEXIBLE_PLATFORM                   :Platform Template
+STR_STATION_FLEXIBLE_PLATFORM_SIDE              :Platform Template (with side platform)
 STR_STATION_FLEXIBLE_SIDE                       :Flexible Station Building (All tracks, no side platform)
 STR_STATION_FLEXIBLE_SIDE_NEAR                  :Flexible Station Building (Near Half, all tracks, no side platform)
 STR_STATION_FLEXIBLE_SIDE_FAR                   :Flexible Station Building (Far Half, all tracks, no side platform)

@@ -44,7 +44,7 @@ for p, pclass in enumerate(platform_classes):
         platform_templates.append(
             AStation(
                 id=0x7F20 + p * 0x4 + s,
-                translation_name="FLEXIBLE_SIDE",
+                translation_name="FLEXIBLE_PLATFORM",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cT",
                 non_traversable_tiles=0b11000011,
@@ -80,7 +80,7 @@ for p, pclass in enumerate(platform_classes):
         platform_templates.append(
             AStation(
                 id=0x7F30 + p * 0x4 + s,
-                translation_name="FLEXIBLE_NO_SIDE",
+                translation_name="FLEXIBLE_PLATFORM_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cT",
                 non_traversable_tiles=0b11000011,
