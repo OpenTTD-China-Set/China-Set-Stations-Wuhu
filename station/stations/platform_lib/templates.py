@@ -45,7 +45,9 @@ for p, pclass in enumerate(platform_classes):
                 id=0x7F20 + p * 0x4 + s,
                 translation_name="FLEXIBLE_SIDE",
                 layouts=layouts,
-                class_label=b"\xe8\x8a\x9cA",
+                class_label=b"\xe8\x8a\x9cT",
+                non_traversable_tiles=0b11000011,
+                disabled_platforms=0b1,
                 callbacks={
                     "select_tile_layout": cb24_odd.to_index(),
                     "select_sprite_layout": grf.DualCallback(
@@ -78,7 +80,9 @@ for p, pclass in enumerate(platform_classes):
                 id=0x7F30 + p * 0x4 + s,
                 translation_name="FLEXIBLE_NO_SIDE",
                 layouts=layouts,
-                class_label=b"\xe8\x8a\x9cA",
+                class_label=b"\xe8\x8a\x9cT",
+                non_traversable_tiles=0b11000011,
+                disabled_platforms=0b1,
                 callbacks={
                     "select_tile_layout": cb24_even.to_index(),
                     "select_sprite_layout": grf.DualCallback(
