@@ -1,4 +1,4 @@
-from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical
+from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
@@ -30,6 +30,13 @@ def make_entry(layout, symmetry, base_id):
     var = symmetry.get_all_variants(layout)
     l = symmetry.create_variants(var)
     layouts.extend(symmetry.get_all_variants(l))
+
+    if symmetry is BuildingCylindrical:
+        # FIXME: the problem here is that we should not use `get_all_variants` at all
+        # The real answer would be `get_all_entries` plus their mirror versions
+        # But this would require a synchronized change across all metastations
+        # Which is left for future refactors
+        layouts.extend(symmetry.get_all_variants(l))
 
     if base_id is not None:
         for i, entry in enumerate(symmetry.get_all_entries(l)):
