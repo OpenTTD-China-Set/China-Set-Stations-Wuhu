@@ -18,6 +18,7 @@ from station.stations.platform_lib.data import (
     shelter_classes,
 )
 from station.stations.platform_lib.demos import demos
+from station.stations.platform_lib.templates import platform_templates
 
 
 station_tiles = []
@@ -29,14 +30,20 @@ for i, entry in enumerate(entries):
     for shelter_class in ["shelter_1", "shelter_2"]:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
+
+    if "concourse" in entry.notes:
+        translation_name = "CONCOURSE"
+    elif "empty" in entry.notes:
+        translation_name = "EMPTY"
+    elif entry.traversable:
+        translation_name = "PLATFORM"
+    else:
+        translation_name = "PLATFORM_UNTRAVERSABLE"
+
     station_tiles.append(
         AStation(
             id=entry.id,
-            translation_name=(
-                "CONCOURSE"
-                if "concourse" in entry.notes
-                else "PLATFORM" if entry.traversable else "PLATFORM_UNTRAVERSABLE"
-            ),
+            translation_name=translation_name,
             layouts=(
                 [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
             ),
@@ -51,4 +58,6 @@ for i, entry in enumerate(entries):
         )
     )
 
-the_stations = AMetaStation(station_tiles, b"\xe8\x8a\x9cP", [b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"], demos)
+the_stations = AMetaStation(
+    platform_templates + station_tiles, b"\xe8\x8a\x9cP", [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"], demos
+)

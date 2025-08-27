@@ -8,10 +8,10 @@ from station.lib import (
     Demo,
     Registers,
 )
-from ..layouts import named_tiles, layouts, flexible_entries
+from ..layouts import named_tiles, layouts
 
 
-def make_demo(switch, w, h, preswitch=None):
+def make_demo(switch, w, h, preswitch=None, layouts=layouts):
     demo = Demo(switch.demo(w, h, preswitch))
     for i, var in enumerate([demo, demo.M]):
         sprite = grf.AlternativeSprites(
@@ -38,7 +38,6 @@ def make_demo(switch, w, h, preswitch=None):
         layouts.append(layout)
         if i == 0:
             ret = layout
-    flexible_entries.append(ret)
     return ret
 
 
