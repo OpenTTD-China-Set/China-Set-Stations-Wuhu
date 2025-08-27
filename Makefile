@@ -12,6 +12,7 @@ clean:
 
 doc.station:
 	python3 -m station.dovemere_gen doc
+	cd docs; make html
 
 station.grf:
 	python3 -m station.dovemere_gen gen
