@@ -12,6 +12,7 @@ clean:
 
 doc.station:
 	python3 -m station.dovemere_gen doc
+	cd docs; make html
 
 station.grf:
 	ulimit -n 4096; python3 -m station.dovemere_gen gen
