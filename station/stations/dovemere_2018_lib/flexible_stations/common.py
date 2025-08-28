@@ -8,10 +8,10 @@ from station.lib import (
     Demo,
     Registers,
 )
-from ..layouts import named_tiles, layouts, flexible_entries
+from ..layouts import named_tiles, layouts
 
 
-def make_demo(switch, w, h, preswitch=None):
+def make_demo(switch, w, h, preswitch=None, layouts=layouts):
     demo = Demo(switch.demo(w, h, preswitch))
     for i, var in enumerate([demo, demo.M]):
         sprite = grf.AlternativeSprites(
@@ -38,7 +38,6 @@ def make_demo(switch, w, h, preswitch=None):
         layouts.append(layout)
         if i == 0:
             ret = layout
-    flexible_entries.append(ret)
     return ret
 
 
@@ -213,6 +212,8 @@ def determine_platform_even_bottom_half(t, d):
 
 
 def determine_platform_even(t, d):
+    if d == t == 0:
+        return "e"
     if d > t:
         return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_even(d, t)]
     if t == 15 and 15 <= d <= 15:

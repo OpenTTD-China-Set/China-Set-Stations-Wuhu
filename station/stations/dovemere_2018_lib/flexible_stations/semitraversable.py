@@ -26,7 +26,7 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_UNTRAVERSABLE_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                non_traversable_tiles=0b11,
+                non_traversable_tiles=0b11000011,
                 disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
@@ -65,7 +65,7 @@ for p, pclass in enumerate(platform_classes):
                 translation_name="FLEXIBLE_UNTRAVERSABLE_NO_SIDE",
                 layouts=layouts,
                 class_label=b"\xe8\x8a\x9cA",
-                non_traversable_tiles=0b11,
+                non_traversable_tiles=0b11000011,
                 disabled_platforms=0b111,
                 callbacks={
                     "select_tile_layout": cb24.to_index(),
