@@ -54,6 +54,14 @@ settings.append(
         "E88A9CA_ENABLE_ROADSTOP", 1, booldict, mapping=ParameterMapping(grf_parameter=0x2, first_bit=0, num_bit=1)
     )
 )
+settings.append(
+    Parameter(
+        "E88A9CA_COLOUR_STYLE",
+        1,
+        {0: "ALTERNATING", 1: "GRADIENT"},
+        mapping=ParameterMapping(grf_parameter=0x1, first_bit=8, num_bit=1),
+    )
+)
 make_introduction_year("E88A9CA", mapping=ParameterMapping(grf_parameter=0x3, first_bit=0, num_bit=13))
 make_colour(
     "E88A9CA",
@@ -110,7 +118,17 @@ for s in station_meta:
         )
 
     colour = parameter_list[f"{s}_COLOUR"].code
-    if f"{s}_COLOUR_2" in parameter_list:
+    if s == "E88A9CA":
+        # Wuhu Station (2015) has two decoration schemes
+        colour2 = parameter_list[f"{s}_COLOUR_2"].code
+
+        station_code[
+            s
+        ] = f"""
+TEMP[0x05] = {one_colour(colour)} + {one_colour(colour2)} * 16 + \
+             var(0x7F, param=0x40, shift=0, and=0xffffffff)
+"""
+    elif f"{s}_COLOUR_2" in parameter_list:
         colour2 = parameter_list[f"{s}_COLOUR_2"].code
 
         station_code[
