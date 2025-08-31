@@ -64,6 +64,11 @@ STR_PARAM_STATION_COLOUR_BROWN              :Brown
 STR_PARAM_STATION_COLOUR_GREY               :Grey
 STR_PARAM_STATION_COLOUR_WHITE              :White
 
+STR_PARAM_E88A9CA_COLOUR_STYLE              :Wuhu Station - Decoration Style
+STR_PARAM_E88A9CA_COLOUR_STYLE_DESC         :Choose the style to apply the decoration colours.
+STR_PARAM_E88A9CA_COLOUR_STYLE_ALTERNATING  :Alternating
+STR_PARAM_E88A9CA_COLOUR_STYLE_GRADIENT     :Gradient
+
 STR_PARAM_E88A9C4_ENABLE_MODULAR            :Wuhu Station (1992) - Enable
 STR_PARAM_E88A9C4_ENABLE_MODULAR_DESC       :Whether or not to enable Wuhu Station (1992)
 STR_PARAM_E88A9C4_ENABLE_MODULAR_ENABLED    :Enabled
