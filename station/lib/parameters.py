@@ -54,6 +54,7 @@ settings.append(
         "E88A9CA_ENABLE_ROADSTOP", 1, booldict, mapping=ParameterMapping(grf_parameter=0x2, first_bit=0, num_bit=1)
     )
 )
+make_introduction_year("E88A9CA", mapping=ParameterMapping(grf_parameter=0x3, first_bit=0, num_bit=13))
 settings.append(
     Parameter(
         "E88A9CA_COLOUR_STYLE",
@@ -62,7 +63,6 @@ settings.append(
         mapping=ParameterMapping(grf_parameter=0x1, first_bit=8, num_bit=1),
     )
 )
-make_introduction_year("E88A9CA", mapping=ParameterMapping(grf_parameter=0x3, first_bit=0, num_bit=13))
 make_colour(
     "E88A9CA",
     mapping=ParameterMapping(grf_parameter=0x10, first_bit=0, num_bit=5),
