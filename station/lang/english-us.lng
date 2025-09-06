@@ -7,6 +7,8 @@ STR_PARAM_E88A9CA_COLOUR_DESC               :Choose what color to use for the de
 STR_PARAM_E88A9CA_COLOUR_2                  :Wuhu Station - Decoration Color 2
 STR_PARAM_E88A9CA_COLOUR_2_DESC             :Choose what color to use for the decorations in Wuhu Station. The real world counterpart is white during daytime, and displays ever-changing colors with LED lights during night.
 
+STR_PARAM_E88A9CA_COLOUR_STYLE_DESC         :Choose the style to apply the decoration colors.
+
 STR_PARAM_STATION_COLOUR_PRIMARY            :Use Primary Company Color
 STR_PARAM_STATION_COLOUR_SECONDARY          :Use Secondary Company Color
 STR_PARAM_STATION_COLOUR_GREY               :Gray
