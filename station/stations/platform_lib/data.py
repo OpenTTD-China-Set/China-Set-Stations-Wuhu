@@ -1,4 +1,13 @@
-from station.lib import BuildingSymmetrical, BuildingSymmetricalX, BuildingFull, AParentSprite, AChildSprite, Registers
+from station.lib import (
+    BuildingCylindrical,
+    BuildingSymmetrical,
+    BuildingSymmetricalX,
+    BuildingFull,
+    AParentSprite,
+    AChildSprite,
+    ALayout,
+    Registers,
+)
 from agrf.graphics.voxel import LazyVoxel
 from station.stations.platform_lib import (
     PlatformFamily,
@@ -8,9 +17,11 @@ from station.stations.platform_lib import (
     platform_tiles,
     two_side_tiles,
     concourse_tiles,
+    make_entry,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import named_ps as ground_ps
+from ..misc import default_ground
 
 
 gray_ps = ground_ps.gray
@@ -153,6 +164,6 @@ platform_tiles.populate()
 two_side_tiles.populate()
 concourse_tiles.populate()
 
-platform_tiles.globalize()
-two_side_tiles.globalize()
-concourse_tiles.globalize()
+empty_tile = make_entry(
+    ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)

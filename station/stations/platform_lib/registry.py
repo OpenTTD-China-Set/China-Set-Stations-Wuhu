@@ -1,4 +1,4 @@
-from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical
+from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
@@ -30,7 +30,29 @@ two_side_tiles = AttrDict(
     )
 )
 concourse_tiles = AttrDict(prefix="concourse", schema=("platform_class", "side", "shelter_class", "shelter_side"))
+layouts = []
 entries = []
+
+
+def make_entry(layout, symmetry, base_id):
+    var = symmetry.get_all_variants(layout)
+    l = symmetry.create_variants(var)
+    if l.traversable:
+        l = add_buffer_stop(l)
+    layouts.extend(symmetry.get_all_variants(l))
+
+    if symmetry is BuildingCylindrical:
+        # FIXME: the problem here is that we should not use `get_all_variants` at all
+        # The real answer would be `get_all_entries` plus their mirror versions
+        # But this would require a synchronized change across all metastations
+        # Which is left for future refactors
+        layouts.extend(symmetry.get_all_variants(l))
+
+    if base_id is not None:
+        for i, entry in enumerate(symmetry.get_all_entries(l)):
+            entry.id = base_id + i
+            entries.append(entry)
+    return l
 
 
 class PlatformFamily(ABC):
@@ -102,32 +124,30 @@ def register(pf: PlatformFamily):
                         else:
                             cur_symmetry = ps.sprite.symmetry
 
-                        var = cur_symmetry.get_all_variants(
-                            ALayout(
-                                track_ground if rail_facing != "solid" else gray_ps,
-                                l,
-                                rail_facing != "solid",
-                                category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cp",
-                                notes=make_notes(platform_class, shelter_class),
-                            )
-                        )
-                        l = cur_symmetry.create_variants(var)
-                        if l.traversable:
-                            l = add_buffer_stop(l)
-                        if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
-                            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
-                                entry.id = (
+                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = (
+                            make_entry(
+                                ALayout(
+                                    track_ground if rail_facing != "solid" else gray_ps,
+                                    l,
+                                    rail_facing != "solid",
+                                    category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cp",
+                                    notes=make_notes(platform_class, shelter_class),
+                                ),
+                                cur_symmetry,
+                                (
                                     0x7000
                                     + (pid - 2) * 0x200
                                     + sid * 0x40
                                     + (rid % 2) * 0x20
                                     + ssid * 0x10
                                     + (rid // 2) * 0x8
-                                    + lid * 0x2
-                                    + i
-                                )
-                                entries.append(entry)
-                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = l
+                                    if platform_class not in ["np", "cut"]
+                                    and shelter_class != "pillar"
+                                    and location == ""
+                                    else None
+                                ),
+                            )
+                        )
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
@@ -266,17 +286,14 @@ def register(pf: PlatformFamily):
                         else:
                             cur_sym = BuildingSymmetricalX
 
-                        var = cur_sym.get_all_variants(
+                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = make_entry(
                             ALayout(
                                 gray_ps,
                                 l + [ps],
                                 False,
                                 category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
-                            )
+                            ),
+                            cur_sym,
+                            0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
-                        l = cur_sym.create_variants(var)
-                        for i, entry in enumerate(cur_sym.get_all_entries(l)):
-                            entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
-                            entries.append(entry)
-                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = l
