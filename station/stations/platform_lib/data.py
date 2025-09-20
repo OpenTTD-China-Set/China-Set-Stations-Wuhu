@@ -97,10 +97,15 @@ class CNSPlatformFamily(PlatformFamily):
                 skeeps = {shelter_class + "_building_v"}
             else:
                 skeeps = {shelter_class + ("_" if location != "" else "") + location}
-                if platform_class != "" and shelter_class != "pillar" and location == "building":
-                    skeeps.add("escalator")
-                if platform_class != "" and shelter_class != "pillar" and location == "building_v":
-                    skeeps.add("escalator_v")
+                if platform_class != "" and shelter_class != "pillar":
+                    if location == "building":
+                        skeeps.add("escalator")
+                    if location == "building_v":
+                        skeeps.add("escalator_v")
+                    if location == "building_noescalator":
+                        skeeps.add("building")
+                    if location == "building_v_noescalator":
+                        skeeps.add("building_v")
 
         v2 = self.v.keep_layers(
             tuple(pkeeps) + tuple(skeeps), f"subset_{platform_class}_{rail_facing}_{shelter_class}_{location}"
