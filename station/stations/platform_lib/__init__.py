@@ -7,4 +7,5 @@ from .registry import (
     two_side_tiles,
     concourse_tiles,
     entries,
+    make_entry,
 )

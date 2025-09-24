@@ -50,8 +50,10 @@ class AStation(grf.SpriteGenerator):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
-        else:
+        elif callable(self.translation_name):
             translated_name = self.translation_name(g.strings)
+        else:
+            raise TypeError(f"translation_name must be a string or callable, got {type(self.translation_name)}")
 
         extra_props = {"station_name": g.strings.add(translated_name).get_persistent_id()}
         if not self.is_waypoint:
