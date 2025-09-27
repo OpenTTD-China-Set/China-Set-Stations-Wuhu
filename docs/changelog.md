@@ -1,7 +1,7 @@
 Changelog
 =========================
 
-0.4.0 (Work-in-Progress)
+0.4.0 (2025-09-28)
 ------------------------
 Fix graphical glitches.
 
@@ -9,7 +9,7 @@ Add new tiles that connects two "half-platforms" together.
 
 Add "half station" templates.
 
-Redesign templates, now they always contain an even number of railways.
+Redesign templates, now they always contain an even number of railways. (This is backwards incompatible)
 
 Add 2CC support (this changes the parameter mapping, so existing settings might be affected again - sorry)
 
