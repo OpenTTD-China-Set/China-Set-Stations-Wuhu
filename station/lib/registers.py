@@ -8,11 +8,9 @@ class Registers(AGRFRegisters):
     RECOLOUR_OFFSET_2 = grf.Temp(0x20)
 
 
-code = (
-    agrf_code
-    + """
+code = agrf_code
+default_code = """
 TEMP[0x10] = (rail_continuation & 0x1) == 0
 TEMP[0x11] = (rail_continuation & 0x2) == 0
 TEMP[0x20] = 0x30b
 """
-)
