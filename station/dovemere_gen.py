@@ -30,7 +30,7 @@ def gen(args):
         grfid=b"\xe5\xbc\x8bs",
         name=s["STR_GRF_NAME"],
         description=s["STR_GRF_DESC"],
-        version=21,
+        version=22,
         min_compatible_version=21,
         id_map_file="station/id_map.json",
         sprite_cache_path="station/.cache",
