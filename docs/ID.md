@@ -37,6 +37,22 @@ Where:
 0111 1011 0ppd ssli
 ````
 
+### Templates
+```
+0111 1111 0000 0Spp
+```
+No shelter 
+
+```
+0111 1111 001S ppss
+```
+Has shelter
+
+### Nothing
+```
+0111 1111 1111 1111
+```
+
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````
 1xxx xxxx xpps svvv
