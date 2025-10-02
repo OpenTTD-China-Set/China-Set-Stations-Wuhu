@@ -23,9 +23,8 @@ This is an add-on to the NewGRF `China Set: Stations`, providing additional stat
 
 ### 2.1 Requirements
 
-- OpenTTD 14.0 or higher
-    * this NewGRF relies on new-style station string properties
-    * Work is being done to support older versions of OpenTTD, stay tuned...
+- For a complete experience, use OpenTTD 14.0 or higher
+- A “essentials” subset of functionality is supported and tested for OpenTTD 12.0, and might work for even older versions.
 - Not compatible with TTDPatch
 
 

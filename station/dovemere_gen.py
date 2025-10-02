@@ -28,13 +28,19 @@ def gen(args):
         grfid=b"\xe5\xbc\x8bs",
         name=s["STR_GRF_NAME"],
         description=s["STR_GRF_DESC"],
-        version=19,
-        min_compatible_version=14,
+        version=22,
+        min_compatible_version=21,
         id_map_file="station/id_map.json",
         sprite_cache_path="station/.cache",
         url="https://www.tt-forums.net/viewtopic.php?t=91092",
         strings=s,
         preferred_blitter=grf.NewGRF.BLITTER_BPP_32,
+    )
+
+    g.add(
+        grf.ComputeParameters(
+            target=0x40, operation=0x00, if_undefined=False, source1=0x11, source2=0xFE, value=b"\xff\xff\x00\x00"
+        )
     )
 
     parameter_list.add(g, s)

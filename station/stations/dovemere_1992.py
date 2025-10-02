@@ -13,6 +13,5 @@ the_station = AStation(
     id=0x01,
     translation_name="DOVEMERE_1992",
     sprites=[s for v in voxels for s in v.spritesheet()] * 18,
-    cargo_threshold=40,
     class_label=b"CONC",
 )

@@ -16,7 +16,7 @@ from station.lib import (
     Registers,
 )
 from agrf.graphics.voxel import LazyVoxel
-from station.stations.platforms import (
+from station.stations.platform_lib.data import (
     platform_ps,
     concourse_ps,
     platform_height,
@@ -30,7 +30,7 @@ from station.stations.platforms import (
 )
 from station.stations.platform_lib.aux import add_buffer_stop
 from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
-from station.stations.misc import track_ground, track
+from station.stations.misc import track_ground, default_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
@@ -83,6 +83,10 @@ def get_category(internal_category, back, notes, tra):
         ret = 0xF0
     else:
         raise KeyError(f"Unsupported internal category {internal_category}")
+
+    if "waypoint" in notes:
+        ret = {0x90: 0xF8, 0xA0: 0xF9, 0xA4: 0xFA, 0xA8: 0xFB, 0xAC: 0xFC}[ret]
+
     return b"\xe8\x8a\x9c" + ret.to_bytes(1, "little")
 
 
@@ -238,11 +242,6 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
 
 
 solid_ground = gray_ps
-# FIME merge these since the groundchildsprite is no longer used here
-corridor_ground = track_ground
-one_side_ground = track_ground
-one_side_ground_t = track_ground
-empty_ground = track_ground
 
 voxel_cache = {}
 
@@ -300,9 +299,17 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
             f2_component = [f2 + f2_window_extender + f2_snow_window_extender]
             cur_sym = symmetry
         register(
+            0xFC00 + f2_id,
+            1,
+            ALayout(default_ground, [cur_np, cur_np.T] + f2_component, False, notes=["really_empty"]),
+            cur_sym,
+            internal_category,
+            (f2_name, None, None, "e"),
+        )
+        register(
             0xFD00 + f2_id,
             1,
-            ALayout(empty_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
+            ALayout(track_ground, [cur_np, cur_np.T] + f2_component, True, notes=["waypoint"]),
             cur_sym,
             internal_category,
             (f2_name, None, None, "empty"),
@@ -316,12 +323,26 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     ) + [shelter_class, platform_class]
                 else:
                     common_notes = (["noshow"] if platform_class != "concrete" else []) + [platform_class]
+
+                concourse = concourse_ps[(platform_class, "d")]
+                shelter = platform_ps[("cns", "cut", "", shelter_class, "")]
+                register(
+                    0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08,
+                    0x80,
+                    ALayout(
+                        track_ground,
+                        [concourse, shelter, shelter.T] + f2_component,
+                        False,
+                        notes=common_notes + ["connector"],
+                    ),
+                    cur_sym,
+                    internal_category,
+                    (f2_name, platform_class, shelter_class, "c"),
+                )
                 register(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x03,
                     0x80,
-                    ALayout(
-                        corridor_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]
-                    ),
+                    ALayout(track_ground, [cur_plat, cur_plat.T] + f2_component, True, notes=common_notes + ["both"]),
                     cur_sym,
                     internal_category,
                     (f2_name, platform_class, shelter_class, "d"),
@@ -331,9 +352,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         broken_symmetry,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -346,9 +365,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x01,
                         0x80,
-                        ALayout(
-                            one_side_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]
-                        ),
+                        ALayout(track_ground, [cur_plat, cur_np.T] + f2_component, True, notes=common_notes + ["near"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "n"),
@@ -356,9 +373,7 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
                     register(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x02,
                         0x80,
-                        ALayout(
-                            one_side_ground_t, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]
-                        ),
+                        ALayout(track_ground, [cur_np, cur_plat.T] + f2_component, True, notes=common_notes + ["far"]),
                         cur_sym,
                         internal_category,
                         (f2_name, platform_class, shelter_class, "f"),
@@ -396,6 +411,7 @@ def load(
         window_classes = ["windowed"]
     else:
         window_classes = ["none"] + window
+    assert len(window_classes) == 1
 
     if "gate" in name or "tiny" in name:
         if window is None:
@@ -450,7 +466,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x07,
                     0x80,
                     ALayout(
-                        corridor_ground,
+                        track_ground,
                         [cur_plat, cur_plat.T, f1 + f1_snow, f1b] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -464,7 +480,7 @@ def load(
                     0x8000 + f2_id * 0x80 + pid * 0x20 + 0x06,
                     0x80,
                     ALayout(
-                        one_side_ground,
+                        track_ground,
                         [cur_plat, f1 + f1_snow, h_pos.non_platform.T] + f2_component,
                         True,
                         notes=common_notes + ["third"],
@@ -485,7 +501,7 @@ def load(
                         0x8000 + f2_id * 0x80 + pid * 0x20 + sid * 0x08 + 0x05,
                         0x80,
                         ALayout(
-                            corridor_ground,
+                            track_ground,
                             [cur_plat_nt, f1 + f1_snow, h_pos.platform(platform_class, shelter_class).T] + f2_component,
                             True,
                             notes=common_notes + ["third", "far"],
@@ -543,7 +559,6 @@ def load_full(f2_id, source, symmetry, internal_category, name=None, h_pos=Norma
 
 layouts = []
 entries = []
-flexible_entries = []
 named_tiles = AttrDict(schema=("name", "platform_class", "shelter_class", "f1_layout"))
 
 load(0x00, "front_normal", BuildingSymmetricalX, "F0", corridor=False, window=[])
