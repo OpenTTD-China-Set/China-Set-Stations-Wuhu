@@ -34,8 +34,5 @@ west_square = [[center_ground, trees, offcenter_ground_B, flower, offcenter_grou
 
 
 west_plaza_oneliner = Demo(
-    station + roadstops + west_square,
-    "West Plaza (one-row version)",
-    remap=get_1cc_remap(CompanyColour.WHITE),
-    merge_bbox=True,
+    station + roadstops + west_square, "West Plaza (7×1)", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
 )

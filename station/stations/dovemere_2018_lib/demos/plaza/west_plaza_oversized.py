@@ -50,8 +50,5 @@ west_square = [
 
 
 west_plaza_oversized = Demo(
-    station + roadstops + west_square,
-    "West plaza (oversized version)",
-    remap=get_1cc_remap(CompanyColour.WHITE),
-    merge_bbox=True,
+    station + roadstops + west_square, "West plaza (16×4)", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
 )

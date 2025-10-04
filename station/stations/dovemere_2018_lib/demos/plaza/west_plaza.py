@@ -40,5 +40,8 @@ west_square = [
 
 
 west_plaza = Demo(
-    station + roadstops + west_square, "West plaza", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
+    station + roadstops + west_square,
+    "West plaza (default, 7×2)",
+    remap=get_1cc_remap(CompanyColour.WHITE),
+    merge_bbox=True,
 )

@@ -29,8 +29,5 @@ west_square = [[center_ground, center_ground, center_ground], [center_ground, fl
 
 
 west_plaza_one_tile = Demo(
-    station + roadstops + west_square,
-    "West plaza (extremely narrow station)",
-    remap=get_1cc_remap(CompanyColour.WHITE),
-    merge_bbox=True,
+    station + roadstops + west_square, "West plaza (3×2)", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
 )
