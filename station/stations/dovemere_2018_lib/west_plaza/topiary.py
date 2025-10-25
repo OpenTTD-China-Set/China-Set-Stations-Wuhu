@@ -144,3 +144,4 @@ def make_topiaries():
     make_object_layout("2024a", 0x0130, BuildingSymmetrical, 8, 12, 2, 2, 6, BuildingCylindrical)
     make_object_layout("2024b", 0x0138, BuildingSymmetrical, 8, 12, 2, 2, 6, BuildingCylindrical)
     make_object_layout("2025a", 0x0140, BuildingSymmetrical, 8, 12, 2, 2, 6, BuildingCylindrical)
+    make_object_layout("2025b", 0x0148, BuildingSymmetrical, 8, 12, 2, 2, 6, BuildingCylindrical)
