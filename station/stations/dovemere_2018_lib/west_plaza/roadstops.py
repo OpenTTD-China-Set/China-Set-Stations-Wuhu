@@ -47,7 +47,7 @@ def make_road_stops():
     register_road_stop(layout, BuildingSymmetrical, 0x8003)
 
     overpass_bridge_half = components[("road_stop", "overpass_bridge_half")]
-    layout = ALayout(road_ground, [overpass_bridge_half, pillars, pillars.T], True, category=b"\xe8\x8a\x9cR")
+    layout = ALayout(road_ground, [overpass_bridge_half, pillars, pillars.T], True, category=b"\xe8\x8a\x9c2")
     named_layouts[("overpass_bridge",)] = layout
     register_road_stop(layout, BuildingSymmetricalY, 0x8004)
 
@@ -69,7 +69,7 @@ def make_road_stops():
     register_road_stop(layout, BuildingSymmetricalX, 0x8007)
 
     overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
-    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
+    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9c2")
     named_layouts[("stair_narrow",)] = layout
     register_road_stop(layout, BuildingFull, 0x8009)
 
@@ -81,7 +81,7 @@ def make_road_stops():
         road_ground,
         [overpass_half_stair, extender_onesided.move(-8, 8), pillars, entrance.move(4, 8, -16)] + three_pillars,
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_wide",)] = layout
     register_road_stop(layout, BuildingFull, 0x8104)
@@ -90,7 +90,7 @@ def make_road_stops():
         road_ground,
         [overpass_half_stair, extender_onesided.move(-8, 8), pillars] + three_pillars,
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_wide_simple",)] = layout
     register_road_stop(layout, BuildingFull, 0x8108)
@@ -101,7 +101,7 @@ def make_road_stops():
         road_ground,
         [overpass_stair, extender.move(0, 8), extender.move(0, 8).R, pillars],
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_extender",)] = layout
     register_road_stop(layout, BuildingSymmetricalX, 0x8110)
@@ -117,7 +117,7 @@ def make_road_stops():
             entrance.R.move(-12, 8, -16),
         ],
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_extender_narrow",)] = layout
     register_road_stop(layout, BuildingSymmetricalX, 0x8112)
@@ -126,7 +126,7 @@ def make_road_stops():
         road_ground,
         [overpass_stair, extender_onesided.move(0, 8), extender_onesided.move(0, 8).R, pillars],
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_extender_narrow_simple")] = layout
     register_road_stop(layout, BuildingSymmetricalX, 0x8114)
@@ -135,7 +135,7 @@ def make_road_stops():
         road_ground,
         [overpass_stair, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars, entrance.move(12, 8, -16)],
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_extender_onesided",)] = layout
     register_road_stop(layout, BuildingFull, 0x8118)
@@ -144,7 +144,7 @@ def make_road_stops():
         road_ground,
         [overpass_stair, extender_onesided.move(0, 8), extender.move(0, 8).R, pillars],
         True,
-        category=b"\xe8\x8a\x9cR",
+        category=b"\xe8\x8a\x9cS",
     )
     named_layouts[("stair_extender_onesided_simple",)] = layout
     register_road_stop(layout, BuildingFull, 0x811C)
