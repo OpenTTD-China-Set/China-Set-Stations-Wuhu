@@ -69,7 +69,7 @@ def make_road_stops():
     register_road_stop(layout, BuildingSymmetricalX, 0x8007)
 
     overpass_long_narrow = components[("road_stop", "overpass_long_narrow")]
-    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9c2")
+    layout = ALayout(road_ground, [overpass_long_narrow, pillars, pillar_corner.T.R], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("stair_narrow",)] = layout
     register_road_stop(layout, BuildingFull, 0x8009)
 
@@ -159,4 +159,5 @@ def make_road_stops():
         True,
         16,
         joggle=JOGGLE_AMOUNT * 2,
+        category=b"S",
     )
