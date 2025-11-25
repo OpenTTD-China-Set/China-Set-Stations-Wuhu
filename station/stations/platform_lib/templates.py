@@ -1,9 +1,5 @@
 import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch, make_horizontal_switch
-
-# FIXME
-common_cb = {}
-common_code = ""
 from station.stations.dovemere_2018_lib.flexible_stations.common import (
     determine_platform_odd,
     determine_platform_even,
@@ -16,6 +12,13 @@ from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 from .data import empty_tile, platform_tiles, two_side_tiles, concourse_tiles
 from .registry import layouts
+
+# FIXME
+#   These constants are empty *by design*, and that's fine.
+#   Do not attemt to refactor away them, since the right refactor to do is to
+#     merge the logic here and the counterpart in dovemere_2018_lib.
+common_cb = {}
+common_code = ""
 
 
 def fill_odd(d):
