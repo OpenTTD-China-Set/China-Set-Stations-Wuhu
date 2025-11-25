@@ -4,6 +4,7 @@ from .west_plaza_3 import west_plaza_3
 from .west_plaza_oneliner import west_plaza_oneliner
 from .west_plaza_oversized import west_plaza_oversized
 from .west_plaza_one_tile import west_plaza_one_tile
+from .west_plaza_roadless import west_plaza_roadless
 from .west_plaza_vast import west_plaza_vast
 from .west_plaza_realgardens import west_plaza_realgardens
 from .west_plaza_default import west_plaza_default
@@ -18,6 +19,7 @@ plaza_demos = [
     west_plaza_oneliner,
     west_plaza_oversized,
     west_plaza_one_tile,
+    west_plaza_roadless,
     west_plaza_vast,
     west_plaza_realgardens,
     west_plaza_default,
