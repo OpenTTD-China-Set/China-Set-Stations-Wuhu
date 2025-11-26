@@ -117,7 +117,7 @@ the_stations = AMetaStation(
         + [b"\xf0"]
         + [b"\xf8", b"\xf9", b"\xfa", b"\xfb", b"\xfc"]
         + [b"R", b"Z", b"T", b"G", b"g", b"F", b"l", b"L", b"M"]
-        + [b"1", b"2", b"S"]
+        + [b"1", b"2", b"P", b"S"]
     ],
     {
         "Realistic Layouts": demos.realistic_demos,

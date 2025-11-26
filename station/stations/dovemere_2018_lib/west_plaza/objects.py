@@ -5,12 +5,18 @@ from .roadstop_components import components as roadstop_components
 from ..objects_utils import named_layouts, register
 
 
-def make_staircases():
+def make_platforms():
+    gs = named_grounds[("center", "")]
+    ps = [road_stop_overpass, road_stop_pillars]
+    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_center", "overpass")] = layout
+    register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E00)
+
     gs = named_grounds[("center", "")]
     ps = [road_stop_stair_extender.move(0, -6), road_stop_stair_extender.move(0, -6).R]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E00)
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E01)
 
 
 def make_lightposts():
@@ -162,7 +168,7 @@ def make_mixed_objects():
 def make_objects():
     components.globalize()
     roadstop_components.globalize()
-    make_staircases()
+    make_platforms()
     make_lightposts()
     make_lawns()
     make_trees()

@@ -16,6 +16,7 @@ make_component = lambda *args, **kwargs: original_make_component(*args, **kwargs
 def make_components():
     # Pillars
     make_component("road_stop", "pillars", BuildingSymmetricalX, (16, 1, OVERPASS_HEIGHT), (0, 2, 0))
+    make_component("road_stop", "pillars_with_bollards", BuildingSymmetricalX, (16, 1, OVERPASS_HEIGHT), (0, 2, 0))
     make_component("road_stop", "pillar_corner", BuildingSymmetricalX, (2, 1, OVERPASS_HEIGHT), (13, 2, 0))
 
     # Overpass layers

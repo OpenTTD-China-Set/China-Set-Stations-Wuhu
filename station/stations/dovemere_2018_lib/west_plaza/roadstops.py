@@ -32,7 +32,7 @@ def make_road_stops():
     make_components()
 
     overpass = components[("road_stop", "overpass")]
-    pillars = components[("road_stop", "pillars")]
+    pillars = components[("road_stop", "pillars_with_bollards")]
     layout = ALayout(road_ground, [overpass, pillars], True, category=b"\xe8\x8a\x9cR")
     named_layouts[("overpass",)] = layout
     register_road_stop(layout, BuildingSymmetricalX, 0x8000)

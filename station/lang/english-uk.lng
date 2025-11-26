@@ -310,7 +310,8 @@ STR_OBJECT_CLASS_E88A9CB0       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Station Buil
 STR_OBJECT_CLASS_E88A9CT        :{PUSH_COLOUR}{GOLD}Wuhu Station - West Square{POP_COLOUR}
 STR_OBJECT_CLASS_E88A9CG        :    Ground (w/ slopes)
 STR_OBJECT_CLASS_E88A9Cg        :    Ground (w/o slopes)
-STR_OBJECT_CLASS_E88A9CS        :    Staircase
+STR_OBJECT_CLASS_E88A9CP        :    Platform
+STR_OBJECT_CLASS_E88A9CS        :    Platform (w/ staircases)
 STR_OBJECT_CLASS_E88A9CF        :    Topiary
 STR_OBJECT_CLASS_E88A9Cl        :    Lawn
 STR_OBJECT_CLASS_E88A9CL        :    Light Post
