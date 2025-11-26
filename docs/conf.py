@@ -9,6 +9,7 @@
 project = "China Set: Stations - Wuhu"
 copyright = "2024-2025, China Set Team"
 author = "China Set Team"
+release = "0.4.1-INDEV"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
