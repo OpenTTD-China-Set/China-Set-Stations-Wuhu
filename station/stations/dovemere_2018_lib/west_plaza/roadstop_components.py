@@ -3,6 +3,7 @@ from .components import make_component as original_make_component
 
 WIDTH = 3
 TOTAL_HEIGHT = 12
+PLATFORM_HEIGHT = 3
 OVERPASS_HEIGHT = 11
 OVERHANG_WIDTH = 1
 EXTENDED_WIDTH = 9
@@ -95,8 +96,9 @@ def make_components():
 
     # Stairs
     make_component("road_stop", "stair_extender", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT)
+    make_component("road_stop", "stair_extender_shallow", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=0)
     make_component(
-        "road_stop", "stair_extender_onesided", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT
+        "road_stop", "stair_extender_onesided", BuildingFull, (8, 8, PLATFORM_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT
     )
 
     # Underground Entrance
