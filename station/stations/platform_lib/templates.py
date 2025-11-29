@@ -1,13 +1,8 @@
 import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch, make_horizontal_switch
-from station.stations.dovemere_2018_lib.flexible_stations.common import (
-    determine_platform_odd,
-    determine_platform_even,
-    make_demo,
-    make_row,
-    make_front_row,
-    make_central_row,
-)
+from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
+from station.lib.templates.demo import make_demo
+from station.stations.dovemere_2018_lib.flexible_stations.common import make_row, make_front_row, make_central_row
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 from .data import empty_tile, platform_tiles, two_side_tiles, concourse_tiles
