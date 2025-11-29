@@ -29,6 +29,8 @@ entries = []
 def make_entry(layout, symmetry, base_id):
     var = symmetry.get_all_variants(layout)
     l = symmetry.create_variants(var)
+    if l.traversable:
+        l = add_buffer_stop(l)
     layouts.extend(symmetry.get_all_variants(l))
 
     if symmetry is BuildingCylindrical:
