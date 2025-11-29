@@ -13,19 +13,23 @@ def make_platforms():
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E00)
 
     gs = named_grounds[("center", "")]
-    ps = [road_stop_stair_extender.move(0, -6), road_stop_stair_extender.move(0, -6).R]
+    ps = [road_stop_platform, road_stop_stair_extender.move(0, -2), road_stop_stair_extender.move(0, -2).R]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E01)
 
     gs = named_grounds[("center", "")]
-    ps = [road_stop_stair_extender_onesided.move(0, -6), road_stop_stair_extender.move(0, -6).R]
+    ps = [road_stop_platform, road_stop_stair_extender_onesided.move(0, -2), road_stop_stair_extender.move(0, -2).R]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_2")] = layout
     register([[layout]], BuildingFull, b"S", starting_id=0x0E02)
 
     gs = named_grounds[("center", "")]
-    ps = [road_stop_stair_extender_onesided.move(0, -6), road_stop_stair_extender_onesided.move(0, -6).R]
+    ps = [
+        road_stop_platform,
+        road_stop_stair_extender_onesided.move(0, -2),
+        road_stop_stair_extender_onesided.move(0, -2).R,
+    ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E04)

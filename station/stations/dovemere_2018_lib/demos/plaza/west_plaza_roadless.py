@@ -19,11 +19,12 @@ for i in range(1, 6):
     station[1][i] = station[1][i].enable_foundation(9)
 
 # Not-road-stops
-staircase = west_plaza_center_staircase.lower_tile()
-not_roadstops = [[staircase, staircase, staircase, staircase, staircase, staircase, staircase]]
+center_ground = west_plaza_center.lower_tile()
+overpass = west_plaza_center_overpass.lower_tile()
+staircase = west_plaza_center_staircase_3.lower_tile()
+not_roadstops = [[center_ground, overpass, overpass, staircase, overpass, overpass, center_ground]]
 
 # Objects
-center_ground = west_plaza_center.lower_tile()
 offcenter_A = west_plaza_offcenter_A_decorated_lawn.lower_tile()
 flower = west_plaza_topiary_2024a_half.lower_tile()
 offcenter_B = west_plaza_offcenter_B_decorated.lower_tile()
