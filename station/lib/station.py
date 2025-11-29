@@ -1,7 +1,6 @@
 import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
-from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
 from .registers import code, default_code
 from .switch import StationTileSwitch
