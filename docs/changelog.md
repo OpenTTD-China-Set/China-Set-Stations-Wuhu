@@ -3,6 +3,7 @@ Changelog
 
 0.4.1 (Work in Progress)
 ------------------------
+Fix localization.
 
 0.4.0 (2025-10-01)
 ------------------------
