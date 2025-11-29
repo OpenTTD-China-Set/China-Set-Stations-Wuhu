@@ -1,4 +1,3 @@
-import grf
 from agrf.magic import Switch
 from agrf.utils import unique_tuple
 
