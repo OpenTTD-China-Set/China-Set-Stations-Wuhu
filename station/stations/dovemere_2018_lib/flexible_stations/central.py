@@ -2,7 +2,8 @@ import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch, make_horizontal_switch
 from .. import common_cb, common_code
 from ..layouts import layouts
-from .common import determine_platform_odd, determine_platform_even, make_demo, make_central_row_middle
+from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
+from .common import make_demo, make_central_row_middle
 from .traversable import cb24_odd, cb24_even, fill_odd
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list

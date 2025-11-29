@@ -1,8 +1,7 @@
 import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch, make_horizontal_switch
+from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
 from station.stations.dovemere_2018_lib.flexible_stations.common import (
-    determine_platform_odd,
-    determine_platform_even,
     make_demo,
     make_row,
     make_front_row,
