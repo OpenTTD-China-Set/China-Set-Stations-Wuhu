@@ -22,7 +22,7 @@ for i in range(1, 6):
 stair_end = stair_end.lower_tile()
 overpass = overpass.lower_tile()
 stair = stair_narrow.lower_tile()
-stair_extender = stair_extender.lower_tile()
+stair_extender = stair_extender_narrow.lower_tile()
 roadstops = [[stair_end, overpass, stair, stair_extender, stair.R, overpass, stair_end.R]]
 
 # Objects
