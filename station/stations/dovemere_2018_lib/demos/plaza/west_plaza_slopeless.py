@@ -17,7 +17,7 @@ station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns],
 # Not-road-stops
 center_ground = west_plaza_center
 overpass = west_plaza_center_overpass
-staircase = west_plaza_center_staircase_3
+staircase = west_plaza_center_staircase_shallow_3
 not_roadstops = [[center_ground, overpass, overpass, staircase, overpass, overpass, center_ground]]
 
 # Objects

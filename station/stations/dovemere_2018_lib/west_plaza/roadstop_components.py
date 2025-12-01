@@ -96,9 +96,12 @@ def make_components():
 
     # Stairs
     make_component("road_stop", "stair_extender", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT)
-    make_component("road_stop", "stair_extender_shallow", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=0)
+    make_component("road_stop", "stair_extender_shallow", BuildingFull, (8, 8, PLATFORM_HEIGHT), (8, 6, 0), joggle=0)
     make_component(
         "road_stop", "stair_extender_onesided", BuildingFull, (8, 8, TOTAL_HEIGHT), (8, 6, 0), joggle=JOGGLE_AMOUNT
+    )
+    make_component(
+        "road_stop", "stair_extender_onesided_shallow", BuildingFull, (8, 8, PLATFORM_HEIGHT), (8, 6, 0), joggle=0
     )
 
     # Underground Entrance
