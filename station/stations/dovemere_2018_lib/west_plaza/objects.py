@@ -1,8 +1,10 @@
 from station.lib import BuildingFull, BuildingSymmetricalX, ALayout
 from .grounds import named_grounds
 from .components import components
+from .roadstop_components import components as roadstop_components
 from ..objects_utils import named_layouts, register
 
 
 def make_objects():
-    pass
+    components.globalize()
+    roadstop_components.globalize()
