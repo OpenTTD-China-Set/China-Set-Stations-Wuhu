@@ -35,34 +35,40 @@ def make_platforms():
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E04)
 
     gs = named_grounds[("center", "")]
-    ps = [
-        road_stop_platform.move(0, 0, -8),
-        road_stop_stair_extender_shallow.move(0, -2),
-        road_stop_stair_extender_shallow.move(0, -2).R,
-    ]
+    ps = [road_stop_overpass_low]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_shallow")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E80)
+    named_layouts[("west_plaza_center", "overpass_low")] = layout
+    register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E81)
 
     gs = named_grounds[("center", "")]
     ps = [
         road_stop_platform.move(0, 0, -8),
-        road_stop_stair_extender_onesided_shallow.move(0, -2),
-        road_stop_stair_extender_shallow.move(0, -2).R,
+        road_stop_stair_extender_low.move(0, -2),
+        road_stop_stair_extender_low.move(0, -2).R,
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_shallow_2")] = layout
+    named_layouts[("west_plaza_center", "staircase_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E81)
 
     gs = named_grounds[("center", "")]
     ps = [
         road_stop_platform.move(0, 0, -8),
-        road_stop_stair_extender_onesided_shallow.move(0, -2),
-        road_stop_stair_extender_onesided_shallow.move(0, -2).R,
+        road_stop_stair_extender_onesided_low.move(0, -2),
+        road_stop_stair_extender_low.move(0, -2).R,
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_shallow_3")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E83)
+    named_layouts[("west_plaza_center", "staircase_low_2")] = layout
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E82)
+
+    gs = named_grounds[("center", "")]
+    ps = [
+        road_stop_platform.move(0, 0, -8),
+        road_stop_stair_extender_onesided_low.move(0, -2),
+        road_stop_stair_extender_onesided_low.move(0, -2).R,
+    ]
+    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_center", "staircase_low_3")] = layout
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E84)
 
 
 def make_lightposts():
