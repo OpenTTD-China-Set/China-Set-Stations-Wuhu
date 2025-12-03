@@ -75,10 +75,16 @@ changelog""",
 
                 for sub in subsections:
                     if sub is not None and len(subsections[sub]) > 0:
+                        if kind == "objects":
+                            kindcode = "OBJECT"
+                        elif kind == "road_stops":
+                            kindcode = "ROADSTOP"
+                        else:
+                            kindcode = "STATION"
                         cat_name = get_translation(
-                            string_manager[f"STR_STATION_CLASS_{class_label_printable(sub)}"], 0x7F
+                            string_manager[f"STR_{kindcode}_CLASS_{class_label_printable(sub)}"], 0x7F
                         )
-                        if "-" in cat_name and "Template -" not in cat_name:
+                        if "-" in cat_name and "Template -" not in cat_name and "Sided" not in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
                         if cat_name.startswith("|> "):
