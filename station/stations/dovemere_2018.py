@@ -127,5 +127,4 @@ the_stations = AMetaStation(
         "With Other NewGRF": demos.third_party_demos,
     },
     road_stops=roadstops,
-    objects=templates + objects,
 )
