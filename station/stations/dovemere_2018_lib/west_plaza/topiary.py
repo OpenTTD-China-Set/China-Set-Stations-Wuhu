@@ -107,7 +107,7 @@ def make_object_layout(name, starting_id, sym, Xspan, Yspan, xspan, yspan, heigh
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[(name, "horizontal")] = layout
-    register([[gl, layout]], sym, b"F", starting_id=starting_id + 4, allow_flip=False)
+    register([[layout, gl]], sym, b"F", starting_id=starting_id + 4, allow_flip=False)
 
     ps = [
         AParentSprite(groundsprite2, (Yspan, Xspan, 1), (Yofs - 8, Xofs - 4, 0)) + ground_snowcs,
@@ -115,7 +115,7 @@ def make_object_layout(name, starting_id, sym, Xspan, Yspan, xspan, yspan, heigh
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[(name, "half_horizontal")] = layout
-    register([[gl, layout]], sym.break_y_symmetry(), b"F", starting_id=starting_id + 5, allow_flip=False)
+    register([[layout, gl]], sym.break_y_symmetry(), b"F", starting_id=starting_id + 5, allow_flip=False)
 
     if sym is BuildingFull:
         ps = [
@@ -124,7 +124,7 @@ def make_object_layout(name, starting_id, sym, Xspan, Yspan, xspan, yspan, heigh
         ]
         layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
         named_layouts[(name, "half_horizontal")] = layout
-        register([[gl, layout]], sym.break_y_symmetry(), b"F", starting_id=starting_id + 6, allow_flip=False)
+        register([[layout, gl]], sym.break_y_symmetry(), b"F", starting_id=starting_id + 6, allow_flip=False)
 
     ps = [
         AParentSprite(groundsprite2, (Yspan, Xspan, 1), (Yofs - 8, Xofs - 8, 0)) + ground_snowcs,
@@ -132,7 +132,7 @@ def make_object_layout(name, starting_id, sym, Xspan, Yspan, xspan, yspan, heigh
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[(name, "corner")] = layout
-    register([[gl, gl], [gl, layout]], sym, b"F", starting_id=starting_id + 7, allow_flip=False)
+    register([[gl, gl], [layout, gl]], sym, b"F", starting_id=starting_id + 7, allow_flip=False)
 
 
 def make_topiaries():
