@@ -3,7 +3,7 @@ from station.lib import AStation, AMetaStation
 from station.lib.parameters import parameter_list
 from .dovemere_2018_lib.layouts import *
 from .dovemere_2018_lib import demos, common_cb, common_code, Registers
-from .dovemere_2018_lib.objects import objects
+from .dovemere_2018_lib.objects import templates, objects
 from .dovemere_2018_lib.roadstops import roadstops
 from .dovemere_2018_lib.flexible_stations import station_templates
 from agrf.strings import String
@@ -116,7 +116,8 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
         + [b"\xf0"]
         + [b"\xf8", b"\xf9", b"\xfa", b"\xfb", b"\xfc"]
-        + [b"R", b"Z"]
+        + [b"R", b"Z", b"T", b"G", b"g", b"F", b"l", b"L", b"M"]
+        + [b"1", b"2", b"P", b"S"]
     ],
     {
         "Realistic Layouts": demos.realistic_demos,

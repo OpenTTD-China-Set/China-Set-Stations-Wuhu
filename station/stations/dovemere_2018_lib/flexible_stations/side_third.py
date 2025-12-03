@@ -2,7 +2,8 @@ import grf
 from station.lib import AStation, make_horizontal_switch
 from ..layouts import named_tiles, layouts
 from .. import common_cb, common_code
-from .common import make_demo, horizontal_layout
+from station.lib.templates.demo import make_demo
+from .common import horizontal_layout
 from station.stations.platforms import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
@@ -35,7 +36,7 @@ side_third_stations = []
 
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        demo_layout = make_demo(cb14[pclass][sclass], 4, 1)
+        demo_layout = make_demo(cb14[pclass][sclass], 4, 1, layouts=layouts)
         if pclass == "concrete" and sclass == "shelter_2":
             side_third_station_demo = lambda r, c, cb14=cb14[pclass][sclass]: cb14.demo(r, c)
         else:
@@ -67,7 +68,7 @@ for p, pclass in enumerate(platform_classes):
 
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        demo_layout = make_demo(cb14[pclass][sclass].T, 4, 1)
+        demo_layout = make_demo(cb14[pclass][sclass].T, 4, 1, layouts=layouts)
         if pclass == "concrete" and sclass == "shelter_2":
             back_side_third_station_demo = lambda r, c, cb14=cb14[pclass][sclass]: cb14.T.demo(r, c)
         else:
@@ -120,7 +121,7 @@ cb14 = {
 for p, pclass in enumerate(platform_classes):
     if pclass == "concrete":
         side_third_station_np_demo = lambda r, c, cb14=cb14[pclass]: cb14.demo(r, c)
-    demo_layout = make_demo(cb14[pclass], 4, 1)
+    demo_layout = make_demo(cb14[pclass], 4, 1, layouts=layouts)
     if p > 0:
         demo_layout.notes.append("noshow")
 
@@ -146,7 +147,7 @@ for p, pclass in enumerate(platform_classes):
 for p, pclass in enumerate(platform_classes):
     if pclass == "concrete":
         back_side_third_station_np_demo = lambda r, c, cb14=cb14[pclass]: cb14.demo(r, c)
-    demo_layout = make_demo(cb14[pclass].T, 4, 1)
+    demo_layout = make_demo(cb14[pclass].T, 4, 1, layouts=layouts)
     if p > 0:
         demo_layout.notes.append("noshow")
 
