@@ -38,7 +38,11 @@ def make_platforms():
     ps = [road_stop_overpass_low]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "overpass_low")] = layout
-    register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E81)
+    register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E80)
+
+    layout = ALayout(named_grounds[("offcenter_A", "")], ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_offcenter_A", "overpass_low")] = layout
+    register([[layout]], BuildingFull, b"P", starting_id=0x0EC0)
 
     gs = named_grounds[("center", "")]
     ps = [road_stop_overpass_low, road_stop_stair_extender_low.move(0, -2), road_stop_stair_extender_low.move(0, -2).R]
@@ -54,7 +58,7 @@ def make_platforms():
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_2")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E82)
+    register([[layout]], BuildingFull, b"S", starting_id=0x0E82)
 
     gs = named_grounds[("center", "")]
     ps = [
@@ -65,6 +69,10 @@ def make_platforms():
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E84)
+
+    layout = ALayout(named_grounds[("checkerboard", "")], ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_checkerboard", "staircase_low_3")] = layout
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC4)
 
 
 def make_lightposts():
