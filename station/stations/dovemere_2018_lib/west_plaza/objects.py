@@ -10,7 +10,7 @@ def make_platforms():
     offcenter_A = named_grounds[("offcenter_A", "")]
     checkerboard = named_grounds[("checkerboard", "")]
 
-    ps = [road_stop_overpass, road_stop_pillars]
+    ps = [road_stop_overpass_entrance]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "overpass")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E00)
@@ -19,7 +19,7 @@ def make_platforms():
     named_layouts[("west_plaza_offcenter_A", "overpass")] = layout
     register([[layout]], BuildingFull, b"P", starting_id=0x0E01)
 
-    ps = [road_stop_overpass, road_stop_pillars, lawn_edge.move(0, 4)]
+    ps = [road_stop_overpass_solid, road_stop_pillars, lawn_edge.move(0, 4)]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "overpass_lawn")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E03)
