@@ -16,22 +16,17 @@ station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns],
 
 # Not-road-stops
 center_ground = west_plaza_center
-overpass = west_plaza_center_overpass_low
+overpass = west_plaza_center_overpass_low_lawn
 overpass_2 = west_plaza_offcenter_A_overpass_low
 staircase = west_plaza_center_staircase_low_3
-not_roadstops = [[center_ground, overpass, overpass_2, staircase, overpass_2.R, overpass, center_ground]]
+not_roadstops = [[center_ground, overpass, overpass_2, staircase, overpass_2.R, overpass.R, center_ground]]
 
 # Objects
-offcenter_A = west_plaza_offcenter_A_decorated_lawn
 flower = west_plaza_topiary_2024a_half
 offcenter_B = west_plaza_offcenter_B_decorated
-edge = west_plaza_center_lawn
-edge_2 = west_plaza_center_toilet_lawn
+edge = west_plaza_center_toilet_lawn
 split_lawn = west_plaza_center_split_lawn
-west_square = [
-    [center_ground, edge, offcenter_A, center_ground, offcenter_A.R, edge.R, center_ground],
-    [edge_2.T, split_lawn, offcenter_B, flower, offcenter_B.R, split_lawn.R, edge_2.T.R],
-]
+west_square = [[edge.T, split_lawn, offcenter_B, flower, offcenter_B.R, split_lawn.R, edge.T.R]]
 
 
 west_plaza_slopeless = Demo(

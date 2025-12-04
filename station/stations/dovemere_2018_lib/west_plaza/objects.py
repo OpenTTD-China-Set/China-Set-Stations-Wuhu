@@ -50,12 +50,17 @@ def make_platforms():
 
     layout = ALayout(offcenter_A, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_offcenter_A", "overpass_low")] = layout
-    register([[layout]], BuildingFull, b"P", starting_id=0x0EC0)
+    register([[layout]], BuildingFull, b"P", starting_id=0x0E81)
+
+    ps = [road_stop_overpass_low, lawn_edge.move(0, 4)]
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_center", "overpass_low_lawn")] = layout
+    register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E83)
 
     ps = [road_stop_overpass_low, road_stop_stair_extender_low.move(0, -2), road_stop_stair_extender_low.move(0, -2).R]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E81)
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC0)
 
     ps = [
         road_stop_overpass_low,
@@ -64,7 +69,7 @@ def make_platforms():
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_2")] = layout
-    register([[layout]], BuildingFull, b"S", starting_id=0x0E82)
+    register([[layout]], BuildingFull, b"S", starting_id=0x0EC1)
 
     ps = [
         road_stop_overpass_low,
@@ -73,7 +78,7 @@ def make_platforms():
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_3")] = layout
-    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E84)
+    register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC3)
 
     layout = ALayout(checkerboard, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_checkerboard", "staircase_low_3")] = layout
