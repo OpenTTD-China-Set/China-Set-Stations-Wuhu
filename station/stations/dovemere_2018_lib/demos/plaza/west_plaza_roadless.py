@@ -20,22 +20,17 @@ for i in range(1, 6):
 
 # Not-road-stops
 center_ground = west_plaza_center.lower_tile()
-overpass = west_plaza_center_overpass.lower_tile()
+overpass = west_plaza_center_overpass_lawn.lower_tile()
 overpass_2 = west_plaza_offcenter_A_overpass.lower_tile()
 staircase = west_plaza_center_staircase_3.lower_tile()
 not_roadstops = [[center_ground, overpass, overpass_2, staircase, overpass_2.R, overpass, center_ground]]
 
 # Objects
-offcenter_A = west_plaza_offcenter_A_decorated_lawn.lower_tile()
 flower = west_plaza_topiary_2024a_half.lower_tile()
 offcenter_B = west_plaza_offcenter_B_decorated.lower_tile()
-edge = west_plaza_center_lawn.lower_tile()
-edge_2 = west_plaza_center_toilet_lawn.lower_tile()
+edge = west_plaza_center_toilet_lawn.lower_tile()
 split_lawn = west_plaza_center_split_lawn.lower_tile()
-west_square = [
-    [center_ground, edge, offcenter_A, center_ground, offcenter_A.R, edge.R, center_ground],
-    [edge_2.T, split_lawn, offcenter_B, flower, offcenter_B.R, split_lawn.R, edge_2.T.R],
-]
+west_square = [[edge.T, split_lawn, offcenter_B, flower, offcenter_B.R, split_lawn.R, edge.T.R]]
 
 
 west_plaza_roadless = Demo(
