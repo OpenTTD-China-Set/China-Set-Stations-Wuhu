@@ -21,8 +21,9 @@ for i in range(1, 6):
 # Not-road-stops
 center_ground = west_plaza_center.lower_tile()
 overpass = west_plaza_center_overpass.lower_tile()
+overpass_2 = west_plaza_offcenter_A_overpass.lower_tile()
 staircase = west_plaza_center_staircase_3.lower_tile()
-not_roadstops = [[center_ground, overpass, overpass, staircase, overpass, overpass, center_ground]]
+not_roadstops = [[center_ground, overpass, overpass_2, staircase, overpass_2.R, overpass, center_ground]]
 
 # Objects
 offcenter_A = west_plaza_offcenter_A_decorated_lawn.lower_tile()

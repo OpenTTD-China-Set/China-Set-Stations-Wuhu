@@ -6,71 +6,71 @@ from ..objects_utils import named_layouts, register
 
 
 def make_platforms():
-    gs = named_grounds[("center", "")]
+    center = named_grounds[("center", "")]
+    offcenter_A = named_grounds[("offcenter_A", "")]
+    checkerboard = named_grounds[("checkerboard", "")]
+
     ps = [road_stop_overpass, road_stop_pillars]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "overpass")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E00)
 
-    gs = named_grounds[("center", "")]
+    layout = ALayout(offcenter_A, ps, True, category=b"\xe8\x8a\x9cZ")
+    named_layouts[("west_plaza_offcenter_A", "overpass")] = layout
+    register([[layout]], BuildingFull, b"P", starting_id=0x0E40)
+
     ps = [road_stop_platform, road_stop_stair_extender.move(0, -2), road_stop_stair_extender.move(0, -2).R]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E01)
 
-    gs = named_grounds[("center", "")]
     ps = [road_stop_platform, road_stop_stair_extender_onesided.move(0, -2), road_stop_stair_extender.move(0, -2).R]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_2")] = layout
     register([[layout]], BuildingFull, b"S", starting_id=0x0E02)
 
-    gs = named_grounds[("center", "")]
     ps = [
         road_stop_platform,
         road_stop_stair_extender_onesided.move(0, -2),
         road_stop_stair_extender_onesided.move(0, -2).R,
     ]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E04)
 
-    gs = named_grounds[("center", "")]
     ps = [road_stop_overpass_low]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "overpass_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E80)
 
-    layout = ALayout(named_grounds[("offcenter_A", "")], ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(offcenter_A, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_offcenter_A", "overpass_low")] = layout
     register([[layout]], BuildingFull, b"P", starting_id=0x0EC0)
 
-    gs = named_grounds[("center", "")]
     ps = [road_stop_overpass_low, road_stop_stair_extender_low.move(0, -2), road_stop_stair_extender_low.move(0, -2).R]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E81)
 
-    gs = named_grounds[("center", "")]
     ps = [
         road_stop_overpass_low,
         road_stop_stair_extender_onesided_low.move(0, -2),
         road_stop_stair_extender_low.move(0, -2).R,
     ]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_2")] = layout
     register([[layout]], BuildingFull, b"S", starting_id=0x0E82)
 
-    gs = named_grounds[("center", "")]
     ps = [
         road_stop_overpass_low,
         road_stop_stair_extender_onesided_low.move(0, -2),
         road_stop_stair_extender_onesided_low.move(0, -2).R,
     ]
-    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "staircase_low_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E84)
 
-    layout = ALayout(named_grounds[("checkerboard", "")], ps, True, category=b"\xe8\x8a\x9cZ")
+    layout = ALayout(checkerboard, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_checkerboard", "staircase_low_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC4)
 
