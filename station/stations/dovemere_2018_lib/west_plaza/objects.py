@@ -121,7 +121,7 @@ def make_lawns():
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     # FIXME fix this name
     named_layouts[("west_plaza_center", "lawn_edge")] = layout
-    register([[layout]], BuildingFull, b"M", starting_id=0x0304)
+    register([[layout]], BuildingFull, b"l", starting_id=0x0304)
 
 
 def make_trees():
