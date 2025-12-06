@@ -116,6 +116,13 @@ def make_lawns():
     named_layouts[("west_plaza_offcenter_A", "corner_lawn_2")] = layout
     register([[layout]], BuildingFull, b"l", starting_id=0x0302)
 
+    gs = named_grounds[("center", "")]
+    ps = [lawn_edge]
+    layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    # FIXME fix this name
+    named_layouts[("west_plaza_center", "lawn_edge")] = layout
+    register([[layout]], BuildingFull, b"M", starting_id=0x0304)
+
 
 def make_trees():
     gs = named_grounds[("center", "")]
@@ -211,6 +218,7 @@ def make_mixed_objects():
         object_glass_pyramid.move(-5, 6),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
+    # FIXME fix this name
     named_layouts[("west_plaza_center", "lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0706)
 
