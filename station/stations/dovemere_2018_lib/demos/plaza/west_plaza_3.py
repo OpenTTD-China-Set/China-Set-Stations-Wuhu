@@ -5,30 +5,26 @@ from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
-from station.stations.misc import slope_2
+from station.stations.misc import default
 from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 roadstop_layouts.globalize()
 object_layouts.globalize()
 
-station = h_merge(
-    [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(3, 6)[4:], [[cns], [slope_2.lower_tile()]]], [[], []]
-)
-for i in range(1, 4):
-    station[1][i] = station[1][i].enable_foundation(9)
+station = h_merge([[[cns], [default]], semitraversable.demo_1(3, 6)[4:], [[cns], [default]]], [[], []])
 
 # Road Stops
-stair_end = stair_end.lower_tile()
-stair = stair_narrow.lower_tile()
-stair_extender = stair_extender_narrow.lower_tile()
+stair_end = stair_end
+stair = stair_narrow
+stair_extender = stair_extender_narrow
 roadstops = [[stair_end, stair, stair_extender, stair.R, stair_end.R]]
 
 # Objects
-center_ground = west_plaza_center.lower_tile()
-offcenter_A = west_plaza_offcenter_A_decorated.lower_tile()
-flower = west_plaza_topiary_2024a_half.lower_tile()
-offcenter_B = west_plaza_offcenter_B.lower_tile()
+center_ground = west_plaza_center
+offcenter_A = west_plaza_offcenter_A_decorated
+flower = west_plaza_topiary_2024a_half
+offcenter_B = west_plaza_offcenter_B
 west_square = [
     [center_ground, offcenter_A, center_ground, offcenter_A.R, center_ground],
     [center_ground, offcenter_B, flower, offcenter_B.R, center_ground],
@@ -36,5 +32,9 @@ west_square = [
 
 
 west_plaza_3 = Demo(
-    station + roadstops + west_square, "West plaza (5×2)", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
+    station + roadstops + west_square,
+    "West plaza (5×2)",
+    remap=get_1cc_remap(CompanyColour.WHITE),
+    merge_bbox=True,
+    altitude=[[1] * 6] * 2 + [[0] * 6] * 4,
 )

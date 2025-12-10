@@ -5,25 +5,21 @@ from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
-from station.stations.misc import slope_2
+from station.stations.misc import default
 from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 roadstop_layouts.globalize()
 object_layouts.globalize()
 
-station = h_merge(
-    [[[cns], [slope_2.lower_tile()]], semitraversable.demo_1(14, 22)[20:], [[cns], [slope_2.lower_tile()]]], [[], []]
-)
-for i in range(1, 15):
-    station[1][i] = station[1][i].enable_foundation(9)
+station = h_merge([[[cns], [default]], semitraversable.demo_1(14, 22)[20:], [[cns], [default]]], [[], []])
 
 # Road Stops
-stair_end = stair_end.lower_tile()
-overpass = overpass.lower_tile()
-stair = stair_narrow.lower_tile()
-stair_extender = stair_extender.lower_tile()
-stair_extender_onesided = stair_extender_onesided.lower_tile()
+stair_end = stair_end
+overpass = overpass
+stair = stair_narrow
+stair_extender = stair_extender
+stair_extender_onesided = stair_extender_onesided
 roadstops = [
     [stair_end]
     + [overpass] * 4
@@ -35,14 +31,14 @@ roadstops = [
 ]
 
 # Objects
-center_ground = west_plaza_center.lower_tile()
-offcenter_A = west_plaza_offcenter_A_decorated_lawn.lower_tile()
-lightposts = west_plaza_offcenter_A_lightposts.lower_tile()
-flower = west_plaza_topiary_2024a_corner.lower_tile()
-offcenter_B = west_plaza_offcenter_B_decorated.lower_tile()
-edge = west_plaza_center_lawn_edge.lower_tile()
-trees = west_plaza_center_tree_formation.lower_tile()
-split_lawn = west_plaza_center_split_lawn.lower_tile()
+center_ground = west_plaza_center
+offcenter_A = west_plaza_offcenter_A_decorated_lawn
+lightposts = west_plaza_offcenter_A_lightposts
+flower = west_plaza_topiary_2024a_corner
+offcenter_B = west_plaza_offcenter_B_decorated
+edge = west_plaza_center_lawn_edge
+trees = west_plaza_center_tree_formation
+split_lawn = west_plaza_center_split_lawn
 west_square = [
     [center_ground]
     + [edge] * 4
@@ -62,5 +58,9 @@ west_square = [
 
 
 west_plaza_oversized = Demo(
-    station + roadstops + west_square, "West plaza (16×4)", remap=get_1cc_remap(CompanyColour.WHITE), merge_bbox=True
+    station + roadstops + west_square,
+    "West plaza (16×4)",
+    remap=get_1cc_remap(CompanyColour.WHITE),
+    merge_bbox=True,
+    altitude=[[1] * 17] * 2 + [[0] * 17] * 6,
 )
