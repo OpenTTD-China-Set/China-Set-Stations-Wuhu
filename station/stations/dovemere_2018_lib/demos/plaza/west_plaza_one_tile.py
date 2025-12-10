@@ -15,8 +15,6 @@ object_layouts.globalize()
 station = h_merge([[[cns], [default]], semitraversable.demo_1(1, 7)[5:], [[cns], [default]]], [[], []])
 
 # Road Stops
-stair_end = stair_end
-overpass = overpass
 roadstops = [[stair_end, overpass, stair_end.R]]
 
 # Objects
