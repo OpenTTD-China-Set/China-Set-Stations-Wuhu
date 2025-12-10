@@ -25,7 +25,7 @@ plaza_demos = [
     west_plaza_vast,
     west_plaza_realgardens,
     west_plaza_default,
-    # west_plaza_three_sides,
+    west_plaza_three_sides,
     west_plaza_snow,
     west_plaza_toyland,
 ]
