@@ -57,5 +57,5 @@ west_plaza_three_sides = Demo(
     "West plaza (three sides)",
     remap=get_1cc_remap(CompanyColour.WHITE),
     merge_bbox=True,
-    altitude=[[1] * 10] * 4 + [[0] * 10] * 4,
+    altitude=[[1] * 10] * 2 + [[0] * 2 + [1] * 6 + [0] * 2] * 2 + [[0] * 10] * 4,
 )

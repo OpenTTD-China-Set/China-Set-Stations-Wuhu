@@ -1,3 +1,4 @@
+from agrf.lib.building.slope import slope_types
 from station.lib import ADefaultGroundSprite, ALayout
 from station.lib.registers import Registers
 
@@ -7,7 +8,7 @@ road_ground_turn = ADefaultGroundSprite(1321)
 road_ground_vanilla = ADefaultGroundSprite(1333)
 
 default_ground_slope_variants = {
-    x: ADefaultGroundSprite(3981 + x, flags={"add": Registers.CLIMATE_OFFSET}) for x in [0, 8, 9, 13]
+    x: ADefaultGroundSprite(3981 + x, flags={"add": Registers.CLIMATE_OFFSET}) for x in slope_types
 }
 default_ground = default_ground_slope_variants[0]
 building_ground = ADefaultGroundSprite(1420, flags={"add": Registers.ZERO})
