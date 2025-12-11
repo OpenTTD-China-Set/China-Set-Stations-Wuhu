@@ -19,7 +19,7 @@ west_stair_end = stair_end
 west_stair = stair_narrow
 west_stair_extender = stair_extender_narrow
 roadstops = [
-    [west_stair_end, overpass, road_ground_layout, overpass_bridge, road_ground_layout, overpass, west_stair_end.R],
+    [west_stair_end, overpass, overpass, overpass_bridge, overpass, overpass, west_stair_end.R],
     [road_ground_layout] * 3 + [west_stair_extender] + [road_ground_layout] * 3,
 ]
 
