@@ -41,10 +41,10 @@ west_square = [
     + [edge] * 4
     + [center_ground],
     [center_ground] * 4
-    + [trees, lightposts, center_ground, center_ground, center_ground, center_ground, lightposts.R, trees]
+    + [trees, lightposts, center_ground, center_ground, center_ground, center_ground, lightposts.R, trees.R]
     + [center_ground] * 4,
     [center_ground] * 4
-    + [trees, lightposts, center_ground, flower, center_ground, center_ground, lightposts.R, trees]
+    + [trees, lightposts, center_ground, flower, center_ground, center_ground, lightposts.R, trees.R]
     + [center_ground] * 4,
     [edge.T] * 4
     + [split_lawn, offcenter_B, center_ground, center_ground, center_ground, center_ground, offcenter_B.R, split_lawn.R]

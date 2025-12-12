@@ -141,30 +141,33 @@ def make_trees():
 
     gs = named_grounds[("center", "")]
     ps = [
-        tree_bush.R.M.move(-3, -7),
-        tree_bench.M.move(0, -7),
-        tree_bush.T.R.move(3, -7),
-        tree_bench.R.move(-3, -5),
-        tree_bush.move(0, -5),
-        tree_bench.T.R.M.move(3, -5),
-        tree_bush.R.M.move(-3, -3),
-        tree_bench.M.move(0, -3),
-        tree_bush.T.R.move(3, -3),
-        tree_bench.R.move(-3, -1),
-        tree_bush.move(0, -1),
-        tree_bench.T.R.M.move(3, -1),
-        tree_bush.R.M.move(-3, 1),
-        tree_bench.M.move(0, 1),
-        tree_bush.T.R.move(3, 1),
-        tree_bench.R.move(-3, 3),
-        tree_bush.move(0, 3),
-        tree_bench.T.R.M.move(3, 3),
-        tree_bush.R.M.move(-3, 5),
-        tree_bench.M.move(0, 5),
-        tree_bush.T.R.move(3, 5),
-        tree_bench.R.move(-3, 7),
-        tree_bush.move(0, 7),
-        tree_bench.T.R.M.move(3, 7),
+        tree_bush.R.move(0, 8),
+        tree_bench.move(3, 8),
+        tree_bush.T.R.M.move(6, 8),
+        tree_bench.R.M.move(0, -6),
+        tree_bush.M.move(3, -6),
+        tree_bench.T.R.move(6, -6),
+        tree_bush.R.move(0, -4),
+        tree_bench.move(3, -4),
+        tree_bush.T.R.M.move(6, -4),
+        tree_bench.R.M.move(0, -2),
+        tree_bush.M.move(3, -2),
+        tree_bench.T.R.move(6, -2),
+        tree_bush.R.move(0, 0),
+        tree_bench.move(3, 0),
+        tree_bush.T.R.M.move(6, 0),
+        tree_bench.R.M.move(0, 2),
+        tree_bush.M.move(3, 2),
+        tree_bench.T.R.move(6, 2),
+        tree_bush.R.move(0, 4),
+        tree_bench.move(3, 4),
+        tree_bush.T.R.M.move(6, 4),
+        tree_bench.R.M.move(0, 6),
+        tree_bush.M.move(3, 6),
+        tree_bench.T.R.move(6, 6),
+        tree_bush.R.move(0, 8),
+        tree_bench.move(3, 8),
+        tree_bush.T.R.M.move(6, 8),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "tree_formation")] = layout
@@ -189,7 +192,14 @@ def make_mixed_objects():
     register([[layout]], BuildingFull, b"M", starting_id=0x0700)
 
     gs = named_grounds[("offcenter_A", "")]
-    ps = [object_pole.move(-2, 4), object_pole.move(2, 4), object_pole.move(-2, 8), object_pole.move(2, 8), lawn_corner]
+    ps = [
+        object_pole.move(-2, 4),
+        object_pole.move(2, 4),
+        object_pole.move(-2, 8),
+        object_pole.move(2, 8),
+        lawn_corner,
+        object_glass_pyramid.move(6, -4),
+    ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_offcenter_A", "decorated_lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0702)
@@ -209,13 +219,18 @@ def make_mixed_objects():
     gs = named_grounds[("center", "")]
     ps = [
         lawn_edge,
-        tree_bush.R.M.move(-3, 5),
-        tree_bench.M.move(0, 5),
-        tree_bush.T.R.move(3, 5),
-        tree_bench.R.move(-3, 7),
-        tree_bush.move(0, 7),
-        tree_bench.T.R.M.move(3, 7),
-        object_glass_pyramid.move(-5, 6),
+        tree_bush.R.M.move(0, 4),
+        tree_bench.M.move(3, 4),
+        tree_bush.T.R.move(6, 4),
+        tree_bench.R.move(0, 6),
+        tree_bush.move(3, 6),
+        tree_bench.T.R.M.move(6, 6),
+        tree_bush.T.R.move(0, 8),
+        tree_bench.T.move(3, 8),
+        tree_bush.R.move(6, 8),
+        object_glass_pyramid.move(-2, 4),
+        object_glass_pyramid.move(-2, -4),
+        object_glass_pyramid.move(6, -4),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     # FIXME fix this name
@@ -223,20 +238,20 @@ def make_mixed_objects():
     register([[layout]], BuildingFull, b"M", starting_id=0x0706)
 
     gs = named_grounds[("center", "")]
-    ps = [lawn_edge, object_underground_entrance.move(0, 6)]
+    ps = [lawn_edge, object_underground_entrance.move(-4, 6)]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "toilet_lawn")] = layout
-    register([[layout]], BuildingSymmetricalX, b"M", starting_id=0x0708)
+    register([[layout]], BuildingFull, b"M", starting_id=0x0708)
 
     gs = named_grounds[("center", "")]
     ps = [
         lawn_split,
-        tree_bench.R.M.move(-3, -5),
-        tree_bush.M.move(0, -5),
-        tree_bench.T.R.move(3, -5),
-        tree_bush.R.move(-3, -7),
-        tree_bench.move(0, -7),
-        tree_bush.T.R.M.move(3, -7),
+        tree_bench.R.M.move(0, -6),
+        tree_bush.M.move(3, -6),
+        tree_bench.T.R.move(6, -6),
+        tree_bush.R.move(0, -8),
+        tree_bench.move(3, -8),
+        tree_bush.T.R.M.move(6, -8),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_center", "split_lawn")] = layout
