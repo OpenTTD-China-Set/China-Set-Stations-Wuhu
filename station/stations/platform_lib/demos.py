@@ -1,5 +1,6 @@
 from station.lib import Demo
 from .data import platform_tiles, two_side_tiles, concourse_tiles
+from station.stations.misc import track, default
 
 
 def repeat(layouts, n):
@@ -13,7 +14,6 @@ concourse_tiles.globalize()
 plat = platform_tiles.cns_concrete_supported2_shelter_2
 plat1 = platform_tiles.cns_concrete_elevated_shelter_2.T
 plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
-from station.stations.misc import track, default
 
 demos = {
     "Platforms": [
@@ -32,7 +32,7 @@ demos = {
                 [default] + [plat1] * 2 + [default],
             ],
             "Test",
-            altitude=[[0, 1, 1, 1, 0]] * 5,
+            altitude=[[0] * 5] + [[1] * 5] + [[1, 2, 2, 2, 1]] + [[1] * 5] + [[0] * 5],
         ),
         Demo(
             [
@@ -42,7 +42,7 @@ demos = {
                 [default] + [plat2] * 2 + [default],
             ],
             "Test",
-            altitude=[[0, 1, 1, 1, 0]] * 5,
+            altitude=[[0] * 5] + [[1] * 5] + [[1, 2, 2, 2, 1]] + [[1] * 5] + [[0] * 5],
         ),
         Demo([[plat2.T]], "Test 2"),
         Demo([[plat]], "Test 3"),
