@@ -133,7 +133,7 @@ def make_trees():
         tree_bench.R.move(-3, 1),
         tree_bush.move(0, 1),
         tree_bench.T.R.M.move(3, 1),
-        object_glass_pyramid.move(-5, 0),
+        object_glass_pyramid.move(-6, 0),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza", "center", "trees")] = layout
