@@ -198,7 +198,7 @@ def make_mixed_objects():
         object_pole.move(-2, 8),
         object_pole.move(2, 8),
         lawn_corner,
-        object_glass_pyramid.move(6, -4),
+        object_glass_pyramid_in_grass.move(6, -4),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza_offcenter_A", "decorated_lawn")] = layout
@@ -229,8 +229,8 @@ def make_mixed_objects():
         tree_bench.T.move(3, 8),
         tree_bush.R.move(6, 8),
         object_glass_pyramid.move(-2, 4),
-        object_glass_pyramid.move(-2, -4),
-        object_glass_pyramid.move(6, -4),
+        object_glass_pyramid_in_grass.move(-2, -4),
+        object_glass_pyramid_in_grass.move(6, -4),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     # FIXME fix this name
