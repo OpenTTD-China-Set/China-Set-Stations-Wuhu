@@ -31,8 +31,8 @@ demos = {
                 [track] + [plat] * 2 + [track],
                 [default] + [plat1] * 2 + [default],
             ],
-            "Test",
-            altitude=[[0] * 5] + [[1] * 5] + [[1, 2, 2, 2, 1]] + [[1] * 5] + [[0] * 5],
+            "Test 1",
+            altitude=[[0] * 5] * 2 + [[0, 1, 1, 1, 0]] + [[0] * 5] * 2,
         ),
         Demo(
             [
@@ -41,11 +41,11 @@ demos = {
                 [track] + [plat] * 2 + [track],
                 [default] + [plat2] * 2 + [default],
             ],
-            "Test",
+            "Test 2",
             altitude=[[0] * 5] + [[1] * 5] + [[1, 2, 2, 2, 1]] + [[1] * 5] + [[0] * 5],
         ),
-        Demo([[plat2.T]], "Test 2"),
-        Demo([[plat]], "Test 3"),
-        Demo([[plat2]], "Test 4"),
+        Demo([[plat2.T]], "Test 3"),
+        Demo([[plat]], "Test 4"),
+        Demo([[plat2]], "Test 5"),
     ],
 }
