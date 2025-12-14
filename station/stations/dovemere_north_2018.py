@@ -12,7 +12,7 @@ from station.lib import (
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
-from station.stations.misc import track, sloped_track, default, slope_2
+from station.stations.misc import track, default
 from station.stations.platform_lib.ground import pillar_base_merged, pillar
 
 
@@ -61,7 +61,7 @@ for i, entry in enumerate(entries):
                 "select_sprite_layout": grf.DualCallback(default=entry, purchase=0),
                 **station_cb["E9B8A0A"],
             },
-            make_foundation=True,
+            make=True,
             extra_code=station_code["E9B8A0A"],
             enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
             doc_layout=entry,
@@ -69,26 +69,11 @@ for i, entry in enumerate(entries):
     )
 
 
-plat_T = platform_tiles.cns_concrete_supported2_shelter_2.T.enable_foundation(6)
-plat = platform_tiles.cns_concrete_supported2_shelter_2.enable_foundation(9)
-plat2_T = platform_tiles.cns_concrete_elevated2_shelter_2.lower_tile().enable_foundation(6)
-plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T.lower_tile().enable_foundation(9)
-gate_T = named_tiles.front_gate.T.lower_tile().enable_foundation(6)
-gate_TR = named_tiles.front_gate.T.R.lower_tile().enable_foundation(6)
-gate = named_tiles.front_gate.lower_tile()
-gate_R = named_tiles.front_gate.R.lower_tile()
-normal_T = named_tiles.front_normal.T.lower_tile()
-normal = named_tiles.front_normal.lower_tile().enable_foundation(9)
-normal_R = named_tiles.front_normal.R.lower_tile().enable_foundation(9)
-escalator_T = named_tiles.escalator.T.lower_tile()
-escalator = named_tiles.escalator.lower_tile().enable_foundation(9)
-escalator_R = named_tiles.escalator.R.lower_tile().enable_foundation(9)
-default = default.lower_tile().lower_tile()
-sloped_track_foundation = sloped_track.lower_tile().add_default_foundation(72)
-sloped_track_foundation_R = sloped_track.R.lower_tile().add_default_foundation(66)
-sloped_track = sloped_track.lower_tile()
-slope_2 = slope_2.lower_tile().lower_tile()
-slope_2_T = slope_2.T.lower_tile().lower_tile()
+plat = platform_tiles.cns_concrete_supported2_shelter_2
+plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
+gate = named_tiles.front_gate
+normal = named_tiles.front_normal
+escalator = named_tiles.escalator
 
 the_stations = AMetaStation(
     station_tiles,
@@ -99,42 +84,34 @@ the_stations = AMetaStation(
             [
                 [default] * 12,
                 [
-                    slope_2_T,
-                    plat2_T,
-                    plat2_T,
-                    escalator_T,
-                    normal_T,
-                    gate_T,
-                    gate_TR,
-                    normal_T.R,
-                    escalator_T.R,
-                    plat2_T,
-                    plat2_T,
-                    slope_2_T,
+                    default,
+                    plat2.T,
+                    plat2.T,
+                    escalator.T,
+                    normal.T,
+                    gate.T,
+                    gate.T.R,
+                    normal.T.R,
+                    escalator.T.R,
+                    plat2.T,
+                    plat2.T,
+                    default,
                 ],
-                [sloped_track] + [plat_T] * 10 + [sloped_track.R],
-                [sloped_track] + [track] * 10 + [sloped_track.R],
-                [sloped_track] + [track] * 10 + [sloped_track.R],
-                [sloped_track_foundation] + [plat] * 10 + [sloped_track_foundation_R],
-                [
-                    slope_2,
-                    plat2,
-                    plat2,
-                    escalator,
-                    normal,
-                    gate.enable_foundation(9),
-                    gate_R.enable_foundation(9),
-                    normal_R,
-                    escalator_R,
-                    plat2,
-                    plat2,
-                    slope_2,
-                ],
+                [track] + [plat.T] * 10 + [track],
+                [track] * 12,
+                [track] * 12,
+                [track] + [plat] * 10 + [track],
+                [default, plat2, plat2, escalator, normal, gate, gate.R, normal.R, escalator.R, plat2, plat2, default],
                 [default] * 12,
             ],
             "Test",
+            altitude=[[0] * 13]
+            + [[0] + [1] * 11 + [0]]
+            + [[1] + [2] * 11 + [1]] * 5
+            + [[0] + [1] * 11 + [0]]
+            + [[0] * 13],
         ),
-        Demo([[plat2_T]], "Test 2"),
+        Demo([[plat2.T]], "Test 2"),
         Demo([[plat]], "Test 3"),
         Demo([[plat2]], "Test 4"),
     ],
