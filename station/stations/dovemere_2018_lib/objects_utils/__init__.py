@@ -34,8 +34,8 @@ def register_slopes(slopes, sym, starting_id, flags=DEFAULT_SLOPE_FLAGS):
         for view_ind in sym.rotational_view_indices():
             ranges = {}
             for slope_type in slope_types:
-                cur = slopes[sym.canonical_index(chi_ind ^ view_ind)][slope_type]
-                ranges[slope_type] = cur
+                cur = slopes[sym.canonical_index(chi_ind ^ view_ind)][slope_type.value]
+                ranges[slope_type.value] = cur
             default = ranges.pop(0)
             default.category = b"\xe8\x8a\x9cG"
             switch = GraphicalSwitch(ranges=ranges, default=default, code="tile_slope")
