@@ -44,8 +44,8 @@ demos = {
             "Test 2",
             altitude=[[0] * 5] + [[1] * 5] + [[1, 2, 2, 2, 1]] + [[1] * 5] + [[0] * 5],
         ),
-        Demo([[plat2.T]], "Test 3"),
-        Demo([[plat]], "Test 4"),
-        Demo([[plat2]], "Test 5"),
+        Demo([[plat2.T]], "Test 3", altitude=[[0, 0], [1, 1]]),
+        Demo([[plat]], "Test 4", altitude=[[1, 1], [0, 0]]),
+        Demo([[plat2]], "Test 5", altitude=[[1, 1], [0, 0]]),
     ],
 }
