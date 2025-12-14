@@ -10,7 +10,7 @@ from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 roadstop_layouts.globalize()
-object_layouts.globalize()
+object_layouts.globalize(group="west_plaza")
 
 station = h_merge([[[cns], [default]], semitraversable.demo_1(14, 22)[20:], [[cns], [default]]], [[], []])
 
@@ -26,29 +26,48 @@ roadstops = [
 ]
 
 # Objects
-center_ground = west_plaza_center
-offcenter_A = west_plaza_offcenter_A_decorated_lawn
-lightposts = west_plaza_offcenter_A_lightposts
-flower = west_plaza_topiary_2024a_corner
-offcenter_B = west_plaza_offcenter_B_decorated
-edge = west_plaza_center_lawn_edge
-trees = west_plaza_center_tree_formation
-split_lawn = west_plaza_center_split_lawn
 west_square = [
-    [center_ground]
-    + [edge] * 4
-    + [offcenter_A, center_ground, center_ground, center_ground, center_ground, offcenter_A.R]
-    + [edge] * 4
-    + [center_ground],
-    [center_ground] * 4
-    + [trees, lightposts, center_ground, center_ground, center_ground, center_ground, lightposts.R, trees.R]
-    + [center_ground] * 4,
-    [center_ground] * 4
-    + [trees, lightposts, center_ground, flower, center_ground, center_ground, lightposts.R, trees.R]
-    + [center_ground] * 4,
-    [edge.T] * 4
-    + [split_lawn, offcenter_B, center_ground, center_ground, center_ground, center_ground, offcenter_B.R, split_lawn.R]
-    + [edge.T] * 4,
+    [center]
+    + [center_lawn_edge] * 4
+    + [offcenter_A_decorated_lawn, center, center, center, center, offcenter_A_decorated_lawn.R]
+    + [center_lawn_edge] * 4
+    + [center],
+    [center] * 4
+    + [
+        center_tree_formation,
+        offcenter_A_lightposts,
+        center,
+        center,
+        center,
+        center,
+        offcenter_A_lightposts.R,
+        center_tree_formation.R,
+    ]
+    + [center] * 4,
+    [center] * 4
+    + [
+        center_tree_formation,
+        offcenter_A_lightposts,
+        center,
+        topiary_2024a_corner,
+        center,
+        center,
+        offcenter_A_lightposts.R,
+        center_tree_formation.R,
+    ]
+    + [center] * 4,
+    [center_lawn_edge.T] * 4
+    + [
+        center_split_lawn,
+        offcenter_B_decorated,
+        center,
+        center,
+        center,
+        center,
+        offcenter_B_decorated.R,
+        center_split_lawn.R,
+    ]
+    + [center_lawn_edge.T] * 4,
 ]
 
 

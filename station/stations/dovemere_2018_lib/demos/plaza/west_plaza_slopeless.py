@@ -10,23 +10,35 @@ from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 roadstop_layouts.globalize()
-object_layouts.globalize()
+object_layouts.globalize(group="west_plaza")
 
 station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns], [default]]], [[], []])
 
 # Not-road-stops
-center_ground = west_plaza_center
-overpass = west_plaza_center_overpass_low_lawn
-overpass_2 = west_plaza_offcenter_A_overpass_low
-staircase = west_plaza_center_staircase_low_3
-not_roadstops = [[center_ground, overpass, overpass_2, staircase, overpass_2.R, overpass.R, center_ground]]
+not_roadstops = [
+    [
+        center,
+        center_overpass_low_lawn,
+        offcenter_A_overpass_low,
+        center_staircase_low_3,
+        offcenter_A_overpass_low.R,
+        center_overpass_low_lawn.R,
+        center,
+    ]
+]
 
 # Objects
-flower = west_plaza_topiary_2024a_half
-offcenter_B = west_plaza_offcenter_B_decorated
-edge = west_plaza_center_toilet_lawn
-split_lawn = west_plaza_center_split_lawn
-west_square = [[edge.T, split_lawn, offcenter_B, flower, offcenter_B.R, split_lawn.R, edge.T.R]]
+west_square = [
+    [
+        center_toilet_lawn.T,
+        center_split_lawn,
+        offcenter_B_decorated,
+        topiary_2024a_half,
+        offcenter_B_decorated.R,
+        center_split_lawn.R,
+        center_toilet_lawn.T.R,
+    ]
+]
 
 
 west_plaza_slopeless = Demo(

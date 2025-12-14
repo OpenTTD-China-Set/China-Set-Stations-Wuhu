@@ -12,21 +12,21 @@ def make_platforms():
 
     ps = [road_stop_overpass_entrance]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "overpass")] = layout
+    named_layouts[("west_plaza", "center", "overpass")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E00)
 
     layout = ALayout(offcenter_A, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "overpass")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "overpass")] = layout
     register([[layout]], BuildingFull, b"P", starting_id=0x0E01)
 
     ps = [road_stop_overpass_solid, road_stop_pillars, lawn_edge.move(0, 4)]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "overpass_lawn")] = layout
+    named_layouts[("west_plaza", "center", "overpass_lawn")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E03)
 
     ps = [road_stop_platform_solid, road_stop_stair_extender.move(0, -2), road_stop_stair_extender.move(0, -2).R]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase")] = layout
+    named_layouts[("west_plaza", "center", "staircase")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E40)
 
     ps = [
@@ -35,7 +35,7 @@ def make_platforms():
         road_stop_stair_extender.move(0, -2).R,
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_2")] = layout
+    named_layouts[("west_plaza", "center", "staircase_2")] = layout
     register([[layout]], BuildingFull, b"S", starting_id=0x0E41)
 
     ps = [
@@ -44,26 +44,26 @@ def make_platforms():
         road_stop_stair_extender_onesided.move(0, -2).R,
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_3")] = layout
+    named_layouts[("west_plaza", "center", "staircase_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0E43)
 
     ps = [road_stop_overpass_low]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "overpass_low")] = layout
+    named_layouts[("west_plaza", "center", "overpass_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E80)
 
     layout = ALayout(offcenter_A, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "overpass_low")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "overpass_low")] = layout
     register([[layout]], BuildingFull, b"P", starting_id=0x0E81)
 
     ps = [road_stop_overpass_low, lawn_edge.move(0, 4)]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "overpass_low_lawn")] = layout
+    named_layouts[("west_plaza", "center", "overpass_low_lawn")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E83)
 
     ps = [road_stop_overpass_low, road_stop_stair_extender_low.move(0, -2), road_stop_stair_extender_low.move(0, -2).R]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_low")] = layout
+    named_layouts[("west_plaza", "center", "staircase_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC0)
 
     ps = [
@@ -72,7 +72,7 @@ def make_platforms():
         road_stop_stair_extender_low.move(0, -2).R,
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_low_2")] = layout
+    named_layouts[("west_plaza", "center", "staircase_low_2")] = layout
     register([[layout]], BuildingFull, b"S", starting_id=0x0EC1)
 
     ps = [
@@ -81,11 +81,11 @@ def make_platforms():
         road_stop_stair_extender_onesided_low.move(0, -2).R,
     ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "staircase_low_3")] = layout
+    named_layouts[("west_plaza", "center", "staircase_low_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC3)
 
     layout = ALayout(checkerboard, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_checkerboard", "staircase_low_3")] = layout
+    named_layouts[("west_plaza", "checkerboard", "staircase_low_3")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC4)
 
 
@@ -93,13 +93,13 @@ def make_lightposts():
     gs = named_grounds[("offcenter_A", "")]
     ps = [object_pole.move(-2, 4), object_pole.move(2, 4), object_pole.move(-2, 8), object_pole.move(2, 8)]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "decorated")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "decorated")] = layout
     register([[layout]], BuildingFull, b"L", starting_id=0x0200)
 
     gs = named_grounds[("offcenter_A", "")]
     ps = [object_pole.move(x, y) for x in [-2, 2] for y in [-4, 0, 4, 8]]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "lightposts")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "lightposts")] = layout
     register([[layout]], BuildingFull, b"L", starting_id=0x0202)
 
 
@@ -107,20 +107,20 @@ def make_lawns():
     gs = named_grounds[("offcenter_A", "")]
     ps = [lawn_corner]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "corner_lawn")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "corner_lawn")] = layout
     register([[layout]], BuildingFull, b"l", starting_id=0x0300)
 
     gs = named_grounds[("offcenter_A", "")]
     ps = [lawn_corner_2]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "corner_lawn_2")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "corner_lawn_2")] = layout
     register([[layout]], BuildingFull, b"l", starting_id=0x0302)
 
     gs = named_grounds[("center", "")]
     ps = [lawn_edge]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     # FIXME fix this name
-    named_layouts[("west_plaza_center", "lawn_edge")] = layout
+    named_layouts[("west_plaza", "center", "lawn_edge")] = layout
     register([[layout]], BuildingFull, b"l", starting_id=0x0304)
 
 
@@ -136,7 +136,7 @@ def make_trees():
         object_glass_pyramid.move(-5, 0),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "trees")] = layout
+    named_layouts[("west_plaza", "center", "trees")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0400)
 
     gs = named_grounds[("center", "")]
@@ -170,7 +170,7 @@ def make_trees():
         tree_bush.T.R.M.move(6, 8),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "tree_formation")] = layout
+    named_layouts[("west_plaza", "center", "tree_formation")] = layout
     # FIXME: cannot register this
     # too many bboxes (24 * 3, will be 24 * 6 with night)
     # register([[layout]], BuildingFull, b"M", starting_id=0x0402)
@@ -188,7 +188,7 @@ def make_mixed_objects():
         object_underground_entrance.move(6, -6),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_B", "decorated")] = layout
+    named_layouts[("west_plaza", "offcenter_B", "decorated")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0700)
 
     gs = named_grounds[("offcenter_A", "")]
@@ -201,7 +201,7 @@ def make_mixed_objects():
         object_glass_pyramid_in_grass.move(6, -4),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_A", "decorated_lawn")] = layout
+    named_layouts[("west_plaza", "offcenter_A", "decorated_lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0702)
 
     gs = named_grounds[("offcenter_A", "")]
@@ -213,7 +213,7 @@ def make_mixed_objects():
         object_underground_entrance.move(6, 2),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_offcenter_B", "oneliner")] = layout
+    named_layouts[("west_plaza", "offcenter_B", "oneliner")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0704)
 
     gs = named_grounds[("center", "")]
@@ -234,13 +234,13 @@ def make_mixed_objects():
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
     # FIXME fix this name
-    named_layouts[("west_plaza_center", "lawn")] = layout
+    named_layouts[("west_plaza", "center", "lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0706)
 
     gs = named_grounds[("center", "")]
     ps = [lawn_edge, object_underground_entrance.move(-4, 6)]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "toilet_lawn")] = layout
+    named_layouts[("west_plaza", "center", "toilet_lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x0708)
 
     gs = named_grounds[("center", "")]
@@ -254,7 +254,7 @@ def make_mixed_objects():
         tree_bush.T.R.M.move(6, -8),
     ]
     layout = ALayout(gs, ps, True, category=b"\xe8\x8a\x9cZ")
-    named_layouts[("west_plaza_center", "split_lawn")] = layout
+    named_layouts[("west_plaza", "center", "split_lawn")] = layout
     register([[layout]], BuildingFull, b"M", starting_id=0x070A)
 
 

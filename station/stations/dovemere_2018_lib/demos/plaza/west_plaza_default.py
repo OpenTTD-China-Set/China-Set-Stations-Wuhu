@@ -10,17 +10,14 @@ from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
 roadstop_layouts.globalize()
-object_layouts.globalize()
+object_layouts.globalize(group="west_plaza")
 
 station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns], [default]]], [[], []])
 
 # Road Stops
-stair = stair_narrow
-stair_extender = stair_extender_narrow
-roadstops = [[stair_end, overpass, stair, stair_extender, stair.R, overpass, stair_end.R]]
+roadstops = [[stair_end, overpass, stair_narrow, stair_extender_narrow, stair_narrow.R, overpass, stair_end.R]]
 
 # Objects
-building_ground_layout = building_ground_layout
 west_square = [[building_ground_layout] * 7, [building_ground_layout] * 7]
 
 

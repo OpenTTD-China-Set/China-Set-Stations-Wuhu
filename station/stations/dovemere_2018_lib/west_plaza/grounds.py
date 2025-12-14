@@ -56,7 +56,7 @@ def make_ground_layout(name, sym, starting_id):
         sym,
     )
 
-    named_layouts[("west_plaza_" + name, "")] = layout
+    named_layouts[("west_plaza", name, "")] = layout
     register_slopes(slopes, sym, starting_id)
     register([[layout]], sym, b"g", starting_id + 0x80)
 
