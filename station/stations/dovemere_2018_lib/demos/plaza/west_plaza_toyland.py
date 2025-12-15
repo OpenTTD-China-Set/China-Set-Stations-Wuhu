@@ -10,7 +10,7 @@ from ..utils import h_merge
 
 globalize_all(platform_class="brick", shelter_class="shelter_2")
 roadstop_layouts.globalize()
-object_layouts.globalize()
+object_layouts.globalize(group="west_plaza")
 
 station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns], [default]]], [[], []])
 
@@ -18,14 +18,7 @@ station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns],
 roadstops = [[stair_end, overpass, stair_narrow, stair_extender_narrow, stair_narrow.R, overpass, stair_end.R]]
 
 # Objects
-center_ground = west_plaza_center
-offcenter_A = west_plaza_offcenter_A_decorated_lawn
-flower = west_plaza_topiary_2024a_half
-offcenter_B = west_plaza_offcenter_B_decorated
-edge = west_plaza_center_lawn
-edge_2 = west_plaza_center_toilet_lawn
-split_lawn = west_plaza_center_split_lawn
-west_square = [[center_ground] * 7, [center_ground] * 7]
+west_square = [[center] * 7] * 3
 
 
 west_plaza_toyland = Demo(
@@ -34,5 +27,5 @@ west_plaza_toyland = Demo(
     remap=get_1cc_remap(CompanyColour.YELLOW),
     merge_bbox=True,
     climate="toyland",
-    altitude=[[1] * 8] * 2 + [[0] * 8] * 4,
+    altitude=[[1] * 8] * 2 + [[0] * 8] * 3 + [[1, 0, 0, 1, 1, 0, 0, 1]] + [[1] * 8],
 )

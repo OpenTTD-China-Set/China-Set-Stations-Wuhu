@@ -46,7 +46,6 @@ for name, sym in [
 
 def make_ground_layout(name, sym, starting_id):
     gs = named_grounds[(name, "")]
-    layout = ALayout(gs, [], True, category=b"\xe8\x8a\x9cZ")
 
     slopes = make_slopes(
         {
@@ -58,6 +57,7 @@ def make_ground_layout(name, sym, starting_id):
         sym,
     )
 
+    layout = slopes[0][0]
     named_layouts[("west_plaza", name, "")] = layout
     register_slopes(slopes, sym, starting_id)
     register([[layout]], sym, b"g", starting_id + 0x80)
