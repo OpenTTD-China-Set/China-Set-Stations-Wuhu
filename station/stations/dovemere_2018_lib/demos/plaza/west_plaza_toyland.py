@@ -18,7 +18,7 @@ station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns],
 roadstops = [[stair_end, overpass, stair_narrow, stair_extender_narrow, stair_narrow.R, overpass, stair_end.R]]
 
 # Objects
-west_square = [[center] * 7] * 3
+west_square = [[center] * 7] * 4
 
 
 west_plaza_toyland = Demo(
@@ -27,5 +27,5 @@ west_plaza_toyland = Demo(
     remap=get_1cc_remap(CompanyColour.YELLOW),
     merge_bbox=True,
     climate="toyland",
-    altitude=[[1] * 8] * 2 + [[0] * 8] * 3 + [[1, 0, 0, 1, 1, 0, 0, 1]] + [[1] * 8],
+    altitude=[[1] * 8] * 2 + [[0] * 8] * 3 + [[0, 0, 0, 1, 1, 0, 0, 0]] * 2 + [[0] * 8],
 )
