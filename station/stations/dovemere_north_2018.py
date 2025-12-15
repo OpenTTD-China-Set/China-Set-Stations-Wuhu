@@ -107,8 +107,8 @@ the_stations = AMetaStation(
             "Test",
             altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
-        Demo([[plat2.T]], "Test 2"),
-        Demo([[plat]], "Test 3"),
-        Demo([[plat2]], "Test 4"),
+        Demo([[plat2.T]], "Test 2", altitude=[[0, 0], [1, 1]]),
+        Demo([[plat]], "Test 3", altitude=[[1, 1], [0, 0]]),
+        Demo([[plat2]], "Test 4", altitude=[[1, 1], [0, 0]]),
     ],
 )
