@@ -20,7 +20,7 @@ def create_huge_ground(sprite, scale, bpp):
     return sprite
 
 
-big_gray = ground_images.gray.symmetry_fmap(
+big_gray = ground_images.gray_top_right.symmetry_fmap(
     lambda y: map_alternative_sprites(y, create_huge_ground, "tiling", xofs=-32, yofs=-32)
 )
 
@@ -47,13 +47,13 @@ def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
 pillar = AParentSprite(make_sprite("pillar", BuildingSymmetricalX, JOGGLE_AMOUNT, width=5), (16, 5, 8), (0, 11, 0))
 
 pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
-pillar_base_merged = pillar_base.symmetry_fmap(lambda y: Foundation(y, big_gray, False))
+pillar_base_merged = pillar_base.symmetry_fmap(lambda y: Foundation(y, big_gray, False, extended=True))
 pillar_base_ground = pillar_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
 pillar_base_underground = AParentSprite(pillar_base_ground, (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE})
 pillar_base_underground_gs = AGroundSprite(pillar_base_ground)
 
 fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
-fake_bridge_merged = fake_bridge.symmetry_fmap(lambda y: Foundation(y, big_gray, False))
+fake_bridge_merged = fake_bridge.symmetry_fmap(lambda y: Foundation(y, big_gray, False, extended=True))
 
 fake_bridge_2 = make_sprite("fake_bridge_2", BuildingSymmetrical, JOGGLE_AMOUNT * 2)
-fake_bridge_merged_2 = fake_bridge_2.symmetry_fmap(lambda y: Foundation(y, big_gray, False, 8))
+fake_bridge_merged_2 = fake_bridge_2.symmetry_fmap(lambda y: Foundation(y, big_gray, False, 8, extended=True))

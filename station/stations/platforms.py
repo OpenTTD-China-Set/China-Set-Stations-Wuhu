@@ -64,6 +64,7 @@ for i, entry in enumerate(entries):
             make_foundation=entry.foundation is not None,
             enable_if=enable_if,
             doc_layout=entry,
+            general_flags=0b10000 if "extended" in entry.notes else 0,
         )
     )
 

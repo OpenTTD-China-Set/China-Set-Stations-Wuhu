@@ -187,7 +187,11 @@ def register(pf: PlatformFamily):
             ps = platform_ps[(name, platform_class, "", shelter_class, "")]
 
             l = ALayout(
-                track_ground, [ps], True, category=b"\xe8\x8a\x9cL", notes=make_notes(platform_class, shelter_class)
+                track_ground,
+                [ps],
+                True,
+                category=b"\xe8\x8a\x9cL",
+                notes=make_notes(platform_class, shelter_class) + ["extended"],
             )
             l.foundation = fake_bridge_merged
             cur_symmetry = ps.sprite.symmetry
@@ -199,7 +203,11 @@ def register(pf: PlatformFamily):
             platform_tiles[(name, platform_class, "supported", shelter_class, "", "")] = l
 
             l = ALayout(
-                track_ground, [ps], True, category=b"\xe8\x8a\x9cl", notes=make_notes(platform_class, shelter_class)
+                track_ground,
+                [ps],
+                True,
+                category=b"\xe8\x8a\x9cl",
+                notes=make_notes(platform_class, shelter_class) + ["extended"],
             )
             l.foundation = fake_bridge_merged_2
             cur_symmetry = ps.sprite.symmetry
@@ -230,14 +238,14 @@ def register(pf: PlatformFamily):
                 [pillar_base_underground, pillar, ps.up(8)],
                 False,
                 category=b"\xe8\x8a\x9ce",
-                notes=make_notes(platform_class, shelter_class),
+                notes=make_notes(platform_class, shelter_class) + ["extended"],
             )
             l2 = ALayout(
                 pillar_base_underground_gs,
                 [pillar, ps.up(8)],
                 False,
                 category=b"\xe8\x8a\x9ce",
-                notes=make_notes(platform_class, shelter_class),
+                notes=make_notes(platform_class, shelter_class) + ["extended"],
             )
             l.foundation = pillar_base_merged
             cur_symmetry = ps.sprite.symmetry
