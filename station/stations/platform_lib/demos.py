@@ -54,6 +54,6 @@ demos = {
         Demo([[default, plat2, default]], "Elevated 2, Slope 11", altitude=[[1, 1, 1, 1], [1, 1, 0, 0]]),
         Demo([[default], [plat2.T.M], [default]], "Elevated 2, Slope 3", altitude=[[1, 0]] * 4),
         Demo([[default], [plat2.M], [default]], "Elevated 2, Slope 12", altitude=[[0, 1]] * 4),
-        Demo([[plat]], "Test 4 (supported 2)", altitude=[[1, 1], [0, 0]]),
+        Demo([[default, plat, default]], "Supported 2, Slope 9", altitude=[[1, 1, 1, 1], [0, 0, 0, 0]]),
     ],
 }
