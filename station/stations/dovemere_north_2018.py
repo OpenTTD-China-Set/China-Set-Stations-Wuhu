@@ -70,7 +70,8 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_supported2_shelter_2
-plat2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
+elev1 = platform_tiles.cns_concrete_elevated_shelter_2.T
+elev2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
 gate = named_tiles.front_gate
 normal = named_tiles.front_normal
 escalator = named_tiles.escalator
@@ -85,30 +86,60 @@ the_stations = AMetaStation(
                 [default] * 12,
                 [
                     default,
-                    plat2.T,
-                    plat2.T,
+                    elev2.T,
+                    elev2.T,
                     escalator.T,
                     normal.T,
                     gate.T,
                     gate.T.R,
                     normal.T.R,
                     escalator.T.R,
-                    plat2.T,
-                    plat2.T,
+                    elev2.T,
+                    elev2.T,
                     default,
                 ],
                 [track] + [plat.T] * 10 + [track],
                 [track] * 12,
                 [track] * 12,
                 [track] + [plat] * 10 + [track],
-                [default, plat2, plat2, escalator, normal, gate, gate.R, normal.R, escalator.R, plat2, plat2, default],
+                [default, elev2, elev2, escalator, normal, gate, gate.R, normal.R, escalator.R, elev2, elev2, default],
                 [default] * 12,
             ],
             "Test",
             altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
-        Demo([[plat2.T]], "Test 2", altitude=[[0, 0], [1, 1]]),
-        Demo([[plat]], "Test 3", altitude=[[1, 1], [0, 0]]),
-        Demo([[plat2]], "Test 4", altitude=[[1, 1], [0, 0]]),
+        Demo(
+            [
+                [default] * 12,
+                [
+                    default,
+                    elev1.T,
+                    elev2.T,
+                    escalator.T,
+                    normal.T,
+                    gate.T,
+                    gate.T.R,
+                    normal.T.R,
+                    escalator.T.R,
+                    elev2.T,
+                    elev1.T,
+                    default,
+                ],
+                [track] + [plat.T] * 10 + [track],
+                [track] * 12,
+                [track] * 12,
+                [track] + [plat] * 10 + [track],
+                [default, elev1, elev2, escalator, normal, gate, gate.R, normal.R, escalator.R, elev2, elev1, default],
+                [default] * 12,
+            ],
+            "Test 2",
+            altitude=[[0] * 13]
+            + [[1] * 2 + [0] * 9 + [1] * 2]
+            + [[1] * 13]
+            + [[1] + [2] * 11 + [1]] * 3
+            + [[1] * 13]
+            + [[1] * 2 + [0] * 9 + [1] * 2]
+            + [[0] * 13],
+        ),
     ],
 )
