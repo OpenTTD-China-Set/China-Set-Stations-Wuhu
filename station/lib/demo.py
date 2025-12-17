@@ -8,6 +8,8 @@ from .registers import Registers
 class RenderContext(ProtoRenderContext):
     north_bufferstop: bool = True
     south_bufferstop: bool = True
+    nw_pit: int = 0
+    ne_pit: int = 0
 
     def dodraw(self, register):
         if register is Registers.RAIL_CONTINUATION_N:
@@ -47,6 +49,10 @@ def is_1011(l):
     ]
 
 
+def is_pit(l):
+    return "pit" in l.notes
+
+
 @dataclass
 class Demo(ProtoDemo):
     def infer_render_contexts(self):
@@ -67,6 +73,18 @@ class Demo(ProtoDemo):
                         sb = False
                     if r - 1 >= 0 and is_1011(self.tiles[r - 1][c]):
                         nb = False
-                ret_row.append(RenderContext(**vars(proto_ret[r][c]), north_bufferstop=nb, south_bufferstop=sb))
+                if r - 1 >= 0 and is_pit(self.tiles[r - 1][c]):
+                    nw_pit = 1
+                else:
+                    nw_pit = 0
+                if c + 1 < len(row) and is_pit(self.tiles[r][c + 1]):
+                    ne_pit = 1
+                else:
+                    ne_pit = 0
+                ret_row.append(
+                    RenderContext(
+                        **vars(proto_ret[r][c]), north_bufferstop=nb, south_bufferstop=sb, nw_pit=nw_pit, ne_pit=ne_pit
+                    )
+                )
             ret.append(ret_row)
         return ret
