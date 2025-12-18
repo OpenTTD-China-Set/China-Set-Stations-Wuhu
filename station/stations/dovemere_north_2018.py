@@ -13,7 +13,7 @@ from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, default
-from station.stations.platform_lib.ground import pillar_base_merged, pillar
+from station.stations.platform_lib.ground import pillar_base_merged, pillar_base_underground, pillar
 
 
 def quickload(name, symmetry, traversable):
@@ -30,7 +30,7 @@ def quickload(name, symmetry, traversable):
     parent = AParentSprite(sprite, (16, 16 - platform_width, 32), (0, platform_width, 0))
     plat = platform_ps.cns_concrete_solid_shelter_2.up(8)
 
-    l = ALayout(None, [plat.T, pillar.T, parent], traversable, notes=["pit"])
+    l = ALayout(None, [pillar_base_underground, plat.T, pillar.T, parent], traversable, notes=["pit"])
     l.foundation = pillar_base_merged.T
     ret = symmetry.create_variants(symmetry.get_all_variants(l))
     entries.extend(symmetry.get_all_entries(ret))
