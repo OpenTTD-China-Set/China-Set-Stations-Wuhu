@@ -7,6 +7,7 @@ from station.stations.empty import empty_sprite, empty_offset
 from ..ground import named_images as ground_images
 from agrf.lib.building.foundation import Foundation
 from station.lib.foundation_switch import FoundationSwitch
+from station.stations.empty import make_empty_variant
 
 JOGGLE_AMOUNT = 45 - 32 * 2**0.5
 
@@ -49,12 +50,12 @@ def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
 
 pillar = AParentSprite(make_sprite("pillar", BuildingSymmetricalX, JOGGLE_AMOUNT, width=5), (16, 5, 8), (0, 11, 0))
 
-pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
-# pillar_base_merged_4 = [
-#    pillar_base.symmetry_fmap(lambda y: Foundation(y, x, False, extended=True)) for x in ground_image_list
-# ]
-# pillar_base_merged = FoundationSwitch(foundations=pillar_base_merged_4)
+empty_base = make_empty_variant(1, 1, 0, 0)
+empty_base_merged = empty_base.symmetry_fmap(
+    lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list])
+)
 
+pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
 pillar_base_merged = pillar_base.symmetry_fmap(
     lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list])
 )

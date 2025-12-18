@@ -22,6 +22,7 @@ from station.stations.platform_lib import (
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import named_ps as ground_ps
 from ..misc import default_ground
+from .ground import empty_base_merged
 
 
 gray_ps = ground_ps.gray
@@ -166,4 +167,11 @@ concourse_tiles.populate()
 
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)
+
+sunken_ground = make_entry(
+    ALayout(None, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"], foundation=empty_base_merged),
+    BuildingCylindrical,
+    0x7FFE,
+    general_flags=0b10000,
 )
