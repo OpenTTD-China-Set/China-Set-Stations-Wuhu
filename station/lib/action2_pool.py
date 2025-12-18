@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import functools
 import grf
 from agrf.lib.building.layout import ALayout
+from agrf.lib.building.foundation import Foundation
 
 
 @dataclass
@@ -31,6 +32,10 @@ class Action2Pool:
         return self.foundation_to_id[foundation]
 
     def get_action_2(self, foundation):
+        if isinstance(foundation, grf.Switch):
+            return foundation.fmap(lambda x: self.get_action_2(x))
+        elif not isinstance(foundation, Foundation):
+            return self.get_action_2(foundation.to_switch())
         cur_id = self.get_foundation_id(foundation)
         return self.id_to_action2[cur_id]
 
