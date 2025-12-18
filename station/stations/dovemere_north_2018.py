@@ -61,6 +61,7 @@ for i, entry in enumerate(entries):
                 "select_sprite_layout": grf.DualCallback(default=entry, purchase=0),
                 **station_cb["E9B8A0A"],
             },
+            general_flags=0b10000,
             make_foundation=True,
             extra_code=station_code["E9B8A0A"],
             enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
