@@ -192,6 +192,8 @@ STR_STATION_PLATFORM                            :站台
 STR_STATION_PLATFORM_UNTRAVERSABLE              :站台（无轨道）
 STR_STATION_CONCOURSE                           :车站广场
 STR_STATION_EMPTY                               :空地
+STR_STATION_SUNKEN                              :下沉空地
+STR_STATION_SUNKEN_2                            :下沉空地（两格）
 STR_STATION_FLEXIBLE_PLATFORM                   :站台模板
 STR_STATION_FLEXIBLE_PLATFORM_SIDE              :站台模板（有侧式站台）
 STR_STATION_FLEXIBLE_SIDE                       :自动站房（两侧有轨道，无侧式站台）

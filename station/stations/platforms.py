@@ -35,6 +35,10 @@ for i, entry in enumerate(entries):
         translation_name = "CONCOURSE"
     elif "empty" in entry.notes:
         translation_name = "EMPTY"
+    elif "empty pit" in entry.notes:
+        translation_name = "SUNKEN"
+    elif "empty pit 2" in entry.notes:
+        translation_name = "SUNKEN_2"
     elif entry.traversable:
         translation_name = "PLATFORM"
     else:

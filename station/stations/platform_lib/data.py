@@ -181,7 +181,7 @@ l = ALayout(
     [empty_base_underground],
     False,
     category=b"\xe8\x8a\x9cU",
-    notes=["empty", "extended"],
+    notes=["pit", "empty pit", "extended"],
     foundation=empty_base_merged,
 )
 l2 = ALayout(empty_base_underground_gs, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
@@ -196,7 +196,7 @@ l = ALayout(
     [empty_base_underground_2],
     False,
     category=b"\xe8\x8a\x9cU",
-    notes=["empty", "extended"],
+    notes=["pit 2", "empty pit 2", "extended"],
     foundation=empty_base_merged_2,
 )
 l2 = ALayout(empty_base_underground_gs_2, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
