@@ -79,6 +79,7 @@ the_stations = AMetaStation(
         b"\xe8\x8a\x9cl",
         b"\xe8\x8a\x9cE",
         b"\xe8\x8a\x9ce",
+        b"\xe8\x8a\x9cU",
     ],
     demos,
 )

@@ -18,11 +18,19 @@ from station.stations.platform_lib import (
     two_side_tiles,
     concourse_tiles,
     make_entry,
+    entries,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import named_ps as ground_ps
 from ..misc import default_ground
-from .ground import empty_base_merged
+from .ground import (
+    empty_base_merged,
+    empty_base_underground,
+    empty_base_underground_gs,
+    empty_base_merged_2,
+    empty_base_underground_2,
+    empty_base_underground_gs_2,
+)
 
 
 gray_ps = ground_ps.gray
@@ -168,10 +176,32 @@ concourse_tiles.populate()
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp", notes=["empty"]), BuildingCylindrical, 0x7FFF
 )
-
-sunken_ground = make_entry(
-    ALayout(None, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"], foundation=empty_base_merged),
-    BuildingCylindrical,
-    0x7FFE,
-    general_flags=0b10000,
+l = ALayout(
+    None,
+    [empty_base_underground],
+    False,
+    category=b"\xe8\x8a\x9cU",
+    notes=["empty", "extended"],
+    foundation=empty_base_merged,
 )
+l2 = ALayout(empty_base_underground_gs, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
+l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
+l.purchase = l2
+l.id = 0x7FFD
+entries.append(l)
+sunken_ground = l
+
+l = ALayout(
+    None,
+    [empty_base_underground_2],
+    False,
+    category=b"\xe8\x8a\x9cU",
+    notes=["empty", "extended"],
+    foundation=empty_base_merged_2,
+)
+l2 = ALayout(empty_base_underground_gs_2, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
+l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
+l.purchase = l2
+l.id = 0x7FFC
+entries.append(l)
+sunken_ground_2 = l

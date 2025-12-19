@@ -32,8 +32,11 @@ class FoundationSwitch:
         def is_wuhu_north(offset):
             return f"(var(0x6b, param={offset}, shift=0, and=0xf000) == 0x3000)"
 
+        def is_sunken_ground(offset):
+            return f"(var(0x6b, param={offset}, shift=0, and=0xfffe) == 0x7ffc)"
+
         def is_pit(offset):
-            return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)}) >= 1)"
+            return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)} + {is_sunken_ground(offset)}) >= 1)"
 
         return Switch(
             ranges={i: self.foundations[i] for i in range(3)},

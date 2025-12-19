@@ -51,12 +51,12 @@ Has shelter
 ### Special stuff
 #### Sunken Ground (Deep)
 ```
-0111 1111 1111 1101
+0111 1111 1111 1100
 ```
 
 #### Sunken Ground
 ```
-0111 1111 1111 1110
+0111 1111 1111 1101
 ```
 
 #### Nothing
