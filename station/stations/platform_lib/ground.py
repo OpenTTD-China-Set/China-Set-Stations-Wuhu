@@ -54,18 +54,14 @@ empty_base = make_empty_variant(1, 1, 0, 0)
 empty_base_merged = empty_base.symmetry_fmap(
     lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list])
 )
-empty_base_ground = empty_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
-empty_base_underground = AParentSprite(empty_base_ground, (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE})
-empty_base_underground_gs = AGroundSprite(empty_base_ground)
+empty_base_underground_gs = AGroundSprite(empty_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
 
 empty_base_merged_2 = empty_base.symmetry_fmap(
     lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, 8, extended=True) for x in ground_image_list])
 )
-empty_base_ground_2 = empty_base_merged_2.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
-empty_base_underground_2 = AParentSprite(
-    empty_base_ground_2, (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE}
+empty_base_underground_gs_2 = AGroundSprite(
+    empty_base_merged_2.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
 )
-empty_base_underground_gs_2 = AGroundSprite(empty_base_ground_2)
 
 pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
 pillar_base_merged = pillar_base.symmetry_fmap(
@@ -77,7 +73,9 @@ pillar_base_underground = AParentSprite(pillar_base_ground, (16, 16, 0), (0, 0, 
 pillar_base_underground_gs = AGroundSprite(pillar_base_ground)
 
 fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
-fake_bridge_merged = fake_bridge.symmetry_fmap(lambda y: Foundation(y, big_gray, False, extended=True))
+fake_bridge_merged = fake_bridge.symmetry_fmap(
+    lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list])
+)
 
 fake_bridge_2 = make_sprite("fake_bridge_2", BuildingSymmetrical, JOGGLE_AMOUNT * 2)
 fake_bridge_merged_2 = fake_bridge_2.symmetry_fmap(

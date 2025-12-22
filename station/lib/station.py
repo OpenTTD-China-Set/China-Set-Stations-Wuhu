@@ -18,7 +18,8 @@ class AStation(grf.SpriteGenerator):
         is_waypoint=False,
         doc_layout=None,
         enable_if=None,
-        make_foundation=False,
+        make_foundation=False,  # FIXME: rename this to make_foundation_from_cb14
+        foundation_object=None,
         extra_code="",
         **props,
     ):
@@ -33,6 +34,7 @@ class AStation(grf.SpriteGenerator):
         self.doc_layout = doc_layout
         self.enable_if = enable_if
         self.make_foundation = make_foundation
+        self.foundation_object = foundation_object
         self.extra_code = extra_code
         self._props = {
             **props,
@@ -76,6 +78,19 @@ class AStation(grf.SpriteGenerator):
             if isinstance(foundations, StationTileSwitch):
                 foundations = foundations.to_index(None)
 
+            self.callbacks.graphics = grf.GraphicsCallback(
+                default=grf.Switch(
+                    ranges={2: foundations},
+                    code=code + self.extra_code + default_code + "\nextra_callback_info1_byte",
+                    default=graphics,
+                ),
+                purchase=grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics),
+            )
+            props["general_flags"] = props.get("general_flags", 0) | 0b1000
+        elif self.foundation_object is not None:
+            foundations = action2_pool.map_foundation_switch(self.foundation_object.to_switch())
+            if isinstance(foundations, StationTileSwitch):
+                foundations = foundations.to_index(None)
             self.callbacks.graphics = grf.GraphicsCallback(
                 default=grf.Switch(
                     ranges={2: foundations},

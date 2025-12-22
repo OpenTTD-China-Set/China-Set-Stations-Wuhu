@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import functools
 import grf
+from station.lib.foundation_switch import FoundationSwitch
 from agrf.lib.building.layout import ALayout
 from agrf.lib.building.foundation import Foundation
 
@@ -54,6 +55,12 @@ class Action2Pool:
 
     def __hash__(self):
         return id(self)
+
+    @functools.cache
+    def map_foundation_switch(self, s):
+        if isinstance(s, Foundation):
+            return self.get_action_2(s)
+        return s.fmap(lambda x: self.map_foundation_switch(x))
 
     @functools.cache
     def map_switch(self, s):

@@ -1,6 +1,8 @@
-from agrf.magic import Switch
+from agrf.global_cache import make_switch
 from dataclasses import dataclass
 from typing import List
+from station.lib import AParentSprite
+from station.lib.registers import Registers
 
 
 @dataclass
@@ -11,6 +13,14 @@ class FoundationSwitch:
     def make_sprite(self, slope_type, render_context):
         return self.foundations[int(render_context.nw_pit == 0) + 2 * int(render_context.ne_pit == 0)].make_sprite(
             slope_type, render_context
+        )
+
+    def add_to_layout(self, l):
+        return self.to_switch().fmap(
+            lambda x: l
+            + AParentSprite(
+                x.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE}
+            )
         )
 
     def convert_foundation_to_ground(self):
@@ -38,7 +48,7 @@ class FoundationSwitch:
         def is_pit(offset):
             return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)} + {is_sunken_ground(offset)}) >= 1)"
 
-        return Switch(
+        return make_switch(
             ranges={i: self.foundations[i] for i in range(3)},
             default=self.foundations[3],
             code=f"(1 - ({is_same_newgrf(0xf0)} * {is_pit(0xf0)}))"

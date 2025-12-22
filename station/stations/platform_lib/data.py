@@ -23,14 +23,7 @@ from station.stations.platform_lib import (
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import named_ps as ground_ps
 from ..misc import default_ground
-from .ground import (
-    empty_base_merged,
-    empty_base_underground,
-    empty_base_underground_gs,
-    empty_base_merged_2,
-    empty_base_underground_2,
-    empty_base_underground_gs_2,
-)
+from .ground import empty_base_merged, empty_base_underground_gs, empty_base_merged_2, empty_base_underground_gs_2
 
 
 gray_ps = ground_ps.gray
@@ -177,12 +170,7 @@ empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
 )
 l = ALayout(
-    None,
-    [empty_base_underground],
-    False,
-    category=b"\xe8\x8a\x9cU",
-    notes=["pit", "empty pit", "extended"],
-    foundation=empty_base_merged,
+    None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit", "extended"], foundation=empty_base_merged
 )
 l2 = ALayout(empty_base_underground_gs, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
 l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
@@ -192,12 +180,7 @@ entries.append(l)
 sunken_ground = l
 
 l = ALayout(
-    None,
-    [empty_base_underground_2],
-    False,
-    category=b"\xe8\x8a\x9cU",
-    notes=["pit 2", "empty pit 2", "extended"],
-    foundation=empty_base_merged_2,
+    None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit 2", "extended"], foundation=empty_base_merged_2
 )
 l2 = ALayout(empty_base_underground_gs_2, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
 l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
