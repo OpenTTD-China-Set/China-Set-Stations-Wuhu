@@ -53,7 +53,7 @@ for i, entry in enumerate(entries):
             for x, y in zip(new_entry._ranges, new_entry_M._ranges):
                 layouts.append(x.ref)
                 layouts.append(y.ref)
-            sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=2)
+            sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=0)
             make_foundation = False
             foundation_object = entry.foundation
         else:
