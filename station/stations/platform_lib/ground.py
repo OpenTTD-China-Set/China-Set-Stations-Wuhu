@@ -13,14 +13,14 @@ JOGGLE_AMOUNT = 45 - 32 * 2**0.5
 
 
 def create_huge_ground(sprites, scale, bpp):
-    sprite, sprite2, sprite3 = sprites
-    sprite = sprite.copy()
-    x1 = sprite2.copy().move(-32 * scale, 16 * scale)
-    x2 = sprite3.copy().move(32 * scale, 16 * scale)
-    x3 = sprite.copy().move(0, 32 * scale)
+    sprite0, sprite1, sprite2, sprite3 = sprites
+    sprite = sprite3.copy()
+    x1 = sprite1.copy().move(-32 * scale, 16 * scale)
+    x2 = sprite2.copy().move(32 * scale, 16 * scale)
+    x0 = sprite0.copy().move(0, 32 * scale)
     sprite.blend_over(x1)
     sprite.blend_over(x2)
-    sprite.blend_over(x3)
+    sprite.blend_over(x0)
     return sprite
 
 
@@ -28,8 +28,12 @@ gray = ground_images.gray
 box = ground_images.gray_box
 
 ground_image_list = [
-    s1.symmetry_fmap(lambda y: map_alternative_sprites((y, s2, s3), create_huge_ground, "tiling", xofs=-32, yofs=-32))
-    for s1, s2, s3 in [(gray, gray, gray), (gray, box, gray), (gray, gray, box), (gray, box, box)]
+    gray.symmetry_fmap(
+        lambda y: map_alternative_sprites((gray, s1, s2, s3), create_huge_ground, "tiling", xofs=-32, yofs=-32)
+    )
+    for s3 in [gray, box]
+    for s2 in [gray, box]
+    for s1 in [gray, box]
 ]
 big_gray = ground_image_list[3]
 

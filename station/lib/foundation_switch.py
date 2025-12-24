@@ -7,7 +7,6 @@ from station.lib.registers import Registers
 
 @dataclass
 class FoundationSwitch:
-    # For now, it's just (None, top, right, top-right)
     foundations: List
 
     def make_sprite(self, slope_type, render_context):
@@ -24,7 +23,7 @@ class FoundationSwitch:
         )
 
     def convert_foundation_to_ground(self):
-        return self.foundations[3].convert_foundation_to_ground()
+        return self.foundations[7].convert_foundation_to_ground()
 
     def to_switch(self):
         def is_same_newgrf(offset):
@@ -49,8 +48,9 @@ class FoundationSwitch:
             return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)} + {is_sunken_ground(offset)}) >= 1)"
 
         return make_switch(
-            ranges={i: self.foundations[i] for i in range(3)},
-            default=self.foundations[3],
+            ranges={i: self.foundations[i] for i in range(7)},
+            default=self.foundations[7],
             code=f"(1 - ({is_same_newgrf(0xf0)} * {is_pit(0xf0)}))"
-            + f"+ 2 * (1 - ({is_same_newgrf(0x0f)} * {is_pit(0x0f)}))",
+            + f"+ 2 * (1 - ({is_same_newgrf(0x0f)} * {is_pit(0x0f)}))"
+            + f"+ 4 * (1 - ({is_same_newgrf(0xff)} * {is_pit(0xff)}))",
         )
