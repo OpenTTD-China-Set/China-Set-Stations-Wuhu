@@ -24,18 +24,29 @@ def create_huge_ground(sprites, scale, bpp):
     return sprite
 
 
+def double(sprites, scale, bpp):
+    (sprite,) = sprites
+    sprite = sprite.copy()
+    sprite.blend_over(sprite.copy().move(0, -8 * scale))
+    return sprite
+
+
 gray = ground_images.gray
 box = ground_images.gray_box
+doublebox = box.symmetry_fmap(lambda y: map_alternative_sprites(y, double, "double", xofs=0, yofs=0))
+
+from agrf.graphics.spritesheet import SCALE_TO_ZOOM
+from agrf.graphics.layered_image import LayeredImage
+
 
 ground_image_list = [
     gray.symmetry_fmap(
-        lambda y: map_alternative_sprites((gray, s1, s2, s3), create_huge_ground, "tiling", xofs=-32, yofs=-32)
+        lambda y: map_alternative_sprites((y, s1, s2, s3), create_huge_ground, "tiling", xofs=0, yofs=-32)
     )
-    for s3 in [gray, box]
-    for s2 in [gray, box]
-    for s1 in [gray, box]
+    for s3 in [gray, doublebox]
+    for s2 in [gray, doublebox]
+    for s1 in [gray, doublebox]
 ]
-big_gray = ground_image_list[3]
 
 
 def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
