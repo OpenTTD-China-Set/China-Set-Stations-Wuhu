@@ -88,9 +88,7 @@ pillar_base_merged = pillar_base.symmetry_fmap(
     lambda y: FoundationSwitch(foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list])
 )
 
-pillar_base_ground = pillar_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
-pillar_base_underground = AParentSprite(pillar_base_ground, (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE})
-pillar_base_underground_gs = AGroundSprite(pillar_base_ground)
+pillar_base_underground_gs = AGroundSprite(pillar_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
 
 fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
 fake_bridge_merged = fake_bridge.symmetry_fmap(

@@ -2,14 +2,7 @@ from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetr
 from abc import ABC, abstractmethod
 from ..misc import track_ground
 from ..ground import named_ps as ground_ps
-from .ground import (
-    pillar,
-    pillar_base_underground,
-    pillar_base_underground_gs,
-    fake_bridge_merged,
-    fake_bridge_merged_2,
-    pillar_base_merged,
-)
+from .ground import pillar, pillar_base_underground_gs, fake_bridge_merged, fake_bridge_merged_2, pillar_base_merged
 from .aux import add_buffer_stop
 
 gray_ps = ground_ps.gray
@@ -235,7 +228,7 @@ def register(pf: PlatformFamily):
 
             l = ALayout(
                 None,
-                [pillar_base_underground, pillar, ps.up(8)],
+                [pillar, ps.up(8)],
                 False,
                 category=b"\xe8\x8a\x9ce",
                 notes=make_notes(platform_class, shelter_class) + ["extended", "pit"],
