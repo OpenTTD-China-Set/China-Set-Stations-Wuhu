@@ -8,8 +8,9 @@ from .registers import Registers
 class RenderContext(ProtoRenderContext):
     north_bufferstop: bool = True
     south_bufferstop: bool = True
-    nw_pit: int = 0
-    ne_pit: int = 0
+    nw_wall: int = 0
+    ne_wall: int = 0
+    n_wall: int = 0
 
     def dodraw(self, register):
         if register is Registers.RAIL_CONTINUATION_N:
@@ -74,16 +75,24 @@ class Demo(ProtoDemo):
                     if r - 1 >= 0 and is_1011(self.tiles[r - 1][c]):
                         nb = False
                 if r - 1 >= 0 and is_pit(self.tiles[r - 1][c]):
-                    nw_pit = 1
+                    nw_wall = 0
                 else:
-                    nw_pit = 0
+                    nw_wall = 1
                 if c + 1 < len(row) and is_pit(self.tiles[r][c + 1]):
-                    ne_pit = 1
+                    ne_wall = 0
                 else:
-                    ne_pit = 0
+                    ne_wall = 1
+                if r - 1 >= 0 and c + 1 < len(row) and is_pit(self.tiles[r - 1][c + 1]):
+                    n_wall = 0
+                else:
+                    n_wall = 1
                 ret_row.append(
                     RenderContext(
-                        **vars(proto_ret[r][c]), north_bufferstop=nb, south_bufferstop=sb, nw_pit=nw_pit, ne_pit=ne_pit
+                        **vars(proto_ret[r][c]),
+                        north_bufferstop=nb,
+                        south_bufferstop=sb,
+                        nw_wall=nw_wall,
+                        ne_wall=ne_wall
                     )
                 )
             ret.append(ret_row)

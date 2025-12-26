@@ -43,9 +43,9 @@ ground_image_list = [
     gray.symmetry_fmap(
         lambda y: map_alternative_sprites((y, s1, s2, s3), create_huge_ground, "tiling", xofs=0, yofs=-32)
     )
-    for s3 in [gray, doublebox]
-    for s2 in [gray, doublebox]
-    for s1 in [gray, doublebox]
+    for s3 in [gray, box, doublebox]
+    for s2 in [gray, box, doublebox]
+    for s1 in [gray, box, doublebox]
 ]
 
 

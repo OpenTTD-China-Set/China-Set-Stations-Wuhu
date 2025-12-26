@@ -10,9 +10,9 @@ class FoundationSwitch:
     foundations: List
 
     def make_sprite(self, slope_type, render_context):
-        return self.foundations[int(render_context.nw_pit == 0) + 2 * int(render_context.ne_pit == 0)].make_sprite(
-            slope_type, render_context
-        )
+        return self.foundations[
+            render_context.nw_pit + 3 * render_context.ne_pit + 9 * render_context.n_pit
+        ].make_sprite(slope_type, render_context)
 
     def add_to_layout(self, l):
         return self.to_switch().fmap(
@@ -23,7 +23,7 @@ class FoundationSwitch:
         )
 
     def convert_foundation_to_ground(self):
-        return self.foundations[7].convert_foundation_to_ground()
+        return self.foundations[26].convert_foundation_to_ground()
 
     def to_switch(self):
         def is_same_newgrf(offset):
@@ -48,9 +48,9 @@ class FoundationSwitch:
             return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)} + {is_sunken_ground(offset)}) >= 1)"
 
         return make_switch(
-            ranges={i: self.foundations[i] for i in range(7)},
-            default=self.foundations[7],
-            code=f"(1 - ({is_same_newgrf(0xf0)} * {is_pit(0xf0)}))"
-            + f"+ 2 * (1 - ({is_same_newgrf(0x0f)} * {is_pit(0x0f)}))"
-            + f"+ 4 * (1 - ({is_same_newgrf(0xff)} * {is_pit(0xff)}))",
+            ranges={i: self.foundations[i] for i in range(26)},
+            default=self.foundations[26],
+            code=f"2 * (1 - ({is_same_newgrf(0xf0)} * {is_pit(0xf0)}))"
+            + f"+ 6 * (1 - ({is_same_newgrf(0x0f)} * {is_pit(0x0f)}))"
+            + f"+ 18 * (1 - ({is_same_newgrf(0xff)} * {is_pit(0xff)}))",
         )
