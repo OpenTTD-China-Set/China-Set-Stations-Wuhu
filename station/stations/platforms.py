@@ -47,7 +47,7 @@ for i, entry in enumerate(entries):
     if entry.purchase is not None:
         if "pit" in entry.notes:
             new_entry = entry.foundation.add_to_layout(entry)
-            new_entry_M = entry.foundation.M.add_to_layout(entry.M)
+            new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
 
             layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
             for x, y in zip(new_entry._ranges, new_entry_M._ranges):

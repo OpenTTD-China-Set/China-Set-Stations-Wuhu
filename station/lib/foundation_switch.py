@@ -15,8 +15,8 @@ class FoundationSwitch:
             render_context.nw_wall + 3 * render_context.ne_wall + 9 * render_context.n_wall
         ].make_sprite(slope_type, render_context)
 
-    def add_to_layout(self, l):
-        return self.to_switch().fmap(
+    def add_to_layout(self, l, m=False):
+        return self.to_switch(ground=True, m=m).fmap(
             lambda x: l
             + AParentSprite(
                 x.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0), flags={"dodraw": Registers.NOSLOPE}
@@ -26,7 +26,7 @@ class FoundationSwitch:
     def convert_foundation_to_ground(self):
         return self.foundations[26].convert_foundation_to_ground()
 
-    def to_switch(self):
+    def to_switch(self, ground=False, m=False):
         def is_same_newgrf(offset):
             return f"(var(0x68, param={offset}, shift=0, and=0x300) == 0x100)"
 
@@ -65,8 +65,21 @@ class FoundationSwitch:
             )
             return f"min(max(({is_same_newgrf(offset)} * ({tile_elevation_delta})) + {tile_elevation(offset)} - ({self.my_elevation}) - {tile_elevation(0x0)}, 0), 2)"
 
+        if ground:
+            coeff1 = "1"
+            coeff2 = "3"
+        else:
+            coeff1 = "(1 + extra_callback_info2 % 2 * 2)"
+            coeff2 = "(3 - extra_callback_info2 % 2 * 2)"
+
+        def permute(i, m):
+            if not m:
+                return i
+            a, b, c = i % 3, i // 3 % 3, i // 9
+            return a * 3 + b + c * 9
+
         return make_switch(
-            ranges={i: self.foundations[i] for i in range(26)},
+            ranges={i: self.foundations[permute(i, m)] for i in range(26)},
             default=self.foundations[26],
-            code=f"1 * {relative_elevation(0xf0)} + 3 * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)}",
+            code=f"{coeff1} * {relative_elevation(0xf0)} + {coeff2} * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)}",
         )
