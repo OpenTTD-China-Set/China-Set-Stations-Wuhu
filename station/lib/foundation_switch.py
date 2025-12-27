@@ -48,8 +48,11 @@ class FoundationSwitch:
         def is_sunken_ground_2(offset):
             return f"(var(0x6b, param={offset}, shift=0, and=0xffff) == 0x7ffd)"
 
-        def elevation(offset):
-            tile_elevation = "+".join(
+        def tile_elevation(offset):
+            return f"(var(0x67, param={offset}, shift=16, and=0xff) + (var(0x67, param={offset}, shift=0, and=0xff) + 15) / 16)"
+
+        def relative_elevation(offset):
+            tile_elevation_delta = "+".join(
                 f"({pred(offset)} * ({coeff}))"
                 for pred, coeff in [
                     (is_supported_1, -1),
@@ -60,10 +63,10 @@ class FoundationSwitch:
                     (is_sunken_ground_2, -2),
                 ]
             )
-            return f"max(({is_same_newgrf(offset)} * ({tile_elevation})) - ({self.my_elevation}), 0)"
+            return f"min(max(({is_same_newgrf(offset)} * ({tile_elevation_delta})) + {tile_elevation(offset)} - ({self.my_elevation}) - {tile_elevation(0x0)}, 0), 2)"
 
         return make_switch(
             ranges={i: self.foundations[i] for i in range(26)},
             default=self.foundations[26],
-            code=f"1 * {elevation(0xf0)} + 3 * {elevation(0x0f)} + 9 * {elevation(0xff)}",
+            code=f"1 * {relative_elevation(0xf0)} + 3 * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)}",
         )
