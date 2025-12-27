@@ -14,6 +14,7 @@ from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, default
 from station.stations.platform_lib.ground import pillar_base_merged, pillar
+from station.stations.platform_lib.data import sunken_ground
 
 
 def quickload(name, symmetry, traversable):
@@ -141,6 +142,46 @@ the_stations = AMetaStation(
             + [[1] * 13]
             + [[1] * 2 + [0] * 9 + [1] * 2]
             + [[0] * 13],
+        ),
+        Demo(
+            [
+                [default] * 12,
+                [
+                    sunken_ground,
+                    elev2.T,
+                    elev2.T,
+                    escalator.T,
+                    normal.T,
+                    gate.T,
+                    gate.T.R,
+                    normal.T.R,
+                    escalator.T.R,
+                    elev2.T,
+                    elev2.T,
+                    sunken_ground,
+                ],
+                [track] + [plat.T] * 10 + [track],
+                [track] * 12,
+                [track] * 12,
+                [track] + [plat] * 10 + [track],
+                [
+                    sunken_ground,
+                    elev2,
+                    elev2,
+                    escalator,
+                    normal,
+                    gate,
+                    gate.R,
+                    normal.R,
+                    escalator.R,
+                    elev2,
+                    elev2,
+                    sunken_ground,
+                ],
+                [default] * 12,
+            ],
+            "Test 3",
+            altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
     ],
 )
