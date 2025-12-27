@@ -42,7 +42,7 @@ entries = []
 named_tiles = AttrDict()
 for name, symmetry, traversable in [
     ("escalator", BuildingFull, False),
-    ("front_normal", BuildingSymmetricalX, False),
+    ("front_normal", BuildingFull, False),
     ("front_gate", BuildingFull, False),
 ]:
     quickload(name, symmetry, traversable)
