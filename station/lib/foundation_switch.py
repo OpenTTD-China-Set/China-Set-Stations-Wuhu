@@ -12,7 +12,7 @@ class FoundationSwitch:
 
     def make_sprite(self, slope_type, render_context):
         return self.foundations[
-            render_context.nw_pit + 3 * render_context.ne_pit + 9 * render_context.n_pit
+            render_context.nw_wall + 3 * render_context.ne_wall + 9 * render_context.n_wall
         ].make_sprite(slope_type, render_context)
 
     def add_to_layout(self, l):
