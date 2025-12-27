@@ -1,5 +1,5 @@
 import grf
-from station.lib import AStation, AMetaStation
+from station.lib import AStation, AMetaStation, AParentSprite
 from station.lib.parameters import parameter_list
 from .ground import named_ps as ground_ps
 from station.stations.platform_lib import (
@@ -56,16 +56,19 @@ for i, entry in enumerate(entries):
             sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=0)
             make_foundation = False
             foundation_object = entry.foundation
+            doc_layout = entry + AParentSprite(entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0))
         else:
             layouts = [entry, entry.M, entry.purchase, entry.purchase.M]
             sprite_layout = grf.DualCallback(default=entry, purchase=2)
             make_foundation = entry.foundation is not None
             foundation_object = None
+            doc_layout = entry
     else:
         layouts = [entry, entry.M]
         sprite_layout = grf.DualCallback(default=entry, purchase=0)
         make_foundation = entry.foundation is not None
         foundation_object = None
+        doc_layout = entry
 
     station_tiles.append(
         AStation(
@@ -81,7 +84,7 @@ for i, entry in enumerate(entries):
             make_foundation=make_foundation,
             foundation_object=foundation_object,
             enable_if=enable_if,
-            doc_layout=entry,
+            doc_layout=doc_layout,
             general_flags=0b10000 if "extended" in entry.notes else 0,
         )
     )

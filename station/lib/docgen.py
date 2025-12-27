@@ -91,11 +91,15 @@ changelog""",
                             cat_name = cat_name[3:]
                         print(f"----------------\n{cat_name}\n----------------", file=f)
                     for layout in sorted(subsections[sub], key=lambda x: x.id):
-                        img = (
-                            layout.doc_layout.graphics(4, 32, remap=get_1cc_remap(CompanyColour.BLUE))
-                            .crop()
-                            .to_pil_image()
-                        )
+                        try:
+                            img = (
+                                layout.doc_layout.graphics(4, 32, remap=get_1cc_remap(CompanyColour.BLUE))
+                                .crop()
+                                .to_pil_image()
+                            )
+                        except Exception:
+                            print(f"Failed to produce demo image for Layout #{layout.id:04X}")
+                            raise
                         idstr = f"{layout.id:04X}"
                         idpath = idstr
                         if kind in ["waypoints", "stations"] and layout.id in station_idmap:
