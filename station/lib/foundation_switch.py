@@ -8,6 +8,7 @@ from station.lib.registers import Registers
 @dataclass
 class FoundationSwitch:
     foundations: List
+    my_elevation: int
 
     def make_sprite(self, slope_type, render_context):
         return self.foundations[
@@ -42,15 +43,27 @@ class FoundationSwitch:
             return f"(var(0x6b, param={offset}, shift=0, and=0xf000) == 0x3000)"
 
         def is_sunken_ground(offset):
-            return f"(var(0x6b, param={offset}, shift=0, and=0xfffe) == 0x7ffc)"
+            return f"(var(0x6b, param={offset}, shift=0, and=0xffff) == 0x7ffc)"
 
-        def is_pit(offset):
-            return f"(({is_supported_1(offset)} + {is_supported_2(offset)} + {is_elevated(offset)} + {is_wuhu_north(offset)} + {is_sunken_ground(offset)}) >= 1)"
+        def is_sunken_ground_2(offset):
+            return f"(var(0x6b, param={offset}, shift=0, and=0xffff) == 0x7ffd)"
+
+        def elevation(offset):
+            tile_elevation = "+".join(
+                f"({pred(offset)} * ({coeff}))"
+                for pred, coeff in [
+                    (is_supported_1, -1),
+                    (is_supported_2, -2),
+                    (is_elevated, -1),
+                    (is_wuhu_north, -1),
+                    (is_sunken_ground, -1),
+                    (is_sunken_ground_2, -2),
+                ]
+            )
+            return f"max(({is_same_newgrf(offset)} * ({tile_elevation})) - ({self.my_elevation}), 0)"
 
         return make_switch(
             ranges={i: self.foundations[i] for i in range(26)},
             default=self.foundations[26],
-            code=f"2 * (1 - ({is_same_newgrf(0xf0)} * {is_pit(0xf0)}))"
-            + f"+ 6 * (1 - ({is_same_newgrf(0x0f)} * {is_pit(0x0f)}))"
-            + f"+ 18 * (1 - ({is_same_newgrf(0xff)} * {is_pit(0xff)}))",
+            code=f"1 * {elevation(0xf0)} + 3 * {elevation(0x0f)} + 9 * {elevation(0xff)}",
         )

@@ -175,7 +175,7 @@ l = ALayout(
 l2 = ALayout(empty_base_underground_gs, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
 l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
 l.purchase = l2
-l.id = 0x7FFD
+l.id = 0x7FFC
 entries.append(l)
 sunken_ground = l
 
@@ -185,6 +185,6 @@ l = ALayout(
 l2 = ALayout(empty_base_underground_gs_2, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
 l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
 l.purchase = l2
-l.id = 0x7FFC
+l.id = 0x7FFD
 entries.append(l)
 sunken_ground_2 = l
