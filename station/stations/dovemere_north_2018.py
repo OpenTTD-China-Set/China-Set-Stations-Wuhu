@@ -41,8 +41,8 @@ def quickload(name, symmetry, traversable):
 entries = []
 named_tiles = AttrDict()
 for name, symmetry, traversable in [
-    ("escalator", BuildingFull, False),
-    ("front_normal", BuildingFull, False),
+    ("escalator_1", BuildingFull, False),
+    ("escalator_2", BuildingFull, False),
     ("front_gate", BuildingFull, False),
 ]:
     quickload(name, symmetry, traversable)
@@ -75,8 +75,8 @@ plat = platform_tiles.cns_concrete_supported2_shelter_2
 elev1 = platform_tiles.cns_concrete_elevated_shelter_2.T
 elev2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
 gate = named_tiles.front_gate
-normal = named_tiles.front_normal
-escalator = named_tiles.escalator
+normal = named_tiles.escalator_2
+escalator = named_tiles.escalator_1
 
 the_stations = AMetaStation(
     station_tiles,
