@@ -72,8 +72,10 @@ for i, entry in enumerate(entries):
 
 
 plat = platform_tiles.cns_concrete_supported2_shelter_2
+platx = platform_tiles.cns_concrete_supported2
 elev1 = platform_tiles.cns_concrete_elevated_shelter_2.T
 elev2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
+elev2x = platform_tiles.cns_concrete_elevated2.T
 gate = named_tiles.front_gate
 normal = named_tiles.escalator_2
 escalator = named_tiles.escalator_1
@@ -108,6 +110,46 @@ the_stations = AMetaStation(
                 [default] * 12,
             ],
             "Test",
+            altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
+        ),
+        Demo(
+            [
+                [default] * 12,
+                [
+                    default,
+                    elev2x.T,
+                    elev2x.T,
+                    escalator.T,
+                    normal.T,
+                    gate.T,
+                    gate.T.R,
+                    normal.T.R,
+                    escalator.T.R,
+                    elev2x.T,
+                    elev2x.T,
+                    default,
+                ],
+                [track] + [platx.T] * 10 + [track],
+                [track] * 12,
+                [track] * 12,
+                [track] + [platx] * 10 + [track],
+                [
+                    default,
+                    elev2x,
+                    elev2x,
+                    escalator,
+                    normal,
+                    gate,
+                    gate.R,
+                    normal.R,
+                    escalator.R,
+                    elev2x,
+                    elev2x,
+                    default,
+                ],
+                [default] * 12,
+            ],
+            "Wuhubei (without shelters)",
             altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
         Demo(
