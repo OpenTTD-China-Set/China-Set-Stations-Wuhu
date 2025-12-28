@@ -16,6 +16,9 @@ from station.stations.misc import track, default
 from station.stations.platform_lib.ground import pillar_base_merged, pillar
 from station.stations.platform_lib.data import sunken_ground
 
+entries = []
+named_tiles = AttrDict(schema=("part", "platform", "shelter"))
+
 
 def quickload(name, symmetry, traversable):
     v = LazyVoxel(
@@ -29,17 +32,20 @@ def quickload(name, symmetry, traversable):
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
     parent = AParentSprite(sprite, (16, 16 - platform_width, 32), (0, platform_width, 0))
-    plat = platform_ps.cns_concrete_solid_shelter_2.up(8)
 
-    l = ALayout(None, [plat.T, pillar.T, parent], traversable, notes=["pit"])
-    l.foundation = pillar_base_merged.T
-    ret = symmetry.create_variants(symmetry.get_all_variants(l))
-    entries.extend(symmetry.get_all_entries(ret))
-    named_tiles[name] = ret
+    for platform_type in ["concrete", "brick"]:
+        for shelter_type in ["", "shelter_1", "shelter_2"]:
+            plat = platform_ps[
+                ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
+            ].up(8)
+
+            l = ALayout(None, [plat.T, pillar.T, parent], traversable, notes=["pit"])
+            l.foundation = pillar_base_merged.T
+            ret = symmetry.create_variants(symmetry.get_all_variants(l))
+            entries.extend(symmetry.get_all_entries(ret))
+            named_tiles[(name, platform_type, shelter_type)] = ret
 
 
-entries = []
-named_tiles = AttrDict()
 for name, symmetry, traversable in [
     ("escalator_1", BuildingFull, False),
     ("escalator_2", BuildingFull, False),
@@ -71,14 +77,18 @@ for i, entry in enumerate(entries):
     )
 
 
+named_tiles.populate()
 plat = platform_tiles.cns_concrete_supported2_shelter_2
 platx = platform_tiles.cns_concrete_supported2
 elev1 = platform_tiles.cns_concrete_elevated_shelter_2.T
 elev2 = platform_tiles.cns_concrete_elevated2_shelter_2.T
 elev2x = platform_tiles.cns_concrete_elevated2.T
-gate = named_tiles.front_gate
-normal = named_tiles.escalator_2
-escalator = named_tiles.escalator_1
+gate = named_tiles.front_gate_concrete_shelter_2
+normal = named_tiles.escalator_2_concrete_shelter_2
+escalator = named_tiles.escalator_1_concrete_shelter_2
+gatex = named_tiles.front_gate_concrete
+normalx = named_tiles.escalator_2_concrete
+escalatorx = named_tiles.escalator_1_concrete
 
 the_stations = AMetaStation(
     station_tiles,
@@ -119,12 +129,12 @@ the_stations = AMetaStation(
                     default,
                     elev2x.T,
                     elev2x.T,
-                    escalator.T,
-                    normal.T,
-                    gate.T,
-                    gate.T.R,
-                    normal.T.R,
-                    escalator.T.R,
+                    escalatorx.T,
+                    normalx.T,
+                    gatex.T,
+                    gatex.T.R,
+                    normalx.T.R,
+                    escalatorx.T.R,
                     elev2x.T,
                     elev2x.T,
                     default,
@@ -137,12 +147,12 @@ the_stations = AMetaStation(
                     default,
                     elev2x,
                     elev2x,
-                    escalator,
-                    normal,
-                    gate,
-                    gate.R,
-                    normal.R,
-                    escalator.R,
+                    escalatorx,
+                    normalx,
+                    gatex,
+                    gatex.R,
+                    normalx.R,
+                    escalatorx.R,
                     elev2x,
                     elev2x,
                     default,
@@ -159,12 +169,12 @@ the_stations = AMetaStation(
                     default,
                     elev1.T,
                     elev2.T,
-                    escalator.T,
-                    normal.T,
-                    gate.T,
-                    gate.T.R,
-                    normal.T.R,
-                    escalator.T.R,
+                    escalatorx.T,
+                    normalx.T,
+                    gatex.T,
+                    gatex.T.R,
+                    normalx.T.R,
+                    escalatorx.T.R,
                     elev2.T,
                     elev1.T,
                     default,

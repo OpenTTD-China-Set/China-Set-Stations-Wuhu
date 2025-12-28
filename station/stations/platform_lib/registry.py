@@ -102,7 +102,7 @@ def register(pf: PlatformFamily):
             elif shelter_class == "pillar":
                 locations = ["", "building", "central"]
             else:
-                locations = ["", "building", "building_narrow", "building_v", "building_v_narrow"]
+                locations = ["", "building", "building_narrow", "building_v", "building_v_narrow", "combining"]
 
             for lid, location in enumerate(locations):
                 for rid, rail_facing in enumerate(rail_facings):
