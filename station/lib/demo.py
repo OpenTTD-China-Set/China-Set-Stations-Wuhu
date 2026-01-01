@@ -77,22 +77,23 @@ class Demo(ProtoDemo):
                 if r - 1 >= 0 and is_pit(self.tiles[r - 1][c]):
                     nw_wall = 0
                 else:
-                    nw_wall = 1
+                    nw_wall = 2
                 if c + 1 < len(row) and is_pit(self.tiles[r][c + 1]):
                     ne_wall = 0
                 else:
-                    ne_wall = 1
+                    ne_wall = 2
                 if r - 1 >= 0 and c + 1 < len(row) and is_pit(self.tiles[r - 1][c + 1]):
                     n_wall = 0
                 else:
-                    n_wall = 1
+                    n_wall = 2
                 ret_row.append(
                     RenderContext(
                         **vars(proto_ret[r][c]),
                         north_bufferstop=nb,
                         south_bufferstop=sb,
                         nw_wall=nw_wall,
-                        ne_wall=ne_wall
+                        ne_wall=ne_wall,
+                        n_wall=n_wall,
                     )
                 )
             ret.append(ret_row)
