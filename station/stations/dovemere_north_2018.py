@@ -33,13 +33,22 @@ def quickload(name, symmetry, traversable):
 
     parent = AParentSprite(sprite, (16, 16 - platform_width, 32), (0, platform_width, 0))
 
-    for platform_type in ["concrete", "brick"]:
+    for platform_type in ["", "concrete", "brick"]:
         for shelter_type in ["", "shelter_1", "shelter_2"]:
-            plat = platform_ps[
-                ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
-            ].up(8)
+            if "name" == "escalator" and platform_type == "":
+                continue
+            if platform_type == "" and shelter_type != "":
+                continue
 
-            l = ALayout(None, [plat.T, pillar.T, parent], traversable, notes=["pit"])
+            components = [parent]
+            if platform_type != "":
+                plat = platform_ps[
+                    ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
+                ].up(8)
+                components.append(pillar.T)
+                components.append(plat.T)
+
+            l = ALayout(None, components, traversable, notes=["pit"])
             l.foundation = pillar_base_merged.T
             ret = symmetry.create_variants(symmetry.get_all_variants(l))
             entries.extend(symmetry.get_all_entries(ret))
@@ -89,6 +98,8 @@ escalator = named_tiles.escalator_1_concrete_shelter_2
 gatex = named_tiles.front_gate_concrete
 normalx = named_tiles.escalator_2_concrete
 escalatorx = named_tiles.escalator_1_concrete
+gatey = named_tiles.front_gate
+normaly = named_tiles.escalator_2
 
 the_stations = AMetaStation(
     station_tiles,
@@ -161,6 +172,44 @@ the_stations = AMetaStation(
             ],
             "Wuhubei (without shelters)",
             altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
+        ),
+        Demo(
+            [
+                [default] * 12,
+                [
+                    default,
+                    elev2x.T,
+                    elev2x.T,
+                    escalatorx.T,
+                    normaly.T,
+                    gatey.T,
+                    gatey.T.R,
+                    normaly.T.R,
+                    escalatorx.T.R,
+                    elev2x.T,
+                    elev2x.T,
+                    default,
+                ],
+                [track] + [platx.T] * 3 + [track] * 4 + [platx.T] * 3 + [track],
+                [track] + [platx] * 3 + [track] * 4 + [platx] * 3 + [track],
+                [
+                    default,
+                    elev2x,
+                    elev2x,
+                    escalatorx,
+                    normaly,
+                    gatey,
+                    gatey.R,
+                    normaly.R,
+                    escalatorx.R,
+                    elev2x,
+                    elev2x,
+                    default,
+                ],
+                [default] * 12,
+            ],
+            "Wuhubei (minimal platform)",
+            altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 1 + [[1] * 13] + [[0] * 13] * 2,
         ),
         Demo(
             [

@@ -28,9 +28,9 @@ track = make_slope_variants(
         2: ALayout(sloped_track_ground.R, [], True).add_default_foundation(65),
         3: ALayout(sloped_track_ground.R, [], True),
         4: ALayout(sloped_track_ground, [], True),  # FIXME
-        6: ALayout(track_ground, [], True).add_default_foundation(60),
+        6: ALayout(track_ground, [], True).add_default_foundation(60).raise_tile(),
         8: ALayout(sloped_track_ground, [], True).add_default_foundation(72),
-        9: ALayout(track_ground, [], True).add_default_foundation(51),
+        9: ALayout(track_ground, [], True).add_default_foundation(51).raise_tile(),
         12: ALayout(sloped_track_ground, [], True),
     }
 )[0]
