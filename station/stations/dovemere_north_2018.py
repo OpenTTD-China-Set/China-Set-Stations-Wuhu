@@ -13,7 +13,13 @@ from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
 from .platforms import platform_ps, platform_width, platform_tiles
 from station.stations.misc import track, default
-from station.stations.platform_lib.ground import pillar_base_merged, pillar
+from station.stations.platform_lib.ground import (
+    pillar_base_merged,
+    pillar,
+    pillar_base_underground_gs,
+    empty_base_merged,
+    empty_base_underground_gs,
+)
 from station.stations.platform_lib.data import sunken_ground
 
 entries = []
@@ -35,12 +41,14 @@ def quickload(name, symmetry, traversable):
 
     for platform_type in ["", "concrete", "brick"]:
         for shelter_type in ["", "shelter_1", "shelter_2"]:
-            if "name" == "escalator" and platform_type == "":
+            if name == "escalator_1" and platform_type == "":
                 continue
             if platform_type == "" and shelter_type != "":
                 continue
 
             components = [parent]
+            foundation = pillar_base_merged.T
+            foundation_gs = pillar_base_underground_gs.T
             if platform_type != "":
                 plat = platform_ps[
                     ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
@@ -48,9 +56,21 @@ def quickload(name, symmetry, traversable):
                 components.append(pillar.T)
                 components.append(plat.T)
 
+                foundation = empty_base_merged
+                foundation_gs = empty_base_underground_gs
+
             l = ALayout(None, components, traversable, notes=["pit"])
-            l.foundation = pillar_base_merged.T
+            l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
+            l.foundation = foundation
             ret = symmetry.create_variants(symmetry.get_all_variants(l))
+            ret.purchase = l2
+            ret.T.purchase = l2.T
+            ret.M.purchase = l2.M
+            ret.T.M.purchase = l2.T.M
+            ret.R.purchase = l2.R
+            ret.T.R.purchase = l2.T.R
+            ret.R.M.purchase = l2.R.M
+            ret.T.R.M.purchase = l2.T.R.M
             entries.extend(symmetry.get_all_entries(ret))
             named_tiles[(name, platform_type, shelter_type)] = ret
 
@@ -64,24 +84,31 @@ for name, symmetry, traversable in [
 
 station_tiles = []
 for i, entry in enumerate(entries):
+    new_entry = entry.foundation.add_to_layout(entry)
+    new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
+
+    layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
+    for x, y in zip(new_entry._ranges, new_entry_M._ranges):
+        layouts.append(x.ref)
+        layouts.append(y.ref)
+    sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=0)
+    foundation_object = entry.foundation
+    doc_layout = entry + AParentSprite(entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0))
     station_tiles.append(
         AStation(
             id=0x3000 + i,
             translation_name="BUILDING",
-            layouts=[entry, entry.M],
+            layouts=layouts,
             class_label=b"\xe9\xb8\xa0A",
             cargo_threshold=40,
             non_traversable_tiles=0b11,
-            callbacks={
-                "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=entry, purchase=0),
-                **station_cb["E9B8A0A"],
-            },
+            callbacks={"select_tile_layout": 0, "select_sprite_layout": sprite_layout, **station_cb["E9B8A0A"]},
             general_flags=0b10000,
-            make_foundation=True,
+            make_foundation=False,
+            foundation_object=foundation_object,
             extra_code=station_code["E9B8A0A"],
             enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
-            doc_layout=entry,
+            doc_layout=doc_layout,
         )
     )
 
