@@ -19,9 +19,7 @@ from station.stations.platform_lib.ground import (
     pillar_base_underground_gs,
     empty_base_merged,
     empty_base_underground_gs,
-    ground_image_list,
-    FoundationSwitch,
-    Foundation,
+    merge_ground,
 )
 from station.stations.platform_lib.data import sunken_ground
 
@@ -44,12 +42,7 @@ def quickload(name, symmetry, traversable):
     vgsprite = symmetry.create_variants(vg.spritesheet())
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
-    vg_merged = vgsprite.symmetry_fmap(
-        lambda y: FoundationSwitch(
-            foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list], my_elevation=-1
-        )
-    )
-
+    vg_merged = merge_ground(vgsprite)
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
     for platform_type in ["", "concrete", "brick"]:
