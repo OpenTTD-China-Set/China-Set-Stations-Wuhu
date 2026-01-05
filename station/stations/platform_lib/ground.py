@@ -49,7 +49,7 @@ ground_image_list = [
 ]
 
 
-def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
+def make_sprite(name, symmetry, joggle, width=16):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/cns",
@@ -59,9 +59,6 @@ def make_sprite(name, symmetry, joggle, width=16, childsprite=None):
     )
 
     v.config["joggle"] = joggle
-    if childsprite is not None:
-        v.config["agrf_relative_childsprite"] = childsprite
-
     v.render()
 
     sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))
