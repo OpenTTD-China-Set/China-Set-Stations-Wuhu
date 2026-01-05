@@ -36,6 +36,7 @@ def quickload(name, symmetry, traversable):
         subset=symmetry.render_indices(),
         config={"z_scale": 1.0},
     )
+    v = v.mask_clip_away("station/voxels/foundation/masks/ground_level.vox", "above_ground")
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
