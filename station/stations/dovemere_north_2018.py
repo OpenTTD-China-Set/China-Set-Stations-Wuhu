@@ -24,6 +24,7 @@ from station.stations.platform_lib.data import sunken_ground
 
 entries = []
 named_tiles = AttrDict(schema=("part", "platform", "shelter"))
+height = 25
 
 
 def quickload(name, symmetry, traversable):
@@ -37,7 +38,7 @@ def quickload(name, symmetry, traversable):
     )
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
-    parent = AParentSprite(sprite, (16, 16 - platform_width, 32), (0, platform_width, 0))
+    parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
     for platform_type in ["", "concrete", "brick"]:
         for shelter_type in ["", "shelter_1", "shelter_2"]:
@@ -47,17 +48,16 @@ def quickload(name, symmetry, traversable):
                 continue
 
             components = [parent]
-            foundation = pillar_base_merged.T
-            foundation_gs = pillar_base_underground_gs.T
+            foundation = empty_base_merged
+            foundation_gs = empty_base_underground_gs
             if platform_type != "":
                 plat = platform_ps[
                     ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
                 ].up(8)
                 components.append(pillar.T)
                 components.append(plat.T)
-
-                foundation = empty_base_merged
-                foundation_gs = empty_base_underground_gs
+                foundation = pillar_base_merged.T
+                foundation_gs = pillar_base_underground_gs.T
 
             l = ALayout(None, components, traversable, notes=["pit"])
             l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
