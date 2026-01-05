@@ -19,6 +19,9 @@ from station.stations.platform_lib.ground import (
     pillar_base_underground_gs,
     empty_base_merged,
     empty_base_underground_gs,
+    ground_image_list,
+    FoundationSwitch,
+    Foundation,
 )
 from station.stations.platform_lib.data import sunken_ground
 
@@ -36,8 +39,16 @@ def quickload(name, symmetry, traversable):
         subset=symmetry.render_indices(),
         config={"z_scale": 1.0},
     )
+    vg = v.mask_clip_away("station/voxels/foundation/masks/above_ground.vox", "under_ground")
     v = v.mask_clip_away("station/voxels/foundation/masks/ground_level.vox", "above_ground")
+    vgsprite = symmetry.create_variants(vg.spritesheet())
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
+
+    vg_merged = vgsprite.symmetry_fmap(
+        lambda y: FoundationSwitch(
+            foundations=[Foundation(y, x, False, extended=True) for x in ground_image_list], my_elevation=-1
+        )
+    )
 
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
@@ -59,6 +70,7 @@ def quickload(name, symmetry, traversable):
                 components.append(plat.T)
                 foundation = pillar_base_merged.T
                 foundation_gs = pillar_base_underground_gs.T
+            foundation = vg_merged
 
             l = ALayout(None, components, traversable, notes=["pit"])
             l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
