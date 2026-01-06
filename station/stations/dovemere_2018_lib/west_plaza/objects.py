@@ -61,13 +61,17 @@ def make_platforms():
     named_layouts[("west_plaza", "center", "overpass_low_lawn")] = layout
     register([[layout]], BuildingSymmetricalX, b"P", starting_id=0x0E83)
 
-    ps = [road_stop_overpass_low, road_stop_stair_extender_low.move(0, -2), road_stop_stair_extender_low.move(0, -2).R]
+    ps = [
+        road_stop_overpass_low_combining,
+        road_stop_stair_extender_low.move(0, -2),
+        road_stop_stair_extender_low.move(0, -2).R,
+    ]
     layout = ALayout(center, ps, True, category=b"\xe8\x8a\x9cZ")
     named_layouts[("west_plaza", "center", "staircase_low")] = layout
     register([[layout]], BuildingSymmetricalX, b"S", starting_id=0x0EC0)
 
     ps = [
-        road_stop_overpass_low,
+        road_stop_overpass_low_combining,
         road_stop_stair_extender_onesided_low.move(0, -2),
         road_stop_stair_extender_low.move(0, -2).R,
     ]
@@ -76,7 +80,7 @@ def make_platforms():
     register([[layout]], BuildingFull, b"S", starting_id=0x0EC1)
 
     ps = [
-        road_stop_overpass_low,
+        road_stop_overpass_low_combining,
         road_stop_stair_extender_onesided_low.move(0, -2),
         road_stop_stair_extender_onesided_low.move(0, -2).R,
     ]

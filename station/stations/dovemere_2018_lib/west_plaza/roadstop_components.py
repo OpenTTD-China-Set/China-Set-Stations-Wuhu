@@ -114,6 +114,9 @@ def make_components():
     )
     make_component("road_stop", "overpass_low", BuildingSymmetricalX, (16, 4, PLATFORM_HEIGHT), (0, 0, 0), joggle=0)
     make_component(
+        "road_stop", "overpass_low_combining", BuildingSymmetricalX, (16, 4, PLATFORM_HEIGHT), (0, 0, 0), joggle=0
+    )
+    make_component(
         "road_stop",
         "platform_solid",
         BuildingSymmetricalX,
