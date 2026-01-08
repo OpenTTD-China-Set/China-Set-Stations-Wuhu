@@ -18,7 +18,8 @@ station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns],
 roadstops = [[stair_end, overpass, stair_narrow, stair_extender_narrow, stair_narrow.R, overpass, stair_end.R]]
 
 # Objects
-west_square = [[center] * 7] * 4
+west_square = [[center] * 7 for i in range(4)]
+west_square[2][3] = topiary_2023b
 
 
 west_plaza_toyland = Demo(
