@@ -68,7 +68,21 @@ def make_sprite(name, symmetry, joggle, width=16):
 def merge_ground(object_sprite, elevation=-1):
     return object_sprite.symmetry_fmap(
         lambda y: FoundationSwitch(
-            foundations=[Foundation(y, x, False, -8 - 8 * elevation, extended=True) for x in ground_image_list],
+            foundations=[
+                Foundation(
+                    y,
+                    x,
+                    False,
+                    -8 - 8 * elevation,
+                    extended=True,
+                    ne_clip=(i // 3 % 3 == 0),
+                    sw_shareground=sw,
+                    se_shareground=se,
+                )
+                for se in [False, True]
+                for sw in [False, True]
+                for i, x in enumerate(ground_image_list)
+            ],
             my_elevation=elevation,
         )
     )
