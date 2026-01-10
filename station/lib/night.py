@@ -50,6 +50,7 @@ class SquashableAlternativeSprites(grf.AlternativeSprites):
 
 
 NIGHT_CACHE = {}
+NIGHT_CACHE_HOLDER = []
 
 
 def make_child_night_masks(parent, automatic_offset_mode, darkness):
@@ -88,6 +89,7 @@ def make_child_night_masks(parent, automatic_offset_mode, darkness):
         night = f(graphics.sprite)
 
     NIGHT_CACHE[id(parent)] = [AChildSprite(night, (0, 0), flags=flags)]
+    NIGHT_CACHE_HOLDER.append(parent)
     return NIGHT_CACHE[id(parent)]
 
 
