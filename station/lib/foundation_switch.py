@@ -78,7 +78,7 @@ class FoundationSwitch:
             return f"(({is_same_newgrf(offset)} * ({tile_elevation_delta} + {tile_elevation(offset)} - {tile_elevation(0x0)})) - ({self.my_elevation}))"
 
         def relative_elevation(offset):
-            return f"min(max({relative_elevation_unbounded(offset)}, 0), 2)"
+            return f"min(max({relative_elevation_unbounded(offset)}, 0), -({self.my_elevation}))"
 
         def share_ground(offset):
             return f"({relative_elevation_unbounded(offset)} == 0)"
@@ -86,9 +86,13 @@ class FoundationSwitch:
         if ground:
             coeff1 = "1"
             coeff2 = "3"
+            coeff3 = "27"
+            coeff4 = "54"
         else:
             coeff1 = "(1 + extra_callback_info2 % 2 * 2)"
             coeff2 = "(3 - extra_callback_info2 % 2 * 2)"
+            coeff3 = "(27 + extra_callback_info2 % 2 * 27)"
+            coeff4 = "(54 - extra_callback_info2 % 2 * 27)"
 
         def permute(i, m):
             if not m:
@@ -96,8 +100,14 @@ class FoundationSwitch:
             a, b, c, d, e = i % 3, i // 3 % 3, i // 9 % 3, i // 27 % 2, i // 54
             return a * 3 + b + c * 9 + d * 54 + e * 27
 
+        def keep_foundation(i):
+            a, b, c, d, e = i % 3, i // 3 % 3, i // 9 % 3, i // 27 % 2, i // 54
+            if max(a, b, c) == 2 and self.my_elevation == -1:
+                return False
+            return True
+
         return make_switch(
-            ranges={i: self.foundations[permute(i, m)] for i in range(1, 108)},
+            ranges={i: self.foundations[permute(i, m)] for i in range(1, 108) if keep_foundation(i)},
             default=self.foundations[0],
-            code=f"{coeff1} * {relative_elevation(0xf0)} + {coeff2} * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)} + 27 * {share_ground(0x01)} + 54 * {share_ground(0x10)}",
+            code=f"{coeff1} * {relative_elevation(0xf0)} + {coeff2} * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)} + {coeff3} * {share_ground(0x01)} + {coeff4} * {share_ground(0x10)}",
         )
