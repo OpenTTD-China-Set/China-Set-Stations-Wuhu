@@ -78,7 +78,7 @@ class FoundationSwitch:
             return f"(({is_same_newgrf(offset)} * ({tile_elevation_delta} + {tile_elevation(offset)} - {tile_elevation(0x0)})) - ({self.my_elevation}))"
 
         def relative_elevation(offset):
-            return f"min(max({relative_elevation_unbounded(offset)}, 0), -({self.my_elevation}))"
+            return f"min(max({relative_elevation_unbounded(offset)}, 0), {-self.my_elevation})"
 
         def share_ground(offset):
             return f"({relative_elevation_unbounded(offset)} == 0)"
@@ -101,7 +101,7 @@ class FoundationSwitch:
             return a * 3 + b + c * 9 + d * 54 + e * 27
 
         def keep_foundation(i):
-            a, b, c, d, e = i % 3, i // 3 % 3, i // 9 % 3, i // 27 % 2, i // 54
+            a, b, c = i % 3, i // 3 % 3, i // 9 % 3
             if max(a, b, c) == 2 and self.my_elevation == -1:
                 return False
             return True
