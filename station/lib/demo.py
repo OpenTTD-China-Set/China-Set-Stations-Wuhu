@@ -13,6 +13,7 @@ class RenderContext(ProtoRenderContext):
     n_wall: int = 0
     sw_shareground: int = 0
     se_shareground: int = 0
+    s_shareground: int = 0
 
     def dodraw(self, register):
         if register is Registers.RAIL_CONTINUATION_N:
@@ -99,6 +100,10 @@ class Demo(ProtoDemo):
                     se_shareground = 1
                 else:
                     se_shareground = 0
+                if c - 1 >= 0 and r + 1 < R and is_pit(self.tiles[r + 1][c - 1]):
+                    s_shareground = 1
+                else:
+                    s_shareground = 0
                 ret_row.append(
                     RenderContext(
                         **vars(proto_ret[r][c]),
@@ -109,6 +114,7 @@ class Demo(ProtoDemo):
                         n_wall=n_wall,
                         sw_shareground=sw_shareground,
                         se_shareground=se_shareground,
+                        s_shareground=s_shareground,
                     )
                 )
             ret.append(ret_row)
