@@ -77,7 +77,7 @@ class FoundationSwitch:
             return f"min(max({relative_elevation_unbounded(offset)}, 0), {-self.my_elevation})"
 
         def share_ground(offset):
-            return f"({relative_elevation_unbounded(offset)} == 0)"
+            return f"({relative_elevation_unbounded(offset)} <= 0)"
 
         if ground:
             coeff1 = "1"
