@@ -10,9 +10,9 @@ class FoundationSwitch:
     foundations: List
     my_elevation: int
 
-    def __post_init__(self):
-        for i in range(len(self.foundations)):
-            self.foundations[i] = replace(self.foundations[i], debug_number=i)
+    # def __post_init__(self):
+    #     for i in range(len(self.foundations)):
+    #         self.foundations[i] = replace(self.foundations[i], debug_number=i)
 
     def make_sprite(self, slope_type, render_context):
         return self.foundations[
