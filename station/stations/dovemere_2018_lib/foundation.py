@@ -14,6 +14,7 @@ def register(name, sym):
         config={"z_scale": 1.0},
     )
     v.in_place_subset(sym.render_indices())
+    v.config["agrf_bpps"] = [8]
     v.render()
     named_foundations[name] = Foundation(sym.create_variants(v.spritesheet()), None, True)
 
