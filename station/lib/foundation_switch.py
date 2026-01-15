@@ -12,7 +12,7 @@ class FoundationSwitch:
 
     # def __post_init__(self):
     #     for i in range(len(self.foundations)):
-    #         self.foundations[i] = replace(self.foundations[i], debug_number=i)
+    #        self.foundations[i] = replace(self.foundations[i], debug_number=i)
 
     def make_sprite(self, slope_type, render_context):
         return self.foundations[
@@ -21,7 +21,6 @@ class FoundationSwitch:
             + 9 * render_context.n_wall
             + 27 * render_context.sw_shareground
             + 54 * render_context.se_shareground
-            + 108 * render_context.s_shareground
         ].make_sprite(slope_type, render_context)
 
     def add_to_layout(self, l, m=False):
@@ -93,8 +92,8 @@ class FoundationSwitch:
         def permute(i, m):
             if not m:
                 return i
-            a, b, c, d, e, f = i % 3, i // 3 % 3, i // 9 % 3, i // 27 % 2, i // 54 % 2, i // 108
-            return a * 3 + b + c * 9 + d * 54 + e * 27 + f * 108
+            a, b, c, d, e = i % 3, i // 3 % 3, i // 9 % 3, i // 27 % 2, i // 54 % 2
+            return a * 3 + b + c * 9 + d * 54 + e * 27
 
         def keep_foundation(i):
             a, b, c = i % 3, i // 3 % 3, i // 9 % 3
@@ -103,8 +102,8 @@ class FoundationSwitch:
             return True
 
         return make_switch(
-            ranges={i: self.foundations[permute(i, m)] for i in range(1, 216) if keep_foundation(i)},
+            ranges={i: self.foundations[permute(i, m)] for i in range(1, 108) if keep_foundation(i)},
             default=self.foundations[0],
             code=f"{coeff1} * {relative_elevation(0xf0)} + {coeff2} * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)}"
-            + f"+ {coeff3} * {share_ground(0x01)} + {coeff4} * {share_ground(0x10)} + 108 * {share_ground(0x11)}",
+            + f"+ {coeff3} * {share_ground(0x01)} + {coeff4} * {share_ground(0x10)}",
         )
