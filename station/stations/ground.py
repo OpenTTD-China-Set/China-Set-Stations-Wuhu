@@ -11,6 +11,7 @@ def quickload(name, symmetry):
         load_from="station/files/gorender.json",
         subset=symmetry.render_indices(),
     )
+    v.config["z_scale"] = 1.0
 
     v.render()
     sprite = symmetry.create_variants(v.spritesheet())
