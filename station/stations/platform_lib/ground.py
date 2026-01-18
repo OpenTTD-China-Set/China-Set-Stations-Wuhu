@@ -77,11 +77,11 @@ def merge_ground(object_sprite, elevation=-1):
                     extended=True,
                     nw_clip=(i % 3 < -elevation),
                     ne_clip=(i // 3 % 3 < -elevation),
-                    sw_shareground=sw,
-                    se_shareground=se,
+                    sw_shareground=sw > 0,
+                    se_shareground=se > 0,
                 )
-                for se in [False, True]
-                for sw in [False, True]
+                for se in [0, 1, 2]
+                for sw in [0, 1, 2]
                 for i, x in enumerate(ground_image_list)
             ],
             my_elevation=elevation,
