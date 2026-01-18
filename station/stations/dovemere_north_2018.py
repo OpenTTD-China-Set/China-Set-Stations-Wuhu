@@ -8,6 +8,7 @@ from station.lib import (
     AParentSprite,
     ALayout,
     AttrDict,
+    AGroundSprite,
 )
 from station.lib.parameters import parameter_list, station_cb, station_code
 from agrf.graphics.voxel import LazyVoxel
@@ -43,6 +44,7 @@ def quickload(name, symmetry, traversable):
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
     vg_merged = merge_ground(vgsprite)
+    vg_gs = AGroundSprite(vg_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
     for platform_type in ["", "concrete", "brick"]:
@@ -64,6 +66,7 @@ def quickload(name, symmetry, traversable):
                 foundation = pillar_base_merged.T
                 foundation_gs = pillar_base_underground_gs.T
             foundation = vg_merged
+            foundation_gs = vg_gs
 
             l = ALayout(None, components, traversable, notes=["pit"])
             l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
