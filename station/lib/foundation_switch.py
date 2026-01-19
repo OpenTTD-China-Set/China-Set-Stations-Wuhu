@@ -56,8 +56,11 @@ class FoundationSwitch:
         def is_sunken_ground_2(offset):
             return f"(var(0x6b, param={offset}, shift=0, and=0xffff) == 0x7ffd)"
 
+        def tile_slope(offset, mask=0xFF):
+            return f"var(0x67, param={offset}, shift=0, and={mask})"
+
         def tile_elevation(offset):
-            return f"(var(0x67, param={offset}, shift=16, and=0xff) + (var(0x67, param={offset}, shift=0, and=0xff) + 15) / 16)"
+            return f"(var(0x67, param={offset}, shift=16, and=0xff) + ({tile_slope(offset)} + 15) / 16)"
 
         ELEVLIST = [
             (is_supported_1, -1),
@@ -105,5 +108,6 @@ class FoundationSwitch:
             ranges={i: self.foundations[permute(i, m)] for i in range(1, 243) if keep_foundation(i)},
             default=self.foundations[0],
             code=f"{coeff1} * {relative_elevation(0xf0)} + {coeff2} * {relative_elevation(0x0f)} + 9 * {relative_elevation(0xff)}"
-            + f"+ {coeff3} * {share_ground(0x01)} + {coeff4} * {share_ground(0x10)}",
+            + f"+ {coeff3} * {share_ground(0x01)} * (1 + ({tile_slope(0x01, mask=0x06)} == 0x02))"
+            + f"+ {coeff4} * {share_ground(0x10)} * (1 + ({tile_slope(0x10, mask=0x03)} == 0x02))",
         )
