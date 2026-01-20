@@ -88,9 +88,21 @@ class AStation(grf.SpriteGenerator):
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         elif self.foundation_object is not None:
-            foundations = action2_pool.map_foundation_switch(self.foundation_object.to_switch())
-            if isinstance(foundations, StationTileSwitch):
-                foundations = foundations.to_index(None)
+            if self.foundation_object is self.foundation_object.M:
+                foundation_object_list = [self.foundation_object]
+            else:
+                foundation_object_list = [self.foundation_object, self.foundation_object.M]
+
+            foundation_list = [action2_pool.map_foundation_switch(x.to_switch()) for x in foundation_object_list]
+            if isinstance(foundation_list[0], StationTileSwitch):
+                foundation_list = [f.to_index(None) for x in foundation_list]
+            if len(foundation_list) == 1:
+                foundations = foundation_list[0]
+            else:
+                foundations = grf.Switch(
+                    ranges={1: foundation_list[1]}, code="extra_callback_info2 % 2", default=foundation_list[0]
+                )
+
             self.callbacks.graphics = grf.GraphicsCallback(
                 default=grf.Switch(
                     ranges={2: foundations},
