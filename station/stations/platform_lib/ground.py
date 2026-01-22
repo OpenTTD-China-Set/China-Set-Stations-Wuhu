@@ -108,12 +108,12 @@ empty_base_underground_gs_2 = AGroundSprite(
 )
 
 pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
-pillar_base_merged = merge_ground(pillar_base)
+pillar_base_merged = merge_ground(pillar_base, subset="x")
 
 pillar_base_underground_gs = AGroundSprite(pillar_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
 
 fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
-fake_bridge_merged = merge_ground(fake_bridge)
+fake_bridge_merged = merge_ground(fake_bridge, subset="x")
 
 fake_bridge_2 = make_sprite("fake_bridge_2", BuildingSymmetrical, JOGGLE_AMOUNT * 2)
-fake_bridge_merged_2 = merge_ground(fake_bridge_2, -2)
+fake_bridge_merged_2 = merge_ground(fake_bridge_2, elevation=-2, subset="x")
