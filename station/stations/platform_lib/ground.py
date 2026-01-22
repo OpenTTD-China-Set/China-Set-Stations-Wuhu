@@ -65,7 +65,13 @@ def make_sprite(name, symmetry, joggle, width=16):
     return sprite
 
 
-def merge_ground(object_sprite, elevation=-1):
+def fix_subset_name(subset, i):
+    if subset == "all" or i % 2 == 0:
+        return subset
+    return {"x": "y", "y": "x"}[subset]
+
+
+def merge_ground(object_sprite, elevation=-1, subset="all"):
     return object_sprite.symmetry_fmap(
         lambda y: FoundationSwitch(
             foundations=[
@@ -79,6 +85,7 @@ def merge_ground(object_sprite, elevation=-1):
                     ne_clip=(i // 3 % 3 < -elevation),
                     sw=sw,
                     se=se,
+                    subset=fix_subset_name(subset, object_sprite.symmetry_index(y)),
                 )
                 for se in [0, 1, 2]
                 for sw in [0, 1, 2]

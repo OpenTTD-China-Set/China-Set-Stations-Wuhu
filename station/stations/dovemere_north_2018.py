@@ -43,7 +43,7 @@ def quickload(name, symmetry, traversable):
     vgsprite = symmetry.create_variants(vg.spritesheet())
     sprite = symmetry.create_variants(v.spritesheet(zdiff=8, xdiff=platform_width, xspan=16 - platform_width))
 
-    vg_merged = merge_ground(vgsprite)
+    vg_merged = merge_ground(vgsprite, subset="x")
     vg_gs = AGroundSprite(vg_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
