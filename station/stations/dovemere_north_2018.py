@@ -72,14 +72,7 @@ def quickload(name, symmetry, traversable):
             l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
             l.foundation = foundation
             ret = symmetry.create_variants(symmetry.get_all_variants(l))
-            ret.purchase = l2
-            ret.T.purchase = l2.T
-            ret.M.purchase = l2.M
-            ret.T.M.purchase = l2.T.M
-            ret.R.purchase = l2.R
-            ret.T.R.purchase = l2.T.R
-            ret.R.M.purchase = l2.R.M
-            ret.T.R.M.purchase = l2.T.R.M
+            ret.symmetry_set_purchase(l2)
             entries.extend(symmetry.get_all_entries(ret))
             named_tiles[(name, platform_type, shelter_type)] = ret
 

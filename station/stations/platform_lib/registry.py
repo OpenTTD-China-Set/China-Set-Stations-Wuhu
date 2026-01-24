@@ -243,10 +243,7 @@ def register(pf: PlatformFamily):
             l.foundation = pillar_base_merged
             cur_symmetry = ps.sprite.symmetry
             l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
-            l.purchase = l2
-            l.T.purchase = l2.T
-            l.M.purchase = l2.M
-            l.T.M.purchase = l2.T.M
+            l.symmetry_set_purchase(l2)
             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                 entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x2C + i
                 entries.append(entry)
