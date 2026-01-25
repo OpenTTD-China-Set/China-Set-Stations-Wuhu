@@ -48,10 +48,12 @@ No shelter
 ```
 Has shelter
 
-### Nothing
+### Empty Ground
 ```
-0111 1111 1111 1111
+0111 1111 1111 111b
 ```
+
+b: 0 for concrete, 1 for natural
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````

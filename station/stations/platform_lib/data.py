@@ -24,9 +24,6 @@ from ..ground import named_ps as ground_ps
 from ..misc import default_ground
 
 
-gray_ps = ground_ps.gray
-
-
 platform_height = 4
 platform_width = 5
 shelter_height = 17
@@ -167,4 +164,7 @@ concourse_tiles.populate()
 
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)
+empty_concrete_tile = make_entry(
+    ALayout(ground_ps.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
 )
