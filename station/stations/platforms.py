@@ -1,7 +1,6 @@
 import grf
 from station.lib import AStation, AMetaStation
 from station.lib.parameters import parameter_list
-from .ground import named_ps as ground_ps
 from station.stations.platform_lib import (
     platform_tiles,
     two_side_tiles,
