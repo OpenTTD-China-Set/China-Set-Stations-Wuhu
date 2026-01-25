@@ -1,9 +1,9 @@
-from station.lib import BuildingCylindrical, BuildingSymmetricalX, AGroundSprite, ALayout, AttrDict
+from station.lib import BuildingCylindrical, BuildingSymmetricalX, AGroundSprite, AParentSprite, ALayout, AttrDict
 from agrf.graphics.voxel import LazyVoxel
 from station.lib.registers import Registers
 
 
-def quickload(name, symmetry):
+def quickload(name, symmetry, width):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/ground",
@@ -13,15 +13,24 @@ def quickload(name, symmetry):
     )
 
     sprite = symmetry.create_variants(v.spritesheet())
-    ps = AGroundSprite(sprite, flags={"add": Registers.ZERO})
-    named_ps[name] = ps
-    l = ALayout(ps, [], False)
-    named_tiles[name] = l
+
+    if width == 16:
+        gs = AGroundSprite(sprite, flags={"add": Registers.ZERO})
+        ground_gs[name] = gs
+
+    ps = AParentSprite(sprite, (width, 16, 0), (0, 0, 0), flags={"add": Registers.ZERO})
+    ground_ps[name] = ps
+
+    if width == 16:
+        l = ALayout(gs, [], False)
+        ground_tiles[name] = l
+
     return sprite
 
 
-named_ps = AttrDict()
-named_tiles = AttrDict()
+ground_gs = AttrDict()
+ground_ps = AttrDict()
+ground_tiles = AttrDict()
 
-quickload("gray", BuildingCylindrical)
-quickload("gray_third", BuildingSymmetricalX)
+quickload("gray", BuildingCylindrical, 16)
+quickload("gray_third", BuildingSymmetricalX, 5)

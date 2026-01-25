@@ -5,23 +5,23 @@
 ## 0x00 - 0xFF: pre-14.0 compatibilty mode
 
 ## 0x7000 - 0x7FFF: platforms
-### Rail with one platform
+### Rail with one platform or symmetrical two platforms
 ```
-0111 0pp0 ssrd 000i
+0111 0pp0 ssrd 00ci
 ```
 Where:
 * `r` is whether the platform has a rail-facing surface
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
+* `c` is whether the non-platform half has a concrete ground, only relevant for d=0
 
-### Rail with two platforms
+### Rail with asymmetrical two platforms
 ```
 0111 100p prr0 ssSi
 ```
 Where:
-* `ss` is the Shelter Type (0-3)
 * `S` is whether both platforms have shelters
-* `i` is the platform location (north or south), only relevant for asymmetrical cases
+* `i` is the platform location (north or south)
 
 ### No rail, no shelter
 ```
@@ -48,10 +48,12 @@ No shelter
 ```
 Has shelter
 
-### Nothing
+### Empty Ground
 ```
-0111 1111 1111 1111
+0111 1111 1111 111b
 ```
+
+b: 0 for concrete, 1 for natural
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````
