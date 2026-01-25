@@ -68,8 +68,13 @@ def quickload(name, symmetry, traversable):
             foundation = vg_merged
             foundation_gs = vg_gs
 
-            l = ALayout(None, components, traversable, notes=["pit"])
-            l2 = ALayout(foundation_gs, components, traversable, notes=["pit"])
+            notes = ["pit"]
+            if platform_type != "":
+                notes.append(platform_type)
+            if shelter_type != "":
+                notes.append(shelter_type)
+            l = ALayout(None, components, traversable, notes=notes)
+            l2 = ALayout(foundation_gs, components, traversable, notes=notes)
             l.foundation = foundation
             ret = symmetry.create_variants(symmetry.get_all_variants(l))
             ret.symmetry_set_purchase(l2)
@@ -86,6 +91,13 @@ for name, symmetry, traversable in [
 
 station_tiles = []
 for i, entry in enumerate(entries):
+    enable_if = [parameter_list["E9B8A0A_ENABLE_MODULAR"]]
+    for platform_class in ["concrete", "brick"]:
+        if platform_class in entry.notes:
+            enable_if.append(parameter_list[f"PLATFORM_{platform_class.upper()}"])
+    for shelter_class in ["shelter_1", "shelter_2"]:
+        if shelter_class in entry.notes:
+            enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
     new_entry = entry.foundation.add_to_layout(entry)
     new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
 
@@ -109,7 +121,7 @@ for i, entry in enumerate(entries):
             make_foundation=False,
             foundation_object=foundation_object,
             extra_code=station_code["E9B8A0A"],
-            enable_if=[parameter_list["E9B8A0A_ENABLE_MODULAR"]],
+            enable_if=enable_if,
             doc_layout=doc_layout,
         )
     )
