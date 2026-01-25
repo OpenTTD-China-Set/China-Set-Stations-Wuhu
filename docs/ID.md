@@ -14,6 +14,21 @@ Where:
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
 
+#### With sunken ground
+```
+0111 0pp0 ss10 01di
+```
+Where:
+* `d` is how deep the ground is (d=0: 1-tile deep; d=1: 2-tile deep)
+
+#### With elevated platform
+```
+0111 0pp0 ss10 1d0i
+```
+Where:
+* `d` is how deep the ground is (d=0: flat; d=1: 1-tile deep)
+
+
 ### Rail with two platforms
 ```
 0111 100p prr0 ssSi
