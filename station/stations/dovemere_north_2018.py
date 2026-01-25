@@ -58,9 +58,7 @@ def quickload(name, symmetry, traversable):
             foundation = empty_base_merged
             foundation_gs = empty_base_underground_gs
             if platform_type != "":
-                plat = platform_ps[
-                    ("cns", platform_type, "solid", shelter_type, "" if shelter_type == "" else "combining")
-                ].up(8)
+                plat = platform_ps[("cns", platform_type, "solid", shelter_type)].up(8)
                 components.append(pillar.T)
                 components.append(plat.T)
                 foundation = pillar_base_merged.T
