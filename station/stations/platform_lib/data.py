@@ -21,12 +21,9 @@ from station.stations.platform_lib import (
     entries,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
-from ..ground import named_ps as ground_ps
+from ..ground import ground_gs
 from ..misc import default_ground
 from .ground import empty_base_merged, empty_base_underground_gs, empty_base_merged_2, empty_base_underground_gs_2
-
-
-gray_ps = ground_ps.gray
 
 
 platform_height = 4
@@ -168,6 +165,9 @@ concourse_tiles.populate()
 
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)
+empty_concrete_tile = make_entry(
+    ALayout(ground_gs.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
 )
 l = ALayout(
     None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit", "extended"], foundation=empty_base_merged

@@ -29,7 +29,7 @@ from station.stations.platform_lib.data import (
     concourse_tiles,
 )
 from station.stations.platform_lib.aux import add_buffer_stop
-from station.stations.ground import named_ps as ground_ps, named_tiles as ground_tiles
+from station.stations.ground import ground_gs, ground_tiles
 from station.stations.misc import track_ground, default_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
@@ -42,7 +42,6 @@ building_height = 48
 overpass_height = building_height - base_height
 
 gray_layout = ground_tiles.gray
-gray_ps = ground_ps.gray
 concourse = concourse_ps.none
 
 # FIXME: technically should be 21 instead of 20, but in reality that results in bad effects
@@ -241,7 +240,7 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
     named_tiles[name] = l
 
 
-solid_ground = gray_ps
+solid_ground = ground_gs.gray
 
 voxel_cache = {}
 

@@ -4,7 +4,7 @@ from agrf.graphics.voxel import LazyVoxel
 from station.lib import BuildingSymmetrical, BuildingSymmetricalX, AParentSprite, AGroundSprite
 from station.lib.registers import Registers
 from station.stations.empty import empty_sprite, empty_offset
-from ..ground import named_images as ground_images
+from ..ground import ground_images
 from agrf.lib.building.foundation import Foundation
 from station.lib.foundation_switch import FoundationSwitch
 from station.stations.empty import make_empty_variant

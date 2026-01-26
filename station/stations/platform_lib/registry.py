@@ -1,15 +1,17 @@
 from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
 from ..misc import track_ground
-from ..ground import named_ps as ground_ps
+from ..ground import ground_ps, ground_gs
 from .ground import pillar, pillar_base_underground_gs, fake_bridge_merged, fake_bridge_merged_2, pillar_base_merged
 from .aux import add_buffer_stop
 
-gray_ps = ground_ps.gray
+gray_ps = ground_gs.gray
 
 platform_ps = AttrDict(schema=("name", "platform_clas", "rail_facing", "shelter_class", "location"))
 concourse_ps = AttrDict(schema=("platform_class", "side"))
-platform_tiles = AttrDict(schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side"))
+platform_tiles = AttrDict(
+    schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side", "concrete_covering")
+)
 two_side_tiles = AttrDict(
     schema=(
         "name",
@@ -109,19 +111,23 @@ def register(pf: PlatformFamily):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
 
-                    for ssid, (l, make_symmetrical, shelter_side) in enumerate(
-                        [([ps], False, ""), ([ps, ps.T], True, "d")]
-                    ):
-                        if make_symmetrical:
-                            cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
-                        else:
-                            cur_symmetry = ps.sprite.symmetry
+                    for cid, (concrete_cover, cdesc) in enumerate([([], ""), ([ground_ps.gray_third.T], "covered")]):
+                        for ssid, (l, make_symmetrical, shelter_side) in enumerate(
+                            [([ps], False, ""), ([ps, ps.T], True, "d")]
+                        ):
+                            if ssid == 1 and cid == 1:
+                                continue
+                            if make_symmetrical:
+                                cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
+                            else:
+                                cur_symmetry = ps.sprite.symmetry
 
-                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = (
-                            make_entry(
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
                                 ALayout(
                                     track_ground if rail_facing != "solid" else gray_ps,
-                                    l,
+                                    l + concrete_cover,
                                     rail_facing != "solid",
                                     category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cp",
                                     notes=make_notes(platform_class, shelter_class),
@@ -134,13 +140,13 @@ def register(pf: PlatformFamily):
                                     + (rid % 2) * 0x20
                                     + ssid * 0x10
                                     + (rid // 2) * 0x8
+                                    + cid * 0x2
                                     if platform_class not in ["np", "cut"]
                                     and shelter_class != "pillar"
                                     and location == ""
                                     else None
                                 ),
                             )
-                        )
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
