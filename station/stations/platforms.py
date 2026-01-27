@@ -48,6 +48,7 @@ for i, entry in enumerate(entries):
             ),
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
+            is_waypoint="waypoint" in entry.notes,
             callbacks={
                 "select_tile_layout": 0,
                 "select_sprite_layout": grf.DualCallback(default=0, purchase=2 if entry.purchase is not None else 0),
@@ -60,6 +61,6 @@ for i, entry in enumerate(entries):
 the_stations = AMetaStation(
     platform_templates + station_tiles,
     b"\xe8\x8a\x9cP",
-    [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cU"],
+    [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cU", b"\xe8\x8a\x9cQ"],
     demos,
 )

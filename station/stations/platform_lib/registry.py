@@ -11,6 +11,7 @@ concourse_ps = AttrDict(schema=("platform_class", "side"))
 platform_tiles = AttrDict(
     schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side", "concrete_covering")
 )
+waypoint_tiles = AttrDict(schema=("name", "north", "south"))
 two_side_tiles = AttrDict(
     schema=(
         "name",
@@ -218,3 +219,23 @@ def register(pf: PlatformFamily):
                             cur_sym,
                             0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
+
+    make_entry(
+        ALayout(track_ground, [], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]), BuildingSymmetrical, 0x7110
+    )
+    make_entry(
+        ALayout(track_ground, [ground_ps.gray_third], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]),
+        BuildingSymmetricalX,
+        0x7111,
+    )
+    make_entry(
+        ALayout(
+            track_ground,
+            [ground_ps.gray_third, ground_ps.gray_third.T],
+            True,
+            category=b"\xe8\x8a\x9cQ",
+            notes=["waypoint"],
+        ),
+        BuildingSymmetrical,
+        0x7113,
+    )
