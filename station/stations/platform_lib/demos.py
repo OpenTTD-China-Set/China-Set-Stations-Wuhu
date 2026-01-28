@@ -18,6 +18,7 @@ demos = [
     ),
     Demo(
         repeat([[empty_concrete_tile], [cns_concrete_covered], [cns_concrete_covered.T], [empty_concrete_tile]], 4),
-        "Concrete Grounds",
+        "Concrete grounds",
     ),
+    Demo(repeat([[empty_concrete_tile]] * 4, 4), "Concrete grounds only"),
 ]
