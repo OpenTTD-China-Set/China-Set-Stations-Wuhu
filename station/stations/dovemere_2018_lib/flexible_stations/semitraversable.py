@@ -5,7 +5,7 @@ from ..layouts import layouts
 from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
 from station.lib.templates.demo import make_demo
 from .traversable import cb14
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 

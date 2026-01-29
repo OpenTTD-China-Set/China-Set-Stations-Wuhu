@@ -12,7 +12,7 @@ from station.lib.templates.demo import make_demo
 from .common import make_front_row_half
 from .traversable import fill_odd
 from .traversable_half import cb14_2, cb14_4
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 

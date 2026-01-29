@@ -4,7 +4,7 @@ from ..layouts import named_tiles, layouts
 from .. import common_cb, common_code
 from station.lib.templates.demo import make_demo
 from .common import horizontal_layout
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 named_tiles.globalize()

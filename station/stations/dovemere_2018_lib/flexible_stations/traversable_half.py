@@ -11,7 +11,7 @@ from station.lib.templates.platforms import (
 from station.lib.templates.demo import make_demo
 from .common import make_front_row_half, make_central_row_near
 from .traversable import fill_odd, front2
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 
