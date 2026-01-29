@@ -1,4 +1,5 @@
 from station.lib import Demo
+from station.stations.dovemere_2018_lib.west_plaza.grounds import named_layouts
 from .data import platform_tiles, two_side_tiles, concourse_tiles, empty_concrete_tile
 
 
@@ -21,4 +22,16 @@ demos = [
         "Concrete grounds",
     ),
     Demo(repeat([[empty_concrete_tile]] * 4, 4), "Concrete grounds only"),
+    Demo(
+        repeat(
+            [
+                [named_layouts[("west_plaza", "center")]],
+                [empty_concrete_tile],
+                [empty_concrete_tile],
+                [named_layouts[("west_plaza", "center")]],
+            ],
+            4,
+        ),
+        "With west square of Wuhu station",
+    ),
 ]
