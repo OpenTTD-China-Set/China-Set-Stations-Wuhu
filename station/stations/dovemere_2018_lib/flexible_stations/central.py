@@ -6,7 +6,7 @@ from station.lib.templates.platforms import determine_platform_odd, determine_pl
 from station.lib.templates.demo import make_demo
 from .common import make_central_row_middle
 from .traversable import cb24_odd, cb24_even, fill_odd
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 cb14_0 = make_horizontal_switch(lambda l, r: make_central_row_middle(l, r, (None, None, "e")))
