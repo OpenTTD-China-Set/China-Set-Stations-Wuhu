@@ -23,6 +23,12 @@ Where:
 * `S` is whether both platforms have shelters
 * `i` is the platform location (north or south)
 
+### Waypoints
+```
+0111 0001 0001 00aa
+```
+Where `aa` controls concrete grounds on north and south side.
+
 ### No rail, no shelter
 ```
 0111 1010 0000 ppdi

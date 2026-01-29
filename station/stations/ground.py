@@ -13,8 +13,7 @@ def quickload(name, symmetry, width):
     )
     v.config["z_scale"] = 1.0
 
-    v.render()
-    sprite = symmetry.create_variants(v.spritesheet())
+    sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))
 
     ground_images[name] = sprite
 
@@ -22,7 +21,7 @@ def quickload(name, symmetry, width):
         gs = AGroundSprite(sprite, flags={"add": Registers.ZERO})
         ground_gs[name] = gs
 
-    ps = AParentSprite(sprite, (width, 16, 0), (0, 0, 0), flags={"add": Registers.ZERO})
+    ps = AParentSprite(sprite, (16, width, 0), (0, 16 - width, 0), flags={"add": Registers.ZERO})
     ground_ps[name] = ps
 
     if width == 16:

@@ -76,6 +76,7 @@ for i, entry in enumerate(entries):
             layouts=layouts,
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
+            is_waypoint="waypoint" in entry.notes,
             callbacks={
                 "select_tile_layout": 0,
                 **({"select_sprite_layout": sprite_layout} if entry.foundation is not None else {}),
@@ -100,6 +101,7 @@ the_stations = AMetaStation(
         b"\xe8\x8a\x9cE",
         b"\xe8\x8a\x9ce",
         b"\xe8\x8a\x9cU",
+        b"\xe8\x8a\x9cQ",
     ],
     demos,
 )
