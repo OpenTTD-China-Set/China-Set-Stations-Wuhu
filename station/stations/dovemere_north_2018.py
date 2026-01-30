@@ -23,6 +23,7 @@ from station.stations.platform_lib.ground import (
     merge_ground,
 )
 from station.stations.platform_lib.data import sunken_ground
+from station.stations.platform_lib.registry import waypoint_tiles
 
 entries = []
 named_tiles = AttrDict(schema=("part", "platform", "shelter"))
@@ -163,14 +164,14 @@ the_stations = AMetaStation(
                     default,
                 ],
                 [track] + [plat.T] * 10 + [track],
-                [track] * 12,
-                [track] * 12,
+                [waypoint_tiles[("concreteN", "concreteS")]] * 12,
+                [waypoint_tiles[("concreteN", "concreteS")]] * 12,
                 [track] + [plat] * 10 + [track],
                 [default, elev2, elev2, escalator, normal, gate, gate.R, normal.R, escalator.R, elev2, elev2, default],
                 [default] * 12,
             ],
             "Test",
-            altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
+            altitude=[[0] * 13] * 2 + [[1] * 13] + [[2] * 13] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
         Demo(
             [
@@ -190,8 +191,8 @@ the_stations = AMetaStation(
                     default,
                 ],
                 [track] + [platx.T] * 10 + [track],
-                [track] * 12,
-                [track] * 12,
+                [waypoint_tiles[("concreteN", "concreteS")]] * 12,
+                [waypoint_tiles[("concreteN", "concreteS")]] * 12,
                 [track] + [platx] * 10 + [track],
                 [
                     default,
@@ -210,7 +211,7 @@ the_stations = AMetaStation(
                 [default] * 12,
             ],
             "Wuhubei (without shelters)",
-            altitude=[[0] * 13] * 2 + [[1] * 13] + [[1] + [2] * 11 + [1]] * 3 + [[1] * 13] + [[0] * 13] * 2,
+            altitude=[[0] * 13] * 2 + [[1] * 13] + [[2] * 13] * 3 + [[1] * 13] + [[0] * 13] * 2,
         ),
         Demo(
             [
