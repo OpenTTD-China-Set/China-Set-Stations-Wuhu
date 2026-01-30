@@ -1,9 +1,8 @@
 import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
-from agrf.lib.building.layout import ALayout
 from .utils import class_label_printable
-from .registers import code
+from .registers import code, default_code
 from .switch import StationTileSwitch
 
 
@@ -50,8 +49,10 @@ class AStation(grf.SpriteGenerator):
         is_managed_by_metastation = sprites is not None
         if isinstance(self.translation_name, str):
             translated_name = g.strings[f"STR_STATION_{self.translation_name}"]
-        else:
+        elif callable(self.translation_name):
             translated_name = self.translation_name(g.strings)
+        else:
+            raise TypeError(f"translation_name must be a string or callable, got {type(self.translation_name)}")
 
         extra_props = {"station_name": g.strings.add(translated_name).get_persistent_id()}
         if not self.is_waypoint:
@@ -78,14 +79,16 @@ class AStation(grf.SpriteGenerator):
             self.callbacks.graphics = grf.GraphicsCallback(
                 default=grf.Switch(
                     ranges={2: foundations},
-                    code=code + self.extra_code + "\nextra_callback_info1_byte",
+                    code=code + self.extra_code + default_code + "\nextra_callback_info1_byte",
                     default=graphics,
                 ),
-                purchase=graphics,
+                purchase=grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics),
             )
             props["general_flags"] = props.get("general_flags", 0) | 0b1000
         else:
-            self.callbacks.graphics = grf.Switch(ranges={0: graphics}, code=code + self.extra_code, default=graphics)
+            self.callbacks.graphics = grf.Switch(
+                ranges={0: graphics}, code=code + self.extra_code + default_code, default=graphics
+            )
 
         cb_props = {}
         self.callbacks.set_flag_props(cb_props)

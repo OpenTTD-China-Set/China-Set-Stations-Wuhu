@@ -36,6 +36,8 @@ def is_1011(l):
 @dataclass
 class Demo(ProtoDemo):
     def infer_render_contexts(self):
+        proto_ret = super().infer_render_contexts()
+
         ret = []
         for r, row in enumerate(self.tiles):
             ret_row = []
@@ -47,22 +49,10 @@ class Demo(ProtoDemo):
                     if c - 1 >= 0 and is_1012(row[c - 1]):
                         sb = False
                 elif is_1011(l):
-                    if r + 1 < len(row) and is_1011(self.tiles[r + 1][c]):
+                    if r + 1 < len(self.tiles) and is_1011(self.tiles[r + 1][c]):
                         sb = False
                     if r - 1 >= 0 and is_1011(self.tiles[r - 1][c]):
                         nb = False
-                if self.render_contexts is not None:
-                    rc = self.render_contexts[i][j]
-                else:
-                    rc = DEFAULT_RENDER_CONTEXT
-                ret_row.append(
-                    RenderContext(
-                        climate=rc.climate or self.climate,
-                        subclimate=rc.subclimate or self.subclimate,
-                        rail_type=rc.rail_type or self.rail_type,
-                        north_bufferstop=nb,
-                        south_bufferstop=sb,
-                    )
-                )
+                ret_row.append(RenderContext(**vars(proto_ret[r][c]), north_bufferstop=nb, south_bufferstop=sb))
             ret.append(ret_row)
         return ret

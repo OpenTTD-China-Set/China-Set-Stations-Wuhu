@@ -1,0 +1,45 @@
+##grflangid 0x00
+
+# Only US-differing strings from UK; others fall back to `english-uk.lng`
+
+STR_PARAM_E88A9CA_COLOUR                    :Wuhu Station - Decoration Color
+STR_PARAM_E88A9CA_COLOUR_DESC               :Choose what color to use for the decorations in Wuhu Station. The real world counterpart is white during daytime, and displays ever-changing colors with LED lights during night.
+STR_PARAM_E88A9CA_COLOUR_2                  :Wuhu Station - Decoration Color 2
+STR_PARAM_E88A9CA_COLOUR_2_DESC             :Choose what color to use for the decorations in Wuhu Station. The real world counterpart is white during daytime, and displays ever-changing colors with LED lights during night.
+
+STR_PARAM_STATION_COLOUR_PRIMARY            :Use Primary Company Color
+STR_PARAM_STATION_COLOUR_SECONDARY          :Use Secondary Company Color
+STR_PARAM_STATION_COLOUR_GREY               :Gray
+
+STR_PARAM_E88A9C4_COLOUR                    :Wuhu Station (1992) - Decoration Color
+STR_PARAM_E88A9C4_COLOUR_DESC               :Choose what color to use for the decoration of Wuhu Station (1992).
+
+STR_PARAM_E88A9C0_COLOUR                    :Wuhu Station (1934) - Decoration Color
+STR_PARAM_E88A9C0_COLOUR_DESC               :Choose what color to use for the windows and door of Wuhu Station (1934).
+STR_PARAM_E88A9C0_COLOUR_2                  :Wuhu Station (1934) - Decoration Color 2
+STR_PARAM_E88A9C0_COLOUR_2_DESC             :Choose what color to use for the window decorations of Wuhu Station (1934).
+
+STR_PARAM_E9B8A0A_COLOUR                    :Wuhubei Station - Decoration Color
+STR_PARAM_E9B8A0A_COLOUR_DESC               :Choose what color to use for the decoration of Wuhubei Station.
+
+STR_PARAM_E5BC8BA_COLOUR                    :Wuhunan Station - Decoration Color
+STR_PARAM_E5BC8BA_COLOUR_DESC               :Choose what color to use for the decoration of Wuhunan Station.
+
+STR_PARAM_E697A0A_COLOUR                    :Wuwei Station - Decoration Color
+STR_PARAM_E697A0A_COLOUR_DESC               :Choose what color to use for the decoration of Wuwei Station.
+
+STR_PARAM_E6B9BES_COLOUR                    :Wanzhinan Station - Decoration Color
+STR_PARAM_E6B9BES_COLOUR_DESC               :Choose what color to use for the decoration of Wanzhinan Station.
+
+STR_PARAM_E999B5A_COLOUR                    :Nanling Station - Decoration Color
+STR_PARAM_E999B5A_COLOUR_DESC               :Choose what color to use for the decoration of Nanling Station.
+
+STR_PARAM_E7B981W_COLOUR                    :Fanchangxi Station - Decoration Color
+STR_PARAM_E7B981W_COLOUR_DESC               :Choose what color to use for the decoration of Fanchangxi Station.
+
+STR_STATION_CLASS_E88A9C90      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Center, No Platform
+STR_STATION_CLASS_E88A9C91      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Center, Near Platform
+STR_STATION_CLASS_E88A9C92      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Center, Far Platform
+STR_STATION_CLASS_E88A9C93      :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Center, Platforms
+
+STR_STATION_CLASS_E88A9CF8      :{PUSH_COLOUR}{WHITE}CNS: Wuhu{POP_COLOUR} Center

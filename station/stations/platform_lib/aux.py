@@ -45,7 +45,7 @@ def add_buffer_stop_single_purchase(l):
     elif l.ground_sprite.sprite.sprite_id == 1011:
         ret = l + bufferstop.R.M + bufferstop.M
     else:
-        assert False, l
+        raise ValueError(f"Unsupported ground sprite ID: {l.ground_sprite.sprite.sprite_id}")
 
     return ret
 
@@ -56,7 +56,7 @@ def add_buffer_stop_single(l):
     elif l.ground_sprite.sprite.sprite_id == 1011:
         ret = l + bufferstop_se + bufferstop_nw
     else:
-        assert False, l
+        raise ValueError(f"Unsupported ground sprite ID: {l.ground_sprite.sprite.sprite_id}")
 
     return ret
 

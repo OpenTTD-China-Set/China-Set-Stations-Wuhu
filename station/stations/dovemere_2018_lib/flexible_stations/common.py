@@ -1,45 +1,7 @@
 import grf
-from station.lib import (
-    make_horizontal_switch,
-    make_vertical_switch,
-    ALayout,
-    AParentSprite,
-    LayoutSprite,
-    Demo,
-    Registers,
-)
-from ..layouts import named_tiles, layouts, flexible_entries
-
-
-def make_demo(switch, w, h, preswitch=None):
-    demo = Demo(switch.demo(w, h, preswitch))
-    for i, var in enumerate([demo, demo.M]):
-        sprite = grf.AlternativeSprites(
-            *[
-                LayoutSprite(
-                    var,
-                    64 * scale,
-                    64 * scale,
-                    xofs=(1 - i % 2 * 2) * int((w - h) / (w + h + 1) * 32 * scale),
-                    yofs=0,
-                    scale=scale,
-                    bpp=bpp,
-                )
-                for scale in [1, 2]
-                for bpp in [32]
-            ]
-        )
-        layout = ALayout(
-            None,
-            [AParentSprite(sprite, (16, 16, 48), (0, 0, 0), flags={"add_palette": Registers.RECOLOUR_OFFSET})],
-            False,
-            category=b"\xe8\x8a\x9cA",
-        )
-        layouts.append(layout)
-        if i == 0:
-            ret = layout
-    flexible_entries.append(ret)
-    return ret
+from station.lib import make_horizontal_switch, make_vertical_switch
+from station.lib.templates.platforms import invert_platform
+from ..layouts import named_tiles, layouts
 
 
 def horizontal_layout(l, r, onetile, twotile, lwall, general, window, window_extender, threetile=None):
@@ -94,7 +56,7 @@ def get_tile(name, desc):
 def reverse(x):
     if x is None:
         return None
-    return x[:-1] + ({"f": "n", "n": "f", "d": "d", "e": "e", "c": "c"}[x[-1]],)
+    return x[:-1] + (invert_platform(x[-1]),)
 
 
 def get_left_index_suffix(t, d, suffix):
@@ -167,49 +129,14 @@ def make_central_row_near(l, r, suffix):
     )
 
 
-def determine_platform_odd_top_half(t, d):
-    return "nf"[t % 2]
-
-
-def determine_platform_odd_bottom_half(t, d):
-    return "fn"[d % 2]
-
-
-def determine_platform_odd(t, d):
-    if d > t:
-        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_odd(d, t)]
-    if t == 15 and 14 <= d <= 15:
-        return "e"
-    if (t + d) % 2 == 1:
-        return "fn"[d % 2]
-    if (t + d) % 4 == 0:
-        if d < t:
-            return "fn"[d % 2]
-        return "e"
-    if d < t:
-        return "fn"[d % 2]
-    return "c"
-
-
-def determine_platform_even_top_half(t, d):
-    return "fn"[t % 2]
-
-
-def determine_platform_even_bottom_half(t, d):
-    return "nf"[d % 2]
-
-
-def determine_platform_even(t, d):
-    if d > t:
-        return {"f": "n", "n": "f", "c": "c", "d": "d", "e": "e"}[determine_platform_even(d, t)]
-    if t == 15 and 15 <= d <= 15:
-        return "e"
-    if (t + d) % 2 == 1:
-        return "nf"[d % 2]
-    if (t + d) % 4 == 0:
-        if d < t:
-            return "nf"[d % 2]
-        return "c"
-    if d < t:
-        return "nf"[d % 2]
-    return "e"
+def make_central_row_middle(l, r, suffix):
+    return horizontal_layout(
+        l,
+        r,
+        make_vertical_switch(lambda t, d: get_tile("v_central", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("side_d", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("side_c", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed", suffix)),
+        make_vertical_switch(lambda t, d: get_tile("central_windowed_extender", suffix)),
+    )

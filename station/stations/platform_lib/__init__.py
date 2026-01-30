@@ -7,4 +7,6 @@ from .registry import (
     two_side_tiles,
     concourse_tiles,
     entries,
+    make_entry,
 )
+from .data import platform_classes, shelter_classes

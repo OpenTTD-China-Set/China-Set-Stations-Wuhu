@@ -1,13 +1,12 @@
-from station.stations.dovemere_2018_lib.flexible_stations.common import (
+from station.lib.templates.platforms import (
     determine_platform_odd,
     determine_platform_odd_top_half,
     determine_platform_odd_bottom_half,
     determine_platform_even,
     determine_platform_even_top_half,
     determine_platform_even_bottom_half,
-    get_left_index_suffix,
-    named_tiles,
 )
+from station.stations.dovemere_2018_lib.flexible_stations.common import get_left_index_suffix, named_tiles
 
 
 def check_platform_function(fn, n, expected):
@@ -15,6 +14,7 @@ def check_platform_function(fn, n, expected):
 
 
 def test_determine_platform_odd():
+    check_platform_function(determine_platform_odd, 1, "e")
     check_platform_function(determine_platform_odd, 7, "nfncfnf")
     check_platform_function(determine_platform_odd, 8, "nfnfnfnf")
     check_platform_function(determine_platform_odd, 9, "nfnfenfnf")
@@ -54,6 +54,7 @@ def test_determine_platform_odd_bottom_half_huge():
 
 
 def test_determine_platform_even():
+    check_platform_function(determine_platform_even, 1, "e")
     check_platform_function(determine_platform_even, 7, "fnfenfn")
     check_platform_function(determine_platform_even, 8, "fnfnfnfn")
     check_platform_function(determine_platform_even, 9, "fnfncfnfn")

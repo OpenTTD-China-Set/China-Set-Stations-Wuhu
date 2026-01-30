@@ -1,14 +1,17 @@
-from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical
+from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
 from ..misc import track_ground
-from ..ground import named_ps as ground_ps
+from ..ground import ground_ps, ground_gs
 from .aux import add_buffer_stop
 
-gray_ps = ground_ps.gray
+gray_ps = ground_gs.gray
 
 platform_ps = AttrDict(schema=("name", "platform_clas", "rail_facing", "shelter_class", "location"))
 concourse_ps = AttrDict(schema=("platform_class", "side"))
-platform_tiles = AttrDict(schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side"))
+platform_tiles = AttrDict(
+    schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side", "concrete_covering")
+)
+waypoint_tiles = AttrDict(schema=("name", "north", "south"))
 two_side_tiles = AttrDict(
     schema=(
         "name",
@@ -22,7 +25,29 @@ two_side_tiles = AttrDict(
     )
 )
 concourse_tiles = AttrDict(prefix="concourse", schema=("platform_class", "side", "shelter_class", "shelter_side"))
+layouts = []
 entries = []
+
+
+def make_entry(layout, symmetry, base_id):
+    var = symmetry.get_all_variants(layout)
+    l = symmetry.create_variants(var)
+    if l.traversable:
+        l = add_buffer_stop(l)
+    layouts.extend(symmetry.get_all_variants(l))
+
+    if symmetry is BuildingCylindrical:
+        # FIXME: the problem here is that we should not use `get_all_variants` at all
+        # The real answer would be `get_all_entries` plus their mirror versions
+        # But this would require a synchronized change across all metastations
+        # Which is left for future refactors
+        layouts.extend(symmetry.get_all_variants(l))
+
+    if base_id is not None:
+        for i, entry in enumerate(symmetry.get_all_entries(l)):
+            entry.id = base_id + i
+            entries.append(entry)
+    return l
 
 
 class PlatformFamily(ABC):
@@ -86,30 +111,36 @@ def register(pf: PlatformFamily):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
 
-                    for ssid, (l, make_symmetrical, shelter_side) in enumerate(
-                        [([ps], False, ""), ([ps, ps.T], True, "d")]
-                    ):
-                        if make_symmetrical:
-                            cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
-                        else:
-                            cur_symmetry = ps.sprite.symmetry
+                    for cid, (concrete_cover, cdesc) in enumerate([([], ""), ([ground_ps.gray_third.T], "covered")]):
+                        for ssid, (l, make_symmetrical, shelter_side) in enumerate(
+                            [([ps], False, ""), ([ps, ps.T], True, "d")]
+                        ):
+                            if ssid == 1 and cid == 1:
+                                continue
+                            if make_symmetrical:
+                                cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
+                            else:
+                                cur_symmetry = ps.sprite.symmetry
 
-                        var = cur_symmetry.get_all_variants(
-                            ALayout(
-                                track_ground,
-                                l,
-                                True,
-                                category=b"\xe8\x8a\x9cP",
-                                notes=make_notes(platform_class, shelter_class),
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
+                                ALayout(
+                                    track_ground,
+                                    l + concrete_cover,
+                                    True,
+                                    category=b"\xe8\x8a\x9cP",
+                                    notes=make_notes(platform_class, shelter_class),
+                                ),
+                                cur_symmetry,
+                                (
+                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + cid * 0x2
+                                    if platform_class not in ["np", "cut"]
+                                    and shelter_class != "pillar"
+                                    and location == ""
+                                    else None
+                                ),
                             )
-                        )
-                        l = cur_symmetry.create_variants(var)
-                        l = add_buffer_stop(l)
-                        if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
-                            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
-                                entry.id = 0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + i
-                                entries.append(entry)
-                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = l
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
@@ -177,17 +208,34 @@ def register(pf: PlatformFamily):
                         else:
                             cur_sym = BuildingSymmetricalX
 
-                        var = cur_sym.get_all_variants(
+                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = make_entry(
                             ALayout(
                                 gray_ps,
                                 l + [ps],
                                 False,
                                 category=b"\xe8\x8a\x9cp",
                                 notes=["concourse"] + make_notes(platform_class, shelter_class),
-                            )
+                            ),
+                            cur_sym,
+                            0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
-                        l = cur_sym.create_variants(var)
-                        for i, entry in enumerate(cur_sym.get_all_entries(l)):
-                            entry.id = 0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2 + i
-                            entries.append(entry)
-                        concourse_tiles[(platform_class, side, shelter_class, shelter_side)] = l
+
+    make_entry(
+        ALayout(track_ground, [], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]), BuildingSymmetrical, 0x7110
+    )
+    make_entry(
+        ALayout(track_ground, [ground_ps.gray_third], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]),
+        BuildingSymmetricalX,
+        0x7111,
+    )
+    make_entry(
+        ALayout(
+            track_ground,
+            [ground_ps.gray_third, ground_ps.gray_third.T],
+            True,
+            category=b"\xe8\x8a\x9cQ",
+            notes=["waypoint"],
+        ),
+        BuildingSymmetrical,
+        0x7113,
+    )

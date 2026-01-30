@@ -5,23 +5,29 @@
 ## 0x00 - 0xFF: pre-14.0 compatibilty mode
 
 ## 0x7000 - 0x7FFF: platforms
-### Rail with one platform
+### Rail with one platform or symmetrical two platforms
 ```
-0111 0pp0 ssrd 000i
+0111 0pp0 ssrd 00ci
 ```
 Where:
 * `r` is whether the platform has a rail-facing surface
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
+* `c` is whether the non-platform half has a concrete ground, only relevant for d=0
 
-### Rail with two platforms
+### Rail with asymmetrical two platforms
 ```
 0111 100p prr0 ssSi
 ```
 Where:
-* `ss` is the Shelter Type (0-3)
 * `S` is whether both platforms have shelters
-* `i` is the platform location (north or south), only relevant for asymmetrical cases
+* `i` is the platform location (north or south)
+
+### Waypoints
+```
+0111 0001 0001 00aa
+```
+Where `aa` controls concrete grounds on north and south side.
 
 ### No rail, no shelter
 ```
@@ -36,6 +42,24 @@ Where:
 ````
 0111 1011 0ppd ssli
 ````
+
+### Templates
+```
+0111 1111 0000 0Spp
+```
+No shelter 
+
+```
+0111 1111 001S ppss
+```
+Has shelter
+
+### Empty Ground
+```
+0111 1111 1111 111b
+```
+
+b: 0 for concrete, 1 for natural
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````
@@ -69,17 +93,24 @@ With no ground-level buildings nor railroad.
 ````
 With solid ground floor.
 
-### 0xFE00 - 0xFEFE: Flexible Half-Templates
-#### Semitraversable Templates
+### 0xFE00 - 0xFEFE: Flexible Partial-Templates
+#### Half Templates
 ````
-1111 1111 0000 ppss
+1111 1111 0abc ppss
 ````
-With side platforms
 
+Where:
+* `a` is far or near side
+* `b` is whether the front (or back) row is traversable
+* `c` is presence or absence of side platforms
+
+#### Central Templates
 ````
-1111 1111 0001 ppss
+1111 1111 100a ppss
 ````
-Without side platforms
+
+Where:
+* `a` is presence or absence of side platforms
 
 ### 0xFF00 - 0xFFFE: Flexible Templates
 #### Semitraversable Templates
