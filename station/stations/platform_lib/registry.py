@@ -97,7 +97,7 @@ def register(pf: PlatformFamily):
             if platform_class in ["np", "cut"]:
                 rail_facings = [""]
             else:
-                rail_facings = ["", "side"]
+                rail_facings = ["", "side", "solid"]
 
             if shelter_class == "":
                 locations = [""]
@@ -122,24 +122,31 @@ def register(pf: PlatformFamily):
                             else:
                                 cur_symmetry = ps.sprite.symmetry
 
+                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                my_id = (
+                                    0x7000
+                                    + (pid - 2) * 0x200
+                                    + sid * 0x40
+                                    + (rid % 2) * 0x20
+                                    + ssid * 0x10
+                                    + (rid // 2) * 0x8
+                                    + cid * 0x2
+                                )
+                            else:
+                                my_id = None
+
                             platform_tiles[
                                 (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
                             ] = make_entry(
                                 ALayout(
-                                    track_ground,
+                                    track_ground if rail_facing != "solid" else gray_ps,
                                     l + concrete_cover,
-                                    True,
-                                    category=b"\xe8\x8a\x9cP",
+                                    rail_facing != "solid",
+                                    category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cZ",
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
                                 cur_symmetry,
-                                (
-                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10 + cid * 0x2
-                                    if platform_class not in ["np", "cut"]
-                                    and shelter_class != "pillar"
-                                    and location == ""
-                                    else None
-                                ),
+                                my_id,
                             )
 
     for pid, platform_class in enumerate(platform_classes):
