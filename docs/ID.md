@@ -57,6 +57,16 @@ Where:
 0111 1011 0ppd ssli
 ````
 
+Where:
+* `l` is 1 if both sides has shelters (only applicable when d=1)
+
+### No rail, concrete ground
+```
+0111 0pp0 ssrd 01ci
+```
+Where:
+* `c` is concrete type
+
 ### Templates
 ```
 0111 1111 0000 0Spp
@@ -71,10 +81,10 @@ Has shelter
 ### Special stuff
 #### Empty Ground
 ```
-0111 1111 1111 111b
+0111 1111 1111 1bbb
 ```
 
-b: 0 for concrete, 1 for natural
+b: 110 for concrete, 111 for natural, 011 for base-set concrete
 
 #### Sunken Ground (Deep)
 ```

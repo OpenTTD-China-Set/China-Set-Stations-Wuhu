@@ -22,7 +22,7 @@ from station.stations.platform_lib import (
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import ground_gs
-from ..misc import default_ground
+from ..misc import default_ground, building_ground
 from .ground import empty_base_merged, empty_base_underground_gs, empty_base_merged_2, empty_base_underground_gs_2
 
 
@@ -169,6 +169,7 @@ empty_tile = make_entry(
 empty_concrete_tile = make_entry(
     ALayout(ground_gs.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
 )
+
 l = ALayout(
     None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit", "extended"], foundation=empty_base_merged
 )
@@ -188,3 +189,7 @@ l.purchase = l2
 l.id = 0x7FFD
 entries.append(l)
 sunken_ground_2 = l
+
+empty_baseset_tile = make_entry(
+    ALayout(building_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFB
+)

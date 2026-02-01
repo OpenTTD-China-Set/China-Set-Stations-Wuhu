@@ -1,6 +1,6 @@
 from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
-from ..misc import track_ground
+from ..misc import track_ground, building_ground
 from ..ground import ground_ps, ground_gs
 from .ground import pillar, pillar_base_underground_gs, fake_bridge_merged, fake_bridge_merged_2, pillar_base_merged
 from .aux import add_buffer_stop
@@ -116,25 +116,22 @@ def register(pf: PlatformFamily):
                         for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
-                            if ssid == 1 and cid == 1:
+                            if rid < 2 and ssid == 1 and cid == 1:
                                 continue
+                            if rail_facing == "solid":
+                                concrete_cover = []
+                                if cid == 1:
+                                    solid_ground = gray_ps
+                                else:
+                                    solid_ground = building_ground
+
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
                             else:
                                 cur_symmetry = ps.sprite.symmetry
 
-                            platform_tiles[
-                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
-                            ] = make_entry(
-                                ALayout(
-                                    track_ground if rail_facing != "solid" else gray_ps,
-                                    l + concrete_cover,
-                                    rail_facing != "solid",
-                                    category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cp",
-                                    notes=make_notes(platform_class, shelter_class),
-                                ),
-                                cur_symmetry,
-                                (
+                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                my_id = (
                                     0x7000
                                     + (pid - 2) * 0x200
                                     + sid * 0x40
@@ -142,11 +139,26 @@ def register(pf: PlatformFamily):
                                     + ssid * 0x10
                                     + (rid // 2) * 0x8
                                     + cid * 0x2
-                                    if platform_class not in ["np", "cut"]
-                                    and shelter_class != "pillar"
-                                    and location == ""
-                                    else None
+                                )
+                            else:
+                                my_id = None
+
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
+                                ALayout(
+                                    track_ground if rail_facing != "solid" else solid_ground,
+                                    l + concrete_cover,
+                                    rail_facing != "solid",
+                                    category=(
+                                        b"\xe8\x8a\x9cP"
+                                        if rail_facing != "solid"
+                                        else b"\xe8\x8a\x9cZ" if cid == 1 else b"\xe8\x8a\x9cz"
+                                    ),
+                                    notes=make_notes(platform_class, shelter_class),
                                 ),
+                                cur_symmetry,
+                                my_id,
                             )
 
     for pid, platform_class in enumerate(platform_classes):
