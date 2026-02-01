@@ -46,6 +46,13 @@ Where:
 Where:
 * `l` is 1 if both sides has shelters (only applicable when d=1)
 
+### No rail, concrete ground
+```
+0111 0pp0 ssrd 01ci
+```
+Where:
+* `c` is concrete type
+
 ### Templates
 ```
 0111 1111 0000 0Spp
