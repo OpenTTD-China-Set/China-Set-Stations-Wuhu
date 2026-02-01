@@ -21,7 +21,7 @@ from station.stations.platform_lib import (
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import ground_gs
-from ..misc import default_ground
+from ..misc import default_ground, building_ground
 
 
 platform_height = 4
@@ -167,4 +167,7 @@ empty_tile = make_entry(
 )
 empty_concrete_tile = make_entry(
     ALayout(ground_gs.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
+)
+empty_baseset_tile = make_entry(
+    ALayout(building_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFB
 )
