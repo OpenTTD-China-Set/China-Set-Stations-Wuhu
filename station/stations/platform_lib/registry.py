@@ -1,6 +1,6 @@
 from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
-from ..misc import track_ground
+from ..misc import track_ground, building_ground
 from ..ground import ground_ps, ground_gs
 from .aux import add_buffer_stop
 
@@ -115,10 +115,15 @@ def register(pf: PlatformFamily):
                         for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
-                            if ssid == 1 and cid == 1:
+                            if rid < 2 and ssid == 1 and cid == 1:
                                 continue
-                            if rail_facing == "solid" and cid == 1:
-                                continue
+                            if rail_facing == "solid":
+                                concrete_cover = []
+                                if cid == 1:
+                                    solid_ground = gray_ps
+                                else:
+                                    solid_ground = building_ground
+
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
                             else:
@@ -141,10 +146,14 @@ def register(pf: PlatformFamily):
                                 (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
                             ] = make_entry(
                                 ALayout(
-                                    track_ground if rail_facing != "solid" else gray_ps,
+                                    track_ground if rail_facing != "solid" else solid_ground,
                                     l + concrete_cover,
                                     rail_facing != "solid",
-                                    category=b"\xe8\x8a\x9cP" if rail_facing != "solid" else b"\xe8\x8a\x9cZ",
+                                    category=(
+                                        b"\xe8\x8a\x9cP"
+                                        if rail_facing != "solid"
+                                        else b"\xe8\x8a\x9cZ" if cid == 1 else b"\xe8\x8a\x9cz"
+                                    ),
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
                                 cur_symmetry,
