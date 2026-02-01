@@ -117,6 +117,8 @@ def register(pf: PlatformFamily):
                         ):
                             if ssid == 1 and cid == 1:
                                 continue
+                            if rail_facing == "solid" and cid == 1:
+                                continue
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
                             else:
