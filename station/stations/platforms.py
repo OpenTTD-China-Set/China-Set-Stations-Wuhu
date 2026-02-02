@@ -45,17 +45,26 @@ for i, entry in enumerate(entries):
 
     if entry.purchase is not None:
         if "pit" in entry.notes:
-            new_entry = entry.foundation.add_to_layout(entry)
-            new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
-
-            layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
-            for x, y in zip(new_entry._ranges, new_entry_M._ranges):
-                layouts.append(x.ref)
-                layouts.append(y.ref)
+            if "pit ground" in entry.notes:
+                new_entry = entry
+                new_entry_M = entry.M
+                layouts = [entry.purchase, entry.purchase.M, new_entry, new_entry_M]
+            else:
+                new_entry = entry.foundation.add_to_layout(entry)
+                new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
+                layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
+                for x, y in zip(new_entry._ranges, new_entry_M._ranges):
+                    layouts.append(x.ref)
+                    layouts.append(y.ref)
             sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=0)
             make_foundation = False
             foundation_object = entry.foundation
-            doc_layout = entry + AParentSprite(entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0))
+            if "pit ground" in entry.notes:
+                doc_layout = entry
+            else:
+                doc_layout = entry + AParentSprite(
+                    entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0)
+                )
         else:
             layouts = [entry, entry.M, entry.purchase, entry.purchase.M]
             sprite_layout = grf.DualCallback(default=entry, purchase=2)
