@@ -29,24 +29,22 @@ def make_row(onetile, twotile, lwall, general, window, window_extender, threetil
     )
 
 
-def make_front_row(suffix):
+def make_front_row_variant(suffix, top_index):
     row = [
         named_tiles[(c, *suffix)]
         for c in ["v_end_gate", "corner_gate", "corner", "front_normal", "front_gate", "front_gate_extender"]
     ]
-    row[1] = make_vertical_switch(lambda t, d: named_tiles[("corner_gate_2", *suffix)] if t == 1 else row[1])
-    row[2] = make_vertical_switch(lambda t, d: named_tiles[("corner_2", *suffix)] if t == 1 else row[2])
+    row[1] = make_vertical_switch(lambda t, d: named_tiles[("corner_gate_2", *suffix)] if t == top_index else row[1])
+    row[2] = make_vertical_switch(lambda t, d: named_tiles[("corner_2", *suffix)] if t == top_index else row[2])
     return make_row(*row)
+
+
+def make_front_row(suffix):
+    return make_front_row_variant(suffix, 1)
 
 
 def make_front_row_half(suffix):
-    row = [
-        named_tiles[(c, *suffix)]
-        for c in ["v_end_gate", "corner_gate", "corner", "front_normal", "front_gate", "front_gate_extender"]
-    ]
-    row[1] = make_vertical_switch(lambda t, d: named_tiles[("corner_gate_2", *suffix)] if t == 0 else row[1])
-    row[2] = make_vertical_switch(lambda t, d: named_tiles[("corner_2", *suffix)] if t == 0 else row[2])
-    return make_row(*row)
+    return make_front_row_variant(suffix, 0)
 
 
 def get_tile(name, desc):
