@@ -22,7 +22,7 @@ from station.stations.platform_lib.ground import (
     empty_base_underground_gs,
     merge_ground,
 )
-from station.stations.platform_lib.data import sunken_ground
+from station.stations.platform_lib.data import sunken_ground, shelter_classes, platform_classes
 from station.stations.platform_lib.registry import waypoint_tiles
 
 entries = []
@@ -48,8 +48,8 @@ def quickload(name, symmetry, traversable):
     vg_gs = AGroundSprite(vg_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
     parent = AParentSprite(sprite, (16, 16 - platform_width, height), (0, platform_width, 0))
 
-    for platform_type in ["", "concrete", "brick"]:
-        for shelter_type in ["", "shelter_1", "shelter_2"]:
+    for platform_type in [""] + platform_classes:
+        for shelter_type in [""] + shelter_classes:
             if name == "escalator_1" and platform_type == "":
                 continue
             if platform_type == "" and shelter_type != "":
