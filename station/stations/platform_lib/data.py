@@ -116,7 +116,7 @@ class CNSPlatformFamily(PlatformFamily):
         )
 
         height = max((platform_height if platform_class != "" else 0), (shelter_height if shelter_class != "" else 0))
-        if shelter_class in ["shelter_1", "shelter_2"]:
+        if shelter_class in shelter_classes:
             child_sprites = [self._get_snow_sprite(location.replace("_narrow", ""), shelter_class)]
 
             # XXX Temporarily disable snow sprites until WenSim adds them in CNS
