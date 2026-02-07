@@ -88,6 +88,8 @@ def register(pf: PlatformFamily):
             notes.append(shelter_class_2)
         return notes
 
+    # Part I: platforms with rails
+
     for pid, platform_class in enumerate(["np", "cut"] + platform_classes):
         for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
             if (platform_class, shelter_class) == ("np", ""):
@@ -97,7 +99,7 @@ def register(pf: PlatformFamily):
             if platform_class in ["np", "cut"]:
                 rail_facings = [""]
             else:
-                rail_facings = ["", "side", "solid"]
+                rail_facings = ["", "side"]
 
             if shelter_class == "":
                 locations = [""]
@@ -117,12 +119,6 @@ def register(pf: PlatformFamily):
                         ):
                             if rid < 2 and ssid == 1 and cid == 1:
                                 continue
-                            if rail_facing == "solid":
-                                concrete_cover = []
-                                if cid == 1:
-                                    solid_ground = gray_ps
-                                else:
-                                    solid_ground = building_ground
 
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
@@ -131,13 +127,7 @@ def register(pf: PlatformFamily):
 
                             if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
                                 my_id = (
-                                    0x7000
-                                    + (pid - 2) * 0x200
-                                    + sid * 0x40
-                                    + (rid % 2) * 0x20
-                                    + ssid * 0x10
-                                    + (rid // 2) * 0x8
-                                    + cid * 0x2
+                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + (rid % 2) * 0x20 + ssid * 0x10 + cid * 0x2
                                 )
                             else:
                                 my_id = None
@@ -146,19 +136,17 @@ def register(pf: PlatformFamily):
                                 (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
                             ] = make_entry(
                                 ALayout(
-                                    track_ground if rail_facing != "solid" else solid_ground,
+                                    track_ground,
                                     l + concrete_cover,
-                                    rail_facing != "solid",
-                                    category=(
-                                        b"\xe8\x8a\x9cP"
-                                        if rail_facing != "solid"
-                                        else b"\xe8\x8a\x9cZ" if cid == 1 else b"\xe8\x8a\x9cz"
-                                    ),
+                                    True,
+                                    category=(b"\xe8\x8a\x9cP"),
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
                                 cur_symmetry,
                                 my_id,
                             )
+
+    # Part II: asymmetrical platforms with rails
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
@@ -190,6 +178,8 @@ def register(pf: PlatformFamily):
                             suffix2 = (platform_class, rail_facing_2, shelter_class_2)
                             two_side_tiles[(name, *suffix, "and", *suffix2)] = l
                             two_side_tiles[(name, *suffix2, "and", *suffix)] = l.T
+
+    # Part III: full platforms without rails
 
     for pid, platform_class in enumerate(["none"] + platform_classes):
         for ssid, side in enumerate(["", "d"] if platform_class != "none" else [""]):
@@ -238,6 +228,64 @@ def register(pf: PlatformFamily):
                             0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
 
+    # Part IV: platforms without rails
+
+    for pid, platform_class in enumerate(["np", "cut"] + platform_classes):
+        for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
+            if platform_class in ["np", "cut"]:
+                continue
+
+            rail_facings = ["solid"]
+
+            if shelter_class == "":
+                locations = [""]
+            elif shelter_class == "pillar":
+                locations = ["", "building", "central"]
+            else:
+                locations = ["", "building", "building_narrow", "building_v", "building_v_narrow"]
+
+            for lid, location in enumerate(locations):
+                for rid, rail_facing in enumerate(rail_facings):
+                    ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
+                    platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
+
+                    for cid, (concrete_cover, cdesc) in enumerate([([], ""), ([ground_ps.gray_third.T], "covered")]):
+                        for ssid, (l, make_symmetrical, shelter_side) in enumerate(
+                            [([ps], False, ""), ([ps, ps.T], True, "d")]
+                        ):
+                            if rid < 2 and ssid == 1 and cid == 1:
+                                continue
+                            concrete_cover = []
+                            if cid == 1:
+                                solid_ground = gray_ps
+                            else:
+                                solid_ground = building_ground
+
+                            if make_symmetrical:
+                                cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
+                            else:
+                                cur_symmetry = ps.sprite.symmetry
+
+                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                my_id = 0x7008 + (pid - 2) * 0x200 + sid * 0x40 + ssid * 0x10 + cid * 0x2
+                            else:
+                                my_id = None
+
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
+                                ALayout(
+                                    solid_ground,
+                                    l + concrete_cover,
+                                    False,
+                                    category=(b"\xe8\x8a\x9cZ" if cid == 1 else b"\xe8\x8a\x9cz"),
+                                    notes=make_notes(platform_class, shelter_class),
+                                ),
+                                cur_symmetry,
+                                my_id,
+                            )
+
+    # Part V: waypoints
     make_entry(
         ALayout(track_ground, [], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]), BuildingSymmetrical, 0x7110
     )
