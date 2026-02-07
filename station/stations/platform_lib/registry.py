@@ -117,7 +117,7 @@ def register(pf: PlatformFamily):
                         for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
-                            if rid < 2 and ssid == 1 and cid == 1:
+                            if ssid == 1 and cid == 1:
                                 continue
 
                             if make_symmetrical:
@@ -253,8 +253,6 @@ def register(pf: PlatformFamily):
                         for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
-                            if rid < 2 and ssid == 1 and cid == 1:
-                                continue
                             concrete_cover = []
                             if cid == 1:
                                 solid_ground = gray_ps
