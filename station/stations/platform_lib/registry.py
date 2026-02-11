@@ -118,7 +118,13 @@ def register(pf: PlatformFamily):
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
                             if ssid == 1 and cid == 1:
-                                continue
+                                make_symmetrical = False
+                                try:
+                                    shelterless_ps = platform_ps[(name, platform_class, rail_facing, "", location)]
+                                except:
+                                    continue
+                                concrete_cover = []
+                                l = [ps, shelterless_ps.T]
 
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
