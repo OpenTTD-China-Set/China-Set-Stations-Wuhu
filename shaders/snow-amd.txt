@@ -38,7 +38,6 @@ int xor(int a, int b) {
 int size = int(m_size);
 int grid = int(m_grid);
 int grid_size = int(m_grid_size);
-int grid_intensity = int(m_grid_intensity);
 int symmetry = int(m_symmetry);
 int kernel = int(m_kernel);
 int seed = int(m_seed);
@@ -50,9 +49,9 @@ int intmod(int a, int b) {
     return int(mod(float(a), float(b)));
 }
 
-int xsize = grid_intensity == 0? size : grid == 1? max(size, grid_size * 2) : max(size, grid_size);
-int ysize = grid_intensity == 0? size : grid == 2? max(size, grid_size * 2) : max(size, grid_size);
-int zsize = grid_intensity == 0? size : max(size, grid_size);
+int xsize = m_grid_intensity == 0.0? size : grid == 1? max(size, grid_size * 2) : max(size, grid_size);
+int ysize = m_grid_intensity == 0.0? size : grid == 2? max(size, grid_size * 2) : max(size, grid_size);
+int zsize = m_grid_intensity == 0.0? size : max(size, grid_size);
 
 float hash(vec2 p, int s) {
 	p += float(s);
@@ -150,7 +149,7 @@ float map(vec3 v) {
                         weight = 0.0;
                 }
 
-                if (grid_intensity > 0)
+                if (m_grid_intensity > 0.0)
                 {
                     int xg = ((x + 256) * grid_parts + 128) / 256;
                     int yg = ((y + 256) * grid_parts + 128) / 256;
