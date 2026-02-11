@@ -31,11 +31,11 @@ for name, sym in [("center", BuildingSymmetrical)]:
     sprite = sym.create_variants(v.spritesheet())
     named_grounds[(name, "")] = AGroundSprite(sprite)
 
-    for slope_type in [1, 2, 4, 8, 5, 10, 3, 6, 9, 12, 7, 11, 13, 14, 23, 27, 29, 30]:
-        v2 = v.update_config({"slope": 8 / (32 * 2**0.5), "slope_type": slope_type}, str(slope_type))
+    for slope_type in slope_types:
+        v2 = v.update_config({"slope": 8 / (32 * 2**0.5), "slope_type": slope_type.value}, str(slope_type.value))
         v2.in_place_subset(sym.render_indices())
         sprite2 = sym.create_variants(v2.spritesheet())
-        named_grounds[(name, str(slope_type))] = AGroundSprite(sprite2)
+        named_grounds[(name, str(slope_type.value))] = AGroundSprite(sprite2)
 
 
 def make_ground_layout(name, sym, starting_id):
@@ -44,7 +44,9 @@ def make_ground_layout(name, sym, starting_id):
 
     slopes = make_slopes(
         {
-            i: ALayout(named_grounds[(name, str(i) if i > 0 else "")], [], True, category=b"\xe8\x8a\x9cZ")
+            i.value: ALayout(
+                named_grounds[(name, str(i.value) if i.value > 0 else "")], [], True, category=b"\xe8\x8a\x9cZ"
+            )
             for i in slope_types
         },
         sym,

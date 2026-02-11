@@ -29,7 +29,7 @@ def register_road_stop(layout, sym, starting_id):
             translation_name="WEST_PLAZA_BUS",
             graphics=Switch(ranges={4: cur, 5: cur.M}, default=cur, code="view"),
             general_flags=0x8,
-            class_label=b"\xe8\x8a\x9cR",
+            class_label=layout.category,
             enable_if=[parameter_list["E88A9CA_ENABLE_ROADSTOP"]],
             doc_layout=cur,
         )
@@ -39,7 +39,7 @@ def register_road_stop(layout, sym, starting_id):
             translation_name="WEST_PLAZA_BUS",
             graphics=Switch(ranges={4: cur, 5: cur.M}, default=cur, code="view"),
             general_flags=0x8,
-            class_label=b"\xe8\x8a\x9cR",
+            class_label=layout.category,
             enable_if=[parameter_list["E88A9CA_ENABLE_ROADSTOP"]],
             doc_layout=cur,
             is_waypoint=True,
@@ -47,7 +47,9 @@ def register_road_stop(layout, sym, starting_id):
         roadstops.append(cur_roadstop)
 
 
-def make_road_stop(name, sym, starting_id, far, overpass, near, extended, floating, joggle=0):
+def make_road_stop(
+    name, sym, starting_id, far, overpass, near, extended, floating, *, category=b"R", components=None, joggle=0
+):
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/dovemere_2018/west_plaza/road_stop",
@@ -99,7 +101,9 @@ def make_road_stop(name, sym, starting_id, far, overpass, near, extended, floati
         named_parts[(name, partname)] = partps
         ps.append(partps)
 
-    layout = ALayout(road_ground, ps, True, category=b"\xe8\x8a\x9cR")
+    components = components or []
+
+    layout = ALayout(road_ground, ps + components, True, category=b"\xe8\x8a\x9c" + category)
     named_layouts[(name,)] = layout
 
     register_road_stop(layout, sym, starting_id)

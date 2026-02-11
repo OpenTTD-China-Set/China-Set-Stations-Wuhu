@@ -3,6 +3,9 @@ Changelog
 
 0.4.1 (Work in Progress)
 ------------------------
+Fix localization.
+
+Add station tiles with concrete ground.
 
 0.4.0 (2025-10-01)
 ------------------------

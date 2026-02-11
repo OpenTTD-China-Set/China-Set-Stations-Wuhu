@@ -2,9 +2,11 @@ import grf
 from station.lib import AStation, StationTileSwitch, make_vertical_switch, make_horizontal_switch
 from .. import common_cb, common_code
 from ..layouts import layouts
-from .common import determine_platform_odd, determine_platform_even, make_demo, make_central_row_middle
+from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
+from station.lib.templates.demo import make_demo
+from .common import make_central_row_middle
 from .traversable import cb24_odd, cb24_even, fill_odd
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 cb14_0 = make_horizontal_switch(lambda l, r: make_central_row_middle(l, r, (None, None, "e")))
@@ -31,7 +33,7 @@ for pclass in platform_classes:
 middle_stations = []
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_odd)
+        demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_odd, layouts=layouts)
         if pclass == "concrete" and sclass == "shelter_2":
             demo_1 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_odd: cb14.demo(r, c, cb24)
         else:
@@ -64,7 +66,7 @@ for p, pclass in enumerate(platform_classes):
 
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):
-        demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_even)
+        demo_layout = make_demo(cb14[pclass][sclass], 4, 4, cb24_even, layouts=layouts)
         if pclass == "concrete" and sclass == "shelter_2":
             demo_2 = lambda r, c, cb14=cb14[pclass][sclass], cb24=cb24_even: cb14.demo(r, c, cb24)
         else:

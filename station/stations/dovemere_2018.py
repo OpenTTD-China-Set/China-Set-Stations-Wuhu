@@ -2,8 +2,8 @@ import grf
 from station.lib import AStation, AMetaStation
 from station.lib.parameters import parameter_list
 from .dovemere_2018_lib.layouts import *
-from .dovemere_2018_lib import demos, common_cb, common_code, Registers
-from .dovemere_2018_lib.objects import objects
+from .dovemere_2018_lib import demos, common_cb, common_code, Registers, platform_classes, shelter_classes
+from .dovemere_2018_lib.objects import templates, objects
 from .dovemere_2018_lib.roadstops import roadstops
 from .dovemere_2018_lib.flexible_stations import station_templates
 from agrf.strings import String
@@ -11,10 +11,10 @@ from agrf.strings import String
 modular_stations = []
 for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
     enable_if = [parameter_list["E88A9CA_ENABLE_MODULAR"]]
-    for platform_class in ["concrete", "brick"]:
+    for platform_class in platform_classes:
         if platform_class in entry.notes:
             enable_if.append(parameter_list[f"PLATFORM_{platform_class.upper()}"])
-    for shelter_class in ["shelter_1", "shelter_2"]:
+    for shelter_class in shelter_classes:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
 
@@ -116,7 +116,8 @@ the_stations = AMetaStation(
         + [x.to_bytes(1, "little") for x in range(0xC0, 0xC8)]
         + [b"\xf0"]
         + [b"\xf8", b"\xf9", b"\xfa", b"\xfb", b"\xfc"]
-        + [b"R", b"Z"]
+        + [b"R", b"Z", b"T", b"G", b"g", b"F", b"l", b"L", b"M"]
+        + [b"1", b"2", b"P", b"S"]
     ],
     {
         "Realistic Layouts": demos.realistic_demos,
