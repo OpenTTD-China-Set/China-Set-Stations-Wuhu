@@ -14,6 +14,7 @@ from station.lib import (
     ALayout,
     AttrDict,
     Registers,
+    blend_childsprites,
 )
 from agrf.graphics.voxel import LazyVoxel
 from station.stations.platform_lib.data import (
@@ -35,6 +36,7 @@ from station.stations.empty import make_empty_variant, empty_offset as f2_empty_
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
 from dataclasses import dataclass
+from agrf.graphics.palette import CompanyColour, company_colour_remap
 
 
 base_height = 14
@@ -152,8 +154,16 @@ for k, (_, offset, span) in f1_subsets.items():
     f1_empty_sprite[k] = make_empty_variant(64, 48, *f1_empty_offset, offset, span)
 
 
-def make_f2(v, sym):
-    v = v.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
+def make_f2(voxel, sym, ribbon_id=None):
+    if ribbon_id is not None:
+        ribbon_desc = f"ribbon {ribbon_id}"
+        vd = voxel.keep_layers((ribbon_desc,), ribbon_desc)
+        v = vd.compose(voxel, "merge", ignore_mask=True, colour_map=NON_RENDERABLE_COLOUR)
+
+        v = v.self_compose("2cc", colour_map=company_colour_remap(CompanyColour.PALE_GREEN, CompanyColour.PALE_GREEN))
+    else:
+        v = voxel.discard_layers(all_f1_layers + all_f2_layers + snow_layers, "f2")
+
     v.in_place_subset(sym.render_indices())
     v.config["agrf_relative_childsprite"] = f2_empty_offset
     s = sym.create_variants(v.spritesheet(zdiff=base_height))
@@ -161,7 +171,15 @@ def make_f2(v, sym):
     empty_parent = AParentSprite(f2_empty_sprite, (16, 16, overpass_height), (0, 0, base_height + platform_height))
     f2_child = AChildSprite(s, (0, 0), palette=0, flags={"add_palette": Registers.RECOLOUR_OFFSET})
 
-    return empty_parent + f2_child
+    if ribbon_id is None:
+        ribbons = []
+        for i in range(1, 11):
+            ribbons.append(make_f2(voxel, sym, i))
+        blended_ribbons = blend_childsprites(ribbons)
+
+        return empty_parent + f2_child + blended_ribbons
+    else:
+        return f2_child
 
 
 def make_extra(v, sym, name, floor="f2"):
