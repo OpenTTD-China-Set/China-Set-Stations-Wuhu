@@ -7,13 +7,14 @@
 ## 0x7000 - 0x7FFF: platforms
 ### Rail with one platform or symmetrical two platforms
 ```
-0111 0pp0 ssrd 00ci
+0111 0pps ssrd 00ci
 ```
 Where:
 * `r` is whether the platform has a rail-facing surface
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
 * `c` is whether the non-platform half has a concrete ground, only relevant for d=0
+* `sss` is `ss`+2, and is 0 for no shelter. Hence it uses values 0, 2, 3 and will use 4 & 5 if future shelter types were added.
 
 ### Rail with asymmetrical two platforms
 ```
@@ -22,6 +23,10 @@ Where:
 Where:
 * `S` is whether both platforms have shelters
 * `i` is the platform location (north or south)
+* `ss` is shelter number +1, 0 for no shelter.
+
+Problem:
+* This only allows 3 shelter types rather than 4 -- let's fix this when this actually happens.
 
 ### Waypoints
 ```

@@ -23,10 +23,10 @@ from station.stations.platform_lib.templates import platform_templates
 station_tiles = []
 for i, entry in enumerate(entries):
     enable_if = []
-    for platform_class in ["concrete", "brick"]:
+    for platform_class in platform_classes:
         if platform_class in entry.notes:
             enable_if.append(parameter_list[f"PLATFORM_{platform_class.upper()}"])
-    for shelter_class in ["shelter_1", "shelter_2"]:
+    for shelter_class in shelter_classes:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
 
