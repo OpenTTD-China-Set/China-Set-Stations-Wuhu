@@ -24,13 +24,13 @@ building_ground = ADefaultGroundSprite(1420, flags={"add": Registers.ZERO})
 track = make_slope_variants(
     {
         0: ALayout(track_ground, [], True),
-        1: ALayout(sloped_track_ground.R, [], True).add_default_foundation(66),
-        2: ALayout(sloped_track_ground.R, [], True).add_default_foundation(65),
+        1: ALayout(sloped_track_ground.R, [], True).add_default_foundation(5479),
+        2: ALayout(sloped_track_ground.R, [], True).add_default_foundation(5478),
         3: ALayout(sloped_track_ground.R, [], True),
         4: ALayout(sloped_track_ground, [], True),  # FIXME
-        6: ALayout(track_ground, [], True).add_default_foundation(35).raise_tile(),
-        8: ALayout(sloped_track_ground, [], True).add_default_foundation(72),
-        9: ALayout(track_ground, [], True).add_default_foundation(60).raise_tile(),
+        6: ALayout(track_ground, [], True).add_default_foundation(5448).raise_tile(),
+        8: ALayout(sloped_track_ground, [], True).add_default_foundation(5485),
+        9: ALayout(track_ground, [], True).add_default_foundation(5473).raise_tile(),
         12: ALayout(sloped_track_ground, [], True),
     }
 )[0]
