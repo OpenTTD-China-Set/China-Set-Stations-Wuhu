@@ -291,6 +291,7 @@ def register(pf: PlatformFamily):
                             )
 
     # Part V: hanging platforms and/or sunken ground
+    # FIXME: needs refactoring
 
     for pid, platform_class in enumerate(platform_classes):
         for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
