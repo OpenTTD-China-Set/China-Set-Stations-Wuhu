@@ -124,6 +124,8 @@ def register(pf: PlatformFamily):
                                     shelterless_ps = platform_ps[(name, platform_class, rail_facing, "", location)]
                                 except:
                                     continue
+                                if shelter_class == "":
+                                    continue
                                 concrete_cover = []
                                 l = [ps, shelterless_ps.T]
 
