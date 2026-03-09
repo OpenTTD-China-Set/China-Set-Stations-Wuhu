@@ -121,7 +121,7 @@ def register(pf: PlatformFamily):
                                 make_symmetrical = False
                                 try:
                                     shelterless_ps = platform_ps[(name, platform_class, rail_facing, "", location)]
-                                except:
+                                except (KeyError, TypeError):
                                     continue
                                 if shelter_class == "":
                                     continue

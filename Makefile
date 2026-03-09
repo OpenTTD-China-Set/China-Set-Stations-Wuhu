@@ -1,3 +1,5 @@
+.PHONY: rebuild all station clean_station clean doc.station
+
 rebuild: clean all
 
 all: station.grf
