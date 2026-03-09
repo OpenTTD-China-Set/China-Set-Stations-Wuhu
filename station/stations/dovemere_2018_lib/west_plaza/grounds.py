@@ -3,6 +3,7 @@ from station.lib import (
     BuildingFull,
     BuildingSymmetrical,
     BuildingCylindrical,
+    BuildingDiamond,
     AttrDict,
     AGroundSprite,
     ALayout,

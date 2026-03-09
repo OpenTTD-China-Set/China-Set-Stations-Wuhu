@@ -3,6 +3,7 @@ from station.lib import (
     BuildingFull,
     BuildingSymmetricalX,
     BuildingCylindrical,
+    BuildingDiagonalAlt,
     AParentSprite,
     AChildSprite,
     AttrDict,

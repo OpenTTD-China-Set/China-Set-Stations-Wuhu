@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from agrf.lib.building.layout import RenderContext as ProtoRenderContext, ALayout, DefaultGraphics
-from agrf.lib.building.demo import Demo as ProtoDemo
+from agrf.lib.building.demo import Demo as ProtoDemo, DEFAULT_RENDER_CONTEXT
 from .registers import Registers
 
 

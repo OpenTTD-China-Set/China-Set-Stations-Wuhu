@@ -16,7 +16,7 @@ from roadstop.lib import ARoadStop
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ...misc import road_ground
 from .roadstop_components import make_components, components
-from ..roadstop_utils import named_layouts, register_road_stop, named_parts
+from ..roadstop_utils import named_layouts, make_road_stop, register_road_stop, named_parts
 
 cnt = 0
 WIDTH = 3
