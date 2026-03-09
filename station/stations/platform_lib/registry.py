@@ -1,6 +1,6 @@
 from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
 from abc import ABC, abstractmethod
-from ..misc import track_ground, building_ground
+from ..misc import track_ground, building_ground, default_ground
 from ..ground import ground_ps, ground_gs
 from .aux import add_buffer_stop
 
@@ -238,11 +238,8 @@ def register(pf: PlatformFamily):
 
     # Part IV: platforms without rails
 
-    for pid, platform_class in enumerate(["np", "cut"] + platform_classes):
+    for pid, platform_class in enumerate(platform_classes):
         for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
-            if platform_class in ["np", "cut"]:
-                continue
-
             rail_facings = ["solid"]
 
             if shelter_class == "":
@@ -257,23 +254,19 @@ def register(pf: PlatformFamily):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
 
-                    for cid, (concrete_cover, cdesc) in enumerate([([], ""), ([ground_ps.gray_third.T], "covered")]):
+                    for cid, (solid_ground, cdesc) in enumerate(
+                        [(default_ground, "grass"), (gray_ps, "concrete"), (building_ground, "")]
+                    ):
                         for ssid, (l, make_symmetrical, shelter_side) in enumerate(
                             [([ps], False, ""), ([ps, ps.T], True, "d")]
                         ):
-                            concrete_cover = []
-                            if cid == 1:
-                                solid_ground = gray_ps
-                            else:
-                                solid_ground = building_ground
-
                             if make_symmetrical:
                                 cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
                             else:
                                 cur_symmetry = ps.sprite.symmetry
 
                             if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
-                                my_id = 0x7008 + (pid - 2) * 0x200 + sid * 0x40 + ssid * 0x10 + cid * 0x2
+                                my_id = 0x7C00 + cid * 0x80 + pid * 0x20 + ssid * 0x10 + sid * 0x4
                             else:
                                 my_id = None
 
@@ -282,9 +275,13 @@ def register(pf: PlatformFamily):
                             ] = make_entry(
                                 ALayout(
                                     solid_ground,
-                                    l + concrete_cover,
+                                    l,
                                     False,
-                                    category=(b"\xe8\x8a\x9cZ" if cid == 1 else b"\xe8\x8a\x9cz"),
+                                    category=(
+                                        b"\xe8\x8a\x9cZ"
+                                        if cid == 1
+                                        else b"\xe8\x8a\x9cr" if cid == 2 else b"\xe8\x8a\x9cz"
+                                    ),
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
                                 cur_symmetry,
