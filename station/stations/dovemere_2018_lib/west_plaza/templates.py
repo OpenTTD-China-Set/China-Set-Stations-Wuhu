@@ -1,5 +1,5 @@
 from station.lib import BuildingSymmetricalX
-from ..objects_utils import named_layouts, register, templates
+from ..objects_utils import named_layouts, register
 
 
 def make_templates():

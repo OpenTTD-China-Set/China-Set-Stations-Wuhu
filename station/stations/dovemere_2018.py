@@ -3,7 +3,7 @@ from station.lib import AStation, AMetaStation
 from station.lib.parameters import parameter_list
 from .dovemere_2018_lib.layouts import *
 from .dovemere_2018_lib import demos, common_cb, common_code, Registers, platform_classes, shelter_classes
-from .dovemere_2018_lib.objects import templates, objects
+from .dovemere_2018_lib.objects import objects
 from .dovemere_2018_lib.roadstops import roadstops
 from .dovemere_2018_lib.flexible_stations import station_templates
 from agrf.strings import String
