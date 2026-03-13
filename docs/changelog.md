@@ -31,7 +31,7 @@ Add a custom foundation for Wuhu Station (2015).
 
 Make a new station category: "trackless stations".
 
-Fix graphical gliches and improve details.
+Fix graphical glitches and improve details.
 
 0.3.3 (2025-01-27)
 ------------------------

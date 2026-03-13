@@ -310,6 +310,7 @@ STR_STATION_CLASS_E88A9CP       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms
 STR_STATION_CLASS_E88A9Cp       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms
 STR_STATION_CLASS_E88A9Cz       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Urban Ground)
 STR_STATION_CLASS_E88A9CZ       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Concrete Ground)
+STR_STATION_CLASS_E88A9Cr       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Grassland)
 STR_STATION_CLASS_E88A9CL       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms with Lowered Grounds
 STR_STATION_CLASS_E88A9Cl       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms with Lowered Grounds (2 levels)
 STR_STATION_CLASS_E88A9CE       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Elevated Platforms
