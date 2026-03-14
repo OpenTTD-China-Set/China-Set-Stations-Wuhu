@@ -280,7 +280,7 @@ def register(pf: PlatformFamily):
                                     category=(
                                         b"\xe8\x8a\x9cZ"
                                         if cid == 1
-                                        else b"\xe8\x8a\x9cr" if cid == 2 else b"\xe8\x8a\x9cz"
+                                        else b"\xe8\x8a\x9cr" if cid == 0 else b"\xe8\x8a\x9cz"
                                     ),
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
