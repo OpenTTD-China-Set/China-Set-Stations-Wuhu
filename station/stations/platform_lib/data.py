@@ -169,5 +169,5 @@ concourse_tiles.populate()
 
 
 empty_tile = make_entry(
-    ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cp", notes=["empty"]), BuildingCylindrical, 0x7FFF
+    ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
 )

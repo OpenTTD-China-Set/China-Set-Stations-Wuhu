@@ -62,5 +62,8 @@ for i, entry in enumerate(entries):
     )
 
 the_stations = AMetaStation(
-    platform_templates + station_tiles, b"\xe8\x8a\x9cP", [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp"], demos
+    platform_templates + station_tiles,
+    b"\xe8\x8a\x9cP",
+    [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cU"],
+    demos,
 )
