@@ -9,3 +9,4 @@ from .registry import (
     entries,
     make_entry,
 )
+from .data import platform_classes, shelter_classes

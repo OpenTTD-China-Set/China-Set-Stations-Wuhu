@@ -25,10 +25,10 @@ from station.stations.platform_lib.templates import platform_templates
 station_tiles = []
 for i, entry in enumerate(entries):
     enable_if = []
-    for platform_class in ["concrete", "brick"]:
+    for platform_class in platform_classes:
         if platform_class in entry.notes:
             enable_if.append(parameter_list[f"PLATFORM_{platform_class.upper()}"])
-    for shelter_class in ["shelter_1", "shelter_2"]:
+    for shelter_class in shelter_classes:
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
 
@@ -55,6 +55,7 @@ for i, entry in enumerate(entries):
             ),
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
+            is_waypoint="waypoint" in entry.notes,
             callbacks={"select_tile_layout": 0, "select_sprite_layout": grf.DualCallback(default=0, purchase=2)},
             enable_if=enable_if,
             doc_layout=entry,
@@ -64,6 +65,15 @@ for i, entry in enumerate(entries):
 the_stations = AMetaStation(
     platform_templates + station_tiles,
     b"\xe8\x8a\x9cP",
-    [b"\xe8\x8a\x9cT", b"\xe8\x8a\x9cP", b"\xe8\x8a\x9cp", b"\xe8\x8a\x9cU"],
+    [
+        b"\xe8\x8a\x9cT",
+        b"\xe8\x8a\x9cP",
+        b"\xe8\x8a\x9cp",
+        b"\xe8\x8a\x9cr",
+        b"\xe8\x8a\x9cz",
+        b"\xe8\x8a\x9cZ",
+        b"\xe8\x8a\x9cU",
+        b"\xe8\x8a\x9cQ",
+    ],
     demos,
 )

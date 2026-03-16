@@ -20,11 +20,8 @@ from station.stations.platform_lib import (
     make_entry,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
-from ..ground import named_ps as ground_ps
-from ..misc import default_ground
-
-
-gray_ps = ground_ps.gray
+from ..ground import ground_gs
+from ..misc import default_ground, building_ground
 
 
 platform_height = 4
@@ -120,7 +117,7 @@ class CNSPlatformFamily(PlatformFamily):
         )
 
         height = max((platform_height if platform_class != "" else 0), (shelter_height if shelter_class != "" else 0))
-        if shelter_class in ["shelter_1", "shelter_2"]:
+        if shelter_class in shelter_classes:
             child_sprites = [self._get_snow_sprite(location.replace("_narrow", ""), shelter_class)]
 
             # XXX Temporarily disable snow sprites until WenSim adds them in CNS
@@ -170,4 +167,10 @@ concourse_tiles.populate()
 
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
+)
+empty_concrete_tile = make_entry(
+    ALayout(ground_gs.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
+)
+empty_baseset_tile = make_entry(
+    ALayout(building_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFB
 )

@@ -7,15 +7,18 @@ from station.lib import (
     add_night_masks_fmap,
 )
 from abc import ABC, abstractmethod
-from ..misc import track_ground
-from ..ground import named_ps as ground_ps
+from ..misc import track_ground, building_ground, default_ground
+from ..ground import ground_ps, ground_gs
 from .aux import add_buffer_stop
 
-gray_ps = ground_ps.gray
+gray_ps = ground_gs.gray
 
 platform_ps = AttrDict(schema=("name", "platform_clas", "rail_facing", "shelter_class", "location"))
 concourse_ps = AttrDict(schema=("platform_class", "side"))
-platform_tiles = AttrDict(schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side"))
+platform_tiles = AttrDict(
+    schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side", "concrete_covering")
+)
+waypoint_tiles = AttrDict(schema=("name", "north", "south"))
 two_side_tiles = AttrDict(
     schema=(
         "name",
@@ -93,6 +96,8 @@ def register(pf: PlatformFamily):
             notes.append(shelter_class_2)
         return notes
 
+    # Part I: platforms with rails
+
     for pid, platform_class in enumerate(["np", "cut"] + platform_classes):
         for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
             if (platform_class, shelter_class) == ("np", ""):
@@ -116,33 +121,48 @@ def register(pf: PlatformFamily):
                     ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
                     platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
 
-                    for ssid, (l, make_symmetrical, shelter_side) in enumerate(
-                        [([ps], False, ""), ([ps, ps.T], True, "d")]
-                    ):
-                        if make_symmetrical:
-                            cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
-                        else:
-                            cur_symmetry = ps.sprite.symmetry
+                    for cid, (concrete_cover, cdesc) in enumerate([([], ""), ([ground_ps.gray_third.T], "covered")]):
+                        for ssid, (l, make_symmetrical, shelter_side) in enumerate(
+                            [([ps], False, ""), ([ps, ps.T], True, "d")]
+                        ):
+                            if ssid == 1 and cid == 1:
+                                make_symmetrical = False
+                                try:
+                                    shelterless_ps = platform_ps[(name, platform_class, rail_facing, "", location)]
+                                except (KeyError, TypeError):
+                                    continue
+                                if shelter_class == "":
+                                    continue
+                                concrete_cover = []
+                                l = [ps, shelterless_ps.T]
 
-                        platform_tiles[(name, platform_class, rail_facing, shelter_class, location, shelter_side)] = (
-                            make_entry(
+                            if make_symmetrical:
+                                cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
+                            else:
+                                cur_symmetry = ps.sprite.symmetry
+
+                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                my_id = (
+                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + (rid % 2) * 0x20 + ssid * 0x10 + cid * 0x2
+                                )
+                            else:
+                                my_id = None
+
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
                                 ALayout(
                                     track_ground,
-                                    l,
+                                    l + concrete_cover,
                                     True,
-                                    category=b"\xe8\x8a\x9cP",
+                                    category=(b"\xe8\x8a\x9cP"),
                                     notes=make_notes(platform_class, shelter_class),
                                 ),
                                 cur_symmetry,
-                                (
-                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + rid * 0x20 + ssid * 0x10
-                                    if platform_class not in ["np", "cut"]
-                                    and shelter_class != "pillar"
-                                    and location == ""
-                                    else None
-                                ),
+                                my_id,
                             )
-                        )
+
+    # Part II: asymmetrical platforms with rails
 
     for pid, platform_class in enumerate(platform_classes):
         for rid, rail_facing in enumerate(["", "side"]):
@@ -175,6 +195,8 @@ def register(pf: PlatformFamily):
                             suffix2 = (platform_class, rail_facing_2, shelter_class_2)
                             two_side_tiles[(name, *suffix, "and", *suffix2)] = l
                             two_side_tiles[(name, *suffix2, "and", *suffix)] = l.T
+
+    # Part III: full platforms without rails
 
     for pid, platform_class in enumerate(["none"] + platform_classes):
         for ssid, side in enumerate(["", "d"] if platform_class != "none" else [""]):
@@ -223,3 +245,76 @@ def register(pf: PlatformFamily):
                             cur_sym,
                             0x7B00 + pid * 0x20 + ssid * 0x10 + sid * 0x4 + lid * 0x2,
                         )
+
+    # Part IV: platforms without rails
+
+    for pid, platform_class in enumerate(platform_classes):
+        for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
+            rail_facings = ["solid"]
+
+            if shelter_class == "":
+                locations = [""]
+            elif shelter_class == "pillar":
+                locations = ["", "building", "central"]
+            else:
+                locations = ["", "building", "building_narrow", "building_v", "building_v_narrow"]
+
+            for lid, location in enumerate(locations):
+                for rid, rail_facing in enumerate(rail_facings):
+                    ps = pf.get_sprite(location, rail_facing, platform_class, shelter_class)
+                    platform_ps[(name, platform_class, rail_facing, shelter_class, location)] = ps
+
+                    for cid, (solid_ground, cdesc) in enumerate(
+                        [(default_ground, "grass"), (gray_ps, "concrete"), (building_ground, "")]
+                    ):
+                        for ssid, (l, make_symmetrical, shelter_side) in enumerate(
+                            [([ps], False, ""), ([ps, ps.T], True, "d")]
+                        ):
+                            if make_symmetrical:
+                                cur_symmetry = ps.sprite.symmetry.add_y_symmetry()
+                            else:
+                                cur_symmetry = ps.sprite.symmetry
+
+                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                my_id = 0x7C00 + cid * 0x80 + pid * 0x20 + ssid * 0x10 + sid * 0x4
+                            else:
+                                my_id = None
+
+                            platform_tiles[
+                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
+                            ] = make_entry(
+                                ALayout(
+                                    solid_ground,
+                                    l,
+                                    False,
+                                    category=(
+                                        b"\xe8\x8a\x9cZ"
+                                        if cid == 1
+                                        else b"\xe8\x8a\x9cr" if cid == 0 else b"\xe8\x8a\x9cz"
+                                    ),
+                                    notes=make_notes(platform_class, shelter_class),
+                                ),
+                                cur_symmetry,
+                                my_id,
+                            )
+
+    # Part V: waypoints
+    make_entry(
+        ALayout(track_ground, [], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]), BuildingSymmetrical, 0x7110
+    )
+    make_entry(
+        ALayout(track_ground, [ground_ps.gray_third], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]),
+        BuildingSymmetricalX,
+        0x7111,
+    )
+    make_entry(
+        ALayout(
+            track_ground,
+            [ground_ps.gray_third, ground_ps.gray_third.T],
+            True,
+            category=b"\xe8\x8a\x9cQ",
+            notes=["waypoint"],
+        ),
+        BuildingSymmetrical,
+        0x7113,
+    )

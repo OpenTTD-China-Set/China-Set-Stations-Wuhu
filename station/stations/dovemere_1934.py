@@ -16,7 +16,7 @@ from agrf.graphics.voxel import LazyVoxel
 from .misc import building_ground
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from agrf.graphics.palette import CompanyColour
-from station.stations.platforms import platform_tiles
+from station.stations.platform_lib import platform_tiles
 
 
 def quickload(name, symmetry):

@@ -5,7 +5,7 @@ from .. import common_cb, common_code
 from station.lib.templates.platforms import determine_platform_odd, determine_platform_even
 from station.lib.templates.demo import make_demo
 from .common import make_row, make_front_row, make_central_row
-from station.stations.platforms import platform_classes, shelter_classes
+from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
 named_tiles.globalize()

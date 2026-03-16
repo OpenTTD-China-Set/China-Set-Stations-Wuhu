@@ -1,3 +1,5 @@
+.PHONY: rebuild all station clean_station clean doc.station profile report.station
+
 rebuild: clean all
 
 all: station.grf
@@ -18,8 +20,14 @@ station.grf:
 	ulimit -n 4096; python3 -m station.dovemere_gen gen
 
 profile.station:
-	python3 -m cProfile -o .prof/station_gen.prof -m station.dovemere_gen gen
-	gprof2dot -f pstats .prof/station_gen.prof | dot -Tpng -o .prof/station_gen_prof.png
+	python3 -m cProfile -o .prof/station.prof -m station.dovemere_gen gen
+
+report.station:
+	python3 -c "import pstats; pstats.Stats('.prof/station.prof').sort_stats('cumulative').print_stats(50)"
+
+report_dot.station:
+	gprof2dot -f pstats .prof/station.prof | dot -Tpng -o .prof/station_gen_prof.png
 
 pprofile.station:
 	pprofile --statistic .01 -m station.dovemere_gen gen | tee .prof/station_pprofile.txt
+
