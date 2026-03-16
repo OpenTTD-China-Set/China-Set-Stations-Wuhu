@@ -16,12 +16,14 @@ jobs:
         uses: astral-sh/setup-uv@v5
       - name: Install Python 3.12.10
         run: uv python install 3.12.10
+      - name: Create venv
+        run: uv venv --python 3.12.10
       - name: Install system deps
         run: sudo apt update && sudo apt install libjpeg-dev zlib1g-dev
       - name: Install python deps
-        run: uv pip install --python 3.12.10 -r requirements.txt
+        run: uv pip install -r requirements.txt
       - name: Generate station
-        run: uv run --python 3.12.10 make station; mkdir release; mv station.grf release/
+        run: uv run make station; mkdir release; mv station.grf release/
       - name: Pack documentation
         run: cp docs/changelog.md release/changelog.txt; cp docs/readme.md release/readme.txt
       - name: Upload artifact

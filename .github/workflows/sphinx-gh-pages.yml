@@ -31,14 +31,16 @@ jobs:
         uses: astral-sh/setup-uv@v5
       - name: Install Python 3.12.10
         run: uv python install 3.12.10
+      - name: Create venv
+        run: uv venv --python 3.12.10
       - name: Install system deps
         run: sudo apt update && sudo apt install libjpeg-dev zlib1g-dev
       - name: Install python deps
-        run: uv pip install --python 3.12.10 -r requirements.txt && uv pip install --python 3.12.10 -r requirements-dev.txt
+        run: uv pip install -r requirements.txt && uv pip install -r requirements-dev.txt
       - name: Setup Pages
         uses: actions/configure-pages@main
       - name: Generate docs (Station)
-        run: uv run --python 3.12.10 make doc.station
+        run: uv run make doc.station
       - name: Upload artifact
         uses: actions/upload-pages-artifact@main
         with:

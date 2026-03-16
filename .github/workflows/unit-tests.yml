@@ -28,9 +28,11 @@ jobs:
         uses: astral-sh/setup-uv@v5
       - name: Install Python 3.12.10
         run: uv python install 3.12.10
+      - name: Create venv
+        run: uv venv --python 3.12.10
       - name: Install system deps
         run: sudo apt update && sudo apt install libjpeg-dev zlib1g-dev
       - name: Install python deps
-        run: uv pip install --python 3.12.10 -r requirements.txt && uv pip install --python 3.12.10 pytest
+        run: uv pip install -r requirements.txt && uv pip install pytest
       - name: Test stations
-        run: uv run --python 3.12.10 pytest station
+        run: uv run pytest station
