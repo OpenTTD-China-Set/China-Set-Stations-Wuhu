@@ -12,14 +12,16 @@ jobs:
         uses: actions/checkout@main
         with:
           lfs: true
-      - name: Install system python deps
-        run: sudo apt update && sudo apt install python3-ply python3-pil libjpeg-dev zlib1g-dev
-      - name: Get setuptools
-        run: pip install --upgrade setuptools
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install system deps
+        run: sudo apt update && sudo apt install libjpeg-dev zlib1g-dev
       - name: Install python deps
-        run: pip install -r requirements.txt
+        run: uv pip install -r requirements.txt
       - name: Generate station
-        run: make station; mkdir release; mv station.grf release/
+        run: uv run make station; mkdir release; mv station.grf release/
       - name: Pack documentation
         run: cp docs/changelog.md release/changelog.txt; cp docs/readme.md release/readme.txt
       - name: Upload artifact
