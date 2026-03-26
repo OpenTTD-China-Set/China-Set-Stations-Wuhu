@@ -16,6 +16,20 @@ Where:
 * `c` is whether the non-platform half has a concrete ground, only relevant for d=0
 * `sss` is `ss`+2, and is 0 for no shelter. Hence it uses values 0, 2, 3 and will use 4 & 5 if future shelter types were added.
 
+#### With sunken ground
+```
+0111 0pp0 ss10 01di
+```
+Where:
+* `d` is how deep the ground is (d=0: 1-tile deep; d=1: 2-tile deep)
+
+#### With elevated platform
+```
+0111 0pp0 ss10 1d0i
+```
+Where:
+* `d` is how deep the ground is (d=0: flat; d=1: 1-tile deep)
+
 ### Rail with asymmetrical two platforms
 ```
 0111 100p prr0 ssSi
@@ -69,12 +83,23 @@ No shelter
 ```
 Has shelter
 
-### Empty Ground
+### Special stuff
+#### Empty Ground
 ```
 0111 1111 1111 1bbb
 ```
 
 b: 110 for concrete, 111 for natural, 011 for base-set concrete
+
+#### Sunken Ground (Deep)
+```
+0111 1111 1111 1100
+```
+
+#### Sunken Ground
+```
+0111 1111 1111 1101
+```
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````

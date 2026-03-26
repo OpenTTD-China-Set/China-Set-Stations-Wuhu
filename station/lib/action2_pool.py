@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 import functools
 import grf
+from station.lib.foundation_switch import FoundationSwitch
 from agrf.lib.building.layout import ALayout
+from agrf.lib.building.foundation import Foundation
 
 
 @dataclass
@@ -23,7 +25,7 @@ class Action2Pool:
         if foundation in self.foundation_to_id:
             return self.foundation_to_id[foundation]
         self.foundation_to_id[foundation] = self.max_id
-        self.foundations.extend(foundation.make_foundations())
+        self.foundations.append(foundation.make_foundations())
         self.id_to_action2[self.max_id] = grf.GenericSpriteLayout(
             ent1=[self.max_id], ent2=[self.max_id], feature=grf.STATION
         )
@@ -31,6 +33,10 @@ class Action2Pool:
         return self.foundation_to_id[foundation]
 
     def get_action_2(self, foundation):
+        if isinstance(foundation, grf.Switch):
+            return foundation.fmap(lambda x: self.get_action_2(x))
+        elif not isinstance(foundation, Foundation):
+            return self.get_action_2(foundation.to_switch())
         cur_id = self.get_foundation_id(foundation)
         return self.id_to_action2[cur_id]
 
@@ -42,12 +48,19 @@ class Action2Pool:
     def export(self):
         ret = []
         if self.max_id > 1:
-            ret.append(grf.Action1(feature=grf.STATION, set_count=self.max_id - 1, sprite_count=8, first_set=1))
-            ret.extend(self.foundations)
+            for i, f in enumerate(self.foundations):
+                ret.append(grf.Action1(feature=grf.STATION, set_count=1, sprite_count=len(f), first_set=i + 1))
+                ret.extend(f)
         return ret
 
     def __hash__(self):
         return id(self)
+
+    @functools.cache
+    def map_foundation_switch(self, s):
+        if isinstance(s, Foundation):
+            return self.get_action_2(s)
+        return s.fmap(lambda x: self.map_foundation_switch(x))
 
     @functools.cache
     def map_switch(self, s):

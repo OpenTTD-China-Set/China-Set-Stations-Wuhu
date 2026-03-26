@@ -74,6 +74,15 @@ make_colour(
     mapping_2=ParameterMapping(grf_parameter=0x11, first_bit=16, num_bit=5),
 )
 
+# E9B8A0A: Wuhu North
+settings.append(
+    Parameter(
+        "E9B8A0A_ENABLE_MODULAR", 1, booldict, mapping=ParameterMapping(grf_parameter=0x20, first_bit=0, num_bit=1)
+    )
+)
+make_introduction_year("E9B8A0A", mapping=ParameterMapping(grf_parameter=0x20, first_bit=8, num_bit=13))
+make_colour("E9B8A0A", mapping=ParameterMapping(grf_parameter=0x13, first_bit=0, num_bit=5))
+
 # E88A9CP: Platforms
 settings.append(
     Parameter(
@@ -97,7 +106,7 @@ settings.append(
 
 parameter_list = ParameterList(settings)
 
-station_meta = ["E88A9CA", "E88A9C0"]
+station_meta = ["E88A9CA", "E88A9C0", "E9B8A0A"]
 station_cb = {}
 station_code = {}
 for s in station_meta:
