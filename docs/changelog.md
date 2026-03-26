@@ -5,7 +5,7 @@ Changelog
 ------------------------
 Fix localization.
 
-Add station tiles with concrete ground.
+Add station tiles with concrete/grass/urban/lowered ground.
 
 0.4.0 (2025-10-01)
 ------------------------
