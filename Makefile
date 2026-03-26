@@ -1,4 +1,4 @@
-.PHONY: rebuild all station clean_station clean doc.station profile report.station
+.PHONY: rebuild all station clean_station clean doc.station profile report.station cc.station
 
 rebuild: clean all
 
@@ -24,3 +24,7 @@ profile.station:
 
 report.station:
 	python3 -c "import pstats; pstats.Stats('station.prof').sort_stats('cumulative').print_stats(50)"
+
+cc.station:
+	opencc -i station/lang/chinese.lng -o station/lang/traditional_chinese.lng -c station/lang/opencc_config/s2t.json
+	sed -i 's/##grflangid.*/##grflangid 0x0C/' station/lang/traditional_chinese.lng
