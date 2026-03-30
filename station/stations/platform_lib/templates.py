@@ -10,7 +10,7 @@ from .registry import layouts
 
 # FIXME
 #   These constants are empty *by design*, and that's fine.
-#   Do not attemt to refactor away them, since the right refactor to do is to
+#   Do not attempt to refactor away them, since the right refactor to do is to
 #     merge the logic here and the counterpart in dovemere_2018_lib.
 common_cb = {}
 common_code = ""

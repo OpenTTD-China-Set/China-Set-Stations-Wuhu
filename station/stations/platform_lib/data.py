@@ -18,10 +18,12 @@ from station.stations.platform_lib import (
     two_side_tiles,
     concourse_tiles,
     make_entry,
+    entries,
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ..ground import ground_gs
-from ..misc import default_ground
+from ..misc import default_ground, building_ground
+from .ground import empty_base_merged, empty_base_underground_gs, empty_base_merged_2, empty_base_underground_gs_2
 
 
 platform_height = 4
@@ -84,7 +86,7 @@ class CNSPlatformFamily(PlatformFamily):
         if platform_class == "":
             pkeeps = set()
         else:
-            pkeeps = {platform_class + ("_side" if rail_facing == "side" else "")}
+            pkeeps = {platform_class + (f"_{rail_facing}" if rail_facing != "" else "")}
         if shelter_class == "":
             skeeps = set()
         else:
@@ -93,7 +95,7 @@ class CNSPlatformFamily(PlatformFamily):
             elif location == "building_v_narrow":
                 skeeps = {shelter_class + "_building_v"}
             else:
-                skeeps = {shelter_class + ("_" if location != "" else "") + location}
+                skeeps = {shelter_class + (f"_{location}" if location != "" else "")}
                 if platform_class != "" and shelter_class != "pillar":
                     if location == "building":
                         skeeps.add("escalator")
@@ -119,7 +121,7 @@ class CNSPlatformFamily(PlatformFamily):
         )
 
         height = max((platform_height if platform_class != "" else 0), (shelter_height if shelter_class != "" else 0))
-        if shelter_class in ["shelter_1", "shelter_2"]:
+        if shelter_class in shelter_classes:
             child_sprites = [self._get_snow_sprite(location.replace("_narrow", ""), shelter_class)]
 
             # XXX Temporarily disable snow sprites until WenSim adds them in CNS
@@ -166,10 +168,33 @@ platform_tiles.populate()
 two_side_tiles.populate()
 concourse_tiles.populate()
 
-
 empty_tile = make_entry(
     ALayout(default_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFF
 )
 empty_concrete_tile = make_entry(
     ALayout(ground_gs.gray, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFE
+)
+
+l = ALayout(
+    None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit", "extended"], foundation=empty_base_merged
+)
+l2 = ALayout(empty_base_underground_gs, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
+l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
+l.purchase = l2
+l.id = 0x7FFC
+entries.append(l)
+sunken_ground = l
+
+l = ALayout(
+    None, [], False, category=b"\xe8\x8a\x9cU", notes=["pit", "empty pit 2", "extended"], foundation=empty_base_merged_2
+)
+l2 = ALayout(empty_base_underground_gs_2, [], False, category=b"\xe8\x8a\x9cU", notes=["empty", "extended"])
+l = BuildingCylindrical.create_variants(BuildingCylindrical.get_all_variants(l))
+l.purchase = l2
+l.id = 0x7FFD
+entries.append(l)
+sunken_ground_2 = l
+
+empty_baseset_tile = make_entry(
+    ALayout(building_ground, [], False, category=b"\xe8\x8a\x9cU", notes=["empty"]), BuildingCylindrical, 0x7FFB
 )

@@ -193,6 +193,8 @@ STR_STATION_PLATFORM                            :Platform
 STR_STATION_PLATFORM_UNTRAVERSABLE              :Platform (No Track)
 STR_STATION_CONCOURSE                           :Concourse
 STR_STATION_EMPTY                               :Ground
+STR_STATION_SUNKEN                              :Sunken Ground
+STR_STATION_SUNKEN_2                            :Sunken Ground (2 levels)
 STR_STATION_FLEXIBLE_PLATFORM                   :Platform Template
 STR_STATION_FLEXIBLE_PLATFORM_SIDE              :Platform Template (with side platform)
 STR_STATION_FLEXIBLE_SIDE                       :Flexible Station Building (All tracks, no side platform)
@@ -306,6 +308,13 @@ STR_STATION_CLASS_E7B981W       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Fanchangxi
 STR_STATION_CLASS_E88A9CT       :{PUSH_COLOUR}{WHITE}CNS:{POP_COLOUR} Wuhu - Platforms - Template
 STR_STATION_CLASS_E88A9CP       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms
 STR_STATION_CLASS_E88A9Cp       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms
+STR_STATION_CLASS_E88A9Cz       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Urban Ground)
+STR_STATION_CLASS_E88A9CZ       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Concrete Ground)
+STR_STATION_CLASS_E88A9Cr       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Trackless Platforms (Grassland)
+STR_STATION_CLASS_E88A9CL       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms with Lowered Grounds
+STR_STATION_CLASS_E88A9Cl       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Platforms with Lowered Grounds (2 levels)
+STR_STATION_CLASS_E88A9CE       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Elevated Platforms
+STR_STATION_CLASS_E88A9Ce       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Elevated Platforms with Lowered Grounds
 STR_STATION_CLASS_E88A9CU       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Ground
 
 STR_OBJECT_CLASS_E88A9CB0       :{PUSH_COLOUR}{WHITE}|>{POP_COLOUR} Station Building

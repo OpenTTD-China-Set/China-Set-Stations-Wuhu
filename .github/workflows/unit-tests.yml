@@ -24,11 +24,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-      - name: Install system python deps
-        run: sudo apt update && sudo apt install python3-ply python3-pil libjpeg-dev zlib1g-dev
-      - name: Get setuptools
-        run: pip install --upgrade setuptools
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install Python 3.12.10
+        run: uv python install 3.12.10
+      - name: Create venv
+        run: uv venv --python 3.12.10
+      - name: Install system deps
+        run: sudo apt update && sudo apt install libjpeg-dev zlib1g-dev
       - name: Install python deps
-        run: pip install -r requirements.txt && pip install pytest
+        run: uv pip install -r requirements.txt && uv pip install pytest
       - name: Test stations
-        run: pytest station
+        run: uv run pytest station

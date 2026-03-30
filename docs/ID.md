@@ -7,13 +7,28 @@
 ## 0x7000 - 0x7FFF: platforms
 ### Rail with one platform or symmetrical two platforms
 ```
-0111 0pp0 ssrd 00ci
+0111 0pps ssrd 00ci
 ```
 Where:
 * `r` is whether the platform has a rail-facing surface
 * `d` is whether the tile contains two platforms
 * `i` is the platform location (north or south), only relevant for d=0
 * `c` is whether the non-platform half has a concrete ground, only relevant for d=0
+* `sss` is `ss`+2, and is 0 for no shelter. Hence it uses values 0, 2, 3 and will use 4 & 5 if future shelter types were added.
+
+#### With sunken ground
+```
+0111 0pp0 ss10 01di
+```
+Where:
+* `d` is how deep the ground is (d=0: 1-tile deep; d=1: 2-tile deep)
+
+#### With elevated platform
+```
+0111 0pp0 ss10 1d0i
+```
+Where:
+* `d` is how deep the ground is (d=0: flat; d=1: 1-tile deep)
 
 ### Rail with asymmetrical two platforms
 ```
@@ -22,6 +37,10 @@ Where:
 Where:
 * `S` is whether both platforms have shelters
 * `i` is the platform location (north or south)
+* `ss` is shelter number +1, 0 for no shelter.
+
+Problem:
+* This only allows 3 shelter types rather than 4 -- let's fix this when this actually happens.
 
 ### Waypoints
 ```
@@ -43,6 +62,16 @@ Where:
 0111 1011 0ppd ssli
 ````
 
+Where:
+* `l` is 1 if both sides has shelters (only applicable when d=1)
+
+### No rail, flat ground
+```
+0111 110a appd ssli
+```
+Where:
+* `aa` is ground type
+
 ### Templates
 ```
 0111 1111 0000 0Spp
@@ -54,12 +83,23 @@ No shelter
 ```
 Has shelter
 
-### Empty Ground
+### Special stuff
+#### Empty Ground
 ```
-0111 1111 1111 111b
+0111 1111 1111 1bbb
 ```
 
-b: 0 for concrete, 1 for natural
+b: 110 for concrete, 111 for natural, 011 for base-set concrete
+
+#### Sunken Ground (Deep)
+```
+0111 1111 1111 1100
+```
+
+#### Sunken Ground
+```
+0111 1111 1111 1101
+```
 
 ## 0x8000 - 0xFFFE: Wuhu Station (2015)
 ````

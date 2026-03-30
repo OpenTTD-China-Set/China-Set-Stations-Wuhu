@@ -1,3 +1,5 @@
+.PHONY: rebuild all station clean_station clean doc.station profile report.station cc.station
+
 rebuild: clean all
 
 all: station.grf
@@ -16,3 +18,13 @@ doc.station:
 
 station.grf:
 	python3 -m station.dovemere_gen gen
+
+profile.station:
+	python3 -m cProfile -o station.prof -m station.dovemere_gen gen
+
+report.station:
+	python3 -c "import pstats; pstats.Stats('station.prof').sort_stats('cumulative').print_stats(50)"
+
+cc.station:
+	opencc -i station/lang/chinese.lng -o station/lang/traditional_chinese.lng -c station/lang/opencc_config/s2t.json
+	sed -i 's/##grflangid.*/##grflangid 0x0C/' station/lang/traditional_chinese.lng
