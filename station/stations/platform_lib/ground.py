@@ -1,0 +1,119 @@
+from agrf.graphics.helpers.blend import blend_alternative_sprites
+from agrf.graphics.helpers.map import map_alternative_sprites
+from agrf.graphics.voxel import LazyVoxel
+from station.lib import BuildingSymmetrical, BuildingSymmetricalX, AParentSprite, AGroundSprite
+from station.lib.registers import Registers
+from station.stations.empty import empty_sprite, empty_offset
+from ..ground import ground_images
+from agrf.lib.building.foundation import Foundation
+from station.lib.foundation_switch import FoundationSwitch
+from station.stations.empty import make_empty_variant
+
+JOGGLE_AMOUNT = 45 - 32 * 2**0.5
+
+
+def create_huge_ground(sprites, scale, bpp):
+    sprite0, sprite1, sprite2, sprite3 = sprites
+    sprite = sprite3.copy()
+    x1 = sprite1.copy().move(-32 * scale, 16 * scale)
+    x2 = sprite2.copy().move(32 * scale, 16 * scale)
+    x0 = sprite0.copy().move(0, 32 * scale)
+    sprite.blend_over(x1)
+    sprite.blend_over(x2)
+    sprite.blend_over(x0)
+    return sprite
+
+
+def double(sprites, scale, bpp):
+    (sprite,) = sprites
+    sprite = sprite.copy()
+    sprite.blend_over(sprite.copy().move(0, -8 * scale))
+    return sprite
+
+
+gray = ground_images.gray
+box = ground_images.gray_box
+doublebox = box.symmetry_fmap(lambda y: map_alternative_sprites(y, double, "double", xofs=0, yofs=0))
+
+from agrf.graphics.spritesheet import SCALE_TO_ZOOM
+from agrf.graphics.layered_image import LayeredImage
+
+
+ground_image_list = [
+    gray.symmetry_fmap(
+        lambda y: map_alternative_sprites((y, s1, s2, s3), create_huge_ground, "tiling", xofs=0, yofs=-32)
+    )
+    for s3 in [gray, box, doublebox]
+    for s2 in [gray, box, doublebox]
+    for s1 in [gray, box, doublebox]
+]
+
+
+def make_sprite(name, symmetry, joggle, width=16):
+    v = LazyVoxel(
+        name,
+        prefix=".cache/render/station/cns",
+        voxel_getter=lambda path=f"station/voxels/cns/{name}.vox": path,
+        load_from="station/files/cns-gorender.json",
+        subset=symmetry.render_indices(),
+    )
+
+    v.config["joggle"] = joggle
+    v.render()
+
+    sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))
+    return sprite
+
+
+def fix_subset_name(subset, i):
+    if subset == "all" or i % 2 == 0:
+        return subset
+    return {"x": "y", "y": "x"}[subset]
+
+
+def merge_ground(object_sprite, elevation=-1, subset="all"):
+    return object_sprite.symmetry_fmap(
+        lambda y: FoundationSwitch(
+            foundations=[
+                Foundation(
+                    y,
+                    x,
+                    False,
+                    -8 - 8 * elevation,
+                    extended=True,
+                    nw_clip=(i % 3 < -elevation),
+                    ne_clip=(i // 3 % 3 < -elevation),
+                    sw=sw,
+                    se=se,
+                    subset=fix_subset_name(subset, object_sprite.symmetry_index(y)),
+                )
+                for se in [0, 1, 2]
+                for sw in [0, 1, 2]
+                for i, x in enumerate(ground_image_list)
+            ],
+            my_elevation=elevation,
+        )
+    )
+
+
+pillar = AParentSprite(make_sprite("pillar", BuildingSymmetricalX, JOGGLE_AMOUNT, width=5), (16, 5, 8), (0, 11, 0))
+
+empty_base = make_empty_variant(1, 1, 0, 0)
+empty_base_merged = merge_ground(empty_base)
+empty_base_underground_gs = AGroundSprite(empty_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
+
+empty_base_merged_2 = merge_ground(empty_base, -2)
+empty_base_underground_gs_2 = AGroundSprite(
+    empty_base_merged_2.symmetry_fmap(lambda y: y.convert_foundation_to_ground())
+)
+
+pillar_base = make_sprite("pillar_base", BuildingSymmetricalX, JOGGLE_AMOUNT * 2)
+pillar_base_merged = merge_ground(pillar_base, subset="x")
+
+pillar_base_underground_gs = AGroundSprite(pillar_base_merged.symmetry_fmap(lambda y: y.convert_foundation_to_ground()))
+
+fake_bridge = make_sprite("fake_bridge", BuildingSymmetrical, JOGGLE_AMOUNT)
+fake_bridge_merged = merge_ground(fake_bridge, subset="x")
+
+fake_bridge_2 = make_sprite("fake_bridge_2", BuildingSymmetrical, JOGGLE_AMOUNT * 2)
+fake_bridge_merged_2 = merge_ground(fake_bridge_2, elevation=-2, subset="x")

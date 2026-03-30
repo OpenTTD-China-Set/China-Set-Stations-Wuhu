@@ -1,5 +1,5 @@
 import grf
-from station.lib import AStation, AMetaStation
+from station.lib import AStation, AMetaStation, AParentSprite
 from station.lib.parameters import parameter_list
 from station.stations.platform_lib import (
     platform_tiles,
@@ -34,27 +34,67 @@ for i, entry in enumerate(entries):
         translation_name = "CONCOURSE"
     elif "empty" in entry.notes:
         translation_name = "EMPTY"
+    elif "empty pit" in entry.notes:
+        translation_name = "SUNKEN"
+    elif "empty pit 2" in entry.notes:
+        translation_name = "SUNKEN_2"
     elif entry.traversable:
         translation_name = "PLATFORM"
     else:
         translation_name = "PLATFORM_UNTRAVERSABLE"
 
+    if entry.purchase is not None:
+        if "pit" in entry.notes:
+            if "pit ground" in entry.notes:
+                new_entry = entry
+                new_entry_M = entry.M
+                layouts = [entry.purchase, entry.purchase.M, new_entry, new_entry_M]
+            else:
+                new_entry = entry.foundation.add_to_layout(entry)
+                new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
+                layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
+                for x, y in zip(new_entry._ranges, new_entry_M._ranges):
+                    layouts.append(x.ref)
+                    layouts.append(y.ref)
+            sprite_layout = grf.DualCallback(default=new_entry.to_index(layouts), purchase=0)
+            make_foundation = False
+            foundation_object = entry.foundation
+            if "pit ground" in entry.notes:
+                doc_layout = entry
+            else:
+                doc_layout = entry + AParentSprite(
+                    entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0)
+                )
+        else:
+            layouts = [entry, entry.M, entry.purchase, entry.purchase.M]
+            sprite_layout = grf.DualCallback(default=entry, purchase=2)
+            make_foundation = entry.foundation is not None
+            foundation_object = None
+            doc_layout = entry
+    else:
+        layouts = [entry, entry.M]
+        sprite_layout = grf.DualCallback(default=entry, purchase=0)
+        make_foundation = entry.foundation is not None
+        foundation_object = None
+        doc_layout = entry
+
     station_tiles.append(
         AStation(
             id=entry.id,
             translation_name=translation_name,
-            layouts=(
-                [entry, entry.M, entry.purchase, entry.purchase.M] if entry.purchase is not None else [entry, entry.M]
-            ),
+            layouts=layouts,
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,
             is_waypoint="waypoint" in entry.notes,
             callbacks={
                 "select_tile_layout": 0,
-                "select_sprite_layout": grf.DualCallback(default=0, purchase=2 if entry.purchase is not None else 0),
+                **({"select_sprite_layout": sprite_layout} if entry.foundation is not None else {}),
             },
+            make_foundation=make_foundation,
+            foundation_object=foundation_object,
             enable_if=enable_if,
-            doc_layout=entry,
+            doc_layout=doc_layout,
+            general_flags=0b10000 if "extended" in entry.notes else 0,
         )
     )
 
@@ -65,8 +105,13 @@ the_stations = AMetaStation(
         b"\xe8\x8a\x9cT",
         b"\xe8\x8a\x9cP",
         b"\xe8\x8a\x9cp",
-        b"\xe8\x8a\x9cZ",
+        b"\xe8\x8a\x9cr",
         b"\xe8\x8a\x9cz",
+        b"\xe8\x8a\x9cZ",
+        b"\xe8\x8a\x9cL",
+        b"\xe8\x8a\x9cl",
+        b"\xe8\x8a\x9cE",
+        b"\xe8\x8a\x9ce",
         b"\xe8\x8a\x9cU",
         b"\xe8\x8a\x9cQ",
     ],
