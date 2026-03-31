@@ -1,5 +1,5 @@
 import grf
-from station.lib.utils import class_label_printable
+from agrf.strings import label_printable
 from agrf.magic import Switch
 from agrf.utils import unique
 
@@ -21,7 +21,7 @@ class AObject(grf.SpriteGenerator):
 
     @property
     def class_label_plain(self):
-        return class_label_printable(self._props["class_label"])
+        return label_printable(self._props["class_label"])
 
     def get_sprites(self, g, sprites=None):
         res = []

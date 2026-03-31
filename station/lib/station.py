@@ -1,7 +1,7 @@
 import grf
 from agrf.actions import FakeReferencingAction, FakeReferencedAction
 from agrf.utils import unique
-from .utils import class_label_printable
+from agrf.strings import label_printable
 from .registers import code, default_code
 from .switch import StationTileSwitch
 
@@ -45,7 +45,7 @@ class AStation(grf.SpriteGenerator):
 
     @property
     def class_label_plain(self):
-        return class_label_printable(self._props["class_label"])
+        return label_printable(self._props["class_label"])
 
     def get_sprites(self, g, sprites=None, action2_pool=None):
         is_managed_by_metastation = sprites is not None
