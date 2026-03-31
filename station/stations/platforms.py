@@ -19,7 +19,6 @@ from station.stations.platform_lib.data import (
 from station.stations.platform_lib.demos import demos
 from station.stations.platform_lib.templates import platform_templates
 
-
 station_tiles = []
 for i, entry in enumerate(entries):
     enable_if = []
