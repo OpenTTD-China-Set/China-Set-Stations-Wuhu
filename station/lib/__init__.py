@@ -1,4 +1,4 @@
-from .station import AStation
+from agrf.lib.building.station import AStation
 from agrf.lib.building.symmetry import (
     BuildingFull,
     BuildingSymmetrical,
@@ -22,5 +22,5 @@ from agrf.lib.building.layout import (
 from .metastation import AMetaStation
 from .demo import Demo
 from .utils import AttrDict, get_1cc_remap
-from .switch import StationTileSwitch, make_horizontal_switch, make_vertical_switch
+from agrf.lib.building.station_tile_switch import StationTileSwitch, make_horizontal_switch, make_vertical_switch
 from .registers import Registers
