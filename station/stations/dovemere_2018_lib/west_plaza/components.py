@@ -11,7 +11,6 @@ from station.lib import (
 )
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 
-
 components = AttrDict(schema=("type", "name"))
 
 

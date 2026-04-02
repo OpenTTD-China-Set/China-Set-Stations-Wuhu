@@ -8,7 +8,6 @@ from .traversable import cb14
 from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
-
 semitraversable_stations = []
 for p, pclass in enumerate(platform_classes):
     for s, sclass in enumerate(shelter_classes):

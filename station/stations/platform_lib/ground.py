@@ -38,7 +38,6 @@ doublebox = box.symmetry_fmap(lambda y: map_alternative_sprites(y, double, "doub
 from agrf.graphics.spritesheet import SCALE_TO_ZOOM
 from agrf.graphics.layered_image import LayeredImage
 
-
 ground_image_list = [
     gray.symmetry_fmap(
         lambda y: map_alternative_sprites((y, s1, s2, s3), create_huge_ground, "tiling", xofs=0, yofs=-32)
