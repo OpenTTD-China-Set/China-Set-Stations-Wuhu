@@ -1,4 +1,4 @@
-from agrf.lib.building.station import AStation
+from .station import AStation
 from agrf.lib.building.symmetry import (
     BuildingFull,
     BuildingSymmetrical,
