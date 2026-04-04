@@ -24,3 +24,4 @@ from .demo import Demo
 from .utils import AttrDict, get_1cc_remap
 from agrf.lib.building.station_tile_switch import StationTileSwitch, make_horizontal_switch, make_vertical_switch
 from .registers import Registers
+from .night import add_night_masks, add_night_masks_fmap

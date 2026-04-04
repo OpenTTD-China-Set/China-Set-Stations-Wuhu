@@ -84,8 +84,14 @@ for i, entry in enumerate(sorted(entries, key=lambda x: x.category)):
             layouts=[
                 entry,
                 entry.M,
-                purchase.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
-                purchase.M.squash(0.6).pushdown(3).filter_register(Registers.SNOW),
+                purchase.squash(0.6)
+                .pushdown(3)
+                .filter_register(Registers.SNOW)
+                .filter_register(Registers.SNOW_NIGHTGFX),
+                purchase.M.squash(0.6)
+                .pushdown(3)
+                .filter_register(Registers.SNOW)
+                .filter_register(Registers.SNOW_NIGHTGFX),
             ],
             class_label=entry.category,
             non_traversable_tiles=0b00 if entry.traversable else 0b11,

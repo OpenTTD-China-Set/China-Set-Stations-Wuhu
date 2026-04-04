@@ -17,13 +17,19 @@ doc.station:
 	cd docs; make html
 
 station.grf:
-	python3 -m station.dovemere_gen gen
+	ulimit -n 4096; python3 -m station.dovemere_gen gen
 
 profile.station:
-	python3 -m cProfile -o station.prof -m station.dovemere_gen gen
+	python3 -m cProfile -o .prof/station.prof -m station.dovemere_gen gen
 
 report.station:
-	python3 -c "import pstats; pstats.Stats('station.prof').sort_stats('cumulative').print_stats(50)"
+	python3 -c "import pstats; pstats.Stats('.prof/station.prof').sort_stats('cumulative').print_stats(50)"
+
+report_dot.station:
+	gprof2dot -f pstats .prof/station.prof | dot -Tpng -o .prof/station_gen_prof.png
+
+pprofile.station:
+	pprofile --statistic .01 -m station.dovemere_gen gen | tee .prof/station_pprofile.txt
 
 cc.station:
 	python3 -m agrf.localization.traditional_chinese -i station/lang/chinese.lng -o station/lang/traditional_chinese.lng

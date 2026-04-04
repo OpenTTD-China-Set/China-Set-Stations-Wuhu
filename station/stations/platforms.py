@@ -1,6 +1,8 @@
 import grf
 from station.lib import AStation, AMetaStation, AParentSprite
 from station.lib.parameters import parameter_list
+from station.lib.registers import Registers
+from .ground import ground_ps
 from station.stations.platform_lib import (
     platform_tiles,
     two_side_tiles,
@@ -29,6 +31,13 @@ for i, entry in enumerate(entries):
         if shelter_class in entry.notes:
             enable_if.append(parameter_list[f"SHELTER_{shelter_class.upper()}"])
 
+    if entry.purchase is not None:
+        purchase = entry.purchase
+    else:
+        purchase = entry
+    purchase_f = purchase.filter_register(Registers.SNOW)
+    purchase_M_f = purchase.M.filter_register(Registers.SNOW)
+
     if "concourse" in entry.notes:
         translation_name = "CONCOURSE"
     elif "empty" in entry.notes:
@@ -47,11 +56,11 @@ for i, entry in enumerate(entries):
             if "pit ground" in entry.notes:
                 new_entry = entry
                 new_entry_M = entry.M
-                layouts = [entry.purchase, entry.purchase.M, new_entry, new_entry_M]
+                layouts = [purchase_f, purchase_M_f, new_entry, new_entry_M]
             else:
                 new_entry = entry.foundation.add_to_layout(entry)
                 new_entry_M = entry.foundation.M.add_to_layout(entry.M, m=True)
-                layouts = [entry.purchase, entry.purchase.M, new_entry.default, new_entry_M.default]
+                layouts = [purchase_f, purchase_M_f, new_entry.default, new_entry_M.default]
                 for x, y in zip(new_entry._ranges, new_entry_M._ranges):
                     layouts.append(x.ref)
                     layouts.append(y.ref)
@@ -65,14 +74,14 @@ for i, entry in enumerate(entries):
                     entry.foundation.convert_foundation_to_ground(), (16, 16, 0), (0, 0, 0)
                 )
         else:
-            layouts = [entry, entry.M, entry.purchase, entry.purchase.M]
+            layouts = [entry, entry.M, purchase_f, purchase_M_f]
             sprite_layout = grf.DualCallback(default=entry, purchase=2)
             make_foundation = entry.foundation is not None
             foundation_object = None
             doc_layout = entry
     else:
-        layouts = [entry, entry.M]
-        sprite_layout = grf.DualCallback(default=entry, purchase=0)
+        layouts = [entry, entry.M, purchase_f, purchase_M_f]
+        sprite_layout = grf.DualCallback(default=entry, purchase=2)
         make_foundation = entry.foundation is not None
         foundation_object = None
         doc_layout = entry

@@ -1,4 +1,5 @@
 import os
+import grf
 import inspect
 from station.lib import (
     BuildingFull,
@@ -14,7 +15,9 @@ from station.lib import (
     ALayout,
     AttrDict,
     Registers,
+    add_night_masks_fmap,
 )
+from agrf.lib.building.layout import NewGraphics
 from agrf.graphics.voxel import LazyVoxel
 from station.stations.platform_lib.data import (
     platform_ps,
@@ -33,6 +36,7 @@ from station.stations.ground import ground_gs, ground_tiles
 from station.stations.misc import track_ground, default_ground, track
 from station.stations.empty import make_empty_variant, empty_offset as f2_empty_offset, empty_sprite as f2_empty_sprite
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
+from agrf.graphics.misc import SCALE_TO_ZOOM
 from .foundation import named_foundations
 from dataclasses import dataclass
 
@@ -121,7 +125,7 @@ TinyAsym = HPos("central", "pillar", "central", False)
 
 
 snow_layers = tuple(y for x in ("snow", "snow-window", "snow-window-extender") for y in (x, x + "-boundary"))
-all_f2_layers = ("window", "window-extender")
+all_f2_layers = ("window", "window-extender", "night")
 all_f2_layers_set = set(all_f2_layers + snow_layers)
 
 
@@ -130,6 +134,10 @@ all_f1_layers = (
     "ground level - platform",
     "ground level - third",
     "ground level - third - t",
+    "night - full",
+    "night - platform",
+    "night - third",
+    "night - third - t",
     "entrance",
     "entrance - t",
     "pillar",
@@ -178,6 +186,9 @@ def make_extra(v, sym, name, floor="f2"):
 
     if "snow" in name:
         v.config["overlap"] = 1.3
+    elif "night" in name:
+        v.config["agrf_bpps"] = [8]
+        v.config["agrf_palette"] = "station/files/ttd_palette_absolute.json"
     else:
         v.config["agrf_palette"] = "station/files/ttd_palette_window.json"
     if floor == "f2":
@@ -190,6 +201,8 @@ def make_extra(v, sym, name, floor="f2"):
     s = sym.create_variants(v.spritesheet(zdiff=zdiff))
     if "snow" in name:
         return AChildSprite(s, (0, 0), flags={"dodraw": Registers.SNOW})
+    elif "night" in name:
+        return s
     else:
         return AChildSprite(s, (0, 0))
 
@@ -208,6 +221,7 @@ def make_f1(v, subset, sym):
         s = sym.create_variants(V.spritesheet())
         empty_parent = AParentSprite(f1_empty_sprite[subset], (16, xspan, base_height), (0, xdiff, platform_height))
         f1_child = AChildSprite(s, (0, 0))
+        f1_child.extra_sprites["night"] = make_extra(v, sym, f"night - {subset}", floor="f1")
         f1_cache[(v, subset)] = empty_parent + f1_child, sym
     ret, ret_sym = f1_cache[(v, subset)]
     assert sym is ret_sym
@@ -226,6 +240,7 @@ def register(base_id, step_id, l, symmetry, internal_category, name, broken_near
     l = symmetry.create_variants(l)
     if layout.traversable:
         l = add_buffer_stop(l)
+    l = add_night_masks_fmap(l)
     layouts.extend(symmetry.get_all_variants(l))
     cur_entries = symmetry.get_all_entries(l)
 
@@ -265,6 +280,8 @@ def load_central(f2_ids, source, symmetry, internal_category, name=None, h_pos=N
     f2_snow = make_extra(v, symmetry, "snow")
     f2_snow_window = make_extra(v, symmetry.break_x_symmetry() if window_asym else symmetry, "snow-window")
     f2_snow_window_extender = make_extra(v, symmetry, "snow-window-extender")
+
+    f2.child_sprites[0].extra_sprites["night"] = make_extra(v, symmetry, "night")
 
     cur_np = h_pos.non_platform
     if window is None:
@@ -404,6 +421,8 @@ def load(
     f2_snow = make_extra(v, symmetry, "snow")
     f2_snow_window = make_extra(v, symmetry.break_x_symmetry() if window_asym else symmetry, "snow-window")
     f2_snow_window_extender = make_extra(v, symmetry, "snow-window-extender")
+
+    f2.child_sprites[0].extra_sprites["night"] = make_extra(v, symmetry, "night")
 
     if window is None:
         window_classes = ["windowed"]

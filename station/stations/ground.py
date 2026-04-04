@@ -11,6 +11,7 @@ def quickload(name, symmetry, width):
         load_from="station/files/gorender.json",
         subset=symmetry.render_indices(),
     )
+    v.config["agrf_manual_crop"] = (0, 0)
     v.config["z_scale"] = 1.0
 
     sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))

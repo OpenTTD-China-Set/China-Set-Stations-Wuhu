@@ -1,4 +1,11 @@
-from station.lib import AttrDict, ALayout, BuildingSymmetricalX, BuildingSymmetrical, BuildingCylindrical
+from station.lib import (
+    AttrDict,
+    ALayout,
+    BuildingSymmetricalX,
+    BuildingSymmetrical,
+    BuildingCylindrical,
+    add_night_masks_fmap,
+)
 from abc import ABC, abstractmethod
 from ..misc import track_ground, building_ground, default_ground
 from ..ground import ground_ps, ground_gs
@@ -35,6 +42,7 @@ def make_entry(layout, symmetry, base_id):
     l = symmetry.create_variants(var)
     if l.traversable:
         l = add_buffer_stop(l)
+    l = add_night_masks_fmap(l)
     layouts.extend(symmetry.get_all_variants(l))
 
     if symmetry is BuildingCylindrical:
@@ -197,6 +205,7 @@ def register(pf: PlatformFamily):
                             )
                             l = cur_symmetry.create_variants(var)
                             l = add_buffer_stop(l)
+                            l = add_night_masks_fmap(l)
 
                             for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
                                 entry.id = 0x7800 + pid * 0x80 + rid * 0x40 + rid2 * 0x20 + sid * 0x4 + sid2 * 0x2 + i
@@ -225,6 +234,7 @@ def register(pf: PlatformFamily):
                 )
             )
             l = symmetry.create_variants(var)
+            l = add_night_masks_fmap(l)
             for i, entry in enumerate(symmetry.get_all_entries(l)):
                 entry.id = 0x7A00 + pid * 0x4 + ssid * 0x2 + i
                 entries.append(entry)
