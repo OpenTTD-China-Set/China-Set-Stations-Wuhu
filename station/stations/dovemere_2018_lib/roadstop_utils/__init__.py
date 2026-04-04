@@ -12,7 +12,7 @@ from station.lib import (
 from station.lib.parameters import parameter_list
 from agrf.graphics.voxel import LazyVoxel
 from agrf.magic import Switch
-from roadstop.lib import ARoadStop
+from agrf.lib.building.roadstop import ARoadStop
 from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from ...misc import road_ground
 

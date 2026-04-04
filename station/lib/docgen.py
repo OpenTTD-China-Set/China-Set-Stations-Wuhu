@@ -1,7 +1,8 @@
 import os
 from agrf.strings import get_translation, remove_control_letters
 from agrf.graphics.palette import CompanyColour
-from .utils import get_1cc_remap, class_label_printable
+from agrf.strings import label_printable
+from .utils import get_1cc_remap
 from station.lib.idmap import station_idmap
 
 
@@ -81,9 +82,7 @@ changelog""",
                             kindcode = "ROADSTOP"
                         else:
                             kindcode = "STATION"
-                        cat_name = get_translation(
-                            string_manager[f"STR_{kindcode}_CLASS_{class_label_printable(sub)}"], 0x7F
-                        )
+                        cat_name = get_translation(string_manager[f"STR_{kindcode}_CLASS_{label_printable(sub)}"], 0x7F)
                         if "-" in cat_name and "Template -" not in cat_name and "Sided" not in cat_name:
                             cat_name = cat_name.split("-")[-1].strip()
                         cat_name = remove_control_letters(cat_name)
