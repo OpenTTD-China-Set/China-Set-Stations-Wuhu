@@ -36,6 +36,7 @@ def gen(args):
         url="https://www.tt-forums.net/viewtopic.php?t=91092",
         strings=s,
         preferred_blitter=grf.NewGRF.BLITTER_BPP_32,
+        fast_sprite_enumeration=True,
     )
 
     g.add(

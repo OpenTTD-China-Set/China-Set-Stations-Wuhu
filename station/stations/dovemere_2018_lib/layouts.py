@@ -40,7 +40,6 @@ from agrf.graphics.misc import SCALE_TO_ZOOM
 from .foundation import named_foundations
 from dataclasses import dataclass
 
-
 base_height = 14
 building_height = 48
 overpass_height = building_height - base_height

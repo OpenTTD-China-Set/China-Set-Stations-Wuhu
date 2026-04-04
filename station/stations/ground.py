@@ -12,8 +12,11 @@ def quickload(name, symmetry, width):
         subset=symmetry.render_indices(),
     )
     v.config["agrf_manual_crop"] = (0, 0)
+    v.config["z_scale"] = 1.0
 
     sprite = symmetry.create_variants(v.spritesheet(xdiff=16 - width, xspan=width))
+
+    ground_images[name] = sprite
 
     if width == 16:
         gs = AGroundSprite(sprite, flags={"add": Registers.ZERO})
@@ -29,9 +32,11 @@ def quickload(name, symmetry, width):
     return sprite
 
 
+ground_images = AttrDict()
 ground_gs = AttrDict()
 ground_ps = AttrDict()
 ground_tiles = AttrDict()
 
 quickload("gray", BuildingCylindrical, 16)
+quickload("gray_box", BuildingCylindrical, 16)
 quickload("gray_third", BuildingSymmetricalX, 5)

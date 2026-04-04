@@ -9,6 +9,7 @@ from station.lib import (
 from abc import ABC, abstractmethod
 from ..misc import track_ground, building_ground, default_ground
 from ..ground import ground_ps, ground_gs
+from .ground import pillar, pillar_base_underground_gs, fake_bridge_merged, fake_bridge_merged_2, pillar_base_merged
 from .aux import add_buffer_stop
 
 gray_ps = ground_gs.gray
@@ -18,7 +19,7 @@ concourse_ps = AttrDict(schema=("platform_class", "side"))
 platform_tiles = AttrDict(
     schema=("name", "platform_class", "rail_facing", "shelter_class", "location", "shelter_side", "concrete_covering")
 )
-waypoint_tiles = AttrDict(schema=("name", "north", "south"))
+waypoint_tiles = AttrDict(schema=("north", "south"))
 two_side_tiles = AttrDict(
     schema=(
         "name",
@@ -141,26 +142,45 @@ def register(pf: PlatformFamily):
                             else:
                                 cur_symmetry = ps.sprite.symmetry
 
-                            if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
-                                my_id = (
-                                    0x7000 + (pid - 2) * 0x200 + sid * 0x40 + (rid % 2) * 0x20 + ssid * 0x10 + cid * 0x2
-                                )
-                            else:
-                                my_id = None
+                            for lid, (lowdesc, true_rail_facing) in enumerate(
+                                [(b"P", ""), (b"L", "supported"), (b"l", "supported2")]
+                                if rail_facing == "" and location == ""
+                                else [(b"P", rail_facing)]
+                            ):
+                                if platform_class not in ["np", "cut"] and shelter_class != "pillar" and location == "":
+                                    my_id = (
+                                        0x7000
+                                        + (pid - 2) * 0x200
+                                        + sid * 0x40
+                                        + (rid % 2) * 0x20
+                                        + ssid * 0x10
+                                        + lid * 0x4
+                                        + cid * 0x2
+                                    )
+                                else:
+                                    my_id = None
 
-                            platform_tiles[
-                                (name, platform_class, rail_facing, shelter_class, location, shelter_side, cdesc)
-                            ] = make_entry(
-                                ALayout(
-                                    track_ground,
-                                    l + concrete_cover,
-                                    True,
-                                    category=(b"\xe8\x8a\x9cP"),
-                                    notes=make_notes(platform_class, shelter_class),
-                                ),
-                                cur_symmetry,
-                                my_id,
-                            )
+                                platform_tiles[
+                                    (
+                                        name,
+                                        platform_class,
+                                        true_rail_facing,
+                                        shelter_class,
+                                        location,
+                                        shelter_side,
+                                        cdesc,
+                                    )
+                                ] = make_entry(
+                                    ALayout(
+                                        track_ground,
+                                        l + concrete_cover,
+                                        True,
+                                        category=(b"\xe8\x8a\x9c" + lowdesc),
+                                        notes=make_notes(platform_class, shelter_class),
+                                    ),
+                                    cur_symmetry,
+                                    my_id,
+                                )
 
     # Part II: asymmetrical platforms with rails
 
@@ -298,7 +318,86 @@ def register(pf: PlatformFamily):
                                 my_id,
                             )
 
-    # Part V: waypoints
+    # Part V: hanging platforms and/or sunken ground
+    # FIXME: needs refactoring
+
+    for pid, platform_class in enumerate(platform_classes):
+        for sid, shelter_class in enumerate(["", "pillar"] + shelter_classes):
+            if shelter_class == "pillar":
+                continue
+            # ps = platform_ps[(name, platform_class, "", shelter_class, "")]
+
+            # l = ALayout(
+            #    track_ground,
+            #    [ps],
+            #    True,
+            #    category=b"\xe8\x8a\x9cL",
+            #    notes=make_notes(platform_class, shelter_class) + ["extended", "pit", "pit ground"],
+            # )
+            # l.foundation = fake_bridge_merged
+            # cur_symmetry = ps.sprite.symmetry
+            # l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            # l = add_buffer_stop(l)
+            # for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+            #    entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x24 + i
+            #    entries.append(entry)
+            # platform_tiles[(name, platform_class, "supported", shelter_class, "", "")] = l
+
+            # l = ALayout(
+            #    track_ground,
+            #    [ps],
+            #    True,
+            #    category=b"\xe8\x8a\x9cl",
+            #    notes=make_notes(platform_class, shelter_class) + ["extended", "pit", "pit ground"],
+            # )
+            # l.foundation = fake_bridge_merged_2
+            # cur_symmetry = ps.sprite.symmetry
+            # l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            # l = add_buffer_stop(l)
+            # for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+            #    entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x26 + i
+            #    entries.append(entry)
+            # platform_tiles[(name, platform_class, "supported2", shelter_class, "", "")] = l
+
+            ps = platform_ps[(name, platform_class, "solid", shelter_class, "")]
+            l = ALayout(
+                gray_ps,
+                [pillar, ps.up(8)],
+                False,
+                category=b"\xe8\x8a\x9cE",
+                notes=make_notes(platform_class, shelter_class),
+            )
+            cur_symmetry = ps.sprite.symmetry
+            l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+                entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x28 + i
+                entries.append(entry)
+            platform_tiles[(name, platform_class, "elevated", shelter_class, "", "")] = l
+
+            l = ALayout(
+                None,
+                [pillar, ps.up(8)],
+                False,
+                category=b"\xe8\x8a\x9ce",
+                notes=make_notes(platform_class, shelter_class) + ["extended", "pit"],
+            )
+            l2 = ALayout(
+                pillar_base_underground_gs,
+                [pillar, ps.up(8)],
+                False,
+                category=b"\xe8\x8a\x9ce",
+                notes=make_notes(platform_class, shelter_class) + ["extended", "pit"],
+            )
+            l.foundation = pillar_base_merged
+            cur_symmetry = ps.sprite.symmetry
+            l = cur_symmetry.create_variants(cur_symmetry.get_all_variants(l))
+            l.symmetry_set_purchase(l2)
+            for i, entry in enumerate(cur_symmetry.get_all_entries(l)):
+                entry.id = 0x7000 + pid * 0x200 + sid * 0x40 + 0x2C + i
+                entries.append(entry)
+            platform_tiles[(name, platform_class, "elevated2", shelter_class, "", "")] = l
+
+    # Part VI: waypoints
     make_entry(
         ALayout(track_ground, [], True, category=b"\xe8\x8a\x9cQ", notes=["waypoint"]), BuildingSymmetrical, 0x7110
     )
@@ -307,7 +406,7 @@ def register(pf: PlatformFamily):
         BuildingSymmetricalX,
         0x7111,
     )
-    make_entry(
+    waypoint_tiles[("concreteN", "concreteS")] = make_entry(
         ALayout(
             track_ground,
             [ground_ps.gray_third, ground_ps.gray_third.T],

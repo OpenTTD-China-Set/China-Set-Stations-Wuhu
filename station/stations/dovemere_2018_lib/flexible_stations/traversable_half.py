@@ -14,7 +14,6 @@ from .traversable import fill_odd, front2
 from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
 
-
 named_tiles.globalize()
 
 front = {pclass: {} for pclass in platform_classes}
