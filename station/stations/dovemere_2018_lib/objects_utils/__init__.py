@@ -22,7 +22,7 @@ from agrf.lib.building.slope import make_slopes, slope_types
 DEFAULT_FLAGS = grf.Object.Flags.ONLY_IN_GAME | grf.Object.Flags.ALLOW_UNDER_BRIDGE
 DEFAULT_SLOPE_FLAGS = DEFAULT_FLAGS | grf.Object.Flags.AUTOREMOVE | grf.Object.Flags.HAS_NO_FOUNDATION
 
-named_layouts = AttrDict(schema=("name", "offset"))
+named_layouts = AttrDict(schema=("group", "name", "offset"))
 objects = []
 templates = []
 

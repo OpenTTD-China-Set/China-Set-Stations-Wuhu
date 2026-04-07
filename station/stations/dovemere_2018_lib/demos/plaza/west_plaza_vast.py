@@ -1,4 +1,4 @@
-from station.lib import Demo, AParentSprite, AGroundSprite, ALayout
+from station.lib import Demo, AGroundSprite, ALayout
 from station.lib.utils import get_1cc_remap
 from agrf.graphics.palette import CompanyColour
 from agrf.lib.building.image_sprite import image_sprite
@@ -6,7 +6,7 @@ from station.stations.dovemere_2018_lib.flexible_stations import semitraversable
 from station.stations.dovemere_2018_lib.roadstops import named_layouts as roadstop_layouts
 from station.stations.dovemere_2018_lib.objects import named_layouts as object_layouts
 from station.stations.dovemere_2018_lib.layouts import globalize_all
-from station.stations.misc import default, road_ground_vanilla_layout
+from station.stations.misc import default
 from ..utils import h_merge
 
 globalize_all(platform_class="concrete", shelter_class="shelter_2")
@@ -16,9 +16,7 @@ object_layouts.globalize()
 station = h_merge([[[cns], [default]], semitraversable.demo_1(5, 7)[5:], [[cns], [default]]], [[], []])
 
 # Road Stops
-overpass = overpass
-road = road_ground_vanilla_layout
-roadstops = [[road] + [overpass] * 5 + [road]]
+roadstops = [[stair_end, overpass, stair_narrow, stair_extender_narrow, stair_narrow.R, overpass, stair_end.R]]
 
 
 # Objects

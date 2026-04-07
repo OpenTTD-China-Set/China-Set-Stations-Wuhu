@@ -17,7 +17,13 @@ DEFAULT_SLOPE_FLAGS = DEFAULT_FLAGS | grf.Object.Flags.AUTOREMOVE | grf.Object.F
 
 named_grounds = AttrDict(schema=("name", "slope"))
 
-for name, sym in [("center", BuildingSymmetrical)]:
+for name, sym in [
+    ("center", BuildingSymmetrical),
+    ("offcenter_A", BuildingFull),
+    ("offcenter_B", BuildingFull),
+    ("diagonal", BuildingDiamond),
+    ("checkerboard", BuildingCylindrical),
+]:
     v = LazyVoxel(
         name,
         prefix=".cache/render/station/dovemere_2018/west_plaza/ground",
@@ -40,7 +46,6 @@ for name, sym in [("center", BuildingSymmetrical)]:
 
 def make_ground_layout(name, sym, starting_id):
     gs = named_grounds[(name, "")]
-    layout = ALayout(gs, [], True, category=b"\xe8\x8a\x9cZ")
 
     slopes = make_slopes(
         {
@@ -52,10 +57,15 @@ def make_ground_layout(name, sym, starting_id):
         sym,
     )
 
-    named_layouts[("west_plaza_" + name, "")] = layout
+    layout = slopes[0][0]
+    named_layouts[("west_plaza", name, "")] = layout
     register_slopes(slopes, sym, starting_id)
     register([[layout]], sym, b"g", starting_id + 0x80)
 
 
 def make_ground_layouts():
     make_ground_layout("center", BuildingSymmetrical, 0x0)
+    make_ground_layout("offcenter_A", BuildingFull, 0x2)
+    make_ground_layout("offcenter_B", BuildingFull, 0x4)
+    make_ground_layout("diagonal", BuildingDiamond, 0x6)
+    make_ground_layout("checkerboard", BuildingCylindrical, 0x8)
