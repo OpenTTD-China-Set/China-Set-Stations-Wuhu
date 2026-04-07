@@ -1,7 +1,7 @@
 // xs snow [Size] [Color] [Colors] [Seed]
 //
 // xs_begin
-// author : '@lachlanmcdonald'
+// author : '@ahyangyi'
 // arg : { name = 'Size'  var = 'm_size'  range = '0 31'  value = '13'  step = '1'  precision = '0' }
 // arg : { name = 'Tiling Mode'  var = 'm_symmetry'  range = '0 2'  value = '1'  step = '1'  precision = '0' }
 // arg : { name = 'Seed'  var = 'm_inner_seed' range = '0 2147483647'  value = '0'  step = '1'  precision = '0' }
