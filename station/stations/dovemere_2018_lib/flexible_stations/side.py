@@ -2,7 +2,7 @@ import grf
 from station.lib import AStation, make_horizontal_switch
 from ..layouts import named_tiles, layouts
 from .. import common_cb, common_code
-from station.lib.templates.demo import make_demo
+from station.lib.templates.demo import make_demo_one_line
 from .common import horizontal_layout
 from station.stations.platform_lib import platform_classes, shelter_classes
 from station.lib.parameters import parameter_list
@@ -40,7 +40,7 @@ for p, pclass in enumerate(platform_classes):
         if pclass == "concrete" and sclass == "shelter_2":
             side_station_demo = lambda r, c, cb14=cb14[pclass][sclass]: cb14.demo(r, c)
 
-        demo_layout = make_demo(cb14[pclass][sclass], 4, 1, layouts=layouts)
+        demo_layout = make_demo_one_line(cb14[pclass][sclass], 4, 1, layouts=layouts)
         if p > 0 or s > 0:
             demo_layout.notes.append("noshow")
 
@@ -75,7 +75,7 @@ for p, pclass in enumerate(platform_classes):
         if pclass == "concrete" and sclass == "shelter_2":
             back_side_station_demo = lambda r, c, cb14=cb14[pclass][sclass]: cb14.T.demo(r, c)
 
-        demo_layout = make_demo(cb14[pclass][sclass].T, 4, 1, layouts=layouts)
+        demo_layout = make_demo_one_line(cb14[pclass][sclass].T, 4, 1, layouts=layouts)
         if p > 0 or s > 0:
             demo_layout.notes.append("noshow")
 
@@ -113,7 +113,7 @@ def get_side_index_np(l, r):
 cb14 = make_horizontal_switch(get_side_index_np)
 
 side_station_np_demo = lambda r, c, cb14=cb14: cb14.demo(r, c)
-demo_layout = make_demo(cb14, 4, 1, layouts=layouts)
+demo_layout = make_demo_one_line(cb14, 4, 1, layouts=layouts)
 side_stations.append(
     AStation(
         id=0xFF60,
@@ -134,7 +134,7 @@ side_stations.append(
     )
 )
 back_side_station_np_demo = lambda r, c, cb14=cb14: cb14.T.demo(r, c)
-demo_layout = make_demo(cb14.T, 4, 1, layouts=layouts)
+demo_layout = make_demo_one_line(cb14.T, 4, 1, layouts=layouts)
 side_stations.append(
     AStation(
         id=0xFF70,

@@ -2,9 +2,9 @@ import grf
 from station.lib import ALayout, AParentSprite, LayoutSprite, Demo, Registers
 
 
-def make_demo(switch, w, h, preswitch=None, *, layouts):
+def make_demo(switch, w, h, preswitch=None, *, scale=0.25, squash=1.3, layouts):
     demo = Demo(switch.demo(w, h, preswitch))
-    for i, var in enumerate([demo, demo.M]):
+    for i, var in enumerate([demo.squash(squash), demo.M.squash(squash)]):
         sprite = grf.AlternativeSprites(
             *[
                 LayoutSprite(
@@ -13,10 +13,11 @@ def make_demo(switch, w, h, preswitch=None, *, layouts):
                     64 * scale,
                     xofs=(1 - i % 2 * 2) * int((w - h) / (w + h + 1) * 32 * scale),
                     yofs=0,
-                    scale=scale,
+                    scale=sprite_scale,
+                    layout_scale=sprite_scale * scale,
                     bpp=bpp,
                 )
-                for scale in [1, 2]
+                for sprite_scale in [1, 2]
                 for bpp in [32]
             ]
         )
@@ -30,3 +31,7 @@ def make_demo(switch, w, h, preswitch=None, *, layouts):
         if i == 0:
             ret = layout
     return ret
+
+
+def make_demo_one_line(switch, w, h, preswitch=None, *, layouts):
+    return make_demo(switch, w, h, preswitch=preswitch, scale=0.4, squash=1.15, layouts=layouts)
