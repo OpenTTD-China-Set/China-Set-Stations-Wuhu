@@ -25,7 +25,6 @@ from ..ground import ground_gs
 from ..misc import default_ground, building_ground
 from .ground import empty_base_merged, empty_base_underground_gs, empty_base_merged_2, empty_base_underground_gs_2
 
-
 platform_height = 4
 platform_width = 5
 shelter_height = 17

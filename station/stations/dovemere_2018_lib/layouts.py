@@ -36,7 +36,6 @@ from agrf.graphics.recolour import NON_RENDERABLE_COLOUR
 from .foundation import named_foundations
 from dataclasses import dataclass
 
-
 base_height = 14
 building_height = 48
 overpass_height = building_height - base_height

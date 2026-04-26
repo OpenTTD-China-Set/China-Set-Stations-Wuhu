@@ -122,16 +122,12 @@ for s in station_meta:
     if f"{s}_COLOUR_2" in parameter_list:
         colour2 = parameter_list[f"{s}_COLOUR_2"].code
 
-        station_code[
-            s
-        ] = f"""
+        station_code[s] = f"""
 TEMP[0x05] = {one_colour(colour)} + {one_colour(colour2)} * 16 + \
              var(0x7F, param=0x40, shift=0, and=0xffffffff)
 """
     else:
-        station_code[
-            s
-        ] = f"""
+        station_code[s] = f"""
 TEMP[0x05] = {one_colour(colour)} + \
              var(0x7F, param=0x40, shift=0, and=0xffffffff)
 """
