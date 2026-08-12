@@ -134,15 +134,24 @@ all_f1_layers = (
     "entrance - t",
     "pillar",
     "pillar - t",
+    "underground entrance",
 )
 all_f1_layers_set = set(all_f1_layers + snow_layers)
 
 
 f1_subsets = {
-    "third": ({"ground level - third", "entrance", "pillar"}, 16 - platform_width, platform_width),
-    "third_t": ({"ground level - third - t", "entrance - t", "pillar - t"}, 0, platform_width),
-    "platform": ({"ground level - platform", "entrance", "pillar"}, platform_width, 16 - platform_width),
-    "full": ({"ground level", "entrance", "pillar", "entrance - t", "pillar - t"}, 0, 16),
+    "third": (
+        {"ground level - third", "entrance", "pillar", "underground entrance"},
+        16 - platform_width,
+        platform_width,
+    ),
+    "third_t": ({"ground level - third - t", "entrance - t", "pillar - t", "underground entrance"}, 0, platform_width),
+    "platform": (
+        {"ground level - platform", "entrance", "pillar", "underground entrance"},
+        platform_width,
+        16 - platform_width,
+    ),
+    "full": ({"ground level", "entrance", "pillar", "entrance - t", "pillar - t", "underground entrance"}, 0, 16),
 }
 
 f1_empty_offset = (-31, -14)
